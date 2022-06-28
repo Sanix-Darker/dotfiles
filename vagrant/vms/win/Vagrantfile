@@ -1,0 +1,17 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "gusztavvargadr/windows-10"
+
+  # Actual machine name
+  config.vm.hostname = 'win'
+  # Set VM name in Virtualbox
+  config.vm.provider "virtualbox" do |v|
+    v.name = 'win'
+    v.memory = 2048
+  end
+  #DHCP — comment this out if planning on using NAT instead
+  config.vm.network "private_network", type: "dhcp"
+
+  # Sync folder
+  config.vm.synced_folder '~/vagrant/shared/dk/win', '/Users/dk'
+  config.vm.synced_folder '.', '/Users/dk', disabled: true
+end

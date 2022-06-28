@@ -1,0 +1,56 @@
+[user]
+	email = s4nixd@gmail.com
+	name = sanix-darker
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+    required = true
+
+[core]
+    pager = delta
+    editor = nvim
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    navigate = true
+    line-numbers = true
+    features = decorations
+
+[alias]
+    # list files which have changed since REVIEW_BASE
+    # (REVIEW_BASE defaults to 'master' in my zshrc)
+    files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+
+    # Same as above, but with a diff stat instead of just names
+    # (better for interactive use)
+    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
+    
+    # and to install git-madge,
+    #
+    # sudo apt-get install -y graphviz
+    # npm install -g madge
+    #
+    # Get a graph dependencie between files
+    depgraph = !git madge image --webpack-config webpack.config.js --basedir . --style solarized-dark src
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    commit-style = raw
+    file-style = omit
+    file-decoration-style = none
+    hunk-header-decoration-style = yellow box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
