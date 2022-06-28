@@ -254,17 +254,16 @@ _install_path_browsing_utils(){
     sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
         libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev \
-        libxkbcommon-x11-dev autoconf xutils-dev libtool automake :-y
+        libxkbcommon-x11-dev autoconf xutils-dev libtool automake -y
     sudo add-apt-repository ppa:regolith-linux/release
     sudo apt update -y
-    sudo apt install i3-gaps -y
+    # For image manipulation and rofi for the fast search windows
+    sudo apt install i3-gaps feh rofi -y
 
     # install delta, a amzing tool for diff
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
 
-    # For image manipulation and rofi for the fast search windows
-    sudo apt install feh rofi -y
 }
 
 _install_nvim_and_utils(){

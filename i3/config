@@ -245,7 +245,7 @@ exec --no-startup-id setxkbmap -option caps:none
 # 3 Gps
 for_window [class="^.*"] border pixel 2
 for_window [class=".*"] title_format "  %title"
-gaps inner 5
+gaps inner 10
 smart_borders on
 smart_gaps on
 
