@@ -133,19 +133,21 @@ _set_dot_files(){
     cpd $DOT_DIR/.bash_logout ~/.bash_logout
 
     # my vagrant stuffs
-    cpd $DOT_DIR/vagrant ~/vagrant
+    cpd $DOT_DIR/vagrant ~/vagrant/
 
     # we copy our terminal alacritty
-    cpd $DOT_DIR/alacritty ~/.config/alacritty
+    cpd $DOT_DIR/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
     # we copy our felix config 
-    cpd $DOT_DIR/felix~/.config/felix
+    cpd $DOT_DIR/felix/config.toml ~/.config/felix/config.toml
     # we copy our felix config 
-    cpd $DOT_DIR/i3 ~/.config/i3
+    cpd $DOT_DIR/i3/config ~/.config/i3/config
 
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
 
     cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
+
+    cpd $DOT_DIR/config.rasi ~/.config/rofi/config.rasi
 
     # we return on our previus directory
     cd -
@@ -170,11 +172,14 @@ _push_dot_files(){
     cpd ~/vagrant $DOT_DIR
 
     # copy alacritty conf
-    cpd ~/.config/alacritty $DOT_DIR
+    cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
     # copy felix conf
-    cpd ~/.config/felix $DOT_DIR
+    cpd ~/.config/felix/config.toml $DOT_DIR
     # copy conf
-    cpd ~/.config/i3 $DOT_DIR
+    cpd ~/.config/i3/config $DOT_DIR
+    
+    # Our rofi theme for search
+    cpd ~/.config/rofi/config.rasi $DOT_DIR
 
     # For my git configurations
     cpd ~/.gitconfig $DOT_DIR
@@ -246,11 +251,20 @@ _install_path_browsing_utils(){
     cargo install felix
 
     # to install i3
-    sudo apt install i3
+    sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
+        libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
+        libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev \
+        libxkbcommon-x11-dev autoconf xutils-dev libtool automake :-y
+    sudo add-apt-repository ppa:regolith-linux/release
+    sudo apt update -y
+    sudo apt install i3-gaps -y
 
     # install delta, a amzing tool for diff
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
+
+    # For image manipulation and rofi for the fast search windows
+    sudo apt install feh rofi -y
 }
 
 _install_nvim_and_utils(){
