@@ -168,11 +168,14 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 
 
 # We refresh tmux configurations
-$(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf
+$(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
+
+# compton for opacity on terminal
+# $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &  
 
 # set the bluetooth for my earphone
+# bluetoothctl devices 
 # bluetoothctl connect 6E:47:D9:FA:BA:44
 
 # My beloved default background
-feh --bg-fill ~/bg.jpg
-
+$(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg

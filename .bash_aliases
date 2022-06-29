@@ -250,15 +250,19 @@ _install_path_browsing_utils(){
     # We install felix (the vim file manager)
     cargo install felix
 
-    # to install i3
-    sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
-        libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev \
-        libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev \
-        libxkbcommon-x11-dev autoconf xutils-dev libtool automake -y
     sudo add-apt-repository ppa:regolith-linux/release
     sudo apt update -y
+    # to install i3
+    sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
+        libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
+        libxcb-cursor-dev xutils-dev libtool automake autoconf gcc make pkg-config libpam0g-dev libcairo2-dev \
+        libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev \
+        libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev \
+        libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
     # For image manipulation and rofi for the fast search windows
-    sudo apt install i3-gaps feh rofi -y
+    # arandr is for managing the xrandr for monitors
+    sudo apt install i3-gaps feh rofi arandr -y
+    git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
     # install delta, a amzing tool for diff
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
@@ -434,3 +438,4 @@ alias vv='virtualenv -p python3.10 env'
 
 # open telegram as tgg
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
+alias com='pkill compton && nohup compton -f &'

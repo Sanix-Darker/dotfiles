@@ -759,4 +759,4 @@ syntax on
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
 " To refresh for i3
-autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart ; notify-send "Reloaded i3 :)"
+autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
