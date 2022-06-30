@@ -26,7 +26,7 @@ font pango:DejaVu Sans 8
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-bindsym $mod+Mod1+s exec --no-startup-id systemctl suspend
+# bindsym $mod+Mod1+s exec --no-startup-id systemctl suspend
 
 
 ## FOR THE LOCK SCREEN ##
@@ -62,6 +62,29 @@ bindsym $mod+Mod1+l exec i3lock \
 --time-str="%H:%M:%S"        \
 --keylayout 1
 
+# suspend [TODO] refactor and factorise this in bash_aliasse
+bindsym $mod+Mod1+s exec i3lock \
+--insidever-color=$CLEAR     \
+--ringver-color=$VERIFYING   \
+--insidewrong-color=$CLEAR   \
+--ringwrong-color=$WRONG     \
+--inside-color=$BLANK        \
+--ring-color=$DEFAULT        \
+--line-color=$BLANK          \
+--separator-color=$DEFAULT   \
+--verif-color=$TEXT          \
+--wrong-color=$TEXT          \
+--time-color=$TEXT           \
+--date-color=$TEXT           \
+--layout-color=$TEXT         \
+--keyhl-color=$KEYDOWN       \
+--bshl-color=$WRONG          \
+--screen 1                   \
+--blur 7                     \
+--clock                      \
+--time-str="%H:%M:%S"        \
+--keylayout 1 && systemctl suspend
+
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
@@ -87,7 +110,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+Shift+d exec dmenu_run
+# bindsym $mod+Shift+d exec dmenu_run
 bindsym $mod+d exec rofi -show drun
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -294,5 +317,7 @@ gaps inner 10
 exec xrandr --output DP-0.1 --mode 1920x1080 --rate 50
 
 #move focused worksapce
+bindsym $mod+Shift+u move workspace to output up
+bindsym $mod+Shift+d move workspace to output up
 bindsym $mod+Shift+o move workspace to output left
 bindsym $mod+Shift+p move workspace to output right

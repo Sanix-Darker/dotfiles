@@ -439,3 +439,10 @@ alias vv='virtualenv -p python3.10 env'
 # open telegram as tgg
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
 alias com='pkill compton && nohup compton -f &'
+
+__redshift_pykita(){
+    pytest tests/backends/sql_translator/test_sql_redshift_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
+}
+__postgres_pykita(){
+    pytest tests/backends/sql_translator/test_sql_postgres_pypika_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
+}
