@@ -440,6 +440,18 @@ alias vv='virtualenv -p python3.10 env'
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
 alias com='pkill compton && nohup compton -f &'
 
+# To control the brightness with xrandr
+_xrandr(){
+
+    if [[ $1 == 'ls' ]];then
+        xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1
+    elif [[ $1 == 'lu' ]];then
+        xrandr --output $2 --brightness $3
+    fi
+
+}
+
+
 __redshift_pykita(){
     pytest tests/backends/sql_translator/test_sql_redshift_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
 }
