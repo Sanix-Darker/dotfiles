@@ -20,6 +20,18 @@
     features = decorations
 
 [alias]
+    ; get diff with the vimdiff tool
+    vdiff = !git difftool -t vimdiff -y
+
+    ; to get the last commit
+    last = !git log -1 HEAD --stat
+
+    ; grv is a TUI to browse the git project
+    browser = !grv
+
+    ; to get logs as oneline only
+    ll = !git log --oneline
+
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD master)
