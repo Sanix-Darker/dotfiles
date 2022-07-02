@@ -394,6 +394,51 @@ _f() (
 alias f="_f"
 alias x='xdg-open .'
 
+# _git_search "function name"
+_git_search(){
+    echo "[-] Searching for '${1}' in this repo..."
+    sleep 2
+    # We less in the list of results
+    # a smart git command to get commit, file and line where
+    # the string is available
+    git rev-list --all | (
+        while read revision; do
+            git grep -n -F "${1}" $revision
+        done
+    ) > ${HOME}/.gf-out
+
+    less ${HOME}/.gf-out
+}
+
+# __git_open_code "function name"
+_git_open_code(){
+    # getting your current branch
+    branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
+    # A smart split from the incomming $1 parameter
+    arr=($(echo "$1" | tr ':' '\n'))
+    commit=${arr[0]}
+    file=${arr[1]}
+    line=${arr[2]}
+
+    # some verbose
+    echo "[-] Moving on commit : $commit"
+    sleep 1
+    echo "[-] Moving on file : $file"
+    sleep 1
+    echo "[-] Moving on line : $line"
+    sleep 1
+
+    # A checkout on the commit then a less on the line of the file
+    git checkout "$commit"
+    less +"$line" "$file"
+
+    sleep 2
+    echo "\n[-] Rolling back to your precedent branch..."
+    # comming back to reality
+    git checkout "$branch"
+}
+
 # To clone a sub_dir
 # To clone a sub directory from a random project
 # _git_clone_sub directory1 https://github.com/author/repo 
