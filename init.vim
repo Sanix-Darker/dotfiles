@@ -360,6 +360,10 @@ nnoremap z :!
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/init.vim<CR>
 
+" To paste multiple times the same 
+" stuff or use P for the default behaviour
+xnoremap p pgvy
+
 " Disable/Uninstalled for now
 " For floating windows
 " nnoremap ll :FloatermNew<CR>

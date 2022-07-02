@@ -20,21 +20,20 @@
     features = decorations
 
 [alias]
-    # list files which have changed since REVIEW_BASE
-    # (REVIEW_BASE defaults to 'master' in my zshrc)
-    files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
+    ; Same as above, but with a diff stat instead of just names
+    ; (better for interactive use)
+    stat = !git diff --stat $(git merge-base HEAD master)
 
-    # Same as above, but with a diff stat instead of just names
-    # (better for interactive use)
-    stat = !git diff --stat $(git merge-base HEAD \"$REVIEW_BASE\")
-    
-    # and to install git-madge,
-    #
-    # sudo apt-get install -y graphviz
-    # npm install -g madge
-    #
-    # Get a graph dependencie between files
-    depgraph = !git madge image --webpack-config webpack.config.js --basedir . --style solarized-dark src
+    ; which adds a zero-length blob to the index at that location.
+    ; The upshot is that your "untracked" file now becomes a modification to add
+    ; all the content to this zero-length file, and that shows up in the "git diff" output.
+    add-intent = !git add -N
+
+    ; The famous squash and merge for all commits on my current branch 
+    ; To a target branch
+    ; git squash (it will target master)
+    ; git squash dev (it will target dev branch)
+    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^master)
 
 [merge]
     conflictstyle = diff3

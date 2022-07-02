@@ -36,7 +36,7 @@ fi
 
 # To mkdir a directory and cd into it
 _md(){
-    mkdir -p $1 && cd $1
+    mkdir $1 && cd $1
 }
 alias md=_md
 
@@ -261,7 +261,7 @@ _install_path_browsing_utils(){
         libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
-    sudo apt install i3-gaps feh rofi arandr -y
+    sudo apt install i3-gaps mpv feh rofi arandr -y
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
     # install delta, a amzing tool for diff
@@ -281,6 +281,10 @@ _install_nvim_and_utils(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     source ~/.bashrc
     nvm install stable
+
+    # install a simple git visualizer
+    wget -O grv https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
+    chmod +x ./grv && mv ./grv /usr/bin/grv
 }
 
 _install_dev_stack(){
@@ -391,7 +395,12 @@ alias f="_f"
 alias x='xdg-open .'
 
 # To clone a sub_dir
+# To clone a sub directory from a random project
+# _git_clone_sub directory1 https://github.com/author/repo 
+# Or from a specific branch
+# _git_clone_sub directory1 https://github.com/author/repo  
 _git_clone_sub(){
+
     REPO_NAME="$(echo $2 | grep -oE '[^/]+$')"
 
     git init $REPO_NAME
@@ -402,9 +411,28 @@ _git_clone_sub(){
 
     # Specipy the sub directory
     echo "$1/*" >> .git/info/sparse-checkout
+
     # then get it, the depth is the way too far wher you can go...
     git pull origin master
+
 }
+
+_git_squash(){
+
+    read -p "You're about to squash all the commits from this branch ? (Y/y) " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        # Commit count difference between my branch and the master branch
+        COMMIT_COUNT=git rev-list --count HEAD ^master
+        # We rebase from the amount of commit
+        git rebase -i HEAD~$COMMIT_COUNT
+    else
+        echo "Squash stopped"
+    fi
+
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup
@@ -443,6 +471,7 @@ alias com='pkill compton && nohup compton -f &'
 # To control the brightness with xrandr
 _xrandr(){
 
+    # _xrandr lu eDP-1-1 0.9
     if [[ $1 == 'ls' ]];then
         xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1
     elif [[ $1 == 'lu' ]];then
@@ -451,10 +480,9 @@ _xrandr(){
 
 }
 
-
 __redshift_pykita(){
-    pytest tests/backends/sql_translator/test_sql_redshift_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
+    pytest tests/backends/sql_translator_integration_tests/test_sql_redshift_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
 }
 __postgres_pykita(){
-    pytest tests/backends/sql_translator/test_sql_postgres_pypika_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
+    pytest tests/backends/sql_translator_integration_tests/test_sql_postgres_pypika_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
 }
