@@ -315,7 +315,11 @@ _install_dev_stack(){
         sudo apt install $i -y
     done
 
-    _install_path_browsing_utils
+    read -p "Install Path browsing utils ? (Y/y) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        _install_path_browsing_utils
+    fi
 
     # For a weird perl warning error on locales UTF-8
     sudo locale-gen en_GB.UTF-8
@@ -323,13 +327,21 @@ _install_dev_stack(){
 
     _install_nvim_and_utils
 
-    _install_vagrant
+    read -p "Install vagrant stuffs ? (Y/y) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        _install_vagrant
+    fi
 
     # the most beautifull downloader
     # and the markdown powerpoint presenter
     sudo snap install slides aria2c
     
-    _install_alacritty
+    read -p "Install alacritty terminal ? (Y/y) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        _install_alacritty
+    fi
 }
 
 _help(){
