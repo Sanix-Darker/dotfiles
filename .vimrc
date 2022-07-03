@@ -68,6 +68,12 @@ Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 
+" For REST requests inside vim
+Plug 'diepm/vim-rest-console'
+
+" For distraction disabling
+" Plug 'junegunn/goyo.vim'
+
 " To preview image as ASCII
 " Plug 'ashisha/image.vim'
 

@@ -20,35 +20,32 @@
     features = decorations
 
 [alias]
+    ; To list all Aliasses
+    alias = !git config --get-regexp alias
+    ; to undo a precedent commit you made
     undo = reset HEAD~1 --mixed
     ; to get branch list with a lot of informations on it
     branch-details = !git branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
-
     ; To search inside commit
     ; And then git show to see all changes from a commit
     search = !git rev-list --all | xargs git grep -F
-
     ; get diff with the vimdiff tool
     vdiff = !git difftool -t vimdiff -y
-
     ; to get the last commit
     last = !git log -1 HEAD --stat
-
     ; grv is a TUI to browse the git project
     browser = !grv
-
     ; to get logs as oneline only
-    log-line = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
-
+    log-line = !git log --graph --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+    ; git log but with short informations
+    log-short = shortlog -sn --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD master)
-
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
     add-intent = !git add -N
-
     ; The famous squash and merge for all commits on my current branch 
     ; To a target branch
     ; git squash (it will target master)

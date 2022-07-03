@@ -1,7 +1,7 @@
 #Locales
-export LANGUAGE=en_GB.UTF-8
-export LANG=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
+# export LANGUAGE=en_GB.UTF-8
+# export LANG=en_GB.UTF-8
+# export LC_ALL=en_GB.UTF-8
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -117,9 +117,8 @@ _set_dot_files(){
 
     # cocInstall servers
     coc_servers=(
-        "coc-json" "coc-html" "coc-css"
-        "coc-sh"
-        "coc-python" "coc-go" "coc-tsserver"
+        "coc-json" "coc-html" "coc-css" "coc-sh"
+        "coc-pyright" "coc-go" "coc-tsserver"
     )
     for i in "${coc_servers[@]}"
     do
@@ -144,9 +143,7 @@ _set_dot_files(){
 
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
-
     cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
-
     cpd $DOT_DIR/config.rasi ~/.config/rofi/config.rasi
 
     # we return on our previus directory
@@ -284,7 +281,7 @@ _install_nvim_and_utils(){
 
     # install a simple git visualizer
     wget -O grv https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
-    chmod +x ./grv && mv ./grv /usr/bin/grv
+    chmod +x ./grv && sudo mv ./grv /usr/bin/grv
 }
 
 _install_dev_stack(){
@@ -348,7 +345,6 @@ _help(){
    curl -s -L cheat.sh/$@ | less -R
 }
 alias h='_help'
-
 alias a='aria2c'
 # Alias definitions.
 alias postman='~/Postman/Postman &'
@@ -394,6 +390,17 @@ _back(){
     else
         echo "[x] Oups, not a .git directory !"
     fi
+}
+
+_only(){
+    watch -n 0.5 "$1"
+    # if [ -n "$1" ]; then
+    #     while true;
+    #     do "$1";
+    #         sleep 1;
+    #         clear;
+    #     done;
+    # fi;
 }
 
 # For the browser in the terminal

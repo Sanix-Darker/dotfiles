@@ -197,8 +197,12 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Toggle linter
 nnoremap <C-k> :SyntasticCheck<cr>
 nnoremap <C-l> :SyntasticReset<cr>
-nnoremap <C-j> :SyntasticToggleMode<cr>
-
+nnoremap <C-m> :SyntasticToggleMode<cr>
+" Useful mappings for managing tabs
+nnoremap tn :tabnew<CR>
+nnoremap to :tabonly<CR>
+nnoremap tc :tabclose<CR>
+" nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 " For the history of the file, where you at
 nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
@@ -227,19 +231,24 @@ nnoremap bb :Buffers<CR>
 nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
 nnoremap hh :GitGutter<CR>
-" For command execution from the editot
-nnoremap zzz :.!sh<CR>
-" For command execution directly in vim
-" And get output of the command inside the editot
-nnoremap zz :r!
-" For command execution directly in vim
-nnoremap z :!
+" This should go on terminal normal mode such as normal edition on neovim
+tnoremap <Esc> <C-\><C-n>
+" This will open the terminal and pas to insert mode on it
+nnoremap z :term<CR>i<CR>clear<CR>
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/init.vim<CR>
+
+" To actualize the vim configuration
+nnoremap so :so $MYVIMRC<CR>
+
+" To clean the search hightlights
+nnoremap no :nohlsearch<CR>
+
 " To paste multiple times the same 
 " stuff or use P for the default behaviour
-xnoremap p pgvy
+xnoremap p pgv
+
 " Disable/Uninstalled for now
 " For floating windows
 " nnoremap ll :FloatermNew<CR>
@@ -247,11 +256,8 @@ xnoremap p pgvy
 " For tagBar jumping
 nnoremap > :TagbarJumpNext<CR>
 nnoremap < :TagbarJumpPrev<CR>
-" Useful mappings for managing tabs
-nnoremap tn :tabnew<CR>
-nnoremap to :tabonly<CR>
-nnoremap tc :tabclose<CR>
-" nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
+
+
 
 " # For the fzf preview
 " let g:fzf_preview_window = ['right:50%', 'ctrl-/']
@@ -479,23 +485,35 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" set thosse elements depending on the filetype am inside
+if has("autocmd")
+    autocmd FileType yaml set cursorcolumn
+    autocmd FileType yaml set cursorline 
+    autocmd FileType yml set cursorcolumn
+    autocmd FileType yml set cursorline
+endif
+
+
+if has("autocmd")
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+endif
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+if has("autocmd")
+    augroup mygroup
+      autocmd!
+      " Setup formatexpr specified filetype(s).
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder.
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+endif
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -568,29 +586,33 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 let g:coc_disable_startup_warning = 1
 
 
-" Open last active file(s) if VIM is invoked without arguments.
-autocmd VimLeave * nested let buffernr = bufnr("$") |
-    \ let buflist = [] |
-    \ while buffernr > 0 |
-    \	if buflisted(buffernr) |
-    \	    let buflist += [ bufname(buffernr) ] |
-    \	endif |
-    \   let buffernr -= 1 |
-    \ endwhile |
-    \ if (!isdirectory($HOME . "/.vim")) |
-    \	call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+if has("autocmd")
+    " Open last active file(s) if VIM is invoked without arguments.
+    autocmd VimLeave * nested let buffernr = bufnr("$") |
+        \ let buflist = [] |
+        \ while buffernr > 0 |
+        \	if buflisted(buffernr) |
+        \	    let buflist += [ bufname(buffernr) ] |
+        \	endif |
+        \   let buffernr -= 1 |
+        \ endwhile |
+        \ if (!isdirectory($HOME . "/.vim")) |
+        \	call mkdir($HOME . "/.vim") |
+        \ endif |
+        \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+endif
 
-autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
-    \	for line in readfile($HOME . "/.vim/buflist.txt") |
-    \	    if filereadable(line) |
-    \		execute "tabedit " . line |
-    \		set bufhidden=delete |
-    \	    endif |
-    \	endfor |
-    \	tabclose 1 |
-    \ endif
+if has("autocmd")
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
+        \	for line in readfile($HOME . "/.vim/buflist.txt") |
+        \	    if filereadable(line) |
+        \		execute "tabedit " . line |
+        \		set bufhidden=delete |
+        \	    endif |
+        \	endfor |
+        \	tabclose 1 |
+        \ endif
+endif
 
 " Enable folding
 set foldmethod=indent
@@ -619,18 +641,21 @@ au BufNewFile,BufRead *.js, *.html, *.css,*.vue
     \ set softtabstop=2 |
     \ set shiftwidth=2
 
+" To activate the rest plugin if we're inside a rest file
+au BufNewFile,BufRead *.rest
+    \ set ft=rest
+
+
 "Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 let python_highlight_all=1
-syntax on
-
-" For vim-auto save
-" let g:auto_save = 1
 
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-" To refresh for i3
-autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
+if has("autocmd")
+    " To refresh for i3 after the edition of its config file
+    autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
+endif
