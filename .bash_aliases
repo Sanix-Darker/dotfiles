@@ -13,6 +13,10 @@ alias ls='exa'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias lss='ls'
+alias sl='ls'
+alias lsc='ls'
+alias ld='ls -d */'
 alias cb='xclip -selection clipboard'
 alias n='nordvpn connect'
 alias mkdir='mkdir -p'
@@ -23,8 +27,10 @@ _cpd(){
 }
 alias cpd=_cpd
 
-# laputa shortcut command
+# some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
+alias vv='virtualenv -p python3.10 env'
+alias de='deactivate'
 alias p='python3'
 
 # the lock command
@@ -78,11 +84,7 @@ alias v='nvim'
 alias nv='nvim'
 alias rf='rm -rf'
 alias gg='google-chrome-stable'
-alias lss='ls'
-alias lsc='ls'
-alias ld='ls -d */'
 alias hs='http-server -o'
-alias de='deactivate'
 # alias pip='python3.10 -m pip'
 alias i='ipython'
 # To refresh stuff with source on bash alialses and bashrc itself
@@ -511,7 +513,6 @@ alias tn='tmux new -s'
 alias ta='tmux attach-session -t'
 alias to='ta other'
 alias tkill='tmux kill-server'
-alias vv='virtualenv -p python3.10 env'
 
 # open telegram as tgg
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
