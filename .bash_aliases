@@ -206,14 +206,12 @@ _install_vagrant(){
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
-    sudo apt update -y
     sudo apt install virtualbox-6.1 -y
     wget https://download.virtualbox.org/virtualbox/6.1.8/Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
     sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
 
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     sudo apt-get update -y && sudo apt-get install vagrant -y
 
 }
@@ -247,8 +245,6 @@ _install_path_browsing_utils(){
     # We install felix (the vim file manager)
     cargo install felix
 
-    sudo add-apt-repository ppa:regolith-linux/release
-    sudo apt update -y
     # to install i3
     sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
@@ -286,6 +282,8 @@ _install_nvim_and_utils(){
 
 _install_dev_stack(){
     sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo add-apt-repository ppa:regolith-linux/release
+    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     sudo apt update -y && apt-get update -y
 
     # sudo apt install type
@@ -348,10 +346,6 @@ alias h='_help'
 alias a='aria2c'
 # Alias definitions.
 alias postman='~/Postman/Postman &'
-# for markdown preview, a spseudo server will be openened
-# and accessible on the browser
-alias mk='grip -b '
-alias mdr='/usr/bin/mdr_linux_amd64'
 alias clean_docker_images='docker rmi $(docker images -f "dangling=true" -q)'
 alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
@@ -392,15 +386,11 @@ _back(){
     fi
 }
 
+# To have in the terminal 
+# only the command you executed got reload
+# and cleared instead of multilines
 _only(){
     watch -n 0.5 "$1"
-    # if [ -n "$1" ]; then
-    #     while true;
-    #     do "$1";
-    #         sleep 1;
-    #         clear;
-    #     done;
-    # fi;
 }
 
 # For the browser in the terminal
@@ -521,11 +511,6 @@ alias tn='tmux new -s'
 alias ta='tmux attach-session -t'
 alias to='ta other'
 alias tkill='tmux kill-server'
-alias gs='git status'
-alias gh='git push'
-alias gl='git pull'
-alias gc='git commit'
-alias gd='git diff'
 alias vv='virtualenv -p python3.10 env'
 
 # open telegram as tgg
@@ -542,11 +527,4 @@ _xrandr(){
         xrandr --output $2 --brightness $3
     fi
 
-}
-
-__redshift_pykita(){
-    pytest tests/backends/sql_translator_integration_tests/test_sql_redshift_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
-}
-__postgres_pykita(){
-    pytest tests/backends/sql_translator_integration_tests/test_sql_postgres_pypika_translator_steps.py::test_sql_translator_pipeline[/$1] -s -vv --disable-pytest-warnings
 }

@@ -234,7 +234,7 @@ nnoremap hh :GitGutter<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " This will open the terminal and pas to insert mode on it
-nnoremap z :term<CR>i<CR>clear<CR>
+nnoremap z :term<CR>i<CR>
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/init.vim<CR>
