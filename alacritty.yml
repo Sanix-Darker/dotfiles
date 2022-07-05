@@ -2,6 +2,8 @@
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
+window:
+  opacity: 0.90
 colors:
   # Default colors
   primary:
