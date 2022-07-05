@@ -102,8 +102,8 @@ syntax enable
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_enable_signs  = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_enable_signs  = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq   = 0
 " Use spaces instead of tabs
@@ -234,7 +234,14 @@ nnoremap hh :GitGutter<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " This will open the terminal and pas to insert mode on it
-nnoremap z :term<CR>i<CR>
+nnoremap tt :term<CR>i<CR>
+" For command execution from the editot
+nnoremap zzz :.!sh<CR>
+" For command execution directly in vim
+" And get output of the command inside the editot
+nnoremap zz :r!
+" For command execution directly in vim
+nnoremap z :!
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/init.vim<CR>

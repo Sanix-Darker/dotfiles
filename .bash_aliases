@@ -4,11 +4,6 @@
 # export LC_ALL=en_GB.UTF-8
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# some more ls aliases
 alias ls='exa'
 alias ll='ls -alF'
 alias la='ls -A'

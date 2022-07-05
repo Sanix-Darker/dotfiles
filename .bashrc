@@ -177,5 +177,9 @@ $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /d
 # bluetoothctl devices 
 # bluetoothctl connect 6E:47:D9:FA:BA:44
 
+# set the wifi 
+# nmcli dev wifi
+# nmcli device wifi connect 12:32:22:AE:11
+
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg
