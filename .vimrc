@@ -71,6 +71,10 @@ Plug 'ap/vim-css-color'
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
 
+" For multi cursor
+" Coul but am oing to comment that for now
+" Plug 'mg979/vim-visual-multi'
+
 " For distraction disabling
 " Plug 'junegunn/goyo.vim'
 

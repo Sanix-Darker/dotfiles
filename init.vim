@@ -234,7 +234,7 @@ nnoremap hh :GitGutter<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " This will open the terminal and pas to insert mode on it
-nnoremap tt :term<CR>i<CR>
+nnoremap tt :tabnew<CR>:term<CR>i<CR>
 " For command execution from the editot
 nnoremap zzz :.!sh<CR>
 " For command execution directly in vim
@@ -263,8 +263,6 @@ xnoremap p pgv
 " For tagBar jumping
 nnoremap > :TagbarJumpNext<CR>
 nnoremap < :TagbarJumpPrev<CR>
-
-
 
 " # For the fzf preview
 " let g:fzf_preview_window = ['right:50%', 'ctrl-/']
