@@ -1,6 +1,6 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
+set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
 let &packpath=&runtimepath
-source ~/.vimrc
+source ~/.config/nvim/plugins.vim
 
 " Vundle Plugins
 set nocompatible              " be iMproved, required
@@ -69,8 +69,6 @@ set ignorecase
 set smartcase
 " No Highlight search results
 set hlsearch
-" Makes search act like search in modern browsers
-set incsearch
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 " For regular expressions turn magic on
@@ -91,7 +89,7 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 " To keep the cursor on block
-set guicursor=i:block
+" set guicursor=i:block
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
 set nowb
@@ -127,7 +125,9 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 set mouse=a
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
-set undodir=~/.vim/undo
+set undodir=~/.config/nvim/undo
+
+set winbar=%=%m\ %f
 
 " To jump into a next error
 try
@@ -244,7 +244,7 @@ nnoremap zz :r!
 nnoremap z :!
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
-nnoremap co :tabnew ~/.config/nvim/init.vim<CR>
+nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
 
 " To actualize the vim configuration
 nnoremap so :so $MYVIMRC<CR>
@@ -601,15 +601,15 @@ if has("autocmd")
         \	endif |
         \   let buffernr -= 1 |
         \ endwhile |
-        \ if (!isdirectory($HOME . "/.vim")) |
-        \	call mkdir($HOME . "/.vim") |
+        \ if (!isdirectory($HOME . "/.config/nvim")) |
+        \	call mkdir($HOME . "/.config/nvim") |
         \ endif |
-        \ call writefile(reverse(buflist), $HOME . "/.vim/buflist.txt")
+        \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
 endif
 
 if has("autocmd")
-    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/buflist.txt") |
-        \	for line in readfile($HOME . "/.vim/buflist.txt") |
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
+        \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
         \	    if filereadable(line) |
         \		execute "tabedit " . line |
         \		set bufhidden=delete |
@@ -650,17 +650,28 @@ au BufNewFile,BufRead *.js, *.html, *.css,*.vue
 au BufNewFile,BufRead *.rest
     \ set ft=rest
 
-
 "Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 let python_highlight_all=1
 
+" to fix the pymode error for python
+" let g:pymode_python = 'python3'
+
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
+
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 
 if has("autocmd")
     " To refresh for i3 after the edition of its config file
     autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
 endif
+
+" Auto generate tags file on file write of *.c and *.h files
+autocmd BufWritePost *.c,*.h silent! !ctags . &

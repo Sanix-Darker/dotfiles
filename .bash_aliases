@@ -95,17 +95,13 @@ DOT_DIR="$HOME/dotfiles"
 _set_dot_files(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/init.vim ~/.config/nvim/
-    cpd $DOT_DIR/.vimrc ~/.vimrc
-    # We create directories
-    # in case they were missing
-    mkdir ~/.vim/autoload/
-    mkdir ~/.vim/colors/
-    cpd $DOT_DIR/.vim_autoload_onedark.vim ~/.vim/autoload/onedark.vim
-    cpd $DOT_DIR/.vim_colors_onedark.vim ~/.vim/colors/onedark.vim
-    # install Vim Plug
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    cpd $DOT_DIR/init.lua ~/.config/nvim/
+    cpd $DOT_DIR/config.vim ~/.config/nvim/
+    cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
+    mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
+    cpd $DOT_DIR/autoload  ~/.config/nvim/
+    cpd $DOT_DIR/colors ~/.config/nvim/
+
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -149,10 +145,13 @@ _set_dot_files(){
 
 _push_dot_files(){
     # vim stuffs
-    cpd ~/.config/nvim/init.vim $DOT_DIR
-    cpd ~/.vimrc $DOT_DIR
-    cpd ~/.vim/autoload/onedark.vim $DOT_DIR/.vim_autoload_onedark.vim
-    cpd ~/.vim/colors/onedark.vim $DOT_DIR/.vim_colors_onedark.vim
+    cpd ~/.config/nvim/init.lua $DOT_DIR/init.lua 
+    cpd ~/.config/nvim/config.vim $DOT_DIR/config.vim
+    cpd ~/.config/nvim/plugins.vim $DOT_DIR/plugins.vim
+
+    mkdir $DOT_DIR/autoload $DOT_DIR/colors
+    cpd ~/.config/nvim/autoload $DOT_DIR
+    cpd ~/.config/nvim/colors $DOT_DIR
 
     # for my bash stuffs
     cpd ~/.bashrc $DOT_DIR

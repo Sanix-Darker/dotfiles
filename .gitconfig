@@ -20,6 +20,8 @@
     features = decorations
 
 [alias]
+    ; To erase a file across your git history
+    erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
     ; To list all Aliasses
     alias = !git config --get-regexp alias
     ; to undo a precedent commit you made

@@ -3,19 +3,13 @@
 " - Avoid using standard Vim directory names like plugin
 " auto install vim-plug and plugins:
 "
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 " On-demand loading
 Plug 'preservim/nerdtree'
 
 " The wakatime plugin
 Plug 'wakatime/vim-wakatime'
-
-" get strucure of the code classes and functions
-Plug 'https://github.com/preservim/tagbar'
-
-" The magical local history
-Plug 'simnalamburt/vim-mundo'
 
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
@@ -34,10 +28,10 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'fatih/vim-go'
 
 " Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -71,6 +65,21 @@ Plug 'ap/vim-css-color'
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
 
+" For EasyMotion
+Plug 'phaazon/hop.nvim'
+
+" For color
+" Plug 'navarasu/onedark.nvim'
+
+" For python IDE tools inside vim
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" get strucure of the code classes and functions
+" Plug 'https://github.com/preservim/tagbar'
+
+" The magical local history
+" Plug 'simnalamburt/vim-mundo'
+
 " For multi cursor
 " Coul but am oing to comment that for now
 " Plug 'mg979/vim-visual-multi'
@@ -88,9 +97,6 @@ Plug 'diepm/vim-rest-console'
 " [` to jump to the prev bookmark
 " ]` to jump to the next bookmark
 " Plug 'kshenoy/vim-signature'
-
-" For python IDE tools inside vim
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " Snippets are separated from the engine. Add this if you want them:
 " Plug 'honza/vim-snippets'
@@ -187,6 +193,3 @@ Plug 'diepm/vim-rest-console'
 " Plug '907th/vim-auto-save'
 
 call plug#end()
-
-" Auto generate tags file on file write of *.c and *.h files
-autocmd BufWritePost *.c,*.h silent! !ctags . &
