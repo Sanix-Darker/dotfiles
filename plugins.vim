@@ -68,6 +68,9 @@ Plug 'diepm/vim-rest-console'
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
 
+" For sections in the codebase
+" Plug 'mfussenegger/nvim-ts-hint-textobject'
+
 " For color
 " Plug 'navarasu/onedark.nvim'
 

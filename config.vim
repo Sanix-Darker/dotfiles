@@ -208,6 +208,10 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+
+" To jump fastly on a word
+nnoremap jj :HopWord<CR>
+
 " To search in the current files
 " Most efficient than the ? or /
 nnoremap ll :Lines<CR>
