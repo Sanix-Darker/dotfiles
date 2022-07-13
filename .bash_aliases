@@ -523,3 +523,4 @@ _xrandr(){
     fi
 
 }
+alias docker_ps="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"

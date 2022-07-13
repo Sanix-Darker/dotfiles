@@ -174,12 +174,12 @@ Plug 'phaazon/hop.nvim'
 " Plug 'voldikss/vim-floaterm'
 
 " A framework for some plugin to be working (gh.nvim) for example
-" Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/litee.nvim'
 " For code review on nvim directly
-" Plug 'ldelossa/gh.nvim'
+Plug 'ldelossa/gh.nvim'
 
 " For the LSP confiuration
-" Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 
 " For icons on modules types
 " Plug 'onsails/lspkind.nvim'
