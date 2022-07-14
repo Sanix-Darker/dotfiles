@@ -68,6 +68,9 @@ Plug 'diepm/vim-rest-console'
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
 
+" For the terminal to be toggle
+Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 

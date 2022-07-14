@@ -15,7 +15,7 @@ use_full_width = true
 # key(command you want to use) = [values](extensions)
 [exec]
 feh = ["jpg", "jpeg", "png", "gif", "svg"]
-mpv = ["mp4", "avi", "mp3", "mkv"]
+vlc = ["mp4", "avi", "mp3", "mkv"]
 zathura = ["pdf"]
 
 # the foreground color of file and directory in the list
