@@ -71,6 +71,9 @@ Plug 'phaazon/hop.nvim'
 " For the terminal to be toggle
 Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 
+" To fastly start neovim
+Plug 'lewis6991/impatient.nvim'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 

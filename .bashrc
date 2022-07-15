@@ -166,10 +166,6 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # We first check if this repository exist before source it
 [[ -d "$HOME/.config/broot/launcher/bash/" ]] && source $HOME/.config/broot/launcher/bash/br
 
-
-# We refresh tmux configurations
-$(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
-
 # compton for opacity on terminal
 # $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &  
 
@@ -183,3 +179,15 @@ $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /d
 
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg
+
+# start polybar
+if type "xrandr" > /dev/null; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]] && MONITOR=$m polybar --reload example &
+  done
+else
+  ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]] && polybar --reload example &
+fi
+
+# We refresh tmux configurations
+# $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null

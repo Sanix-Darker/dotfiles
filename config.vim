@@ -9,23 +9,23 @@ filetype off                  " required
 let g:csv_delim_test = ',;|'
 " All of your Plugins must be added before the following line
 filetype plugin indent on    " required
-" For the autocompletion
-set omnifunc=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
 
+" For the autocompletion
+set omnifunc=syntaxcomplete#Complete
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -49,11 +49,7 @@ set langmenu=en
 set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 "Always show current position
 set ruler
 " Height of the command bar
@@ -209,6 +205,8 @@ nnoremap mm :MundoToggle<cr>
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
 
+nnoremap tt :ToggleTerm<CR>
+
 " To jump fastly on a word
 nnoremap jj :HopWord<CR>
 
@@ -237,8 +235,6 @@ nnoremap b :GitBlame<CR>
 nnoremap hh :GitGutter<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
-" This will open the terminal and pas to insert mode on it
-nnoremap tt :tabnew<CR>:term<CR>i<CR>
 " For command execution from the editot
 nnoremap zzz :.!sh<CR>
 " For command execution directly in vim
@@ -594,34 +590,45 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 let g:coc_disable_startup_warning = 1
 
+try
+    if has("autocmd")
+        " Open last active file(s) if VIM is invoked without arguments.
+        autocmd VimLeave * nested let buffernr = bufnr("$") |
+            \ let buflist = [] |
+            \ while buffernr > 0 |
+            \	if buflisted(buffernr) |
+            \	    let buflist += [ bufname(buffernr) ] |
+            \	endif |
+            \   let buffernr -= 1 |
+            \ endwhile |
+            \ if (!isdirectory($HOME . "/.config/nvim")) |
+            \	call mkdir($HOME . "/.config/nvim") |
+            \ endif |
+            \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
+    endif
+catch
+endtry
 
-if has("autocmd")
-    " Open last active file(s) if VIM is invoked without arguments.
-    autocmd VimLeave * nested let buffernr = bufnr("$") |
-        \ let buflist = [] |
-        \ while buffernr > 0 |
-        \	if buflisted(buffernr) |
-        \	    let buflist += [ bufname(buffernr) ] |
-        \	endif |
-        \   let buffernr -= 1 |
-        \ endwhile |
-        \ if (!isdirectory($HOME . "/.config/nvim")) |
-        \	call mkdir($HOME . "/.config/nvim") |
-        \ endif |
-        \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
-endif
+try
+    if has("autocmd")
+        autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
+            \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
+            \	    if filereadable(line) |
+            \		execute "tabedit " . line |
+            \		set bufhidden=delete |
+            \	    endif |
+            \	endfor |
+            \	tabclose 1 |
+            \ endif
+    endif
+catch
+endtry
 
-if has("autocmd")
-    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
-        \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
-        \	    if filereadable(line) |
-        \		execute "tabedit " . line |
-        \		set bufhidden=delete |
-        \	    endif |
-        \	endfor |
-        \	tabclose 1 |
-        \ endif
-endif
+try
+    " Auto generate tags file on file write of *.c and *.h files
+    autocmd BufWritePost *.c,*.h silent! !ctags . &
+catch
+endtry
 
 " Enable folding
 set foldmethod=indent
@@ -632,7 +639,8 @@ nnoremap <space> za
 
 " For simplyfolding
 let g:SimpylFold_docstring_preview=1
-
+" python hightlights
+let python_highlight_all=1
 
 " To add the proper PEP8 indentation
 au BufNewFile,BufRead *.py
@@ -658,24 +666,13 @@ au BufNewFile,BufRead *.rest
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-let python_highlight_all=1
-
 " to fix the pymode error for python
 " let g:pymode_python = 'python3'
 
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
-
 if has("autocmd")
     " To refresh for i3 after the edition of its config file
     autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
 endif
-
-" Auto generate tags file on file write of *.c and *.h files
-autocmd BufWritePost *.c,*.h silent! !ctags . &

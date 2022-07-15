@@ -186,6 +186,7 @@ _push_dot_files(){
     # we return on our previus directory
     cd -
 }
+
 _pull_dot_files(){
     if [[ ! -d $DOT_DIR ]]
     then
@@ -196,8 +197,13 @@ _pull_dot_files(){
     fi
 }
 
+_source_dev_stack(){
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo add-apt-repository ppa:regolith-linux/release
+    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    sudo apt update -y && apt-get update -y
+}
 _install_vagrant(){
-
     # install virtualbox
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
@@ -209,7 +215,6 @@ _install_vagrant(){
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
     sudo apt-get update -y && sudo apt-get install vagrant -y
-
 }
 
 _install_alacritty(){
@@ -257,6 +262,18 @@ _install_path_browsing_utils(){
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
 
+    # Install polybar
+    sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev \
+        libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev \
+        libcurl4-openssl-dev libnl-genl-3-dev -y
+    git clone --recursive https://github.com/polybar/polybar
+    cd polybar
+    mkdir build
+    cd build
+    cmake ..
+    make -j$(nproc)
+    # Optional. This will install the polybar executable in /usr/local/bin
+    sudo make install
 }
 
 _install_nvim_and_utils(){
@@ -277,10 +294,7 @@ _install_nvim_and_utils(){
 }
 
 _install_dev_stack(){
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo add-apt-repository ppa:regolith-linux/release
-    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-    sudo apt update -y && apt-get update -y
+    _source_dev_stack
 
     # sudo apt install type
     devStack=(
@@ -427,12 +441,9 @@ _git_open_code(){
     line=${arr[2]}
 
     # some verbose
-    echo "[-] Moving on commit : $commit"
-    sleep 1
-    echo "[-] Moving on file : $file"
-    sleep 1
-    echo "[-] Moving on line : $line"
-    sleep 1
+    echo "[-] Moving on commit : $commit" && sleep 1
+    echo "[-] Moving on file : $file" && sleep 1
+    echo "[-] Moving on line : $line" && sleep 1
 
     # A checkout on the commit then a less on the line of the file
     git checkout "$commit"
@@ -514,13 +525,12 @@ alias com='pkill compton && nohup compton -f &'
 
 # To control the brightness with xrandr
 _xrandr(){
-
     # _xrandr lu eDP-1-1 0.9
     if [[ $1 == 'ls' ]];then
         xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1
     elif [[ $1 == 'lu' ]];then
         xrandr --output $2 --brightness $3
     fi
-
 }
 alias docker_ps="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"
+alias untar="tar -xf"
