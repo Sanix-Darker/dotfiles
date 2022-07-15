@@ -188,11 +188,11 @@ _check_polybar_process(){
 if type "xrandr" > /dev/null; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
     _check_polybar_process && \
-    MONITOR=$m polybar --reload example -c ~/.config/polybar/config.ini &
+    MONITOR=$m polybar --reload -c ~/.config/polybar/config.ini &
   done
 else
     _check_polybar_process && \
-    polybar --reload example -c ~/.config/polybar/config.ini &
+    polybar --reload -c ~/.config/polybar/config.ini &
 fi
 
 # We refresh tmux configurations

@@ -66,7 +66,6 @@ alias gf=$HOME/ACTUALC/github/git-search/gf.sh
 
 # My custom build of scrcpy
 alias scrcpy='/usr/local/bin/scrcpy -m1024'
-alias gbd='sh $HOME/gbd.sh'
 alias s='slides'
 
 # alias python='python3'
@@ -174,7 +173,7 @@ _push_dot_files(){
     cpd ~/.config/felix/config.toml $DOT_DIR/felix_config.toml
     # copy polybar
     cpd ~/.config/polybar/config.ini $DOT_DIR/polybar_config.ini
-    # copy conf
+    # copy i3 conf
     cpd ~/.config/i3/config $DOT_DIR/i3_config
     
     # Our rofi theme for search
@@ -209,6 +208,7 @@ _source_dev_stack(){
     sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     sudo apt update -y && apt-get update -y
 }
+
 _install_vagrant(){
     # install virtualbox
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
