@@ -336,7 +336,11 @@ _install_dev_stack(){
     sudo locale-gen en_GB.UTF-8
     sudo dpkg-reconfigure locales
 
-    _install_nvim_and_utils
+    read -p "Install Nvim stuffs ? (Y/y) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        _install_nvim_and_utils
+    fi
 
     read -p "Install vagrant stuffs ? (Y/y) " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]
