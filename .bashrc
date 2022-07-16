@@ -180,20 +180,21 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg
 
-_check_polybar_process(){
-    ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
-}
+# _check_polybar_process(){
+#     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
+# }
 
-# start polybar
-if type "xrandr" > /dev/null; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    _check_polybar_process && \
-    MONITOR=$m polybar --reload -c ~/.config/polybar/config.ini &
-  done
-else
-    _check_polybar_process && \
-    polybar --reload -c ~/.config/polybar/config.ini &
-fi
+# # polybar --reload -c ~/.config/polybar/config.ini &
+# # start polybar
+# if type "xrandr" > /dev/null; then
+#   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+#     _check_polybar_process && \
+#     MONITOR=$m polybar --reload example &
+#   done
+# else
+#     _check_polybar_process && \
+#     polybar --reload example &
+# fi
 
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null

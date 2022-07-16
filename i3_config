@@ -255,9 +255,9 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-#         status_command i3status
-# }
+bar {
+        status_command i3status
+}
 
 # for saving layouts
 # exec i3-save-tree --workspace 1 > ~/.i3/workspace-1.json
