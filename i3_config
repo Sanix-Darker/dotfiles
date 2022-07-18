@@ -319,6 +319,6 @@ exec xrandr --output DP-0.1 --mode 1920x1080 --rate 50
 
 #move focused worksapce
 bindsym $mod+Shift+u move workspace to output up
-bindsym $mod+Shift+d move workspace to output up
+bindsym $mod+Shift+d move workspace to output down
 bindsym $mod+Shift+o move workspace to output left
 bindsym $mod+Shift+p move workspace to output right

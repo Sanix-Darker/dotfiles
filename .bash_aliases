@@ -76,7 +76,24 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ls_services='systemctl list-units --type=service'
 alias v='nvim'
 alias nv='nvim'
-alias rf='rm -rf'
+# we could use thre trash-cli to rf or rm-rf
+
+# to list trash elements
+_lf(){
+    # list all trash delete elements and grep pipe to list all item deleted 
+    # referenced only by the directory i am at the moment this command
+    trash-list | sort -r | cat | grep $(pwd)
+}
+alias lf='_lf'
+# to put inside the trash
+alias rf='trash-put'
+# To delete from trash
+alias rrf='trash-rm'
+# to empty the trans
+alias rrff='trash-empty'
+# to restore an item
+alias rr='trash-restore'
+
 alias gg='google-chrome-stable'
 alias hs='http-server -o'
 # alias pip='python3.10 -m pip'
