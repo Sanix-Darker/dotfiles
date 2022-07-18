@@ -20,6 +20,9 @@
     features = decorations
 
 [alias]
+    ; to push the current branch as an upstream
+    pushit = !git push --set-upstream origin$(git branch --show-current)
+
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
     ; To list all Aliasses
