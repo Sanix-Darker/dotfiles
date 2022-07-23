@@ -148,9 +148,6 @@ _set_dot_files(){
     # we copy our felix config 
     cpd $DOT_DIR/felix_config.toml ~/.config/felix/config.toml
 
-    # we copy our polybar config 
-    cpd $DOT_DIR/polybar_config.ini ~/.config/polybar/config.ini
-    
     # we copy our i3 config 
     cpd $DOT_DIR/i3_config ~/.config/i3/config
     cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
@@ -189,8 +186,6 @@ _push_dot_files(){
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
     # copy felix conf
     cpd ~/.config/felix/config.toml $DOT_DIR/felix_config.toml
-    # copy polybar
-    cpd ~/.config/polybar/config.ini $DOT_DIR/polybar_config.ini
     # copy i3 conf
     cpd ~/.config/i3/config $DOT_DIR/i3_config
     # copy i3 lockconf
@@ -299,22 +294,12 @@ _install_path_browsing_utils(){
     sudo apt install i3-gaps mpv feh rofi arandr -y
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
+    # install autolock
+    sudo apt-get install xautolock -y
+
     # install delta, a amzing tool for diff
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
-
-    # Install polybar
-    sudo apt install libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev \
-        libasound2-dev libpulse-dev i3-wm libjsoncpp-dev libmpdclient-dev \
-        libcurl4-openssl-dev libnl-genl-3-dev -y
-    git clone --recursive https://github.com/polybar/polybar
-    cd polybar
-    mkdir build
-    cd build
-    cmake ..
-    make -j$(nproc)
-    # Optional. This will install the polybar executable in /usr/local/bin
-    sudo make install
 }
 
 _install_nvim_and_utils(){

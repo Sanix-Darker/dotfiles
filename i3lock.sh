@@ -1,4 +1,5 @@
 #/bin/bash
+# locking using i3lock with some customizations
 
 # our colors
 BLANK='#00000000'
@@ -12,7 +13,7 @@ KEYDOWN='#28FF49'
 # we run the i3lock if i3lock is installed
 $(command -v i3lock > /dev/null) &&\
     [[ $? == 0 ]] && i3lock \
-    --insidever-color=$CLEAR     \
+    --insidever-color=$CLEAR  \
     --ringver-color=$VERIFYING   \
     --insidewrong-color=$CLEAR   \
     --ringwrong-color=$WRONG     \
@@ -31,4 +32,4 @@ $(command -v i3lock > /dev/null) &&\
     --blur 7                     \
     --clock                      \
     --time-str="%H:%M:%S"        \
-    --keylayout
+    --keylayout 1
