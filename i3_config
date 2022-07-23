@@ -26,9 +26,6 @@ font pango:DejaVu Sans 8
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# bindsym $mod+Mod1+s exec --no-startup-id systemctl suspend
-
-
 ## FOR THE LOCK SCREEN ##
 
 set $BLANK '#00000000'
@@ -40,55 +37,15 @@ set $VERIFYING '#bb00bb'
 set $KEYDOWN '#28FF49'
 
 # To lock the screen
-bindsym $mod+Mod1+l exec i3lock \
---insidever-color=$CLEAR     \
---ringver-color=$VERIFYING   \
---insidewrong-color=$CLEAR   \
---ringwrong-color=$WRONG     \
---inside-color=$BLANK        \
---ring-color=$DEFAULT        \
---line-color=$BLANK          \
---separator-color=$DEFAULT   \
---verif-color=$TEXT          \
---wrong-color=$TEXT          \
---time-color=$TEXT           \
---date-color=$TEXT           \
---layout-color=$TEXT         \
---keyhl-color=$KEYDOWN       \
---bshl-color=$WRONG          \
---screen 1                   \
---blur 7                     \
---clock                      \
---time-str="%H:%M:%S"        \
---keylayout 1
+bindsym $mod+Mod1+l exec ~/.config/i3/i3lock.sh
 
 # suspend [TODO] refactor and factorise this in bash_aliasse
-bindsym $mod+Mod1+s exec i3lock \
---insidever-color=$CLEAR     \
---ringver-color=$VERIFYING   \
---insidewrong-color=$CLEAR   \
---ringwrong-color=$WRONG     \
---inside-color=$BLANK        \
---ring-color=$DEFAULT        \
---line-color=$BLANK          \
---separator-color=$DEFAULT   \
---verif-color=$TEXT          \
---wrong-color=$TEXT          \
---time-color=$TEXT           \
---date-color=$TEXT           \
---layout-color=$TEXT         \
---keyhl-color=$KEYDOWN       \
---bshl-color=$WRONG          \
---screen 1                   \
---blur 7                     \
---clock                      \
---time-str="%H:%M:%S"        \
---keylayout 1 && systemctl suspend
+bindsym $mod+Mod1+s exec ~/.config/i3/i3lock.sh && systemctl suspend
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
-exec --no-startup-id compton -f
+# exec --no-startup-id compton -f
 
 default_border pixel 1
 default_floating_border pixel 1

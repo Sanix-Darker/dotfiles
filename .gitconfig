@@ -20,9 +20,19 @@
     features = decorations
 
 [alias]
-    ; to push the current branch as an upstream
-    pushit = !git push --set-upstream origin$(git branch --show-current)
+    ; to generate a new patch from changes
+    ; git patch-put -1 <sha>
+    ; or
+    ; git patch-put -1 HEAD
+    patch-put = !git format-patch $@
+    ; to get a new patch from file
+    ; git patch-get file.patch
+    ; or
+    ; git patch-get file.patch
+    patch-get = !git am < $@
 
+    ; to push the current branch as an upstream
+    pushit = !git push --set-upstream origin $(git branch --show-current)
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
     ; To list all Aliasses

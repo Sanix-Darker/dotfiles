@@ -151,13 +151,14 @@ _set_dot_files(){
     # we copy our polybar config 
     cpd $DOT_DIR/polybar_config.ini ~/.config/polybar/config.ini
     
-    # we copy our felix config 
+    # we copy our i3 config 
     cpd $DOT_DIR/i3_config ~/.config/i3/config
+    cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
 
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
     cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
-    cpd $DOT_DIR/config.rasi ~/.config/rofi/config.rasi
+    cpd $DOT_DIR/rofi_config.rasi ~/.config/rofi/config.rasi
 
     # we return on our previus directory
     cd -
@@ -192,6 +193,8 @@ _push_dot_files(){
     cpd ~/.config/polybar/config.ini $DOT_DIR/polybar_config.ini
     # copy i3 conf
     cpd ~/.config/i3/config $DOT_DIR/i3_config
+    # copy i3 lockconf
+    cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3lock.sh
     
     # Our rofi theme for search
     cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi
@@ -201,9 +204,15 @@ _push_dot_files(){
     cd $DOT_DIR
     # git stash && git pull --prune && git stash pop
     sleep 1
-    git diff
-    git add -A && git commit -m "feat: updates for $(date)"
-    git push
+    git diff && git add -A && git commit -m "feat: updates for $(date)"
+
+    read -p "push those changes on github ? (Y/y) " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        git push;
+    else
+        echo "[x] Not pushed but commited...";
+    fi
 
     # we return on our previus directory
     cd -
@@ -220,10 +229,19 @@ _pull_dot_files(){
 }
 
 _source_dev_stack(){
-    sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo add-apt-repository ppa:regolith-linux/release
-    sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-    sudo apt update -y && apt-get update -y
+    sudo add-apt-repository ppa:deadsnakes/ppa \
+        add-apt-repository ppa:regolith-linux/release \
+        apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+        add-apt-repository ppa:maarten-fonville/android-studio &&\
+        apt update -y && apt-get update -y
+}
+
+
+_install_android_studio(){
+    sudo apt install openjdk-11-jdk \
+        android-studio \
+        android-tools-adb \
+        android-tools-fastboot
 }
 
 _install_vagrant(){
@@ -561,3 +579,8 @@ _xrandr(){
 }
 alias docker_ps="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"
 alias untar="tar -xf"
+
+m() {
+  python3 -c "from math import *; print($*)"
+}
+

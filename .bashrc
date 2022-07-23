@@ -61,8 +61,10 @@ new_line() {
     printf "\n$ "
 }
 parse_git_branch() {
-    # git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
-    git branch --show-current > /dev/null && [[ $? == 0 ]] && echo [$(git branch --show-current)]
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+    # [[ -d ".git" ]] && [[ $? == 0 ]] && \
+    #     git branch --show-current > /dev/null && [[ $? == 0 ]] && \
+    #     echo [$(git branch --show-current)]
 }
 
 if [ "$color_prompt" = yes ]; then

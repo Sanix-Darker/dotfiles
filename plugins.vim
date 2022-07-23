@@ -74,6 +74,12 @@ Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 
+" get strucure of the code classes and functions
+Plug 'https://github.com/preservim/tagbar'
+
+" The magical local history
+Plug 'simnalamburt/vim-mundo'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 
@@ -82,12 +88,6 @@ Plug 'lewis6991/impatient.nvim'
 
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-
-" get strucure of the code classes and functions
-" Plug 'https://github.com/preservim/tagbar'
-
-" The magical local history
-" Plug 'simnalamburt/vim-mundo'
 
 " For multi cursor
 " Coul but am oing to comment that for now
