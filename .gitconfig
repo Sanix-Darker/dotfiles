@@ -22,14 +22,16 @@
 [alias]
     ; to generate a new patch from changes
     ; git patch-put -1 <sha>
-    ; or
     ; git patch-put -1 HEAD
     patch-put = !git format-patch $@
     ; to get a new patch from file
     ; git patch-get file.patch
-    ; or
-    ; git patch-get file.patch
     patch-get = !git am < $@
+
+    ; git fork-set-upstream <git-repo-link>
+    fork-set-upstream = !git remote add upstream
+    ; git refresh-fork
+    fork-pull-upstream = !git fetch upstream && git rebase upstream/$(git branch --show-current) && git push origin $(git branch --show-current)
 
     ; to push the current branch as an upstream
     pushit = !git push --set-upstream origin $(git branch --show-current)

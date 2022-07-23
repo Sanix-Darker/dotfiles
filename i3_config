@@ -30,10 +30,9 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # To lock the screen
 bindsym $mod+Mod1+l exec "~/.config/i3/i3lock.sh"
-
 # suspend
 bindsym $mod+Mod1+s exec "~/.config/i3/i3lock.sh && systemctl suspend" 
-exec 'xautolock -time 15 -locker ~/.config/i3/i3lock.sh &'
+# exec 'xautolock -time 15 -locker ~/.config/i3/i3lock.sh &'
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -205,7 +204,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+    status_command i3status
 }
 
 # for saving layouts
@@ -215,39 +214,10 @@ bar {
 # exec i3-save-tree --workspace 4 > ~/.i3/workspace-4.json
 
 # To keep touchPad as it should be !
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled Default" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Enabled Default" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Lock Enabled" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Lock Enabled Default" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Button Mapping Enabled" 1, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Button Mapping Default" 1, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled Default" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Disable While Typing Enabled" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Disable While Typing Enabled Default" 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Methods Available" 1, 1, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Method Enabled" 1, 0, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Method Enabled Default" 1, 0, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Methods Available" 1, 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Method Enabled" 1, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Method Enabled Default" 1, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Middle Emulation Enabled" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Middle Emulation Enabled Default" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.000000
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed Default" 0.000000
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Left Handed Enabled" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Left Handed Enabled Default" 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Modes Available" 1, 1
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Mode Enabled" 0, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Mode Enabled Default" 0, 0
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Node" "/dev/input/event4"
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Product ID" 2, 7
-exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Horizontal Scroll Enabled" 1
+exec "~/.config/i3/i3mouse.sh"
+
+# To run compton from installed 
+exec "/usr/bin/compton"
 
 # xprop to get the winfdow informations
 

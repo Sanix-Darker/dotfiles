@@ -141,7 +141,7 @@ _set_dot_files(){
     cpd $DOT_DIR/.bash_logout ~/.bash_logout
 
     # my vagrant stuffs
-    cpd $DOT_DIR/vagrant ~/vagrant/
+    cpd $DOT_DIR/vagrant/vms ~/vagrant/vms
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
@@ -151,6 +151,7 @@ _set_dot_files(){
     # we copy our i3 config 
     cpd $DOT_DIR/i3_config ~/.config/i3/config
     cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
+    cpd $DOT_DIR/i3mouse.sh ~/.config/i3/i3mouse.sh
 
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
@@ -180,7 +181,7 @@ _push_dot_files(){
     cpd ~/.tmux.conf $DOT_DIR
 
     # my vagrant stuffs
-    cpd ~/vagrant $DOT_DIR
+    cpd ~/vagrant/vms $DOT_DIR
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
@@ -188,8 +189,8 @@ _push_dot_files(){
     cpd ~/.config/felix/config.toml $DOT_DIR/felix_config.toml
     # copy i3 conf
     cpd ~/.config/i3/config $DOT_DIR/i3_config
-    # copy i3 lockconf
     cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3lock.sh
+    cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3mouse.sh
     
     # Our rofi theme for search
     cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi
