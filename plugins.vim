@@ -68,17 +68,22 @@ Plug 'diepm/vim-rest-console'
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
 
-" For the terminal to be toggle
-Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
-
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 
 " get strucure of the code classes and functions
 Plug 'https://github.com/preservim/tagbar'
+" Same as tagbar but more precise
+" Plug 'liuchengxu/vista.vim'
 
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
+
+" For the terminal to be toggle
+" Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
+
+" The Zig hightligh & 
+" Plug 'ziglang/zig.vim'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

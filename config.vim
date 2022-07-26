@@ -122,8 +122,13 @@ set mouse=a
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.config/nvim/undo
-
 set winbar=%=%m\ %f
+
+" for the tagbar refresh time
+set updatetime=2
+
+" set cursorline
+
 
 " To jump into a next error
 try
@@ -205,8 +210,6 @@ nnoremap mm :MundoToggle<cr>
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
 
-nnoremap tt :ToggleTerm<CR>
-
 " To jump fastly on a word
 nnoremap jj :HopWord<CR>
 
@@ -261,8 +264,8 @@ xnoremap p pgv
 " nnoremap ll :FloatermNew<CR>
 " nnoremap kk :FloatermKill<CR>
 " For tagBar jumping
-nnoremap > :TagbarJumpNext<CR>
-nnoremap < :TagbarJumpPrev<CR>
+" nnoremap > :TagbarJumpNext<CR>
+" nnoremap < :TagbarJumpPrev<CR>
 
 " # For the fzf preview
 " let g:fzf_preview_window = ['right:50%', 'ctrl-/']
@@ -493,9 +496,7 @@ endfunction
 " set thosse elements depending on the filetype am inside
 if has("autocmd")
     autocmd FileType yaml set cursorcolumn
-    autocmd FileType yaml set cursorline 
     autocmd FileType yml set cursorcolumn
-    autocmd FileType yml set cursorline
 endif
 
 
@@ -661,6 +662,9 @@ au BufNewFile,BufRead *.js, *.html, *.css,*.vue
 " To activate the rest plugin if we're inside a rest file
 au BufNewFile,BufRead *.rest
     \ set ft=rest
+
+" Highlighting
+" highlight CursorLine ctermbg=0
 
 "Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred

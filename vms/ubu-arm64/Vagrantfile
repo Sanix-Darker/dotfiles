@@ -1,0 +1,3 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "jeffnoxon/ubuntu-20.04-arm64"
+end

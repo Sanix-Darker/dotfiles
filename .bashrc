@@ -145,7 +145,8 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:/usr/local/go/src/src
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # We want to help jedi select the 
 # good python interpreter depending on the project
@@ -201,3 +202,8 @@ $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg
 
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
+
+gggf(){
+    echo "xxx $1"
+}
+
