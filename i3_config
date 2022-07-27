@@ -216,7 +216,7 @@ bar {
 exec "bash ~/.config/i3/i3mouse.sh &"
 
 # To run compton from installed 
-# exec "/usr/bin/compton"
+exec "/usr/bin/compton -f &"
 
 # xprop to get the winfdow informations
 

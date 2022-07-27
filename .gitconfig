@@ -18,6 +18,7 @@
     navigate = true
     line-numbers = true
     features = decorations
+    light = false
 
 [alias]
     ; to generate a new patch from changes
@@ -79,11 +80,7 @@
     keep-plus-minus-markers = false
 
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    commit-style = raw
     file-style = omit
-    file-decoration-style = none
-    hunk-header-decoration-style = yellow box
     hunk-header-file-style = red
     hunk-header-line-number-style = "#067a00"
-    hunk-header-style = file line-number syntax
+    hunk-header-style = file syntax
