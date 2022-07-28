@@ -254,7 +254,7 @@ nnoremap no :nohlsearch<CR>
 
 " To paste multiple times the same 
 " stuff or use P for the default behaviour
-xnoremap p pgv
+xnoremap p pgvy
 
 " Disable/Uninstalled for now
 " For floating windows
