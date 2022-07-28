@@ -646,41 +646,48 @@ let g:SimpylFold_docstring_preview=1
 " python hightlights
 let python_highlight_all=1
 
-" To add the proper PEP8 indentation
-au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
+try
+    if has("autocmd")
+        " To add the proper PEP8 indentation
+        au BufNewFile,BufRead *.py
+            \ set tabstop=4 |
+            \ set softtabstop=4 |
+            \ set shiftwidth=4 |
+            \ set textwidth=79 |
+            \ set expandtab |
+            \ set autoindent |
+            \ set fileformat=unix
 
-" " all other js html
-au BufNewFile,BufRead *.js, *.html, *.css,*.vue
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
+        " " all other js html
+        au BufNewFile,BufRead *.js, *.html, *.css,*.vue
+            \ set tabstop=2 |
+            \ set softtabstop=2 |
+            \ set shiftwidth=2
 
-" To activate the rest plugin if we're inside a rest file
-au BufNewFile,BufRead *.rest
-    \ set ft=rest
+        " To activate the rest plugin if we're inside a rest file
+        au BufNewFile,BufRead *.rest
+            \ set ft=rest
 
-" We want everything fold depending on the synthax when we jump into it
-set foldmethod=syntax
-set foldnestmax=1
+        " We want everything fold depending on the synthax when we jump into it
+        set foldmethod=syntax
+        set foldnestmax=1
 
-"Flagging Unnecessary Whitespace
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
+        "Flagging Unnecessary Whitespace
+        highlight BadWhitespace ctermbg=red guibg=darkred
+        au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+    endif
+catch
+endtry
 " to fix the pymode error for python
 " let g:pymode_python = 'python3'
 
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-if has("autocmd")
-    " To refresh for i3 after the edition of its config file
-    autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
-endif
+try
+    if has("autocmd")
+        " To refresh for i3 after the edition of its config file
+        autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
+    endif
+catch
+endtry
