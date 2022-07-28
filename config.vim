@@ -258,8 +258,8 @@ xnoremap p pgv
 
 " Disable/Uninstalled for now
 " For floating windows
-" nnoremap ll :FloatermNew<CR>
-" nnoremap kk :FloatermKill<CR>
+nnoremap k :FloatermNew --height=0.9 --width=0.9<CR>
+nnoremap kk :FloatermToggle<CR>
 " For tagBar jumping
 " nnoremap > :TagbarJumpNext<CR>
 " nnoremap < :TagbarJumpPrev<CR>
@@ -441,7 +441,7 @@ let b:ale_fix_on_save = 1
 
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
 
 " nnoremap <C-[> <Esc><CR>
 
@@ -674,5 +674,7 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-" To refresh for i3 after the edition of its config file
-autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
+if has("autocmd")
+    " To refresh for i3 after the edition of its config file
+    autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
+endif

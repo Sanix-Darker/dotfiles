@@ -79,6 +79,9 @@ Plug 'https://github.com/preservim/tagbar'
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
 
+" For popUp all over the place
+Plug 'voldikss/vim-floaterm'
+
 " For the terminal to be toggle
 " Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 
@@ -181,16 +184,13 @@ Plug 'simnalamburt/vim-mundo'
 " Unmanaged plugin (manually installed and updated)
 " Plug '~/my-prototype-plugin'
 
-" For popUp all over the place
-" Plug 'voldikss/vim-floaterm'
-
 " A framework for some plugin to be working (gh.nvim) for example
-Plug 'ldelossa/litee.nvim'
+" Plug 'ldelossa/litee.nvim'
 " For code review on nvim directly
-Plug 'ldelossa/gh.nvim'
+" Plug 'ldelossa/gh.nvim'
 
 " For the LSP confiuration
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig'
 
 " For icons on modules types
 " Plug 'onsails/lspkind.nvim'
