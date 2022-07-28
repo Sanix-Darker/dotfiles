@@ -417,7 +417,7 @@ _install_basics(){
 
         "tmux" "tmate" "git-lfs"
         "tar" "zip" "unzip" "curl"
-        "wget" "gcc" "g++"
+        "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
         "git" "bat" "snap"

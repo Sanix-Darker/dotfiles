@@ -217,11 +217,11 @@ nnoremap ll :Lines<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " For the file search
 nnoremap ff :FZF<cr>
-" For auto import from python projects
-nnoremap ig :ImportName<CR>
 " For Tagbar, the structure of code
 nnoremap bg :TagbarToggle<CR>
-" FOr the copy/paste power of yankring
+" To get the diffview history of the repo
+nnoremap ft :DiffviewFileHistory<CR>
+" For the copy/paste power of yankring
 nnoremap <silent> <F11> :YRShow<CR>
 nnoremap + :vertical resize +5<CR>
 nnoremap _ :vertical resize -5<CR>
