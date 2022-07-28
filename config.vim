@@ -123,10 +123,8 @@ set mouse=a
 set undofile
 set undodir=~/.config/nvim/undo
 set winbar=%=%m\ %f
-
 " for the tagbar refresh time
 set updatetime=2
-
 " To keep the statusline only global not per file
 set laststatus=3
 
@@ -165,11 +163,6 @@ map <space> /
 map <C-space> ?
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 " Close the current buffer
 map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
@@ -210,6 +203,9 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+
+" To format the code
+nnoremap fv :Neoformat<CR>
 
 " To jump fastly on a word
 nnoremap jj :HopWord<CR>
@@ -447,7 +443,7 @@ let b:ale_fix_on_save = 1
 
 
 " Use K to show documentation in preview window.
-nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " nnoremap <C-[> <Esc><CR>
 
@@ -675,14 +671,57 @@ try
         "Flagging Unnecessary Whitespace
         highlight BadWhitespace ctermbg=red guibg=darkred
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+        " For the tagbag list of tags
+        au VimEnter,BufRead,BufNewFile,BufWrite * :TagbarOpen
     endif
 catch
 endtry
 " to fix the pymode error for python
 " let g:pymode_python = 'python3'
 
+" Format the code on save
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * undojoin | Neoformat
+" augroup END
+
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
+
+lua << EOF
+local dap = require('dap')
+dap.adapters.node2 = {
+  type = 'executable',
+  command = 'node',
+  args = {os.getenv('HOME') .. '/apps/vscode-node-debug2/out/src/nodeDebug.js'},
+}
+dap.adapters.python = {
+  type = 'executable';
+  command = '*env*/bin/python';
+  args = { '-m', 'debugpy.adapter' };
+}
+vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
+EOF
+nnoremap dh :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <S-k> :lua require'dap'.step_out()<CR>
+nnoremap <S-l> :lua require'dap'.step_into()<CR>
+nnoremap <S-j> :lua require'dap'.step_over()<CR>
+nnoremap ds :lua require'dap'.stop()<CR>
+nnoremap dn :lua require'dap'.continue()<CR>
+nnoremap dk :lua require'dap'.up()<CR>
+nnoremap dj :lua require'dap'.down()<CR>
+nnoremap d_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
+nnoremap dr :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
+nnoremap di :lua require'dap.ui.variables'.hover()<CR>
+vnoremap di :lua require'dap.ui.variables'.visual_hover()<CR>
+nnoremap d? :lua require'dap.ui.variables'.scopes()<CR>
+nnoremap de :lua require'dap'.set_exception_breakpoints({"all"})<CR>
+nnoremap da :lua require'debugHelper'.attach()<CR>
+nnoremap dA :lua require'debugHelper'.attachToRemote()<CR>
+nnoremap di :lua require'dap.ui.widgets'.hover()<CR>
+nnoremap d? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
 
 try
     if has("autocmd")

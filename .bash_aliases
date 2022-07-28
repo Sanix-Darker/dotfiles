@@ -3,6 +3,29 @@
 # export LANG=en_GB.UTF-8
 # export LC_ALL=en_GB.UTF-8
 
+# SOME COLORS
+# RESET
+COLOROFF='\033[0m'       # TEXT RESET
+# REGULAR COLORS
+BLACK='\033[0;30m'        # BLACK
+RED='\033[0;31m'          # RED
+GREEN='\033[0;32m'        # GREEN
+YELLOW='\033[0;33m'       # YELLOW
+BLUE='\033[0;34m'         # BLUE
+PURPLE='\033[0;35m'       # PURPLE
+CYAN='\033[0;36m'         # CYAN
+WHITE='\033[0;37m'        # WHITE
+
+# BOLD
+BBLACK='\033[1;30m'       # BLACK
+BRED='\033[1;31m'         # RED
+BGREEN='\033[1;32m'       # GREEN
+BYELLOW='\033[1;33m'      # YELLOw
+BBLUE='\033[1;34m'        # BLUE
+BPURPLE='\033[1;35m'      # PURPLE
+BCYAN='\033[1;36m'        # CYAN
+BWHITE='\033[1;37m'       # WHITE
+
 # some more ls aliases
 alias ls='exa'
 alias ll='ls -alF'
@@ -145,8 +168,6 @@ _set_dot_files(){
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
-    # we copy our felix config 
-    cpd $DOT_DIR/felix_config.toml ~/.config/felix/config.toml
 
     # we copy our i3 config 
     cpd $DOT_DIR/i3_config ~/.config/i3/config
@@ -185,8 +206,6 @@ _push_dot_files(){
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
-    # copy felix conf
-    cpd ~/.config/felix/config.toml $DOT_DIR/felix_config.toml
     # copy i3 conf
     cpd ~/.config/i3/config $DOT_DIR/i3_config
     cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3lock.sh
@@ -225,15 +244,16 @@ _pull_dot_files(){
 }
 
 _source_dev_stack(){
-    sudo add-apt-repository ppa:deadsnakes/ppa \
-        add-apt-repository ppa:regolith-linux/release \
-        apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
-        add-apt-repository ppa:maarten-fonville/android-studio &&\
-        apt update -y && apt-get update -y
+    sudo add-apt-repository ppa:regolith-linux/release \
+        apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" &&\
+        apt update -y
 }
 
 
 _install_android_studio(){
+    sudo add-apt-repository ppa:maarten-fonville/android-studio -y
+    sudo apt update -y
+
     sudo apt install openjdk-11-jdk \
         android-studio \
         android-tools-adb \
@@ -241,6 +261,7 @@ _install_android_studio(){
 }
 
 _install_vagrant(){
+    sudo apt update -y
     # install virtualbox
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
@@ -255,6 +276,8 @@ _install_vagrant(){
 }
 
 _install_alacritty(){
+    sudo apt update -y
+    curl https://sh.rustup.rs -sSf | sh
     # we install alacritty as our terminal
     sudo apt-get install cmake pkg-config \
         libfreetype6-dev libfontconfig1-dev \
@@ -266,6 +289,8 @@ _install_alacritty(){
 }
 
 _install_path_browsing_utils(){
+    sudo apt update -y
+
     # we install zoxide for fast cd
     curl -sS https://webinstall.dev/zoxide | bash;
     # installing rust and exa (for ls/ll)
@@ -275,14 +300,81 @@ _install_path_browsing_utils(){
     unzip exa-linux-x86_64-0.8.0.zip
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     rm -rf exa*.zip
+}
 
-    # Install FZF
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
 
-    # We install felix (the vim file manager)
-    cargo install felix
+_install_nvim(){
+    echo "[-] Current version : $(nvim --version)"
+    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    sudo chmod +x ./nvim.appimage
+    sudo mv ./nvim.appimage /usr/local/bin/nvim
+    echo "[-] Installed version : $(nvim --version)"
+}
 
+_install_node_stuffs(){
+    sudo apt install nodejs npm -y
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    source ~/.bashrc
+    nvm install stable
+}
+
+_install_grv(){
+    wget -O grv https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
+    chmod +x ./grv && sudo mv ./grv /usr/bin/grv
+}
+
+_install_nvim_and_utils(){
+    sudo apt update -y
+
+    # For neovim we get the latests nightly version
+    _confirm "Install the latest nvim nightly release ?" _install_nvim
+
+    # To install CocInstall, we need nodejs
+    _confirm "Install the nodejs, npm and nvm (usefull for Coc-Server) ? " _install_node_stuffs
+
+    # install a simple git visualizer
+    _confirm "Install a git visualizer for commits, branchs and other stuffs (grv) ? " _install_grv
+}
+
+_install_python_stuffs(){
+    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo apt update -y
+
+    devStack=(
+        "python3-dev" "python3-pip"
+        "python3-setuptools"
+        "python3-testresources"
+        "python3.10-distutils"
+        "python3.10-dev"
+    )
+    for i in "${devStack[@]}"
+    do
+        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
+        sudo apt install $i -y
+    done
+}
+
+# With a given message as input, this function will execute anything
+# after the second argument passed
+# Ex : _confirm "Message" echo "test"
+_confirm(){
+    args=("${@}")
+    echo -e "\n$BLUE[-] ${args[0]} $COLOROFF"
+    read -p "[?] (Y/y): " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        clear
+        echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
+        callback=${args[@]:1}
+        # echo ">>" $callback
+        $callback
+        echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
+    fi
+    echo
+}
+
+
+_install_i3(){
     # to install i3
     sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
@@ -296,46 +388,34 @@ _install_path_browsing_utils(){
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
     # install autolock
-    sudo apt-get install xautolock -y
+    # sudo apt-get install xautolock -y
+}
 
-    # install delta, a amzing tool for diff
-    wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb
+_install_delta(){
+    wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
 }
 
-_install_nvim_and_utils(){
-    # For neovim we get the latests nightly version
-    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    sudo chmod +x ./nvim.appimage
-    sudo mv ./nvim.appimage /usr/local/bin/nvim
-
-    # To install CocInstall, we need nodejs
-    sudo apt install nodejs npm -y
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source ~/.bashrc
-    nvm install stable
-
-    # install a simple git visualizer
-    wget -O grv https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
-    chmod +x ./grv && sudo mv ./grv /usr/bin/grv
+_install_FZF(){
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    ~/.fzf/install
 }
 
-_install_dev_stack(){
-    _source_dev_stack
+_install_locales_lang(){
+    sudo locale-gen en_GB.UTF-8 && \
+    dpkg-reconfigure locales
+}
 
+_install_basics(){
+    sudo add-apt-repository ppa:git-core/ppa -y
     # sudo apt install type
     devStack=(
         "build-essential"
         "software-properties-common"
 
         "tmux" "tmate" "git-lfs"
-        "python3-dev" "python3-pip"
-        "python3-setuptools"
-        "python3-testresources"
-        "python3.10-distutils"
-        "python3.10-dev"
-
-        "zip" "unzip" "curl" "wget"
+        "tar" "zip" "unzip" "curl"
+        "wget" "gcc" "g++"
 
         "docker" "docker-compose"
         "git" "bat" "snap"
@@ -343,41 +423,41 @@ _install_dev_stack(){
     )
     for i in "${devStack[@]}"
     do
-        echo "[-] installing $i..."
+        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt install $i -y
     done
-
-    read -p "Install Path browsing utils ? (Y/y) " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        _install_path_browsing_utils
-    fi
-
+    
     # For a weird perl warning error on locales UTF-8
-    sudo locale-gen en_GB.UTF-8
-    sudo dpkg-reconfigure locales
+    _confirm "Reconfigure locale langs ? " _install_locales_lang
 
-    read -p "Install Nvim stuffs ? (Y/y) " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        _install_nvim_and_utils
-    fi
+    # Install FZF
+    _confirm "Install FZF (require git) ?" _install_FZF
 
-    read -p "Install vagrant stuffs ? (Y/y) " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        _install_vagrant
-    fi
+    # install delta, a amzing tool for diff
+    _confirm "Install delta for diff highlighting ?" _install_delta
+}
 
+_install_extras_stuffs(){
     # the most beautifull downloader
     # and the markdown powerpoint presenter
     sudo snap install slides aria2c
-    
-    read -p "Install alacritty terminal ? (Y/y) " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        _install_alacritty
-    fi
+}
+
+_install_dev_stack(){
+    _source_dev_stack
+
+    _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
+    _confirm "Install python(.10) stuffs ?" _install_python_stuffs
+    _confirm "Install Path browsing utils ?" _install_path_browsing_utils
+    _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
+    _confirm "Install i3 stuffs (heavy | ui) ?" _install_i3
+    _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
+    _confirm "Install alacritty terminal (ui) ?" _install_alacritty
+    _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
+}
+
+_install_help(){
+    cat ~/.bash_aliases | grep "\"Install " | grep "_confirm" | grep "_install_" | cut -b 22-
 }
 
 _help(){
@@ -433,10 +513,6 @@ _back(){
 _only(){
     watch -n 0.5 "$1"
 }
-
-# For the browser in the terminal
-# But with no sessions
-alias b='pkill -f firefox; /usr/bin/browsh_1.6.4_linux_amd64'
 
 _f() (
   [ "$?" != 0 ] && fuck;
@@ -538,10 +614,10 @@ _git_squash(){
 alias tb="nc termbin.com 9999"
 
 # to see pdf on the terminal
-_pff(){
+_pdf(){
     pdftotext -layout "$1" - | less
 }
-alias pff='_pff'
+alias pdf='_pdf'
 
 # For tmux command :
 alias t='tmux'

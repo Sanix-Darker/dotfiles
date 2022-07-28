@@ -82,6 +82,22 @@ Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
 Plug 'voldikss/vim-floaterm'
 
+" For formating the code:
+Plug 'sbdchd/neoformat'
+
+" For debugging, we add dap
+Plug 'mfussenegger/nvim-dap'
+Plug 'Pocco81/DAPInstall.nvim'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'folke/which-key.nvim'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
+" For differences in a file
+Plug 'nvim-lua/plenary.nvim'
+Plug 'sindrets/diffview.nvim'
+
 " For the terminal to be toggle
 " Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
 
