@@ -41,7 +41,7 @@ alias mkdir='mkdir -p'
 # This will create a directory if it doesn't exist
 # And paste into it (cpd instead of normal cp to differentiate those)
 _cpd(){
-    mkdir $(dirname $1) && cp -r $@
+    mkdir "$(dirname ${@: -1})" && cp -r $@
 }
 alias cpd=_cpd
 
@@ -159,12 +159,15 @@ _set_dot_files(){
     done
 
     # for my bash stuffs
-    cpd $DOT_DIR/.bashrc ~/.bashrc
-    cpd $DOT_DIR/.bash_aliases ~/.bash_aliases
-    cpd $DOT_DIR/.bash_logout ~/.bash_logout
+    cpd $DOT_DIR/{.bashrc,.bash_aliases,.bash_logout} ~/
 
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms ~/vagrant/vms
+
+    cpd $DOT_DIR/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
+    cpd $DOT_DIR/ubu_Vagrantfile ~/vagrant/vms/ubu/Vagrantfile
+    cpd $DOT_DIR/win_Vagrantfile ~/vagrant/vms/win/Vagrantfile
+    cpd $DOT_DIR/ubu_arm64_Vagrantfile ~/vagrant/vms/ubu-arm64/Vagrantfile 
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
@@ -185,24 +188,23 @@ _set_dot_files(){
 
 _push_dot_files(){
     # vim stuffs
-    cpd ~/.config/nvim/init.lua $DOT_DIR/init.lua 
-    cpd ~/.config/nvim/config.vim $DOT_DIR/config.vim
-    cpd ~/.config/nvim/plugins.vim $DOT_DIR/plugins.vim
+    cpd ~/.config/nvim/{init.lua,config.vim,plugins.vim} $DOT_DIR/
 
     mkdir $DOT_DIR/autoload $DOT_DIR/colors
     cpd ~/.config/nvim/autoload $DOT_DIR
     cpd ~/.config/nvim/colors $DOT_DIR
 
     # for my bash stuffs
-    cpd ~/.bashrc $DOT_DIR
-    cpd ~/.bash_aliases $DOT_DIR
-    cpd ~/.bash_logout $DOT_DIR
+    cpd ~/{.bashrc,.bash_aliases,.bash_logout} $DOT_DIR/
 
     # other configurations
     cpd ~/.tmux.conf $DOT_DIR
 
     # my vagrant stuffs
-    cpd ~/vagrant/vms $DOT_DIR
+    cpd ~/vagrant/vms/mac/Vagrantfile $DOT_DIR/mac_Vagrantfile
+    cpd ~/vagrant/vms/ubu/Vagrantfile $DOT_DIR/ubu_Vagrantfile
+    cpd ~/vagrant/vms/win/Vagrantfile $DOT_DIR/win_Vagrantfile
+    cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/ubu_arm64_Vagrantfile
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
