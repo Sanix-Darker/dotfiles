@@ -127,6 +127,10 @@ set winbar=%=%m\ %f
 " for the tagbar refresh time
 set updatetime=2
 
+" To keep the statusline only global not per file
+set laststatus=3
+
+
 " To jump into a next error
 try
     nmap <silent> [c :call CocAction('diagnosticNext')<cr>
@@ -258,8 +262,10 @@ xnoremap p pgv
 
 " Disable/Uninstalled for now
 " For floating windows
-nnoremap k :FloatermNew --height=0.9 --width=0.9<CR>
+nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
+nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
+
 " For tagBar jumping
 " nnoremap > :TagbarJumpNext<CR>
 " nnoremap < :TagbarJumpPrev<CR>
