@@ -127,9 +127,6 @@ set winbar=%=%m\ %f
 " for the tagbar refresh time
 set updatetime=2
 
-" set cursorline
-
-
 " To jump into a next error
 try
     nmap <silent> [c :call CocAction('diagnosticNext')<cr>
@@ -147,8 +144,8 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
 
 " For the column scheme
 try
-    syntax on
     colorscheme onedark
+    syntax on
 catch
 endtry
 
@@ -663,8 +660,9 @@ au BufNewFile,BufRead *.js, *.html, *.css,*.vue
 au BufNewFile,BufRead *.rest
     \ set ft=rest
 
-" Highlighting
-" highlight CursorLine ctermbg=0
+" We want everything fold depending on the synthax when we jump into it
+set foldmethod=syntax
+set foldnestmax=1
 
 "Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
@@ -676,7 +674,5 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-if has("autocmd")
-    " To refresh for i3 after the edition of its config file
-    autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
-endif
+" To refresh for i3 after the edition of its config file
+autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
