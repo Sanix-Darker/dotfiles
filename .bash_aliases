@@ -603,6 +603,28 @@ _git_squash(){
 
 }
 
+_get_coworker(){
+    remote_u=(${1//:/ })
+
+    author=${remote_u[0]}
+    branch=${remote_u[1]}
+    current_dir=$(basename $PWD)
+    target="git@github.com:$author/$current_dir"
+
+    echo -e "> author: $BWHITE $author $COLOROFF"
+    echo -e "> branch: $BWHITE $branch $COLOROFF"
+    echo -e "> repo-name: $BWHITE $current_dir $COLOROFF"
+    echo -e "> target-repo: $BWHITE $target $COLOROFF"
+
+    read -p "Those informations are good ? (Y/y): " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        git remote add $author $target
+        git fetch $author
+        git checkout --track $author/$branch
+    fi
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup
