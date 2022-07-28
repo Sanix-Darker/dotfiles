@@ -91,18 +91,17 @@ Plug 'Pocco81/DAPInstall.nvim'
 Plug 'mfussenegger/nvim-dap-python'
 Plug 'leoluz/nvim-dap-go'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'folke/which-key.nvim'
 Plug 'theHamsta/nvim-dap-virtual-text'
+
+" A hinter for next moves
+Plug 'folke/which-key.nvim'
 
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 
-" For the terminal to be toggle
-" Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
-
 " The Zig hightligh & 
-" Plug 'ziglang/zig.vim'
+Plug 'ziglang/zig.vim'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

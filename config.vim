@@ -232,7 +232,8 @@ nnoremap bb :Buffers<CR>
 " For git blame
 nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
-nnoremap hh :GitGutter<CR>
+nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
+nnoremap hn :GitGutterPreviewHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " For command execution from the editot
