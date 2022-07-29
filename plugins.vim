@@ -103,6 +103,9 @@ Plug 'sindrets/diffview.nvim'
 " The Zig hightligh & 
 Plug 'ziglang/zig.vim'
 
+" Just to the ESC
+Plug 'sychen52/smart-term-esc.nvim'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 

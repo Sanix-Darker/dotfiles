@@ -12,4 +12,8 @@ _G.__luacache_config = {
 
 require('which-key').setup()
 require('hop').setup()
+require('smart-term-esc').setup{
+    key='<Esc>',
+    except={'nvim', 'fzf'}
+}
 require('impatient')
