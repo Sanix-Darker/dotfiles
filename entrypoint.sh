@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "\n> $(uname -a)"
+echo -e "\n> $(uname -a)"
 
 # we refresh the our bashrc
 # we install basics stuffs

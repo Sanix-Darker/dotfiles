@@ -1,16 +1,10 @@
 FROM ubuntu:20.04
 
-#Create user `dk`
-RUN useradd -ms /bin/bash dk 
+# We install bash
+RUN apt-get update && apt-get install bash
 
-#Delete `dk` password
-RUN passwd -d dk
+#- - - - - - - - - - - - - - - - - - - -
+COPY .bashrc .bash_aliases /
+COPY . /dotfiles/
 
-#Add sudo privilige to `dk`
-RUN usermod -aG sudo dk
-
-USER dk
-
-COPY entrypoint.sh .bashrc .bash_aliases /
-
-ENTRYPOINT ["bash", "/entrypoint.sh"]
+RUN echo -e "\n> $(uname -a)"
