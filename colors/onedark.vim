@@ -679,7 +679,7 @@ endif
 " set background=dark
 " for transparent background
 function! AdaptColorscheme()
-   highlight clear CursorLine
+   " highlight clear CursorLine
    highlight Normal ctermbg=none
    highlight LineNr ctermbg=none
    highlight Folded ctermbg=none
@@ -692,7 +692,9 @@ autocmd ColorScheme * call AdaptColorscheme()
 
 highlight Normal guibg=NONE ctermbg=NONE
 highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
-highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+set cursorline
+" highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLine cterm=0 ctermbg=NONE ctermfg=NONE
 highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
 highlight clear LineNr
 highlight clear SignColumn

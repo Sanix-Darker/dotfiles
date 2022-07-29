@@ -118,7 +118,8 @@ set wrap "Wrap lines
 set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-set mouse=a
+" set mouse=a
+set mouse=
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.config/nvim/undo
@@ -674,7 +675,7 @@ try
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
         " For the tagbag list of tags
-        au VimEnter,BufRead,BufNewFile,BufWrite * :TagbarOpen
+        au VimEnter,BufRead,BufNewFile * :TagbarOpen
     endif
 catch
 endtry
