@@ -186,7 +186,7 @@ _set_dot_files(){
     cd -
 }
 
-_push_dot_files(){
+_copy_to_dotfiles(){
     # vim stuffs
     cpd ~/.config/nvim/{init.lua,config.vim,plugins.vim} $DOT_DIR/
 
@@ -218,18 +218,19 @@ _push_dot_files(){
 
     # For my git configurations
     cpd ~/.gitconfig $DOT_DIR
+}
+
+_push_dot_files(){
+    _copy_to_dotfiles
+
     cd $DOT_DIR
     # git stash && git pull --prune && git stash pop
-    sleep 1
     git diff && git add -A && git commit -m "feat: updates for $(date)"
 
-    read -p "push those changes on github ? (Y/y) " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        git push;
-    else
-        echo "[x] Not pushed but commited...";
-    fi
+    echo "[-] dotfiles commited !"
+
+    # we push on condition
+    _confirm "[>] Push those changes on github ?" git push
 
     # we return on our previus directory
     cd -
