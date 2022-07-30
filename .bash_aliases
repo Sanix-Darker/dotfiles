@@ -27,7 +27,7 @@ BCYAN='\033[1;36m'        # CYAN
 BWHITE='\033[1;37m'       # WHITE
 
 # some more ls aliases
-alias ls='exa'
+$(command -v exa > /dev/null) && [[ $? == 0 ]] && alias ls='exa'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -35,8 +35,8 @@ alias lss='ls'
 alias sl='ls'
 alias lsc='ls'
 alias ld='ls -d */'
-alias cb='xclip -selection clipboard'
-alias n='nordvpn connect'
+$(command -v xclip > /dev/null) && [[ $? == 0 ]] && alias cb='xclip -selection clipboard'
+$(command -v nordvpn > /dev/null) && [[ $? == 0 ]] && alias n='nordvpn connect'
 alias mkdir='mkdir -p'
 # This will create a directory if it doesn't exist
 # And paste into it (cpd instead of normal cp to differentiate those)
@@ -159,7 +159,7 @@ _set_dot_files(){
     done
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases,.bash_logout} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms ~/vagrant/vms
@@ -195,7 +195,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/colors $DOT_DIR
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases,.bash_logout} $DOT_DIR/
+    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
 
     # other configurations
     cpd ~/.tmux.conf $DOT_DIR
@@ -354,6 +354,8 @@ _install_python_stuffs(){
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt install $i -y
+
+        [[ $? != 0 ]] && echo -e "$RED[x]Error installing $i !!! $COLOROFF"
     done
 }
 
@@ -371,6 +373,9 @@ _confirm(){
         callback=${args[@]:1}
         # echo ">>" $callback
         $callback
+
+        [[ $? != 0 ]] && echo -e "\n$RED[x] Error on '${args[0]}' $COLOROFF\n"
+
         echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
     fi
     echo
@@ -396,6 +401,7 @@ _install_i3(){
 
 _install_delta(){
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
+    sudo chown -R dk ./git-delta_0.12.1_amd64.deb &&\
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
 }
 
@@ -405,8 +411,10 @@ _install_FZF(){
 }
 
 _install_locales_lang(){
-    sudo locale-gen en_GB.UTF-8 && \
-    dpkg-reconfigure locales
+    sudo apt-get install locales -y
+    locale-gen en_GB.UTF-8
+
+    sudo dpkg-reconfigure locales
 }
 
 _install_basics(){
@@ -429,11 +437,15 @@ _install_basics(){
         "docker" "docker-compose"
         "git" "bat" "snap"
         "silversearcher-ag"
+
+        "universal-ctags" "exuberant-ctags"
     )
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt install $i -y
+
+        [[ $? != 0 ]] && echo -e "$RED[x]Error installing $i !!! $COLOROFF"
     done
     
     # For a weird perl warning error on locales UTF-8

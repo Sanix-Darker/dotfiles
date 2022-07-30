@@ -1,10 +1,31 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
-# We install bash
-RUN apt-get update && apt-get install bash
+RUN apt-get update &&\
+    apt-get install -y\
+    apt-utils \
+    bash sudo fuse libfuse2
 
-#- - - - - - - - - - - - - - - - - - - -
-COPY .bashrc .bash_aliases /
-COPY . /dotfiles/
+# Create user `dk`
+RUN useradd -ms /bin/bash dk 
 
-RUN echo -e "\n> $(uname -a)"
+# Delete `dk` password
+RUN passwd -d dk
+
+# Add sudo privilige to `dk`
+RUN usermod -aG sudo dk
+
+RUN mkdir /home/dk/code
+
+COPY . /home/dk/dotfiles/
+COPY .bashrc /home/dk/.bashrc
+COPY .bash_aliases /home/dk/.bash_aliases
+
+# - - - - - - - - - - - - - - - - - - - - -
+
+USER dk
+
+WORKDIR /home/dk/
+RUN . /home/dk/.bashrc
+
+RUN echo "\n> $(uname -a)\n"
+ENTRYPOINT ["/bin/bash"]
