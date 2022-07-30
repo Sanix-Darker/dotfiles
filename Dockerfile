@@ -28,4 +28,9 @@ WORKDIR /home/dk/
 RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
+
+# To well start
+# _install_dev_stack
+# _set_dot_files
+
 ENTRYPOINT ["/bin/bash"]
