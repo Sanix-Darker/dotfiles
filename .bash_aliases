@@ -27,7 +27,7 @@ BCYAN='\033[1;36m'        # CYAN
 BWHITE='\033[1;37m'       # WHITE
 
 # some more ls aliases
-$(command -v exa > /dev/null) && [[ $? == 0 ]] && alias ls='exa'
+alias ls='exa'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -35,8 +35,8 @@ alias lss='ls'
 alias sl='ls'
 alias lsc='ls'
 alias ld='ls -d */'
-$(command -v xclip > /dev/null) && [[ $? == 0 ]] && alias cb='xclip -selection clipboard'
-$(command -v nordvpn > /dev/null) && [[ $? == 0 ]] && alias n='nordvpn connect'
+alias cb='xclip -selection clipboard'
+alias n='nordvpn connect'
 alias mkdir='mkdir -p'
 # This will create a directory if it doesn't exist
 # And paste into it (cpd instead of normal cp to differentiate those)
@@ -99,7 +99,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ls_services='systemctl list-units --type=service'
 alias v='nvim'
 alias nv='nvim'
-# we could use thre trash-cli to rf or rm-rf
+# we could use the trash-cli to rf or rm-rf
 
 # to list trash elements
 _lf(){
@@ -159,11 +159,9 @@ _set_dot_files(){
     done
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases,.bash_logout} ~/
 
     # my vagrant stuffs
-    cpd $DOT_DIR/vagrant/vms ~/vagrant/vms
-
     cpd $DOT_DIR/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
     cpd $DOT_DIR/ubu_Vagrantfile ~/vagrant/vms/ubu/Vagrantfile
     cpd $DOT_DIR/win_Vagrantfile ~/vagrant/vms/win/Vagrantfile
@@ -195,7 +193,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/colors $DOT_DIR
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
+    cpd ~/{.bashrc,.bash_aliases,.bash_logout} $DOT_DIR/
 
     # other configurations
     cpd ~/.tmux.conf $DOT_DIR
@@ -354,8 +352,6 @@ _install_python_stuffs(){
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt install $i -y
-
-        [[ $? != 0 ]] && echo -e "$RED[x]Error installing $i !!! $COLOROFF"
     done
 }
 
@@ -373,9 +369,6 @@ _confirm(){
         callback=${args[@]:1}
         # echo ">>" $callback
         $callback
-
-        [[ $? != 0 ]] && echo -e "\n$RED[x] Error on '${args[0]}' $COLOROFF\n"
-
         echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
     fi
     echo
@@ -401,7 +394,6 @@ _install_i3(){
 
 _install_delta(){
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
-    sudo chown -R dk ./git-delta_0.12.1_amd64.deb &&\
     sudo apt install ./git-delta_0.12.1_amd64.deb -y
 }
 
@@ -411,10 +403,8 @@ _install_FZF(){
 }
 
 _install_locales_lang(){
-    sudo apt-get install locales -y
-    locale-gen en_GB.UTF-8
-
-    sudo dpkg-reconfigure locales
+    sudo locale-gen en_GB.UTF-8 && \
+    dpkg-reconfigure locales
 }
 
 _install_basics(){
@@ -438,14 +428,12 @@ _install_basics(){
         "git" "bat" "snap"
         "silversearcher-ag"
 
-        "universal-ctags" "exuberant-ctags"
+        "trash-cli"
     )
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt install $i -y
-
-        [[ $? != 0 ]] && echo -e "$RED[x]Error installing $i !!! $COLOROFF"
     done
     
     # For a weird perl warning error on locales UTF-8
@@ -671,7 +659,7 @@ alias tkill='tmux kill-server'
 
 # open telegram as tgg
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
-alias com='pkill compton && nohup compton -f &'
+alias com='pkill compton; compton -f &'
 
 # To control the brightness with xrandr
 _xrandr(){

@@ -226,6 +226,8 @@ nnoremap ft :DiffviewFileHistory<CR>
 nnoremap <silent> <F11> :YRShow<CR>
 nnoremap + :vertical resize +5<CR>
 nnoremap _ :vertical resize -5<CR>
+nnoremap = :resize +5<CR>
+nnoremap - :resize -5<CR>
 " Clean and erase the buffer
 nnoremap bbb :%bd\|e#\|bd#<cr>
 " To open buffers
@@ -691,39 +693,39 @@ endtry
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-lua << EOF
-local dap = require('dap')
-dap.adapters.node2 = {
-  type = 'executable',
-  command = 'node',
-  args = {os.getenv('HOME') .. '/apps/vscode-node-debug2/out/src/nodeDebug.js'},
-}
-dap.adapters.python = {
-  type = 'executable';
-  command = '*env*/bin/python';
-  args = { '-m', 'debugpy.adapter' };
-}
-vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
-EOF
-nnoremap dh :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <S-k> :lua require'dap'.step_out()<CR>
-nnoremap <S-l> :lua require'dap'.step_into()<CR>
-nnoremap <S-j> :lua require'dap'.step_over()<CR>
-nnoremap ds :lua require'dap'.stop()<CR>
-nnoremap dn :lua require'dap'.continue()<CR>
-nnoremap dk :lua require'dap'.up()<CR>
-nnoremap dj :lua require'dap'.down()<CR>
-nnoremap d_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
-nnoremap dr :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
-nnoremap di :lua require'dap.ui.variables'.hover()<CR>
-vnoremap di :lua require'dap.ui.variables'.visual_hover()<CR>
-nnoremap d? :lua require'dap.ui.variables'.scopes()<CR>
-nnoremap de :lua require'dap'.set_exception_breakpoints({"all"})<CR>
-nnoremap da :lua require'debugHelper'.attach()<CR>
-nnoremap dA :lua require'debugHelper'.attachToRemote()<CR>
-nnoremap di :lua require'dap.ui.widgets'.hover()<CR>
-nnoremap d? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
+" lua << EOF
+" local dap = require('dap')
+" dap.adapters.node2 = {
+"   type = 'executable',
+"   command = 'node',
+"   args = {os.getenv('HOME') .. '/apps/vscode-node-debug2/out/src/nodeDebug.js'},
+" }
+" dap.adapters.python = {
+"   type = 'executable';
+"   command = '*env*/bin/python';
+"   args = { '-m', 'debugpy.adapter' };
+" }
+" vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+" vim.fn.sign_define('DapStopped', {text='⭐️', texthl='', linehl='', numhl=''})
+" EOF
+" nnoremap dh :lua require'dap'.toggle_breakpoint()<CR>
+" nnoremap <S-k> :lua require'dap'.step_out()<CR>
+" nnoremap <S-l> :lua require'dap'.step_into()<CR>
+" nnoremap <S-j> :lua require'dap'.step_over()<CR>
+" nnoremap ds :lua require'dap'.stop()<CR>
+" nnoremap dn :lua require'dap'.continue()<CR>
+" nnoremap dk :lua require'dap'.up()<CR>
+" nnoremap dj :lua require'dap'.down()<CR>
+" nnoremap d_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
+" nnoremap dr :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
+" nnoremap di :lua require'dap.ui.variables'.hover()<CR>
+" vnoremap di :lua require'dap.ui.variables'.visual_hover()<CR>
+" nnoremap d? :lua require'dap.ui.variables'.scopes()<CR>
+" nnoremap de :lua require'dap'.set_exception_breakpoints({"all"})<CR>
+" nnoremap da :lua require'debugHelper'.attach()<CR>
+" nnoremap dA :lua require'debugHelper'.attachToRemote()<CR>
+" nnoremap di :lua require'dap.ui.widgets'.hover()<CR>
+" nnoremap d? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
 
 try
     if has("autocmd")

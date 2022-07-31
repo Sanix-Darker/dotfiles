@@ -182,7 +182,7 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # nmcli device wifi connect 12:32:22:AE:11
 
 # My beloved default background
-$(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg.jpg
+$(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
 # _check_polybar_process(){
 #     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]

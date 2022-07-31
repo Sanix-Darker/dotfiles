@@ -227,7 +227,7 @@ exec "/usr/bin/compton -f &"
 # xprop to get the winfdow informations
 
 # For my backgound
-exec feh --bg-fill ~/bg.jpg
+exec feh --bg-fill ~/bg2.jpg
 
 # Désactive capslock
 # exec --no-startup-id setxkbmap -option caps:none
