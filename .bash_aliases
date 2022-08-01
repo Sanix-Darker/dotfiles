@@ -137,6 +137,7 @@ _set_dot_files(){
     cpd $DOT_DIR/init.lua ~/.config/nvim/
     cpd $DOT_DIR/config.vim ~/.config/nvim/
     cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
+
     mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
     cpd $DOT_DIR/autoload  ~/.config/nvim/
     cpd $DOT_DIR/colors ~/.config/nvim/
@@ -151,6 +152,8 @@ _set_dot_files(){
     coc_servers=(
         "coc-json" "coc-html" "coc-css" "coc-sh"
         "coc-pyright" "coc-go" "coc-tsserver"
+        "coc-snippets" "coc-prettier" "coc-phpls"
+        "coc-eslint" "coc-vetur" "coc-clang"
     )
     for i in "${coc_servers[@]}"
     do
@@ -159,7 +162,7 @@ _set_dot_files(){
     done
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases,.bash_logout} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
     cpd $DOT_DIR/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
@@ -193,7 +196,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/colors $DOT_DIR
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases,.bash_logout} $DOT_DIR/
+    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
 
     # other configurations
     cpd ~/.tmux.conf $DOT_DIR

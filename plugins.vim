@@ -4,86 +4,70 @@
 " auto install vim-plug and plugins:
 "
 call plug#begin('~/.config/nvim/plugged')
-
 " On-demand loading
 Plug 'preservim/nerdtree'
-
 " The wakatime plugin
 Plug 'wakatime/vim-wakatime'
-
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
-
 " to search inside files
 Plug 'mileszs/ack.vim'
-
 " To add comments
 Plug 'tpope/vim-commentary'
-
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
-
 " vim-airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go'
-
 " Plugin options
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
-
 " Plugin outside ~/.vim/plugged with post-update hook
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 
 " For code folding
 Plug 'tmhedberg/SimpylFold'
-
 " For log hightlighting
 Plug 'mtdl9/vim-log-highlighting'
-
 " For the git diff/git blame
 Plug 'zivyangll/git-blame.vim'
-
 " For the gitbutter (live git diff on changes)
 Plug 'airblade/vim-gitgutter'
-
 " For dev-icons
 Plug 'ryanoasis/vim-devicons'
-
 " For hichlight all occurences
 " Of the current word where we have the cursor
 Plug 'itchyny/vim-cursorword'
-
 " For CSS color
 Plug 'ap/vim-css-color'
-
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
-
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
-
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
-
 " get strucure of the code classes and functions
 Plug 'https://github.com/preservim/tagbar'
-" Same as tagbar but more precise
-" Plug 'liuchengxu/vista.vim'
-
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
-
 " For popUp all over the place
 Plug 'voldikss/vim-floaterm'
-
 " For formating the code:
 Plug 'sbdchd/neoformat'
+" A hinter for next moves
+Plug 'folke/which-key.nvim'
+" For differences in a file
+Plug 'nvim-lua/plenary.nvim'
+Plug 'sindrets/diffview.nvim'
+" The Zig hightligh & 
+Plug 'ziglang/zig.vim'
+" Just to the ESC
+Plug 'sychen52/smart-term-esc.nvim'
 
 " For debugging, we add dap
 Plug 'mfussenegger/nvim-dap'
@@ -92,19 +76,6 @@ Plug 'mfussenegger/nvim-dap-python'
 Plug 'leoluz/nvim-dap-go'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
-
-" A hinter for next moves
-Plug 'folke/which-key.nvim'
-
-" For differences in a file
-Plug 'nvim-lua/plenary.nvim'
-Plug 'sindrets/diffview.nvim'
-
-" The Zig hightligh & 
-Plug 'ziglang/zig.vim'
-
-" Just to the ESC
-Plug 'sychen52/smart-term-esc.nvim'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
