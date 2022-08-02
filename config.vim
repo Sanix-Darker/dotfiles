@@ -236,7 +236,7 @@ nnoremap bb :Buffers<CR>
 nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
 nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
-nnoremap hn :GitGutterPreviewHunk<CR>
+nnoremap ? :GitGutterPreviewHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " For command execution from the editot
@@ -267,8 +267,8 @@ nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
 
 " For tagBar jumping
-" nnoremap > :TagbarJumpNext<CR>
-" nnoremap < :TagbarJumpPrev<CR>
+nnoremap >> :TagbarJumpNext<CR>
+nnoremap << :TagbarJumpPrev<CR>
 
 " # For the fzf preview
 " let g:fzf_preview_window = ['right:50%', 'ctrl-/']
@@ -699,6 +699,7 @@ nnoremap <S-l> :lua require'dap'.step_into()<CR>
 nnoremap <S-j> :lua require'dap'.step_over()<CR>
 nnoremap DS :lua require'dap'.close()<CR>
 nnoremap DN :lua require'dap'.continue()<CR>
+nnoremap DUI :lua require'dapui'.toggle()<CR>
 nnoremap DK :lua require'dap'.up()<CR>
 nnoremap DJ :lua require'dap'.down()<CR>
 nnoremap D_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>

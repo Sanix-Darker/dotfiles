@@ -21,6 +21,32 @@
     light = false
 
 [alias]
+    ; just an alias for some misses on git status
+    stats = !git status
+    stast = !git status
+    stas = !git status
+    stauts = !git status
+    staus = !git status
+    statis = !git status
+
+    ; to create a new PR
+    pr = !EDITOR=nvim gh pr create
+
+    ; to list all available pull requests
+    pr-list = !gh pr list
+
+    ; to create a new Issur
+    issue = !EDITOR=nvim gh issue create
+
+    ; to list all vailable issues
+    issue-list = !gh issue list
+
+    ; to view an Issue
+    issue-view = !gh issue view
+
+    ; to view an Issue
+    issue-comment = !EDITOR=nvim gh issue comment -e
+
     ; to generate a new patch from changes
     ; git patch-put -1 <sha>
     ; git patch-put -1 HEAD

@@ -428,7 +428,7 @@ _install_basics(){
         "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
-        "git" "bat" "snap"
+        "git" "hub" "bat" "snap"
         "silversearcher-ag"
 
         "trash-cli"
