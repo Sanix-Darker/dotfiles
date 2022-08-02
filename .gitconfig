@@ -29,6 +29,9 @@
     staus = !git status
     statis = !git status
 
+    ; To use pr
+    ; pr auth login to authenticate it !
+    ; You can use ssh or https, but; it's better to use ssh one
     ; to create a new PR
     pr = !EDITOR=nvim gh pr create
 
@@ -36,6 +39,7 @@
     pr-list = !gh pr list
 
     ; to list all available pull requests
+    ; Ex: git pr-view 23
     pr-view = !gh pr view
 
     ; to create a new Issur
@@ -45,6 +49,7 @@
     issue-list = !gh issue list
 
     ; to view an Issue
+    ; Ex: git issue-view 23
     issue-view = !gh issue view
 
     ; to view an Issue
