@@ -35,6 +35,9 @@
     ; to list all available pull requests
     pr-list = !gh pr list
 
+    ; to list all available pull requests
+    pr-view = !gh pr view
+
     ; to create a new Issur
     issue = !EDITOR=nvim gh issue create
 
