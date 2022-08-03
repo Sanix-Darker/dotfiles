@@ -55,6 +55,16 @@
     ; to view an Issue
     issue-comment = !EDITOR=nvim gh issue comment -e
 
+    ; To clone a sub directory from a random project
+    ; git clone-sub directory1 https://github.com/author/repo 
+    ; Or from a specific branch
+    ; git clone-sub directory1 https://github.com/author/repo  
+    clone-sub = !bash -c 'source $HOME/.bash_aliases && _git_clone_sub "$@"' -s
+
+    ; to cat inside a code state for a given line, commit and file as parameter
+    ; ideal to run just after the git search
+    open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
+
     ; to generate a new patch from changes
     ; git patch-put -1 <sha>
     ; git patch-put -1 HEAD
@@ -62,6 +72,9 @@
     ; to get a new patch from file
     ; git patch-get file.patch
     patch-get = !git am < $@
+
+    ; to get remote coworker's code
+    pull-coworker = !bash -c 'source $HOME/.bash_aliases && _git_coworker "$1"' -s
 
     ; git fork-set-upstream <git-repo-link>
     fork-set-upstream = !git remote add upstream

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Locales
 # export LANGUAGE=en_GB.UTF-8
 # export LANG=en_GB.UTF-8
@@ -534,18 +536,13 @@ alias x='xdg-open .'
 
 # _git_search "function name"
 _git_search(){
-    echo "[-] Searching for '${1}' in this repo..."
-    sleep 2
-    # We less in the list of results
     # a smart git command to get commit, file and line where
     # the string is available
     git rev-list --all | (
         while read revision; do
             git grep -n -F "${1}" $revision
         done
-    ) > ${HOME}/.gf-out
-
-    less ${HOME}/.gf-out
+    ) | less
 }
 
 # __git_open_code "function name"
@@ -560,15 +557,15 @@ _git_open_code(){
     line=${arr[2]}
 
     # some verbose
-    echo "[-] Moving on commit : $commit" && sleep 1
-    echo "[-] Moving on file : $file" && sleep 1
-    echo "[-] Moving on line : $line" && sleep 1
+    echo "[-] Moving on commit : $commit"
+    echo "[-] Moving on file : $file"
+    echo "[-] Moving on line : $line"
 
     # A checkout on the commit then a less on the line of the file
     git checkout "$commit"
-    less +"$line" "$file"
+    cat +"$line" "$file"
 
-    sleep 2
+    sleep 1
     echo "\n[-] Rolling back to your precedent branch..."
     # comming back to reality
     git checkout "$branch"
@@ -592,9 +589,17 @@ _git_clone_sub(){
     # Specipy the sub directory
     echo "$1/*" >> .git/info/sparse-checkout
 
-    # then get it, the depth is the way too far wher you can go...
-    git pull origin master
-
+    # we check if the branch is passed as the third parameter
+    # if yes, then it will pull for that branch
+    if [ -n "$3" ]; then
+        git pull origin $3
+        git checkout $3
+    else
+        # if no branch is provided, it will try to pull from main
+        # and if it fails, it will try to pull from master branch
+        git pull origin main
+        [[ $? != 0 ]] && git pull origin master
+    fi
 }
 
 _git_squash(){
@@ -613,7 +618,7 @@ _git_squash(){
 
 }
 
-_get_coworker(){
+_git_coworker(){
     remote_u=(${1//:/ })
 
     author=${remote_u[0]}
@@ -662,7 +667,7 @@ alias tkill='tmux kill-server'
 
 # open telegram as tgg
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
-alias com='pkill compton; compton -f &'
+alias com='pkill compton; compton -f & > /dev/null;'
 
 # To control the brightness with xrandr
 _xrandr(){
