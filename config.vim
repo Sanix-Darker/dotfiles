@@ -85,7 +85,7 @@ set encoding=utf8
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 " To keep the cursor on block
-" set guicursor=i:block
+set guicursor=i:block
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
 set nowb
@@ -118,8 +118,8 @@ set wrap "Wrap lines
 set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-" set mouse=a
-set mouse=
+" set mouse= to disable the mouse
+set mouse=a
 " Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.config/nvim/undo
@@ -236,7 +236,9 @@ nnoremap bb :Buffers<CR>
 nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
 nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
-nnoremap / :GitGutterPreviewHunk<CR>
+nnoremap <C-Space> :GitGutterPreviewHunk<CR>
+nnoremap hn :GitGutterNextHunk<CR>
+nnoremap hp :GitGutterPrevHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " For command execution from the editot
@@ -677,7 +679,7 @@ try
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
         " For the tagbag list of tags
-        au VimEnter,BufRead,BufNewFile * :TagbarOpen
+        au VimEnter,BufRead * :TagbarOpen
     endif
 catch
 endtry

@@ -21,14 +21,6 @@
     light = false
 
 [alias]
-    ; just an alias for some misses on git status
-    stats = !git status
-    stast = !git status
-    stas = !git status
-    stauts = !git status
-    staus = !git status
-    statis = !git status
-
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
