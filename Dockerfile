@@ -29,6 +29,9 @@ RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
 
+
+EXPOSE 2000-9999
+
 # To well start
 # _install_dev_stack
 # _set_dot_files
