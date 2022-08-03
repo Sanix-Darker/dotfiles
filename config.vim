@@ -262,6 +262,10 @@ nnoremap no :nohlsearch<CR>
 " stuff or use P for the default behaviour
 xnoremap p pgvy
 
+" To delete directly the current line
+xnoremap X dd
+nnoremap X dd
+
 " Disable/Uninstalled for now
 " For floating windows
 nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
