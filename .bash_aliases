@@ -365,16 +365,22 @@ _install_python_stuffs(){
 # Ex : _confirm "Message" echo "test"
 _confirm(){
     args=("${@}")
-    echo -e "\n$BLUE[-] ${args[0]} $COLOROFF"
-    read -p "[?] (Y/y): " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
-        clear
+    if [[ $NOTINTERACTIVE = "1" ]]; then
         echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
         callback=${args[@]:1}
-        # echo ">>" $callback
         $callback
-        echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
+    else
+        echo -e "\n$BLUE[-] ${args[0]} $COLOROFF"
+        read -p "[?] (Y/y): " -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            clear
+            echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
+            callback=${args[@]:1}
+            # echo ">>" $callback
+            $callback
+            echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
+        fi
     fi
     echo
 }

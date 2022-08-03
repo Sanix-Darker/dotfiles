@@ -29,10 +29,6 @@ RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
 
-# To install dev stuffs
-RUN NOTINTERACTIVE=1 _install_basic
-RUN NOTINTERACTIVE=1 _install_path_browsing_utils
-RUN NOTINTERACTIVE=1 _install_nvim_and_utils
 
 EXPOSE 2000-9999
 
