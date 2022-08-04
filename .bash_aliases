@@ -131,19 +131,18 @@ alias services='systemctl list-units --type=service'
 
 ## dotfiles management
 DOT_DIR="$HOME/dotfiles"
-
-_set_nvim(){
+# Assuming we already have the dotfiles directory
+# on our workspace
+_set_dot_files(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cp $DOT_DIR/init.lua ~/.config/nvim/
-    cp $DOT_DIR/config.vim ~/.config/nvim/
-    cp $DOT_DIR/plugins.vim  ~/.config/nvim/
+    cpd $DOT_DIR/init.lua ~/.config/nvim/
+    cpd $DOT_DIR/config.vim ~/.config/nvim/
+    cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
 
     mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
-    cp $DOT_DIR/autoload  ~/.config/nvim/
-    cp $DOT_DIR/colors ~/.config/nvim/
-
-    modprobe fuse
+    cpd $DOT_DIR/autoload  ~/.config/nvim/
+    cpd $DOT_DIR/colors ~/.config/nvim/
 
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -163,12 +162,6 @@ _set_nvim(){
         echo "[-] Nvim CocInstall $i..."
         nvim --headless +"CocInstall $1" +qall
     done
-}
-
-# Assuming we already have the dotfiles directory
-# on our workspace
-_set_dot_files(){
-    _set_nvim
 
     # for my bash stuffs
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
@@ -259,27 +252,27 @@ _pull_dot_files(){
 _source_dev_stack(){
     sudo add-apt-repository ppa:regolith-linux/release \
         apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" &&\
-        apt update -y
+        apt-get update -y
 }
 
 
 _install_android_studio(){
     sudo add-apt-repository ppa:maarten-fonville/android-studio -y
-    sudo apt update -y
+    sudo apt-get update -y
 
-    sudo apt install openjdk-11-jdk \
+    sudo apt-get install openjdk-11-jdk \
         android-studio \
         android-tools-adb \
         android-tools-fastboot
 }
 
 _install_vagrant(){
-    sudo apt update -y
+    sudo apt-get update -y
     # install virtualbox
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
-    sudo apt install virtualbox-6.1 -y
+    sudo apt-get install virtualbox-6.1 -y
     wget https://download.virtualbox.org/virtualbox/6.1.8/Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
     sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
 
@@ -289,7 +282,7 @@ _install_vagrant(){
 }
 
 _install_alacritty(){
-    sudo apt update -y
+    sudo apt-get update -y
     curl https://sh.rustup.rs -sSf | sh
     # we install alacritty as our terminal
     sudo apt-get install cmake pkg-config \
@@ -302,7 +295,7 @@ _install_alacritty(){
 }
 
 _install_path_browsing_utils(){
-    sudo apt update -y
+    sudo apt-get update -y
 
     # we install zoxide for fast cd
     curl -sS https://webinstall.dev/zoxide | bash;
@@ -325,33 +318,24 @@ _install_nvim(){
 }
 
 _install_node_stuffs(){
-    sudo apt install nodejs npm -y
+    sudo apt-get install nodejs npm -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source $HOME/.bashrc
     nvm install stable
 }
 
-_install_grv(){
-    wget -O grv https://github.com/rgburke/grv/releases/download/v0.3.2/grv_v0.3.2_linux64
-    chmod +x ./grv && sudo mv ./grv /usr/bin/grv
-}
-
 _install_nvim_and_utils(){
-    sudo apt update -y
+    sudo apt-get update -y
 
     # For neovim we get the latests nightly version
     _confirm "Install the latest nvim nightly release ?" _install_nvim
 
     # To install CocInstall, we need nodejs
     _confirm "Install the nodejs, npm and nvm (usefull for Coc-Server) ? " _install_node_stuffs
-
-    # install a simple git visualizer
-    _confirm "Install a git visualizer for commits, branchs and other stuffs (grv) ? " _install_grv
 }
 
 _install_python_stuffs(){
     sudo add-apt-repository ppa:deadsnakes/ppa -y
-    sudo apt update -y
+    sudo apt-get update -y
 
     devStack=(
         "python3-dev" "python3-pip"
@@ -363,7 +347,7 @@ _install_python_stuffs(){
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt install $i -y
+        sudo apt-get install $i -y
     done
 }
 
@@ -395,7 +379,7 @@ _confirm(){
 
 _install_i3(){
     # to install i3
-    sudo apt install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
+    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
         libxcb-cursor-dev xutils-dev libtool automake autoconf gcc make pkg-config libpam0g-dev libcairo2-dev \
         libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev \
@@ -403,7 +387,7 @@ _install_i3(){
         libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
-    sudo apt install i3-gaps mpv feh rofi arandr -y
+    sudo apt-get install i3-gaps mpv feh rofi arandr -y
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
     # install autolock
@@ -412,12 +396,12 @@ _install_i3(){
 
 _install_delta(){
     wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
-    sudo apt install ./git-delta_0.12.1_amd64.deb -y
+    sudo apt-get install ./git-delta_0.12.1_amd64.deb -y
 }
 
 _install_FZF(){
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
-    yes | ~/.fzf/install --all
+    ~/.fzf/install
 }
 
 _install_locales_lang(){
@@ -427,19 +411,20 @@ _install_locales_lang(){
 
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
-    sudo apt update -y
-    # sudo apt install type
-    devStack=(
-        "wget" "curl" "apt-transport-https"
-        "lsb-release" "ca-certificates"
-        "gnupg" "zip" "unzip"
-        
-        "gcc" "g++" "make"
-        "build-essential"
 
+    sudo apt-get update -y
+
+    # sudo apt-get install type
+    devStack=(
+        "build-essential"
         "software-properties-common"
 
+        "curl" "apt-transport-https"
+        "lsb-release" "ca-certificates"
+
         "tmux" "tmate" "git-lfs"
+        "tar" "zip" "unzip" "curl"
+        "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
         "git" "hub" "bat" "snap"
@@ -450,7 +435,7 @@ _install_basics(){
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt install $i -y
+        sudo apt-get install $i -y
     done
     
     # For a weird perl warning error on locales UTF-8
