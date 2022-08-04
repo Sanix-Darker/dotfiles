@@ -135,16 +135,15 @@ DOT_DIR="$HOME/dotfiles"
 _set_nvim(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/init.lua ~/.config/nvim/
-    cpd $DOT_DIR/config.vim ~/.config/nvim/
-    cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
+    cp $DOT_DIR/init.lua ~/.config/nvim/
+    cp $DOT_DIR/config.vim ~/.config/nvim/
+    cp $DOT_DIR/plugins.vim  ~/.config/nvim/
 
     mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
-    cpd $DOT_DIR/autoload  ~/.config/nvim/
-    cpd $DOT_DIR/colors ~/.config/nvim/
+    cp $DOT_DIR/autoload  ~/.config/nvim/
+    cp $DOT_DIR/colors ~/.config/nvim/
 
     sudo apt-get install kmod -y
-    modprobe fuse
 
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -161,8 +160,10 @@ _set_nvim(){
     )
     for i in "${coc_servers[@]}"
     do
+        modprobe fuse
         echo "[-] Nvim CocInstall $i..."
         nvim --headless +"CocInstall $1" +qall
+        modprobe fuse
     done
 }
 
