@@ -200,28 +200,28 @@ nnoremap to :tabonly<CR>
 nnoremap tc :tabclose<CR>
 " nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 " For the history of the file, where you at
-nnoremap mm :MundoToggle<cr>
+nnoremap MM :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
-nnoremap fg :Ag<CR>
+nnoremap FG :Ag<CR>
 
 " To format the code
-nnoremap fv :Neoformat<CR>
+nnoremap FV :Neoformat<CR>
 
 " To jump fastly on a word
-nnoremap jj :HopWord<CR>
+nnoremap JJ :HopWord<CR>
 
 " To search in the current files
 " Most efficient than the ? or /
-nnoremap ll :Lines<CR>
+nnoremap LL :Lines<CR>
 " For hidden files of fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " For the file search
-nnoremap ff :FZF<cr>
+nnoremap FF :FZF<cr>
 " For Tagbar, the structure of code
-nnoremap bg :TagbarToggle<CR>
+nnoremap BG :TagbarToggle<CR>
 " To get the diffview history of the repo
-nnoremap ft :DiffviewFileHistory<CR>
+nnoremap FT :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
 nnoremap <silent> <F11> :YRShow<CR>
 nnoremap + :vertical resize +5<CR>
@@ -231,14 +231,14 @@ nnoremap - :resize -5<CR>
 " Clean and erase the buffer
 nnoremap bbb :%bd\|e#\|bd#<cr>
 " To open buffers
-nnoremap bb :Buffers<CR>
+nnoremap BB :Buffers<CR>
 " For git blame
-nnoremap b :GitBlame<CR>
+nnoremap B :GitBlame<CR>
 " To get +/- on changes inside a file from a project
-nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
+nnoremap HH :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
 nnoremap <C-Space> :GitGutterPreviewHunk<CR>
-nnoremap hn :GitGutterNextHunk<CR>
-nnoremap hp :GitGutterPrevHunk<CR>
+nnoremap HN :GitGutterNextHunk<CR>
+nnoremap HP :GitGutterPrevHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " For command execution from the editot
@@ -268,9 +268,9 @@ nnoremap X dd
 
 " Disable/Uninstalled for now
 " For floating windows
-nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
-nnoremap kkk :FloatermKill<CR>
-nnoremap kk :FloatermToggle<CR>
+nnoremap NK :FloatermNew --height=0.9 --width=0.9<CR>
+nnoremap KKK :FloatermKill<CR>
+nnoremap KK :FloatermToggle<CR>
 
 " For tagBar jumping
 nnoremap >> :TagbarJumpNext<CR>
