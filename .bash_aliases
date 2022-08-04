@@ -417,7 +417,7 @@ _install_delta(){
 
 _install_FZF(){
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
-    ~/.fzf/install
+    yes | ~/.fzf/install --all
 }
 
 _install_locales_lang(){

@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 RUN apt-get update &&\
     apt-get install -y\
@@ -27,9 +27,13 @@ RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
     _install_nvim_and_utils'
 
 # We set some dotfiles
-RUN /bin/bash -c 'source /home/dk/.bash_aliases && _set_nvim'
-
-# - - - - - - - - - - - - - - - - - - - - -
+RUN apt-get update -y &&\
+    sudo modprobe fuse &&\
+    /bin/bash -c 'NOTINTERACTIVE=1 &&\
+    source /home/dk/.bash_aliases &&\
+    _set_nvim'
+                                                   
+# - - - - - - - - - - - - - - - - - - - - -        
 
 USER dk
 
