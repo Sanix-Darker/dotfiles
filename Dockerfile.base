@@ -1,31 +1,36 @@
 FROM ubuntu:22.04
 
+ENV USER=dk
+
 RUN apt-get update &&\
     apt-get install -y\
     apt-utils \
-    bash sudo fuse libfuse2
+    bash sudo fuse libfuse2 \
+    software-properties-common
 
-# Create user `dk`
-RUN useradd -ms /bin/bash dk 
+RUN apt-get update
 
-# Delete `dk` password
-RUN passwd -d dk
+# Create user `$USER`
+RUN useradd -ms /bin/bash $USER 
 
-# Add sudo privilige to `dk`
-RUN usermod -aG sudo dk
+# Delete `$USER` password
+RUN passwd -d $USER
 
-RUN mkdir /home/dk/code
+# Add sudo privilige to `$USER`
+RUN usermod -aG sudo $USER
 
-COPY . /home/dk/dotfiles/
-COPY .bashrc /home/dk/.bashrc
-COPY .bash_aliases /home/dk/.bash_aliases
+RUN mkdir /home/$USER/code
+
+COPY . /home/$USER/dotfiles/
+COPY .bashrc /home/$USER/.bashrc
+COPY .bash_aliases /home/$USER/.bash_aliases
 
 # - - - - - - - - - - - - - - - - - - - - -
 
-USER dk
+USER $USER
 
-WORKDIR /home/dk/
-RUN . /home/dk/.bashrc
+WORKDIR /home/$USER/
+RUN . /home/$USER/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
 

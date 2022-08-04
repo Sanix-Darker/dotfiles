@@ -1,0 +1,20 @@
+*__pycache__
+*/*__pycache__
+tmux/plugins/
+*env
+*.pyc
+**/.vagrant
+alacritty/theme/.github
+*.cmd_history
+*/*.cmd_history
+*.git
+*/*.git
+*/*/*.git
+*.log
+# we may not want to ignore polybar for now... ?
+# i want to ignore everything inside polybar
+# except what i listed here
+# polybar/*
+# !polybar/config.ini
+# !polybar/launch.sh
+# !polybar/weather.sh

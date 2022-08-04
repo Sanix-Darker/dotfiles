@@ -56,7 +56,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
 new_line() {
     printf "\n$ "
 }
@@ -69,21 +68,21 @@ parse_git_branch() {
 
 if [ "$color_prompt" = yes ]; then
     # for the host it's @\h\[\033[00m\]
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch)$(new_line)'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch) $(new_line)'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\ $ '
 fi
 unset color_prompt force_color_prompt
 
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# # If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -114,6 +113,57 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.bash-preexec.sh ]; then
+    # Source our file to bring it into our environment
+    source ~/.bash-preexec.sh
+fi
+
+convertAndPrintSeconds() {
+    local totalSeconds=$1;
+    local seconds=$((totalSeconds%60));
+    local minutes=$((totalSeconds/60%60));
+    local hours=$((totalSeconds/60/60%24));
+    local days=$((totalSeconds/60/60/24));
+    (( $days > 0 )) && printf '%dd ' $days;
+    (( $hours > 0 )) && printf '%dh:' $hours;
+    (( $minutes > 0 )) && printf '%dm:' $minutes;
+    (( $days > 0 || $hours > 0 || $minutes > 0 ));
+    printf '%ds\n' $seconds;
+}
+
+_handle_cmd_history(){
+    CMD_HISTORY_FILE=$PWD/.cmd_history
+    LATEST_LINES_TO_SHOW=30
+
+    if [ -f $CMD_HISTORY_FILE ]; then
+        echo $@ >> $CMD_HISTORY_FILE
+
+        # COUNT_LINES_HISTORY=$(wc -l $CMD_HISTORY_FILE | sed -e "s/[^0-9]*//g")
+        # if [ "$COUNT_LINES_HISTORY" -gt "$LATEST_LINES_TO_SHOW" ]; then
+            tail -n $LATEST_LINES_TO_SHOW $CMD_HISTORY_FILE | uniq > "$CMD_HISTORY_FILE.tmp"
+            mv "$CMD_HISTORY_FILE.tmp" $CMD_HISTORY_FILE
+        # fi;
+    else
+        echo $@ > $CMD_HISTORY_FILE
+    fi;
+}
+
+# Define a couple functions.
+preexec() {
+    # before all my bash commands lines, it will execute this
+    command_timer_start=$SECONDS
+
+    # To handle the command history of a directory
+    _handle_cmd_history $@
+}
+precmd() {
+    second_to_print=$(( SECONDS - command_timer_start ))
+    # after all my bash  commands, this will be executed
+    echo -e "\\033[33;1m^$( convertAndPrintSeconds $second_to_print )\\033[0m"
+    # we reset this value
+    command_timer_start=$SECONDS
+}
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -135,24 +185,33 @@ export NVM_DIR="$HOME/.nvm"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$PATH:/usr/local/go/src/src
+# export PATH=$PATH:/usr/local/go/src/src
+export PATH=$PATH:$HOME/go/src
+export PATH=$PATH:/usr/local/groovy/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# We want to help jedi select the 
+# For clang
+export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
+# We want to help jedi select the
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir
 # then set it or use the default one
 export PYTHONPATH="$PYTHONPATH:$(which python3)"
+
+# ~/.tmux/plugins
+# export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+# ~/.config/tmux/plugins
+# export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -165,45 +224,76 @@ export PYTHONPATH="$PYTHONPATH:$(which python3)"
 $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && eval "$(zoxide init bash)"
 
 # For fuck pypi package so that my command never fail
-$(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
+# $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 
 # We first check if this repository exist before source it
 [[ -d "$HOME/.config/broot/launcher/bash/" ]] && source $HOME/.config/broot/launcher/bash/br
 
 # compton for opacity on terminal
-# $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &  
+# $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &
 
 # set the bluetooth for my earphone
-# bluetoothctl devices 
-# bluetoothctl connect 6E:47:D9:FA:BA:44
+# bluetoothctl scan on
+# bluetoothctl devices
+# bluetoothctl connect 6E:47:D9:FA:BA:44 # soundCore
+# bluetoothctl connect 56:E1:6D:80:B4:27 # box bluethooth
 
-# set the wifi 
+# set the wifi
 # nmcli dev wifi
 # nmcli device wifi connect 12:32:22:AE:11
 
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
-# _check_polybar_process(){
-#     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
-# }
+_start_polybar(){
+    # if type "xrandr" > /dev/null; then
+    #     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    #         MONITOR=$m nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+    #     done
+    # else
+    #     nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+    # fi
 
-# # polybar --reload -c ~/.config/polybar/config.ini &
-# # start polybar
-# if type "xrandr" > /dev/null; then
-#   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-#     _check_polybar_process && \
-#     MONITOR=$m polybar --reload example &
-#   done
-# else
-#     _check_polybar_process && \
-#     polybar --reload example &
-# fi
+    # start polybar only for the current window !
+    echo "Starting polybar..."
+    nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+}
+
+_start_compton(){
+    echo "Starting compton..."
+    nohup compton -f & > /dev/null
+}
+
+_start_greenclip(){
+    echo "Starting greenclip..."
+    nohup greenclip daemon & > /dev/null
+}
+
+_gogo(){
+    pkill polybar; _start_polybar
+    pkill compton; _start_compton
+    pkill greenclip; _start_greenclip
+}
+
+# to be honnest i don't need the capslock
+# so this is to disable it
+# xmodmap -e "remove lock = Caps_Lock"
 
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 
-gggf(){
-    echo "xxx $1"
-}
+alias luamake=/luamake #FIXME : what the fuck is this ? when did i added it ? maybe should remove later
 
+export PATH="$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
+. "$HOME/.cargo/env"
+
+# we set the .config/ dir
+export XDG_CONFIG_HOME=$HOME/.config/
+
+# tmux check for popUp display of $HOME/fzfp
+export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
+export TMUX_POPUP_WIDTH=80%
+
+# for gpg keys and everything ... ssh-add
+# ssh-add ...
+alias expose="$HOME/expose"
