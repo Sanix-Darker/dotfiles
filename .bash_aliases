@@ -307,10 +307,10 @@ _install_path_browsing_utils(){
     # installing rust and exa (for ls/ll)
     curl https://sh.rustup.rs -sSf | sh
 
-    wget -c https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
-    unzip exa-linux-x86_64-0.8.0.zip
+    sudo wget -c https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip
+    sudo unzip exa-linux-x86_64-0.8.0.zip
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
-    rm -rf exa*.zip
+    sudo rm -rf exa*.zip
 }
 
 
@@ -401,7 +401,7 @@ _install_i3(){
 }
 
 _install_delta(){
-    wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
+    sudo wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
     sudo apt-get install ./git-delta_0.12.1_amd64.deb -y
 }
 

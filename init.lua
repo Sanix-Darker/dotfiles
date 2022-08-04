@@ -1,12 +1,12 @@
 vim.cmd('source ~/.config/nvim/config.vim')
 
-require('dap-python').setup('*env*/bin/python')
-require('dap-go').setup()
-require("nvim-dap-virtual-text").setup { commented = true }
+-- require('dap-python').setup('*env*/bin/python')
+-- require('dap-go').setup()
+-- require("nvim-dap-virtual-text").setup { commented = true }
 
-vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
-vim.fn.sign_define("DapBreakpointRejected", {text='❌', texthl='', linehl='', numhl=''})
+-- vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+-- vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+-- vim.fn.sign_define("DapBreakpointRejected", {text='❌', texthl='', linehl='', numhl=''})
 
 _G.__luacache_config = {
     chunks = {
