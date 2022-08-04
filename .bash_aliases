@@ -131,9 +131,8 @@ alias services='systemctl list-units --type=service'
 
 ## dotfiles management
 DOT_DIR="$HOME/dotfiles"
-# Assuming we already have the dotfiles directory
-# on our workspace
-_set_dot_files(){
+
+_set_nvim(){
     # vim stuffs
     mkdir ~/.config/nvim/
     cpd $DOT_DIR/init.lua ~/.config/nvim/
@@ -162,6 +161,12 @@ _set_dot_files(){
         echo "[-] Nvim CocInstall $i..."
         nvim --headless +"CocInstall $1" +qall
     done
+}
+
+# Assuming we already have the dotfiles directory
+# on our workspace
+_set_dot_files(){
+    _set_nvim
 
     # for my bash stuffs
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/

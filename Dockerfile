@@ -33,11 +33,7 @@ RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
     source /home/dk/.bash_aliases &&\
     _install_basics &&\
     _install_path_browsing_utils &&\
-    _install_nvim_and_utils'
-
-# We set some dotfiles
-RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
-    source /home/dk/.bash_aliases &&\
+    _install_nvim_and_utils &&\
     _set_nvim'
 
 # - - - - - - - - - - - - - - - - - - - - -        
