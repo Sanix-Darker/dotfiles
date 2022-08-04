@@ -20,6 +20,13 @@ COPY . /home/dk/dotfiles/
 COPY .bashrc /home/dk/.bashrc
 COPY .bash_aliases /home/dk/.bash_aliases
 
+RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
+    source /home/dk/.bash_aliases &&\
+    _install_basics &&\
+    _install_path_browsing_utils &&\
+    _install_nvim_and_utils'
+
+RUN . /home/dk/.bashrc && _set_dot_files
 # - - - - - - - - - - - - - - - - - - - - -
 
 USER dk
@@ -28,11 +35,6 @@ WORKDIR /home/dk/
 RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
-
-# To install dev stuffs
-RUN NOTINTERACTIVE=1 _install_basic
-RUN NOTINTERACTIVE=1 _install_path_browsing_utils
-RUN NOTINTERACTIVE=1 _install_nvim_and_utils
 
 EXPOSE 2000-9999
 

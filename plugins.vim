@@ -7,7 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 " On-demand loading
 Plug 'preservim/nerdtree'
 " The wakatime plugin
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime' Commenting this for now
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
 " to search inside files
