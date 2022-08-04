@@ -325,8 +325,9 @@ _install_nvim(){
 _install_node_stuffs(){
     sudo apt-get install nodejs npm -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source /home/$USER/.bashrc
-    $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
+    # source $HOME/.bashrc
+    # source $HOME/.bash_aliases
+    # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
 }
 
 _install_nvim_and_utils(){
