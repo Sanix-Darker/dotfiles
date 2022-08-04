@@ -427,20 +427,20 @@ _install_locales_lang(){
 }
 
 _install_basics(){
-    DEBIAN_FRONTEND=noninteractive 
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt update -y
     # sudo apt install type
     devStack=(
+        "wget" "curl" "apt-transport-https"
+        "lsb-release" "ca-certificates"
+        "gnupg" "zip" "unzip"
+        
+        "gcc" "g++" "make"
         "build-essential"
+
         "software-properties-common"
 
-        "curl" "apt-transport-https"
-        "lsb-release" "ca-certificates"
-
         "tmux" "tmate" "git-lfs"
-        "tar" "zip" "unzip" "curl"
-        "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
         "git" "hub" "bat" "snap"
@@ -451,7 +451,7 @@ _install_basics(){
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt install $i -y
+        DEBIAN_FRONTEND=noninteractive && apt install $i -y
     done
     
     # For a weird perl warning error on locales UTF-8
