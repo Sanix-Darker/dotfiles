@@ -25,15 +25,14 @@ USER dk
 COPY . /home/dk/dotfiles/
 COPY .bash_aliases .bashrc /home/dk/
 
-RUN ls -alF
-RUN ls -alF ~/
-RUN ls -alF /home/dk
-
 # We install our stuffs
 RUN /bin/bash -c 'source /home/dk/.bashrc &&\
     source /home/dk/.bash_aliases &&\
     _install_basics && _install_path_browsing_utils &&\
     _install_nvim && _install_node_stuffs'
+
+RUN /bin/bash -c 'source /home/dk/.bashrc &&\
+    _set_dot_files'
 
 # - - - - - - - - - - - - - - - - - - - - -        
 
