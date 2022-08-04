@@ -31,14 +31,15 @@ RUN /bin/bash -c 'source /home/dk/.bashrc &&\
     _install_basics && _install_path_browsing_utils &&\
     _install_nvim && _install_node_stuffs'
 
-RUN /bin/bash -c 'source /home/dk/.bashrc &&\
-    source /home/dk/.bash_aliases &&\
-    _set_dot_files'
-
 # - - - - - - - - - - - - - - - - - - - - -        
 
 RUN echo "\n> $(uname -a)\n"
 
 EXPOSE 2000-9999
+
+# When inside the container, run this:
+# _set_dot_files
+# or better
+# _install_dev_stack
 
 ENTRYPOINT ["/bin/bash"]
