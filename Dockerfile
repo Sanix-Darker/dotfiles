@@ -26,7 +26,9 @@ RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
     _install_path_browsing_utils &&\
     _install_nvim_and_utils'
 
-RUN . /home/dk/.bashrc && _set_dot_files
+# We set some dotfiles
+RUN /bin/bash -c 'source /home/dk/.bash_aliases && _set_nvim'
+
 # - - - - - - - - - - - - - - - - - - - - -
 
 USER dk
@@ -37,9 +39,5 @@ RUN . /home/dk/.bashrc
 RUN echo "\n> $(uname -a)\n"
 
 EXPOSE 2000-9999
-
-# To well start
-# _install_dev_stack
-# _set_dot_files
 
 ENTRYPOINT ["/bin/bash"]

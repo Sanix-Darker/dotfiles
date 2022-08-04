@@ -131,18 +131,19 @@ alias services='systemctl list-units --type=service'
 
 ## dotfiles management
 DOT_DIR="$HOME/dotfiles"
-# Assuming we already have the dotfiles directory
-# on our workspace
-_set_dot_files(){
+
+_set_nvim(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/init.lua ~/.config/nvim/
-    cpd $DOT_DIR/config.vim ~/.config/nvim/
-    cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
+    cp $DOT_DIR/init.lua ~/.config/nvim/
+    cp $DOT_DIR/config.vim ~/.config/nvim/
+    cp $DOT_DIR/plugins.vim  ~/.config/nvim/
 
     mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
-    cpd $DOT_DIR/autoload  ~/.config/nvim/
-    cpd $DOT_DIR/colors ~/.config/nvim/
+    cp $DOT_DIR/autoload  ~/.config/nvim/
+    cp $DOT_DIR/colors ~/.config/nvim/
+
+    modprobe fuse
 
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -162,6 +163,12 @@ _set_dot_files(){
         echo "[-] Nvim CocInstall $i..."
         nvim --headless +"CocInstall $1" +qall
     done
+}
+
+# Assuming we already have the dotfiles directory
+# on our workspace
+_set_dot_files(){
+    _set_nvim
 
     # for my bash stuffs
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
@@ -320,7 +327,7 @@ _install_nvim(){
 _install_node_stuffs(){
     sudo apt install nodejs npm -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source ~/.bashrc
+    source $HOME/.bashrc
     nvm install stable
 }
 
