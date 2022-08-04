@@ -143,8 +143,6 @@ _set_nvim(){
     cp $DOT_DIR/autoload  ~/.config/nvim/
     cp $DOT_DIR/colors ~/.config/nvim/
 
-    sudo apt-get install kmod -y
-
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -160,10 +158,8 @@ _set_nvim(){
     )
     for i in "${coc_servers[@]}"
     do
-        modprobe fuse
         echo "[-] Nvim CocInstall $i..."
         nvim --headless +"CocInstall $1" +qall
-        modprobe fuse
     done
 }
 
