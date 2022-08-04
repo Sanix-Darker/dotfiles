@@ -32,6 +32,7 @@ RUN /bin/bash -c 'source /home/dk/.bashrc &&\
     _install_nvim && _install_node_stuffs'
 
 RUN /bin/bash -c 'source /home/dk/.bashrc &&\
+    source /home/dk/.bash_aliases &&\
     _set_dot_files'
 
 # - - - - - - - - - - - - - - - - - - - - -        
