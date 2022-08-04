@@ -2,10 +2,13 @@ FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update &&\
+RUN apt-get update &&\
     apt-get install -y\
     apt-utils \
     bash sudo fuse libfuse2
+
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Create user `dk`
 RUN useradd -ms /bin/bash dk 
@@ -15,8 +18,10 @@ RUN passwd -d dk
 
 # Add sudo privilige to `dk`
 RUN usermod -aG sudo dk
+                                                   
+# - - - - - - - - - - - - - - - - - - - - -        
 
-RUN mkdir /home/dk/code
+USER dk
 
 COPY . /home/dk/dotfiles/
 COPY .bashrc /home/dk/.bashrc
@@ -34,12 +39,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -y &&\
     /bin/bash -c 'NOTINTERACTIVE=1 &&\
     source /home/dk/.bash_aliases &&\
     _set_nvim'
-                                                   
-# - - - - - - - - - - - - - - - - - - - - -        
-
-USER dk
-
-RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
 

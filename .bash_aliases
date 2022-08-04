@@ -350,7 +350,6 @@ _install_nvim_and_utils(){
 }
 
 _install_python_stuffs(){
-    DEBIAN_FRONTEND=noninteractive
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt update -y
 
@@ -451,7 +450,7 @@ _install_basics(){
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        DEBIAN_FRONTEND=noninteractive && apt install $i -y
+        sudo apt install $i -y
     done
     
     # For a weird perl warning error on locales UTF-8
