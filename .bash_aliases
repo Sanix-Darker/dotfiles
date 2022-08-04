@@ -350,6 +350,7 @@ _install_nvim_and_utils(){
 }
 
 _install_python_stuffs(){
+    DEBIAN_FRONTEND=noninteractive
     sudo add-apt-repository ppa:deadsnakes/ppa -y
     sudo apt update -y
 
@@ -426,10 +427,9 @@ _install_locales_lang(){
 }
 
 _install_basics(){
+    DEBIAN_FRONTEND=noninteractive 
     sudo add-apt-repository ppa:git-core/ppa -y
-
     sudo apt update -y
-
     # sudo apt install type
     devStack=(
         "build-essential"

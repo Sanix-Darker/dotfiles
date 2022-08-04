@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 
-RUN apt-get update &&\
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update &&\
     apt-get install -y\
     apt-utils \
     bash sudo fuse libfuse2
@@ -20,14 +22,14 @@ COPY . /home/dk/dotfiles/
 COPY .bashrc /home/dk/.bashrc
 COPY .bash_aliases /home/dk/.bash_aliases
 
-RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
+RUN /bin/bash -c 'DEBIAN_FRONTEND=noninteractive NOTINTERACTIVE=1 &&\
     source /home/dk/.bash_aliases &&\
     _install_basics &&\
     _install_path_browsing_utils &&\
     _install_nvim_and_utils'
 
 # We set some dotfiles
-RUN apt-get update -y &&\
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y &&\
     sudo modprobe fuse &&\
     /bin/bash -c 'NOTINTERACTIVE=1 &&\
     source /home/dk/.bash_aliases &&\
@@ -37,7 +39,6 @@ RUN apt-get update -y &&\
 
 USER dk
 
-WORKDIR /home/dk/
 RUN . /home/dk/.bashrc
 
 RUN echo "\n> $(uname -a)\n"
