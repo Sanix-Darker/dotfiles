@@ -315,8 +315,7 @@ _install_path_browsing_utils(){
 
 
 _install_nvim(){
-    echo "[-] Current version : $(nvim --version)"
-    wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
     sudo chmod +x ./nvim.appimage
     sudo mv ./nvim.appimage /usr/local/bin/nvim
     echo "[-] Installed version : $(nvim --version)"

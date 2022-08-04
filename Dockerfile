@@ -1,6 +1,7 @@
 FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG NOTINTERACTIVE=1 
 
 RUN apt-get update &&\
     apt-get install -y\
@@ -22,20 +23,17 @@ USER dk
 # - - - - - - - - - - - - - - - - - - - - -        
 
 COPY . /home/dk/dotfiles/
-COPY .bashrc /home/dk/.bashrc
-COPY .bash_aliases /home/dk/.bash_aliases
+COPY .bash_aliases .bashrc /home/dk/
 
-RUN /bin/bash -c '. /home/dk/.bashrc'
-RUN /bin/bash -c '. /home/dk/.bash_aliases'
+RUN ls -alF
+RUN ls -alF ~/
+RUN ls -alF /home/dk
 
 # We install our stuffs
-RUN /bin/bash -c 'NOTINTERACTIVE=1 &&\
+RUN /bin/bash -c 'source /home/dk/.bashrc &&\
     source /home/dk/.bash_aliases &&\
-    _install_basics &&\
-    _install_path_browsing_utils &&\
-    _install_nvim &&\
-    _install_node_stuffs &&\
-    _set_nvim'
+    _install_basics && _install_path_browsing_utils &&\
+    _install_nvim && _install_node_stuffs && _set_nvim'
 
 # - - - - - - - - - - - - - - - - - - - - -        
 
