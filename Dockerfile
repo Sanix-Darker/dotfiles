@@ -33,7 +33,7 @@ RUN ls -alF /home/dk
 RUN /bin/bash -c 'source /home/dk/.bashrc &&\
     source /home/dk/.bash_aliases &&\
     _install_basics && _install_path_browsing_utils &&\
-    _install_nvim && _install_node_stuffs && _set_nvim'
+    _install_nvim && _install_node_stuffs'
 
 # - - - - - - - - - - - - - - - - - - - - -        
 
