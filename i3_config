@@ -31,7 +31,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 bindsym $mod+Mod1+l exec "bash ~/.config/i3/i3lock.sh"
 # suspend
 bindsym $mod+Mod1+s exec "bash ~/.config/i3/i3lock.sh && systemctl suspend" 
-# exec 'xautolock -time 1 -locker ~/.config/i3/i3lock.sh &'
+exec "xautolock -time 5 -locker ~/.config/i3/i3lock.sh && systemctl suspend"
 
 # to show/hide windows
 # scratchpad move/show

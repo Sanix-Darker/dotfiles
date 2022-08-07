@@ -200,28 +200,28 @@ nnoremap to :tabonly<CR>
 nnoremap tc :tabclose<CR>
 " nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 " For the history of the file, where you at
-nnoremap MM :MundoToggle<cr>
+nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
-nnoremap FG :Ag<CR>
+nnoremap fg :Ag<CR>
 
 " To format the code
-nnoremap FV :Neoformat<CR>
+nnoremap fv :Neoformat<CR>
 
 " To jump fastly on a word
-nnoremap JJ :HopWord<CR>
+nnoremap jj :HopWord<CR>
 
 " To search in the current files
 " Most efficient than the ? or /
-nnoremap LL :Lines<CR>
+nnoremap ll :Lines<CR>
 " For hidden files of fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " For the file search
-nnoremap FF :FZF<cr>
+nnoremap ff :FZF<cr>
 " For Tagbar, the structure of code
-nnoremap BG :TagbarToggle<CR>
+nnoremap bg :TagbarToggle<CR>
 " To get the diffview history of the repo
-nnoremap FT :DiffviewFileHistory<CR>
+nnoremap ft :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
 nnoremap <silent> <F11> :YRShow<CR>
 nnoremap + :vertical resize +5<CR>
@@ -231,14 +231,14 @@ nnoremap - :resize -5<CR>
 " Clean and erase the buffer
 nnoremap bbb :%bd\|e#\|bd#<cr>
 " To open buffers
-nnoremap BB :Buffers<CR>
+nnoremap bb :Buffers<CR>
 " For git blame
-nnoremap B :GitBlame<CR>
+nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
-nnoremap HH :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
+nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
 nnoremap <C-Space> :GitGutterPreviewHunk<CR>
-nnoremap HN :GitGutterNextHunk<CR>
-nnoremap HP :GitGutterPrevHunk<CR>
+nnoremap hn :GitGutterNextHunk<CR>
+nnoremap hp :GitGutterPrevHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
 " For command execution from the editot
@@ -266,11 +266,14 @@ xnoremap p pgvy
 xnoremap X dd
 nnoremap X dd
 
+xnoremap B yyp
+nnoremap B yyp
+
 " Disable/Uninstalled for now
 " For floating windows
-nnoremap NK :FloatermNew --height=0.9 --width=0.9<CR>
-nnoremap KKK :FloatermKill<CR>
-nnoremap KK :FloatermToggle<CR>
+nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
+nnoremap kkk :FloatermKill<CR>
+nnoremap kk :FloatermToggle<CR>
 
 " For tagBar jumping
 nnoremap >> :TagbarJumpNext<CR>
@@ -664,11 +667,11 @@ try
             \ set autoindent |
             \ set fileformat=unix
 
-        " " all other js html
-        au BufNewFile,BufRead *.js, *.html, *.css,*.vue
-            \ set tabstop=2 |
-            \ set softtabstop=2 |
-            \ set shiftwidth=2
+        " " " all other js html
+        " au BufNewFile,BufRead *.js, *.html, *.css,*.vue
+        "     \ set tabstop=2 |
+        "     \ set softtabstop=2 |
+        "     \ set shiftwidth=2
 
         " To activate the rest plugin if we're inside a rest file
         au BufNewFile,BufRead *.rest
