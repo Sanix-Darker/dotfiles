@@ -7,7 +7,8 @@ call plug#begin('~/.config/nvim/plugged')
 " On-demand loading
 Plug 'preservim/nerdtree'
 " The wakatime plugin
-" Plug 'wakatime/vim-wakatime' Commenting this for now
+" Commenting this for now
+Plug 'wakatime/vim-wakatime'
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
 " to search inside files
@@ -27,8 +28,8 @@ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Use release branch (recommend)
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 
 " For code folding
 Plug 'tmhedberg/SimpylFold'
