@@ -204,6 +204,8 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+" To search for ctags
+nnoremap bg :Vista finder ctags<CR>
 
 " To format the code
 nnoremap fv :Neoformat<CR>
@@ -219,7 +221,7 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " For the file search
 nnoremap ff :FZF<cr>
 " For Tagbar, the structure of code
-nnoremap bg :TagbarToggle<CR>
+" nnoremap bg :Vista!!<CR>
 " To get the diffview history of the repo
 nnoremap ft :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
@@ -276,8 +278,8 @@ nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
 
 " For tagBar jumping
-nnoremap >> :TagbarJumpNext<CR>
-nnoremap << :TagbarJumpPrev<CR>
+" nnoremap >> :TagbarJumpNext<CR>
+" nnoremap << :TagbarJumpPrev<CR>
 
 " # For the fzf preview
 " let g:fzf_preview_window = ['right:50%', 'ctrl-/']
@@ -686,7 +688,7 @@ try
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
         " For the tagbag list of tags
-        au VimEnter,BufRead * :TagbarOpen
+        " au VimEnter,BufRead * :Vista
     endif
 catch
 endtry
@@ -729,3 +731,38 @@ try
     endif
 catch
 endtry
+
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works for the kind renderer, not the tree renderer.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+
+" Declare the command including the executable and options used to generate ctags output
+" for some certain filetypes.The file path will be appened to your custom command.
+" For example:
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:50%']
+
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1

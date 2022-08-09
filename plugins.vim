@@ -28,8 +28,8 @@ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 
 " For code folding
 Plug 'tmhedberg/SimpylFold'
@@ -53,7 +53,12 @@ Plug 'phaazon/hop.nvim'
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
-Plug 'https://github.com/preservim/tagbar'
+" Plug 'https://github.com/preservim/tagbar'
+" Another tagging system like tagbar
+Plug 'liuchengxu/vista.vim'
+" TO install vista, we need 
+" https://github.com/universal-ctags/ctags not the default ctags
+
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
