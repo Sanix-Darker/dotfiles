@@ -58,6 +58,7 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'liuchengxu/vista.vim'
 " TO install vista, we need 
 " https://github.com/universal-ctags/ctags not the default ctags
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
