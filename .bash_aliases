@@ -87,6 +87,13 @@ _killport(){
     sudo kill -9 $(sudo lsof -t -i:$1)
 }
 alias killport=_killport
+
+# To list processes running on a specific port
+_lsport(){
+    sudo ss -lptn "sport = :$1"
+}
+alias lsport=_lsport
+
 alias gf=$HOME/ACTUALC/github/git-search/gf.sh
 
 # My custom build of scrcpy
@@ -329,6 +336,17 @@ _install_node_stuffs(){
     # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
 }
 
+_install_ctags_universal(){
+    git clone https://github.com/universal-ctags/ctags.git
+    cd ctags
+    ./autogen.sh
+    ./configure
+    make
+    # you may need sudo here depending on the user installing it
+    make install
+    ctags --version && [[ $? != 0 ]] && echo -e "\n$RED[+] ctags installation failed !$COLOROFF"
+}
+
 _install_nvim_and_utils(){
     sudo apt-get update -y
 
@@ -337,6 +355,9 @@ _install_nvim_and_utils(){
 
     # To install CocInstall, we need nodejs
     _confirm "Install the nodejs, npm and nvm (usefull for Coc-Server) ? " _install_node_stuffs
+
+    # To install ctags( the universal one) for vista plugins
+    _confirm "Install ctags (universal) ?" _install_ctags_universal
 }
 
 _install_python_stuffs(){
@@ -435,6 +456,7 @@ _install_basics(){
         "docker" "docker-compose"
         "git" "hub" "bat" "snap"
         "silversearcher-ag"
+        "autoconf" "automake" "pkg-config"
 
         "trash-cli"
     )
