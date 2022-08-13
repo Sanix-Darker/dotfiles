@@ -602,28 +602,17 @@ _git_open_code(){
 # Or from a specific branch
 # _git_clone_sub directory1 https://github.com/author/repo  
 _git_clone_sub(){
-
-    REPO_NAME="$(echo $2 | grep -oE '[^/]+$')"
-
-    git init $REPO_NAME
-    cd $REPO_NAME
-
-    git remote add origin $2
-    git config core.sparsecheckout true
-
-    # Specipy the sub directory
-    echo "$1/*" >> .git/info/sparse-checkout
-
-    # we check if the branch is passed as the third parameter
-    # if yes, then it will pull for that branch
+    REPO_NAME="$(echo $2 | grep -oE '[^/]+$')";
+    git clone --filter=blob:none --no-checkout $2
+    cd $REPO_NAME;
+    git sparse-checkout set --no-cone "$1/*"
     if [ -n "$3" ]; then
-        git pull origin $3
-        git checkout $3
+        git pull origin $3;
+        git checkout $3;
     else
-        # if no branch is provided, it will try to pull from main
-        # and if it fails, it will try to pull from master branch
-        git pull origin main
-        [[ $? != 0 ]] && git pull origin master
+        git fetch origin;
+        git checkout main
+        [[ $? != 0 ]] && git checkout master;
     fi
 }
 

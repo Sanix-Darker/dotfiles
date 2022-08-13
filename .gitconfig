@@ -51,7 +51,7 @@
     ; git clone-sub directory1 https://github.com/author/repo 
     ; Or from a specific branch
     ; git clone-sub directory1 https://github.com/author/repo  
-    clone-sub = !bash -c 'source $HOME/.bash_aliases && _git_clone_sub "$@"' -s
+    clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
 
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search
