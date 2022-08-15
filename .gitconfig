@@ -76,6 +76,9 @@
     ; to view an Issue
     issue-comment = !EDITOR=nvim gh issue comment -e
 
+    ; All my commits should be signed
+    commit = !git commit -S
+
     ; To clone a sub directory from a random project
     ; git clone-sub directory1 https://github.com/author/repo 
     ; Or from a specific branch
@@ -152,3 +155,5 @@
     hunk-header-file-style = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file syntax
+[commit]
+	gpgsign = true
