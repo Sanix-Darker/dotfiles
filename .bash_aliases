@@ -699,3 +699,15 @@ m() {
   python3 -c "from math import *; print($*)"
 }
 
+_loc(){
+    echo -ne "Lines of Code : "
+    
+    if [ -n "$1" ]; then
+        find . -wholename $1 | xargs wc -l
+    else
+        find . -name '*' -type f | xargs cat | wc -l
+    fi
+}
+alias loc=_loc
+
+alias ipinfo="curl ipinfo.io"
