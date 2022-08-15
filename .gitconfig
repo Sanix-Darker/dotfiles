@@ -77,7 +77,8 @@
     issue-comment = !EDITOR=nvim gh issue comment -e
 
     ; All my commits should be signed
-    commit = !git commit -S
+    ; git config --global commit.gpgsign true
+    ; commit-signed = !git commit -S
 
     ; To clone a sub directory from a random project
     ; git clone-sub directory1 https://github.com/author/repo 
