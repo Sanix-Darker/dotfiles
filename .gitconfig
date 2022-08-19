@@ -90,6 +90,17 @@
     ; ideal to run just after the git search
     open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
 
+    ; To commit an empty commit
+    commit-empty = !git commit --allow-empty -m \"xxx: an empty-commit\"
+
+    ; only in a middle of a rebase
+    ; git add-their
+    ; accept incomming changes
+    add-their = !git checkout --ours "$@" && git add "$@"
+    ; git add-our
+    ; accept only current changes
+    add-our = !git checkout --theirs "$@" && git add "$@"
+
     ; to generate a new patch from changes
     ; git patch-put -1 <sha>
     ; git patch-put -1 HEAD
