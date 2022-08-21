@@ -436,7 +436,7 @@ endif
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 "                              \: \<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? \<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -449,6 +449,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
+" inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"
+" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) : "\<PageDown>"
+" inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : "\<PageUp>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
 
 " For the synthax
 let b:ale_linters = ['flake8']

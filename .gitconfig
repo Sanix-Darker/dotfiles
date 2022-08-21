@@ -142,7 +142,7 @@
     log-short = shortlog -sn --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
-    stat = !git diff --stat $(git merge-base HEAD master)
+    stat = !git diff --stat $(git merge-base HEAD $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5))
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
@@ -151,7 +151,7 @@
     ; To a target branch
     ; git squash (it will target master)
     ; git squash dev (it will target dev branch)
-    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^master)
+    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5))
 
 [merge]
     conflictstyle = diff3

@@ -76,6 +76,11 @@ Plug 'ziglang/zig.vim'
 " Just to the ESC
 Plug 'sychen52/smart-term-esc.nvim'
 
+" ReactJs/typescript support
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+
 " For debugging, we add dap
 Plug 'mfussenegger/nvim-dap'
 Plug 'Pocco81/DAPInstall.nvim'
