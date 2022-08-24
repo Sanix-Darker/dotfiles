@@ -245,9 +245,9 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap zzz :.!sh<CR>
 " For command execution directly in vim
 " And get output of the command inside the editot
-nnoremap zz :r!
+" nnoremap zz :r!
 " For command execution directly in vim
-nnoremap z :!
+nnoremap zz :!
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
@@ -447,12 +447,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
-" inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"
-" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) : "\<PageDown>"
-" inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : "\<PageUp>"
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
+" inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(1) : \"\<down>"
+" inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(1) : \"\<up>"
+" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) : \"\<PageDown>"
+" inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : \"\<PageUp>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : \"\<CR>"
+" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : \"\<tab>"
 
 " For the synthax
 let b:ale_linters = ['flake8']
