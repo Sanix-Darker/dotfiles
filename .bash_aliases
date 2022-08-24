@@ -707,6 +707,12 @@ alias loc=_loc
 
 alias ipinfo="curl ipinfo.io"
 
-_r(){
-    !!:s/$1/$2
+_nan(){
+    TIME=3600
+
+    sudo bash <<EOF
+    echo "Going to sleep in $TIME seconds..."
+    sleep $TIME && systemctl suspend
+EOF
 }
+

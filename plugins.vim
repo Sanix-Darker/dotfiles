@@ -89,6 +89,7 @@ Plug 'leoluz/nvim-dap-go'
 Plug 'rcarriga/nvim-dap-ui'
 Plug 'theHamsta/nvim-dap-virtual-text'
 
+" Plug 'folke/todo-comments.nvim'
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 

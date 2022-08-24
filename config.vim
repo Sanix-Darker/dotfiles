@@ -143,7 +143,7 @@ noremap <leader>/ Commentary<cr>
 
 " For the fuzzy search
 let g:fzf_preview_window = 'right:50%'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6  }  }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
 
 " For the column scheme
 try
@@ -220,8 +220,6 @@ nnoremap ll :Lines<CR>
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
 " For the file search
 nnoremap ff :FZF<cr>
-" For Tagbar, the structure of code
-" nnoremap bg :Vista!!<CR>
 " To get the diffview history of the repo
 nnoremap ft :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
@@ -436,7 +434,7 @@ endif
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 "                              \: \<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-inoremap <expr> <cr> pumvisible() ? \<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
