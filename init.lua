@@ -1,12 +1,12 @@
 vim.cmd('source ~/.config/nvim/config.vim')
 
-require('dap-python').setup('*env*/bin/python')
-require('dap-go').setup()
-require("nvim-dap-virtual-text").setup { commented = true }
-
-vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
-vim.fn.sign_define("DapBreakpointRejected", {text='❌', texthl='', linehl='', numhl=''})
+-- Uncomment this when debuging
+-- require('dap-python').setup('*env*/bin/python')
+-- require('dap-go').setup()
+-- require("nvim-dap-virtual-text").setup { commented = true }
+-- vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+-- vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+-- vim.fn.sign_define("DapBreakpointRejected", {text='❌', texthl='', linehl='', numhl=''})
 
 _G.__luacache_config = {
     chunks = {
@@ -19,12 +19,15 @@ _G.__luacache_config = {
     }
 }
 
-require('which-key').setup()
+-- DIsabling just for now
+-- require('which-key').setup()
 require('hop').setup()
 require('smart-term-esc').setup{
     key='<Esc>',
     except={'nvim', 'fzf'}
 }
+
+-- neoscroll
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
@@ -40,14 +43,9 @@ require('neoscroll').setup({
 })
 
 local t = {}
-t['<PageUp>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}}
-t['<PageDown>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
+t['<S-Up>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}}
+t['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
 require('neoscroll.config').set_mappings(t)
+-- neoscroll
 
 require('impatient')
--- vim.opt.list = true
--- vim.opt.listchars:append "eol:↴"
-
--- require("indent_blankline").setup {
---     show_end_of_line = true,
--- }

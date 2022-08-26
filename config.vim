@@ -262,6 +262,10 @@ nnoremap no :nohlsearch<CR>
 " stuff or use P for the default behaviour
 xnoremap p pgvy
 
+" nnoremap X "_dd
+" nnoremap D <S-v>d
+" nnoremap B yyp
+" nnoremap Y yy
 " To delete directly the current line
 xnoremap X dd
 nnoremap X dd
@@ -708,25 +712,26 @@ endtry
 " To preview images from specific extensions
 " au BufRead *.png,*.jpg,*.jpeg :call DisplayImage()
 
-nnoremap DH :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <S-k> :lua require'dap'.step_out()<CR>
-nnoremap <S-l> :lua require'dap'.step_into()<CR>
-nnoremap <S-j> :lua require'dap'.step_over()<CR>
-nnoremap DS :lua require'dap'.close()<CR>
-nnoremap DN :lua require'dap'.continue()<CR>
-nnoremap DUI :lua require'dapui'.toggle()<CR>
-nnoremap DK :lua require'dap'.up()<CR>
-nnoremap DJ :lua require'dap'.down()<CR>
-nnoremap D_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
-nnoremap DR :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
-nnoremap DI :lua require'dap.ui.variables'.hover()<CR>
-vnoremap DII :lua require'dap.ui.variables'.visual_hover()<CR>
-nnoremap D? :lua require'dap.ui.variables'.scopes()<CR>
-nnoremap DE :lua require'dap'.set_exception_breakpoints({"all"})<CR>
-nnoremap DA :lua require'debugHelper'.attach()<CR>
-nnoremap DA :lua require'debugHelper'.attachToRemote()<CR>
-nnoremap DI :lua require'dap.ui.widgets'.hover()<CR>
-nnoremap D? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
+" Uncomment this when debuging
+" nnoremap DH :lua require'dap'.toggle_breakpoint()<CR>
+" nnoremap <S-k> :lua require'dap'.step_out()<CR>
+" nnoremap <S-l> :lua require'dap'.step_into()<CR>
+" nnoremap <S-j> :lua require'dap'.step_over()<CR>
+" nnoremap DS :lua require'dap'.close()<CR>
+" nnoremap DN :lua require'dap'.continue()<CR>
+" nnoremap DUI :lua require'dapui'.toggle()<CR>
+" nnoremap DK :lua require'dap'.up()<CR>
+" nnoremap DJ :lua require'dap'.down()<CR>
+" nnoremap D_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
+" nnoremap DR :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
+" nnoremap DI :lua require'dap.ui.variables'.hover()<CR>
+" vnoremap DII :lua require'dap.ui.variables'.visual_hover()<CR>
+" nnoremap D? :lua require'dap.ui.variables'.scopes()<CR>
+" nnoremap DE :lua require'dap'.set_exception_breakpoints({"all"})<CR>
+" nnoremap DA :lua require'debugHelper'.attach()<CR>
+" nnoremap DA :lua require'debugHelper'.attachToRemote()<CR>
+" nnoremap DI :lua require'dap.ui.widgets'.hover()<CR>
+" nnoremap D? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
 
 try
     if has("autocmd")

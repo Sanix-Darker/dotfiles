@@ -174,6 +174,7 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &  
 
 # set the bluetooth for my earphone
+# bluetoothctl scan on
 # bluetoothctl devices 
 # bluetoothctl connect 6E:47:D9:FA:BA:44
 
