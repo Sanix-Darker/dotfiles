@@ -61,7 +61,8 @@
     release = !EDITOR=nvim gh release create
 
     ; to list commits from the current branch
-    commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
+    ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
+    commit-list = !git cherry -v origin
 
     ; to create a new Issur
     issue = !EDITOR=nvim gh issue create
@@ -142,7 +143,7 @@
     log-short = shortlog -sn --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
-    stat = !git diff --stat $(git merge-base HEAD $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5))
+    stat = !git diff --stat $(git merge-base HEAD origin)
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
@@ -151,7 +152,7 @@
     ; To a target branch
     ; git squash (it will target master)
     ; git squash dev (it will target dev branch)
-    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^$(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5))
+    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
 
 [merge]
     conflictstyle = diff3
