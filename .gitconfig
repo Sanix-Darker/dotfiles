@@ -154,6 +154,8 @@
     ; git squash dev (it will target dev branch)
     squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
 
+    brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
+
 [merge]
     conflictstyle = diff3
 
