@@ -129,6 +129,9 @@ set updatetime=2
 " To keep the statusline only global not per file
 set laststatus=3
 
+" For the sticky header
+let g:context_enabled = 1
+" <<<<<
 
 " To jump into a next error
 try

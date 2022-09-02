@@ -92,6 +92,9 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 " For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
 
+" For the sticky header
+Plug 'wellle/context.vim'
+
 " Plug 'folke/todo-comments.nvim'
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

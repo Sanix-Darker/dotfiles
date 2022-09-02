@@ -82,9 +82,9 @@
     ; commit-signed = !git commit -S
 
     ; To clone a sub directory from a random project
-    ; git clone-sub directory1 https://github.com/author/repo 
+    ; git clone-sub directory1 https://github.com/author/repo
     ; Or from a specific branch
-    ; git clone-sub directory1 https://github.com/author/repo  
+    ; git clone-sub directory1 https://github.com/author/repo
     clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
 
     ; to cat inside a code state for a given line, commit and file as parameter
@@ -92,7 +92,7 @@
     open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
 
     ; To commit an empty commit
-    commit-empty = !git commit --allow-empty -m \"xxx: an empty-commit\"
+    commit-empty = !git commit --allow-empty -m
 
     ; only in a middle of a rebase
     ; git add-their
@@ -148,7 +148,7 @@
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
     add-intent = !git add -N
-    ; The famous squash and merge for all commits on my current branch 
+    ; The famous squash and merge for all commits on my current branch
     ; To a target branch
     ; git squash (it will target master)
     ; git squash dev (it will target dev branch)
@@ -156,6 +156,9 @@
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
+
+    ; to pull only the current branch
+    pull-it = !git pull origin $(git branch --show-current)
 
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
