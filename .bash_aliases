@@ -716,3 +716,4 @@ _nan(){
 EOF
 }
 
+alias sp=speedtest
