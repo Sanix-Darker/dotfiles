@@ -209,6 +209,8 @@ nnoremap mm :MundoToggle<cr>
 nnoremap fg :Ag<CR>
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
+" To undo a git hunk change
+nnoremap zx :GitGutterUndoHunk<CR>
 
 " To format the code
 nnoremap fv :Neoformat<CR>
