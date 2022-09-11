@@ -207,6 +207,7 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
 " To undo a git hunk change
@@ -445,6 +446,8 @@ endif
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -463,10 +466,10 @@ nmap <silent> gr <Plug>(coc-references)
 
 " inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(1) : \"\<down>"
 " inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(1) : \"\<up>"
-" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) : \"\<PageDown>"
+" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) :\"\<PageDown>"
 " inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : \"\<PageUp>"
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : \"\<CR>"
-" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : \"\<tab>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
+inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
 
 " For the synthax
 let b:ale_linters = ['flake8']
@@ -687,7 +690,7 @@ try
             \ set autoindent |
             \ set fileformat=unix
 
-        " " " all other js html
+        " \" \" all other js html
         " au BufNewFile,BufRead *.js, *.html, *.css,*.vue
         "     \ set tabstop=2 |
         "     \ set softtabstop=2 |

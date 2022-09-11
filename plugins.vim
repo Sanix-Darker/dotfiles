@@ -28,13 +28,13 @@ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Use release branch (recommend)
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 
 " For code folding
 Plug 'tmhedberg/SimpylFold'
 " For log hightlighting
-Plug 'mtdl9/vim-log-highlighting'
+" Plug 'mtdl9/vim-log-highlighting'
 " For the git diff/git blame
 Plug 'zivyangll/git-blame.vim'
 " For the gitbutter (live git diff on changes)
@@ -43,7 +43,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 " For hichlight all occurences
 " Of the current word where we have the cursor
-Plug 'itchyny/vim-cursorword'
+" Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
@@ -59,39 +59,34 @@ Plug 'liuchengxu/vista.vim'
 " TO install vista, we need 
 " https://github.com/universal-ctags/ctags not the default ctags
 " Plug 'lukas-reineke/indent-blankline.nvim'
-
 " The magical local history
 Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
 Plug 'voldikss/vim-floaterm'
 " For formating the code:
-Plug 'sbdchd/neoformat'
+" Plug 'sbdchd/neoformat'
 " A hinter for next moves
-Plug 'folke/which-key.nvim'
+" Plug 'folke/which-key.nvim'
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 " The Zig hightligh & 
-Plug 'ziglang/zig.vim'
+" Plug 'ziglang/zig.vim'
 " Just to the ESC
 Plug 'sychen52/smart-term-esc.nvim'
-
 " ReactJs/typescript support
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
-
 " For debugging, we add dap
-Plug 'mfussenegger/nvim-dap'
-Plug 'Pocco81/DAPInstall.nvim'
-Plug 'mfussenegger/nvim-dap-python'
-Plug 'leoluz/nvim-dap-go'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'theHamsta/nvim-dap-virtual-text'
-
+" Plug 'mfussenegger/nvim-dap'
+" Plug 'Pocco81/DAPInstall.nvim'
+" Plug 'mfussenegger/nvim-dap-python'
+" Plug 'leoluz/nvim-dap-go'
+" Plug 'rcarriga/nvim-dap-ui'
+" Plug 'theHamsta/nvim-dap-virtual-text'
 " For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
-
 " For the sticky header
 Plug 'wellle/context.vim'
 

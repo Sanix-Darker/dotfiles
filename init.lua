@@ -48,4 +48,7 @@ t['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
 require('neoscroll.config').set_mappings(t)
 -- neoscroll
 
+-- impatient
+-- a plugin to speed up the loading of nvim
 require('impatient')
+-- impatient

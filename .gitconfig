@@ -37,25 +37,18 @@
     ; for release tags
     ; Interactively create a release
     ; $ gh release create
-
     ; Interactively create a release from specific tag
     ; $ gh release create v1.2.3
-
     ; Non-interactively create a release
     ; $ gh release create v1.2.3 --notes "bugfix release"
-
     ; Use automatically generated release notes
     ; $ gh release create v1.2.3 --generate-notes
-
     ; Use release notes from a file
     ; $ gh release create v1.2.3 -F changelog.md
-
     ; Upload all tarballs in a directory as release assets
     ; $ gh release create v1.2.3 ./dist/*.tgz
-
     ; Upload a release asset with a display label
     ; $ gh release create v1.2.3 '/path/to/asset.zip#My display label'
-
     ; Create a release and start a discussion
     ; $ gh release create v1.2.3 --discussion-category "General"
     release = !EDITOR=nvim gh release create
@@ -69,6 +62,8 @@
 
     ; to list all vailable issues
     issue-list = !gh issue list
+
+    log-branch = !git log origin..HEAD
 
     ; to view an Issue
     ; Ex: git issue-view 23
@@ -138,9 +133,7 @@
     ; grv is a TUI to browse the git project
     browser = !grv
     ; to get logs as oneline only
-    log-line = !git log --graph --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
-    ; git log but with short informations
-    log-short = shortlog -sn --no-merges
+    log-line = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD origin)
@@ -156,6 +149,9 @@
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
+
+    ; git reflog for the branch am currently on
+    reflog-branch = !git reflog $(git branch --show-current)
 
     ; to pull only the current branch
     pull-it = !git pull origin $(git branch --show-current)
