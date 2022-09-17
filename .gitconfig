@@ -147,8 +147,14 @@
     ; git squash dev (it will target dev branch)
     squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
 
+    ; just the short way to cherry-pick
+    pick = !git cherry-pick
+
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
+
+    ; to create a repo easily from the command line
+    repo = !gh repo create
 
     ; git reflog for the branch am currently on
     reflog-branch = !git reflog $(git branch --show-current)
