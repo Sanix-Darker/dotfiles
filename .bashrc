@@ -189,8 +189,8 @@ _check_polybar_process(){
     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
 }
 
-nohup compton -f > /dev/null &
-nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+pkill compton; nohup compton -f & > /dev/null
+pkill polybar; nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
 # start polybar
 # if type "xrandr" > /dev/null; then
 #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
