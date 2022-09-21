@@ -192,6 +192,9 @@ _set_dot_files(){
     cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
     cpd $DOT_DIR/i3mouse.sh ~/.config/i3/i3mouse.sh
 
+    # we set polybar
+    cpd $DOT_DIR/polybar ~/.config/polybar
+
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
     cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
@@ -227,6 +230,9 @@ _copy_to_dotfiles(){
     cpd ~/.config/i3/config $DOT_DIR/i3_config
     cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3lock.sh
     cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3mouse.sh
+
+    # we copy polybar
+    cpd ~/.config/polybar $DOT_DIR/polybar
     
     # Our rofi theme for search
     cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi
@@ -403,8 +409,8 @@ _confirm(){
     echo
 }
 
-
 _install_i3(){
+    sudo apt install polybar
     # to install i3
     sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \

@@ -185,12 +185,13 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
-# _check_polybar_process(){
-#     ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
-# }
+_check_polybar_process(){
+    ps aux | grep polybar | wc -l > 2 && [[ $? != 0 ]]
+}
 
-# # polybar --reload -c ~/.config/polybar/config.ini &
-# # start polybar
+nohup compton -f > /dev/null &
+nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+# start polybar
 # if type "xrandr" > /dev/null; then
 #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
 #     _check_polybar_process && \
