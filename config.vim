@@ -125,7 +125,7 @@ set undofile
 set undodir=~/.config/nvim/undo
 set winbar=%=%m\ %f
 " for the tagbar refresh time
-set updatetime=2
+set updatetime=1
 " To keep the statusline only global not per file
 set laststatus=3
 
@@ -197,6 +197,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 nnoremap <C-k> :SyntasticCheck<cr>
 nnoremap <C-l> :SyntasticReset<cr>
 nnoremap <C-m> :SyntasticToggleMode<cr>
+
 " Useful mappings for managing tabs
 nnoremap tn :tabnew<CR>
 nnoremap to :tabonly<CR>
@@ -709,7 +710,7 @@ try
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
         " For the tagbag list of tags
-        " au VimEnter,BufRead * :Vista
+        au BufRead * :Vista
     endif
 catch
 endtry
@@ -754,7 +755,6 @@ try
 catch
 endtry
 
-
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
@@ -784,7 +784,15 @@ let g:vista_ctags_cmd = {
 " To enable fzf's preview window set g:vista_fzf_preview.
 " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
 " For example:
-let g:vista_fzf_preview = ['right:50%']
-
+let g:vista_fzf_preview = ['right:40%']
 " Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
 let g:vista#renderer#enable_icon = 1
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+" don't ask me why but i had to do this to disable synthx toggling
+nnoremap <CR> <cr>

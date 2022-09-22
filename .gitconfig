@@ -147,6 +147,9 @@
     ; git squash dev (it will target dev branch)
     squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
 
+    ; to revert commits on the current branch at once
+    revert-all = !git revert --no-commit HEAD~$(git rev-list --count HEAD ^origin)..
+
     ; just the short way to cherry-pick
     pick = !git cherry-pick
 
