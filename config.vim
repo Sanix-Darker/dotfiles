@@ -710,7 +710,7 @@ try
         au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
         " For the tagbag list of tags
-        au BufRead * :Vista
+        " au BufRead * :Vista<CR> <C-w> h
     endif
 catch
 endtry

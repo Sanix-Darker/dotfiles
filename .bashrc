@@ -186,7 +186,7 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
 
-_compton_polybar(){
+_gogo(){
     pkill polybar; nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
     pkill compton; nohup compton -f & > /dev/null
 }
