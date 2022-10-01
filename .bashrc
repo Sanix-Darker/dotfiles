@@ -185,22 +185,24 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # My beloved default background
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
-
-_gogo(){
-    pkill polybar; nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
-    pkill compton; nohup compton -f & > /dev/null
+_start_polybar(){
+    if type "xrandr" > /dev/null; then
+        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+            MONITOR=$m nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+        done
+    else
+        nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+    fi
 }
 
-# start polybar
-# if type "xrandr" > /dev/null; then
-#   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-#     _check_polybar_process && \
-#     MONITOR=$m polybar --reload example &
-#   done
-# else
-#     _check_polybar_process && \
-#     polybar --reload example &
-# fi
+_start_compton(){
+    nohup compton -f & > /dev/null
+}
+
+_gogo(){
+    pkill polybar; _start_polybar
+    pkill compton; _start_compton
+}
 
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null

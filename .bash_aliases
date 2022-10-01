@@ -128,7 +128,6 @@ alias rr='trash-restore'
 
 alias gg='google-chrome-stable'
 alias hs='http-server -o'
-# alias pip='python3.10 -m pip'
 alias i='ipython'
 # To refresh stuff with source on bash alialses and bashrc itself
 alias so='source ~/.bashrc'
@@ -723,3 +722,8 @@ EOF
 }
 
 alias sp=speedtest
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
