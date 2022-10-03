@@ -30,7 +30,6 @@ Plug 'junegunn/fzf.vim'
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
-
 " For code folding
 Plug 'tmhedberg/SimpylFold'
 " For log hightlighting
@@ -89,6 +88,9 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'karb94/neoscroll.nvim'
 " For the sticky header
 Plug 'wellle/context.vim'
+
+" Emmet for html fast completion
+Plug 'mattn/emmet-vim'
 
 " Plug 'folke/todo-comments.nvim'
 " For sections in the codebase

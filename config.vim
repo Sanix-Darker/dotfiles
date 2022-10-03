@@ -133,6 +133,12 @@ set laststatus=3
 let g:context_enabled = 1
 " <<<<<
 
+" To activate emmet for html and css
+let g:user_emmet_mode='a'
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+" <<<
+
 " To jump into a next error
 try
     nmap <silent> [c :call CocAction('diagnosticNext')<cr>
@@ -208,6 +214,10 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+
+" For Emmet html and css
+" documentation : https://docs.emmet.io/cheat-sheet/
+nnoremap em :Emmet 
 
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
