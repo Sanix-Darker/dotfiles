@@ -92,6 +92,9 @@ Plug 'wellle/context.vim'
 " Emmet for html fast completion
 Plug 'mattn/emmet-vim'
 
+" Can be nice to ave the terminal in split view
+Plug 'vimlab/split-term.vim'
+
 " Plug 'folke/todo-comments.nvim'
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

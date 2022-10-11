@@ -128,6 +128,8 @@ set winbar=%=%m\ %f
 set updatetime=1
 " To keep the statusline only global not per file
 set laststatus=3
+" Fort the splitTerm plugin
+set splitbelow
 
 " For the sticky header
 let g:context_enabled = 1
@@ -201,8 +203,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Toggle linter
 nnoremap <C-k> :SyntasticCheck<cr>
-nnoremap <C-l> :SyntasticReset<cr>
-nnoremap <C-m> :SyntasticToggleMode<cr>
+nnoremap <C-l> :SyntasticToggleMode<cr>
 
 " Useful mappings for managing tabs
 nnoremap tn :tabnew<CR>
@@ -222,7 +223,7 @@ nnoremap em :Emmet
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
 " To undo a git hunk change
-nnoremap zx :GitGutterUndoHunk<CR>
+nnoremap ZX :GitGutterUndoHunk<CR>
 
 " To format the code
 nnoremap fv :Neoformat<CR>
@@ -258,13 +259,9 @@ nnoremap hn :GitGutterNextHunk<CR>
 nnoremap hp :GitGutterPrevHunk<CR>
 " This should go on terminal normal mode such as normal edition on neovim
 tnoremap <Esc> <C-\><C-n>
-" For command execution from the editot
-nnoremap zzz :.!sh<CR>
 " For command execution directly in vim
-" And get output of the command inside the editot
-" nnoremap zz :r!
-" For command execution directly in vim
-nnoremap zz :!
+" nnoremap z :!
+nnoremap k :15Term 
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
