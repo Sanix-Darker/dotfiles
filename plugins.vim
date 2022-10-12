@@ -42,7 +42,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ryanoasis/vim-devicons'
 " For hichlight all occurences
 " Of the current word where we have the cursor
-" Plug 'itchyny/vim-cursorword'
+Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
@@ -88,20 +88,23 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'karb94/neoscroll.nvim'
 " For the sticky header
 Plug 'wellle/context.vim'
-
 " Emmet for html fast completion
 Plug 'mattn/emmet-vim'
-
 " Can be nice to ave the terminal in split view
 Plug 'vimlab/split-term.vim'
-
+" TO resolve conflicts like a pro
+" co — choose ours
+" ct — choose theirs
+" cb — choose both
+" c0 — choose none
+" ]x — move to previous conflict
+" [x — move to next conflict
+Plug 'akinsho/git-conflict.nvim'
 " Plug 'folke/todo-comments.nvim'
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
-
 " For color
 " Plug 'navarasu/onedark.nvim'
-
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 

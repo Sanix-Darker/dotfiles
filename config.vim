@@ -264,7 +264,7 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap k :15Term 
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
-nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
+" nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
 
 " To actualize the vim configuration
 nnoremap so :so $MYVIMRC<CR>
