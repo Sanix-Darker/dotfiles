@@ -262,6 +262,7 @@ tnoremap <Esc> <C-\><C-n>
 " For command execution directly in vim
 " nnoremap z :!
 nnoremap k :15Term 
+nnoremap kb :15Term bash <CR>
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 " nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
