@@ -19,8 +19,8 @@ _G.__luacache_config = {
     }
 }
 
--- DIsabling just for now
--- require('which-key').setup()
+-- Disabling just for now
+require('which-key').setup()
 require('hop').setup()
 require('smart-term-esc').setup{
     key='<Esc>',

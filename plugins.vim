@@ -65,7 +65,7 @@ Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 " A hinter for next moves
-" Plug 'folke/which-key.nvim'
+Plug 'folke/which-key.nvim'
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'

@@ -130,6 +130,8 @@ set updatetime=1
 set laststatus=3
 " Fort the splitTerm plugin
 set splitbelow
+# to set the number
+set number
 
 " For the sticky header
 let g:context_enabled = 1
@@ -150,7 +152,7 @@ endtry
 
 nnoremap <leader>f <Esc>:cd %:p:h<CR><Esc>:Ag<CR>
 " For commentary on multilines
-noremap <leader>/ Commentary<cr>
+" noremap <leader>/ Commentary<cr>
 
 " For the fuzzy search
 let g:fzf_preview_window = 'right:50%'
@@ -261,8 +263,6 @@ nnoremap hp :GitGutterPrevHunk<CR>
 tnoremap <Esc> <C-\><C-n>
 " For command execution directly in vim
 " nnoremap z :!
-nnoremap k :15Term 
-nnoremap kb :15Term bash <CR>
 " map <Leader>s :<C-u>call gitblame#echo()<CR>
 " To open the nvim configuration
 " nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
@@ -277,19 +277,25 @@ nnoremap no :nohlsearch<CR>
 " stuff or use P for the default behaviour
 xnoremap p pgvy
 
-" nnoremap X "_dd
 " nnoremap D <S-v>d
-" nnoremap B yyp
 " nnoremap Y yy
+
 " To delete directly the current line
 xnoremap X dd
 nnoremap X dd
 
+" To comment fastly
+xnoremap Z :Commentary<CR>
+nnoremap Z :Commentary<CR>
+
+" To duplicate the current line
 xnoremap B yyp
 nnoremap B yyp
 
 " Disable/Uninstalled for now
 " For floating windows
+nnoremap k :15Term 
+nnoremap kb :15Term bash <CR>
 nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
 nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
@@ -415,8 +421,6 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
-
-set number
 
 map <C-n> :call NERDTreeToggleAndRefresh()<CR>
 function NERDTreeToggleAndRefresh()
