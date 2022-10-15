@@ -133,7 +133,7 @@
     ; grv is a TUI to browse the git project
     browser = !grv
     ; to get logs as oneline only
-    log-line = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    ll = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD origin)

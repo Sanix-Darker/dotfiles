@@ -130,7 +130,7 @@ set updatetime=1
 set laststatus=3
 " Fort the splitTerm plugin
 set splitbelow
-# to set the number
+" to set the number
 set number
 
 " For the sticky header
