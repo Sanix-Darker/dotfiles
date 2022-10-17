@@ -727,4 +727,16 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+git(){
+  if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
+    shift 1
+    command git log-line "$@"
+  elif [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
+    shift 1
+    command git branch-sorted "$@"
+  else
+    command git "$@"
+  fi
+}
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'

@@ -25,7 +25,7 @@
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
     ; to create a new PR
-    pr = !EDITOR=nvim gh pr create
+    pr = !EDITOR=nvim gh pr create --base $(git branch-base)
 
     ; to list all available pull requests
     pr-list = !gh pr list
@@ -64,6 +64,9 @@
     issue-list = !gh issue list
 
     log-branch = !git log origin..HEAD
+
+    ; to get the base branch
+    branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
 
     ; to view an Issue
     ; Ex: git issue-view 23
@@ -133,7 +136,7 @@
     ; grv is a TUI to browse the git project
     browser = !grv
     ; to get logs as oneline only
-    ll = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    log-line = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD origin)

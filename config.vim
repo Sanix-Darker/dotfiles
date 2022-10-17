@@ -281,8 +281,8 @@ xnoremap p pgvy
 " nnoremap Y yy
 
 " To delete directly the current line
-xnoremap X dd
-nnoremap X dd
+xnoremap X "_dd
+nnoremap X "_dd
 
 " To comment fastly
 xnoremap Z :Commentary<CR>
@@ -637,8 +637,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-let g:coc_disable_startup_warning = 1
-
 try
     if has("autocmd")
         " Open last active file(s) if VIM is invoked without arguments.
@@ -672,6 +670,8 @@ try
     endif
 catch
 endtry
+
+let g:coc_disable_startup_warning = 1
 
 try
     " Auto generate tags file on file write of *.c and *.h files
@@ -781,25 +781,21 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 " e.g., more compact: ["▸ ", ""]
 " Note: this option only works for the kind renderer, not the tree renderer.
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-
 " Executive used when opening vista sidebar without specifying it.
 " See all the avaliable executives via `:echo g:vista#executives`.
 let g:vista_default_executive = 'ctags'
-
 " Declare the command including the executable and options used to generate ctags output
 " for some certain filetypes.The file path will be appened to your custom command.
 " For example:
 let g:vista_ctags_cmd = {
       \ 'haskell': 'hasktags -x -o - -c',
       \ }
-
 " To enable fzf's preview window set g:vista_fzf_preview.
 " The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
 " For example:
 let g:vista_fzf_preview = ['right:40%']
 " Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
 let g:vista#renderer#enable_icon = 1
-
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
 let g:vista#renderer#icons = {
 \   "function": "\uf794",
