@@ -137,6 +137,12 @@ set number
 let g:context_enabled = 1
 " <<<<<
 
+" For the minimap plugin
+let g:minimap_width = 10
+let g:minimap_auto_start = 1
+let g:minimap_auto_start_win_enter = 1
+" >>>>>>>>>>
+
 " To activate emmet for html and css
 let g:user_emmet_mode='a'
 let g:user_emmet_install_global = 0
@@ -281,8 +287,14 @@ xnoremap p pgvy
 " nnoremap Y yy
 
 " To delete directly the current line
+xnoremap x "_d 
+nnoremap x "_d 
 xnoremap X "_dd
 nnoremap X "_dd
+nnoremap <Del> "_dd
+
+" To replace in the whole project a string by another one:
+nnoremap RR :20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old>/<new>/ge' -V1 -scwq! {} ';'
 
 " To comment fastly
 xnoremap Z :Commentary<CR>

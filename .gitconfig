@@ -25,7 +25,8 @@
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
     ; to create a new PR
-    pr = !EDITOR=nvim gh pr create --base $(git branch-base)
+    ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
+    pr = !EDITOR=nvim gh pr create
 
     ; to list all available pull requests
     pr-list = !gh pr list

@@ -100,7 +100,12 @@ Plug 'vimlab/split-term.vim'
 " ]x — move to previous conflict
 " [x — move to next conflict
 Plug 'akinsho/git-conflict.nvim'
-" Plug 'folke/todo-comments.nvim'
+
+" For a minimap of my source code
+" you should install code-minimap first:
+" cargo install --locked code-minimap
+Plug 'wfxr/minimap.vim'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color

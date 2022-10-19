@@ -575,7 +575,7 @@ _git_search(){
     ) | less
 }
 
-# __git_open_code "function name"
+# __git_open_code commit:file:line
 _git_open_code(){
     # getting your current branch
     branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -593,7 +593,7 @@ _git_open_code(){
 
     # A checkout on the commit then a less on the line of the file
     git checkout "$commit"
-    cat +"$line" "$file"
+    cat +"$line" "$file" | less -r
 
     sleep 1
     echo "\n[-] Rolling back to your precedent branch..."
@@ -739,4 +739,20 @@ git(){
   fi
 }
 
+alias less="less -r"
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
+
+# # some coul git aliases to go fast
+# alias gs="git status"
+# alias gss="git stat"
+# alias gm="git commit -m"
+# alias ga="git add"
+# alias gaa="git add -p"
+# alias gp="git push"
+# alias gl="git log"
+# alias gsq="git squash"
+# alias gb="git branch"
+# alias gr="git restore"
+# alias grs="git restore --staged"
+# alias grs="git restore --staged"
