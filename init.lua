@@ -49,18 +49,37 @@ require('neoscroll.config').set_mappings(t)
 -- neoscroll
 
 -- for git conflicts resolutions
-require('git-conflict').setup({
-  default_mappings = true, -- disable buffer local mapping created by this plugin
-  disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
-  highlights = { -- They must have background color, otherwise the default color will be used
-    incoming = 'DiffText',
-    current = 'DiffAdd',
-  }
-})
+-- require('git-conflict').setup({
+--   default_mappings = true, -- disable buffer local mapping created by this plugin
+--   disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+--   highlights = { -- They must have background color, otherwise the default color will be used
+--     incoming = 'DiffText',
+--     current = 'DiffAdd',
+--   }
+-- })
 -- for git conflicts resolutions
+
+
+-- for snapshot from the source code
+require('silicon').setup({
+  font = 'Hack=20',
+  theme = 'Dracula',
+  shadow = {
+    blur_radius = 5.3,
+    offset_x = 7,
+    offset_y = 7,
+    color = '#555'
+  },
+  line_number = true,
+  line_pad = 2,
+  line_offset = 1,
+  round_corner = true,
+  window_controls = true,
+})
+-- >>>>>>>>>>>>>>>>>
 
 -- impatient
 -- a plugin to speed up the loading of nvim
 require('impatient')
 -- impatient
-
+ -- set up an appropriate complation like lsp-nvim

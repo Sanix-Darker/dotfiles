@@ -3,10 +3,9 @@ let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
 " Vundle Plugins
-set nocompatible              " be iMproved, required
 filetype off                  " required
 " To have as default delimiter for the csv , and |
-let g:csv_delim_test = ',;|'
+" let g:csv_delim_test = ',;|'
 " All of your Plugins must be added before the following line
 filetype plugin indent on    " required
 
@@ -35,6 +34,7 @@ nmap <leader>w :w!<cr>
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 " => VIM user interface
+set nocompatible              " be iMproved, required
 " Sets how many lines of history VIM has to remember
 set history=300
 set nowrap
@@ -96,10 +96,6 @@ syntax enable
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_enable_signs  = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq   = 0
 " Use spaces instead of tabs
 set expandtab
 " Be smart when using tabs ;)
@@ -133,6 +129,13 @@ set splitbelow
 " to set the number
 set number
 
+" syntax checking
+let g:syntastic_enable_signs  = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq   = 0
+" <<<<<
+
 " For the sticky header
 let g:context_enabled = 1
 " <<<<<
@@ -142,6 +145,11 @@ let g:minimap_width = 10
 let g:minimap_auto_start = 1
 let g:minimap_auto_start_win_enter = 1
 " >>>>>>>>>>
+
+" For the fuzzy search
+let g:fzf_preview_window = 'right:50%'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
+" <<<<<<<
 
 " To activate emmet for html and css
 let g:user_emmet_mode='a'
@@ -159,10 +167,6 @@ endtry
 nnoremap <leader>f <Esc>:cd %:p:h<CR><Esc>:Ag<CR>
 " For commentary on multilines
 " noremap <leader>/ Commentary<cr>
-
-" For the fuzzy search
-let g:fzf_preview_window = 'right:50%'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
 
 " For the column scheme
 try
@@ -286,11 +290,9 @@ xnoremap p pgvy
 " nnoremap D <S-v>d
 " nnoremap Y yy
 
-" To delete directly the current line
-xnoremap x "_d 
-nnoremap x "_d 
-xnoremap X "_dd
-nnoremap X "_dd
+" To cut directly the current line
+xnoremap X dd
+nnoremap X dd
 nnoremap <Del> "_dd
 
 " To replace in the whole project a string by another one:

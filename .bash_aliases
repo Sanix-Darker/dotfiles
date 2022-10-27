@@ -728,10 +728,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 git(){
-  if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
-    shift 1
-    command git log-line "$@"
-  elif [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
+  # if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
+  #   shift 1
+  #   command git log-line "$@"
+  if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
     shift 1
     command git branch-sorted "$@"
   else

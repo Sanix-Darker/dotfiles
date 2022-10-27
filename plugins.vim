@@ -9,8 +9,6 @@ Plug 'preservim/nerdtree'
 " The wakatime plugin
 " Commenting this for now
 Plug 'wakatime/vim-wakatime'
-" For FZF preview
-Plug 'yuki-yano/fzf-preview.vim'
 " to search inside files
 Plug 'mileszs/ack.vim'
 " To add comments
@@ -28,6 +26,8 @@ Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" For FZF preview
+Plug 'yuki-yano/fzf-preview.vim'
 " Use release branch (recommend)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
@@ -72,7 +72,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 " The Zig hightligh & 
 " Plug 'ziglang/zig.vim'
-" Just to the ESC
+" Just to use the ESC in a floaterm
 Plug 'sychen52/smart-term-esc.nvim'
 " ReactJs/typescript support
 Plug 'pangloss/vim-javascript'
@@ -92,20 +92,27 @@ Plug 'wellle/context.vim'
 " Emmet for html fast completion
 Plug 'mattn/emmet-vim'
 " Can be nice to ave the terminal in split view
-Plug 'vimlab/split-term.vim'
-" TO resolve conflicts like a pro
+" Plug 'vimlab/split-term.vim'
+" To resolve conflicts like a pro
 " co — choose ours
 " ct — choose theirs
 " cb — choose both
 " c0 — choose none
 " ]x — move to previous conflict
 " [x — move to next conflict
-Plug 'akinsho/git-conflict.nvim'
+" Plug 'akinsho/git-conflict.nvim'
 
 " For a minimap of my source code
 " you should install code-minimap first:
 " cargo install --locked code-minimap
 Plug 'wfxr/minimap.vim'
+
+" To get a direct link to a github link from vim
+" :GH or :GHInteractive (for github)/ GB or :GBInteractive (for gitlab)
+Plug 'ruanyl/vim-gh-line'
+
+" For snapshot from the code
+Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

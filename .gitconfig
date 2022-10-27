@@ -137,7 +137,8 @@
     ; grv is a TUI to browse the git project
     browser = !grv
     ; to get logs as oneline only
-    log-line = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    log-branch = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    log-branch-details = !git log -p origin..HEAD --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     stat = !git diff --stat $(git merge-base HEAD origin)
@@ -150,6 +151,13 @@
     ; git squash (it will target master)
     ; git squash dev (it will target dev branch)
     squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
+
+    ; git squash-count to squash with a specific amount of commit from the top
+    squash-count = !git rebase -i HEAD~$1
+
+    ; lost-commit
+    ; to list all dangling commits
+    lost-commits = !git fsck --lost-found
 
     ; to revert commits on the current branch at once
     revert-all = !git revert --no-commit HEAD~$(git rev-list --count HEAD ^origin)..
