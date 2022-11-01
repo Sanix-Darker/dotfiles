@@ -105,7 +105,7 @@ Plug 'mattn/emmet-vim'
 " For a minimap of my source code
 " you should install code-minimap first:
 " cargo install --locked code-minimap
-Plug 'wfxr/minimap.vim'
+" Plug 'wfxr/minimap.vim'
 
 " To get a direct link to a github link from vim
 " :GH or :GHInteractive (for github)/ GB or :GBInteractive (for gitlab)
@@ -113,6 +113,10 @@ Plug 'ruanyl/vim-gh-line'
 
 " For snapshot from the code
 Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
+
+" For surrounding quotes
+" cs'> or ds'<
+Plug 'tpope/vim-surround'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
