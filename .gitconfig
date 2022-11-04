@@ -26,7 +26,10 @@
     ; You can use ssh or https, but; it's better to use ssh one
     ; to create a new PR
     ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
-    pr = !EDITOR=nvim gh pr create
+    pr = !EDITOR=nvim gh pr create -a Sanix-Darker
+
+    ; to get the label list from the repo
+    label-list = !gh label list
 
     ; to list all available pull requests
     pr-list = !gh pr list
@@ -135,7 +138,10 @@
     ; to get the last commit
     last = !git log -1 HEAD --stat
     ; grv is a TUI to browse the git project
-    browser = !grv
+    ; browser = !grv
+    fd = !bash -ic 'git-fuzzy-diff \"$@\"' x
+	browser = !bash -ic 'git-fuzzy-log \"$@\"' x
+
     ; to get logs as oneline only
     log-branch = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     log-branch-details = !git log -p origin..HEAD --no-merges
