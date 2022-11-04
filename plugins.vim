@@ -141,7 +141,7 @@ Plug 'tpope/vim-surround'
 " m<Space> to delete all bookmark
 " [` to jump to the prev bookmark
 " ]` to jump to the next bookmark
-" Plug 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature'
 
 " Snippets are separated from the engine. Add this if you want them:
 " Plug 'honza/vim-snippets'
