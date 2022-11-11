@@ -128,7 +128,7 @@ Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'

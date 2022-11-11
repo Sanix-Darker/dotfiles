@@ -207,7 +207,5 @@ _gogo(){
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 
-gggf(){
-    echo "xxx $1"
-}
-
+alias luamake=/luamake
+export PATH="/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.local/bin:/home/dk/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v18.6.0/bin:/home/dk/.local/bin:/home/dk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin://home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin"
