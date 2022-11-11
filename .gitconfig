@@ -201,3 +201,5 @@
     hunk-header-style = file syntax
 [commit]
 	gpgsign = true
+[init]
+	defaultBranch = master

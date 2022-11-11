@@ -31,7 +31,7 @@ require('smart-term-esc').setup{
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
     hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
@@ -49,32 +49,32 @@ require('neoscroll.config').set_mappings(t)
 -- neoscroll
 
 -- for git conflicts resolutions
--- require('git-conflict').setup({
---   default_mappings = true, -- disable buffer local mapping created by this plugin
---   disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
---   highlights = { -- They must have background color, otherwise the default color will be used
---     incoming = 'DiffText',
---     current = 'DiffAdd',
---   }
--- })
+require('git-conflict').setup({
+    default_mappings = true, -- disable buffer local mapping created by this plugin
+    disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+    highlights = { -- They must have background color, otherwise the default color will be used
+    incoming = 'DiffText',
+    current = 'DiffAdd',
+}
+})
 -- for git conflicts resolutions
 
 
 -- for snapshot from the source code
 require('silicon').setup({
-  font = 'Hack=20',
-  theme = 'Dracula',
-  shadow = {
-    blur_radius = 5.3,
-    offset_x = 7,
-    offset_y = 7,
-    color = '#555'
-  },
-  line_number = true,
-  line_pad = 2,
-  line_offset = 1,
-  round_corner = true,
-  window_controls = true,
+    font = 'Hack=20',
+    theme = 'Dracula',
+    shadow = {
+        blur_radius = 5.3,
+        offset_x = 7,
+        offset_y = 7,
+        color = '#555'
+    },
+    line_number = true,
+    line_pad = 2,
+    line_offset = 1,
+    round_corner = true,
+    window_controls = true,
 })
 -- >>>>>>>>>>>>>>>>>
 
@@ -82,4 +82,53 @@ require('silicon').setup({
 -- a plugin to speed up the loading of nvim
 require('impatient')
 -- impatient
- -- set up an appropriate complation like lsp-nvim
+-- set up an appropriate complation like lsp-nvim
+
+
+-- Set up nvim-cmp.
+local cmp = require'cmp'
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+        end,
+    },
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- Accept currently selected item. Set `select` to `false`
+        -- to only confirm explicitly selected items.
+    }),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' }, -- For luasnip users.
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})

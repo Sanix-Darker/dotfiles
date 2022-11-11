@@ -100,7 +100,7 @@ Plug 'mattn/emmet-vim'
 " c0 — choose none
 " ]x — move to previous conflict
 " [x — move to next conflict
-" Plug 'akinsho/git-conflict.nvim'
+Plug 'akinsho/git-conflict.nvim'
 
 " For a minimap of my source code
 " you should install code-minimap first:
@@ -117,6 +117,23 @@ Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 " For surrounding quotes
 " cs'> or ds'<
 Plug 'tpope/vim-surround'
+
+" fpr php
+Plug 'tobyS/pdv'                        " Auto generating php docblocks
+Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
+Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
+Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
+Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
+
+" Let's optimize the completion for snippets
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
