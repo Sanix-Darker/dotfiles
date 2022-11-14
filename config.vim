@@ -287,6 +287,9 @@ nnoremap no :nohlsearch<CR>
 " stuff or use P for the default behaviour
 xnoremap p pgvy
 
+" To Ctrl-BackSpace delete a whole previous word
+xnoremap <C-H> dvbh
+nnoremap <C-H> dvbh
 " nnoremap D <S-v>d
 " nnoremap Y yy
 
@@ -510,7 +513,7 @@ nnoremap <silent> KKK :call <SID>show_documentation()<CR>
 " nnoremap <C-[> <Esc><CR>
 
 " To change rom horizontals to vertical views
-nnoremap <C-H> :windo wincmd H<CR>
+" nnoremap <C-H> :windo wincmd H<CR>
 
 " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
