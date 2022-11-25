@@ -290,6 +290,7 @@ xnoremap p pgvy
 " To Ctrl-BackSpace delete a whole previous word
 xnoremap <C-H> dvbh
 nnoremap <C-H> dvbh
+inoremap <C-H> dvbh
 " nnoremap D <S-v>d
 " nnoremap Y yy
 

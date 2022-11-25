@@ -64,6 +64,9 @@
     ; to create a new Issur
     issue = !EDITOR=nvim gh issue create
 
+    ; git reset --hard
+    clear = !git reset --hard
+
     ; to list all vailable issues
     issue-list = !gh issue list
 
@@ -122,6 +125,11 @@
 
     ; to push the current branch as an upstream
     pushit = !git push --set-upstream origin $(git branch --show-current)
+
+    ; to update a branch
+    update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
+
+    amend = !git commit --amend
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
     ; To list all Aliasses
