@@ -130,6 +130,8 @@
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
 
     amend = !git commit --amend
+    amend-no-edit = !git commit --amend --no-edit
+
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
     ; To list all Aliasses
@@ -190,6 +192,10 @@
 
     ; to pull only the current branch
     pull-it = !git pull origin $(git branch --show-current)
+
+    ; checkout an orphan branch means, we create an empty branch not comming 
+    ; from master/main or anythong else !
+    checkout-orphan = !git checkout --orphan
 
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 

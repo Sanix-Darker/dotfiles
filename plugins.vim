@@ -118,12 +118,16 @@ Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 " cs'> or ds'<
 Plug 'tpope/vim-surround'
 
-" fpr php
+" for php
 Plug 'tobyS/pdv'                        " Auto generating php docblocks
 Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
 Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
 Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
 Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
+" for php autocompletion
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'Shougo/unite.vim'
+Plug 'm2mdas/phpcomplete-extended'
 
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
