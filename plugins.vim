@@ -29,7 +29,7 @@ Plug 'junegunn/fzf.vim'
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
 Plug 'tmhedberg/SimpylFold'
@@ -119,20 +119,20 @@ Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
 Plug 'tpope/vim-surround'
 
 " for php
-Plug 'tobyS/pdv'                        " Auto generating php docblocks
-Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
+" Plug 'tobyS/pdv'                        " Auto generating php docblocks
+" Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
 Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
 Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
-Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
-" for php autocompletion
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/unite.vim'
-Plug 'm2mdas/phpcomplete-extended'
+" Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
+" " for php autocompletion
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'Shougo/unite.vim'
+" Plug 'm2mdas/phpcomplete-extended'
 
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
-" Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
@@ -237,9 +237,6 @@ Plug 'kshenoy/vim-signature'
 " Plug 'ldelossa/litee.nvim'
 " For code review on nvim directly
 " Plug 'ldelossa/gh.nvim'
-
-" For the LSP confiuration
-" Plug 'neovim/nvim-lspconfig'
 
 " For icons on modules types
 " Plug 'onsails/lspkind.nvim'

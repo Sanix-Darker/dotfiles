@@ -156,17 +156,33 @@ _set_nvim(){
     nvim --headless +PlugInstall +qall
 
     # cocInstall servers
-    coc_servers=(
-        "coc-json" "coc-html" "coc-css" "coc-sh"
-        "coc-pyright" "coc-go" "coc-tsserver"
-        "coc-snippets" "coc-prettier" "coc-phpls"
-        "coc-eslint" "coc-vetur" "coc-clang"
+    # coc_servers=(
+    #     "coc-json" "coc-html" "coc-css" "coc-sh"
+    #     "coc-pyright" "coc-go" "coc-tsserver"
+    #     "coc-snippets" "coc-prettier" "coc-phpls"
+    #     "coc-eslint" "coc-vetur" "coc-clang"
+    # )
+    # for i in "${coc_servers[@]}"
+    # do
+    #     echo "[-] Nvim CocInstall $i..."
+    #     nvim --headless +"CocInstall $1" +qall
+    # done
+    
+    # yeah, we remove coc-nvim in favor of LSP
+    lsp_conf=(
+        "pyright" "ts-server" "vscode-langservers-extracted"
+        "bash-language-server" "cssmodules-language-server"
+        "dockerfile-language-server-nodejs" "emmet-ls"
+        "graphql-language-service-cli"
     )
-    for i in "${coc_servers[@]}"
+    for i in "${lsp_conf[@]}"
     do
-        echo "[-] Nvim CocInstall $i..."
-        nvim --headless +"CocInstall $1" +qall
+        echo "Installing $i..."
+        npm install -g $i
     done
+
+    # pour arduino
+    # go install github.com/arduino/arduino-language-server@latest
 }
 
 # Assuming we already have the dotfiles directory

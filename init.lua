@@ -134,17 +134,61 @@ cmp.setup.cmdline(':', {
 })
 
 -- -- Set up lspconfig.
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require'lspconfig'.pyright.setup {
---     capabilities = capabilities
--- }
--- require'lspconfig'.tsserver.setup{
---     capabilities = capabilities
--- }
--- require'lspconfig'.eslint.setup{
---     capabilities = capabilities
--- }
--- require'lspconfig'.gopls.setup{
---     capabilities = capabilities
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require'lspconfig'.pyright.setup {
+    capabilities = capabilities
+}
+require'lspconfig'.tsserver.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.eslint.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.jsonls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.gopls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.phpactor.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.cssls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.html.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.bashls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.clangd.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.cssmodules_ls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.emmet_ls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.phpactor.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.ruby_ls.setup{
+    capabilities = capabilities
+}
+require'lspconfig'.vls.setup{
+    capabilities = capabilities
+}
+
+-- require'lspconfig'.arduino_language_server.setup{}
+-- require'lspconfig'.arduino_language_server.setup {
+--   cmd = {
+--     "arduino-language-server",
+--     "-cli-config", "/path/to/arduino-cli.yaml",
+--     "-fqbn", "arduino:avr:uno",
+--     "-cli", "arduino-cli",
+--     "-clangd", "clangd"
+--   }
 -- }
