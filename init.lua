@@ -190,38 +190,35 @@ cmp.setup.cmdline(':', {
 ---
 -- Global Config
 ---
-
 -- -- Set up lspconfig.
 local lspconfig = require('lspconfig')
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local lsp_defaults = lspconfig.util.default_config
+local local_capabilities = cmp_nvim_lsp.default_capabilities()
 
 lsp_defaults.capabilities = vim.tbl_deep_extend(
-  'force',
-  lsp_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
+    'force',
+    lsp_defaults.capabilities,
+    local_capabilities 
 )
 
 -- LSP Servers
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-lspconfig.pyright.setup{}
-lspconfig.tsserver.setup{}
-lspconfig.eslint.setup{}
-lspconfig.jsonls.setup{}
-lspconfig.gopls.setup{}
-lspconfig.phpactor.setup{}
-lspconfig.cssls.setup{}
-lspconfig.html.setup{}
-lspconfig.bashls.setup{}
-lspconfig.clangd.setup{}
-lspconfig.cssmodules_ls.setup{}
-lspconfig.emmet_ls.setup{}
-lspconfig.phpactor.setup{}
-lspconfig.ruby_ls.setup{}
-lspconfig.vls.setup{}
+local servers = {
+    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
+    'eslint', 'jsonls', 'gopls', 'phpactor',
+    'cssls', 'html', 'bashls', 'cssmodules_ls',
+    'emmet_ls', 'ruby_ls', 'vls'
+}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = local_capabilities,
+  }
+end
 
 -- To load all our snippets
 require('luasnip.loaders.from_vscode').lazy_load()
-
 
 -- keybindings to go to definition/declaration
 vim.api.nvim_create_autocmd('LspAttach', {

@@ -151,10 +151,10 @@ let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
 " <<<<<<<
 
-" To activate emmet for html and css
-let g:user_emmet_mode='a'
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+" To activate emmet for html and css | since LSP html is already handled
+" let g:user_emmet_mode='a'
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
 " <<<
 
 " To jump into a next error
@@ -230,7 +230,7 @@ nnoremap fg :Ag<CR>
 
 " For Emmet html and css
 " documentation : https://docs.emmet.io/cheat-sheet/
-nnoremap em :Emmet 
+" nnoremap em :Emmet 
 
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>

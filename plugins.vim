@@ -19,9 +19,9 @@ Plug 'vim-syntastic/syntastic'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
+" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
 " Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -90,7 +90,7 @@ Plug 'karb94/neoscroll.nvim'
 " For the sticky header
 Plug 'wellle/context.vim'
 " Emmet for html fast completion
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 " Can be nice to ave the terminal in split view
 " Plug 'vimlab/split-term.vim'
 " To resolve conflicts like a pro
