@@ -121,8 +121,8 @@ Plug 'tpope/vim-surround'
 " for php
 " Plug 'tobyS/pdv'                        " Auto generating php docblocks
 " Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
-Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
-Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
+" Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
+" Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
 " Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
 " " for php autocompletion
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -132,12 +132,15 @@ Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocom
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+" For snippets
+Plug 'rafamadriz/friendly-snippets'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
@@ -164,7 +167,8 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " ]` to jump to the next bookmark
 Plug 'kshenoy/vim-signature'
 
-" Snippets are separated from the engine. Add this if you want them:
+" Snippets are separated from the engine.
+" Add this if you want them:
 " Plug 'honza/vim-snippets'
 
 " Jedi-vim autocompletion

@@ -358,7 +358,7 @@ endfun
 
 if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-    autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+    " autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

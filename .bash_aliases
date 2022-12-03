@@ -173,7 +173,7 @@ _set_nvim(){
         "pyright" "ts-server" "vscode-langservers-extracted"
         "bash-language-server" "cssmodules-language-server"
         "dockerfile-language-server-nodejs" "emmet-ls"
-        "graphql-language-service-cli"
+        "graphql-language-service-cli" "typescript-language-server"
     )
     for i in "${lsp_conf[@]}"
     do
