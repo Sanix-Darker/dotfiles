@@ -232,6 +232,10 @@ nnoremap fg :Ag<CR>
 " documentation : https://docs.emmet.io/cheat-sheet/
 " nnoremap em :Emmet 
 
+" To indent multiple time in visual mode
+vnoremap < <gv
+vnoremap > >gv
+
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
 " To undo a git hunk change
