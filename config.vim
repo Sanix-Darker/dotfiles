@@ -129,6 +129,9 @@ set splitbelow
 " to set the number
 set number
 
+" To show hidden files
+let NERDTreeShowHidden=1
+
 " syntax checking
 let g:syntastic_enable_signs  = 0
 let g:syntastic_auto_loc_list = 0
@@ -141,9 +144,9 @@ let g:context_enabled = 1
 " <<<<<
 
 " For the minimap plugin
-let g:minimap_width = 10
-let g:minimap_auto_start = 1
-let g:minimap_auto_start_win_enter = 1
+" let g:minimap_width = 10
+" let g:minimap_auto_start = 1
+" let g:minimap_auto_start_win_enter = 1
 " >>>>>>>>>>
 
 " For the fuzzy search
@@ -227,6 +230,9 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
+
+" For the map of the code
+nnoremap vv :Vista!!<CR>
 
 " For Emmet html and css
 " documentation : https://docs.emmet.io/cheat-sheet/
@@ -315,8 +321,8 @@ nnoremap B yyp
 
 " Disable/Uninstalled for now
 " For floating windows
-nnoremap k :15Term 
-nnoremap kb :15Term bash <CR>
+" nnoremap k :15Term 
+" nnoremap kb :15Term bash <CR>
 nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
 nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
@@ -343,13 +349,6 @@ map 0 ^
 nmap <M-j> mz:m+<cr>z
 vmap <M-j> :m'>+<cr>>mzgvz
 vmap <M-k> :m'<-2<cr><mzgvz
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
@@ -452,9 +451,6 @@ function NERDTreeToggleAndRefresh()
   endif
 endfunction
 
-" TO show hidden files
-let NERDTreeShowHidden=1
-
 " inoremap <silent><expr> <TAB>
 "       \ pumvisible() ? "\<C-n>" :
 "       \ <SID>check_back_space() ? "\<TAB>" :
@@ -478,9 +474,8 @@ endfunction
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 ""                              \: \<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <expr> <cr> pumvisible() ? \"\<C-y>" : \"\<C-g>u\<CR>"
+" inoremap <silent><expr> <cr> \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -503,15 +498,14 @@ endfunction
 " inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) :\"\<PageDown>"
 " inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : \"\<PageUp>"
 " >>>
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : \"\<CR>"
+" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : \"\<tab>"
 
 " For the synthax
 let b:ale_linters = ['flake8']
 " Some fixers...
 let b:ale_fixers = ['eslint']
 let b:ale_fix_on_save = 1
-
 
 " Use K to show documentation in preview window.
 nnoremap <silent> KKK :call <SID>show_documentation()<CR>
@@ -559,7 +553,7 @@ endfunction
 "   elseif (coc#rpc#ready())
 "     call CocActionAsync('doHover')
 "   else
-"     execute '!' . &keywordprg . " " . expand('<cword>')
+"     execute '!' . &keywordprg . \" " . expand('<cword>')
 "   endif
 " endfunction
 
@@ -823,5 +817,5 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 
-" don't ask me why but i had to do this to disable synthx toggling
+" Don't ask me why but i had to do this to disable synthx toggling
 nnoremap <CR> <cr>

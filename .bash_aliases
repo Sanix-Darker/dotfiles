@@ -202,6 +202,9 @@ _set_dot_files(){
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
 
+    # we copy our ranger configuration
+    cpd $DOT_DIR/ranger ~/.config/ranger
+
     # we copy our i3 config 
     cpd $DOT_DIR/i3_config ~/.config/i3/config
     cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
@@ -238,6 +241,9 @@ _copy_to_dotfiles(){
     cpd ~/vagrant/vms/ubu/Vagrantfile $DOT_DIR/ubu_Vagrantfile
     cpd ~/vagrant/vms/win/Vagrantfile $DOT_DIR/win_Vagrantfile
     cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/ubu_arm64_Vagrantfile
+
+    # For ranger configurationss
+    cpd ~/.config/ranger $DOT_DIR
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
@@ -339,6 +345,9 @@ _install_path_browsing_utils(){
     sudo unzip exa-linux-x86_64-0.8.0.zip
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     sudo rm -rf exa*.zip
+
+    # putting this in comment for now
+    # pip install ranger
 }
 
 
@@ -823,6 +832,8 @@ git(){
 }
 
 alias less="less -r"
+
+alias pypy3="./pypy3.9-v7.3.9-linux64/bin/pypy3.9"
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 

@@ -129,6 +129,17 @@ Plug 'tpope/vim-surround'
 " Plug 'Shougo/unite.vim'
 " Plug 'm2mdas/phpcomplete-extended'
 
+" To manage LSP servers
+" :Mason - opens a graphical status window
+" :MasonInstall <package> ... - installs/reinstalls the provided packages
+" :MasonUninstall <package> ... - uninstalls the provided packages
+" :MasonUninstallAll - uninstalls all packages
+" :MasonLog - opens the mason.nvim log file in a new tab window
+Plug 'williamboman/mason.nvim'
+" :LspInstall [<server>...] - installs the provided servers
+" :LspUninstall <server> ... - uninstalls the provided servers
+Plug 'williamboman/mason-lspconfig.nvim'
+
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -139,8 +150,12 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
 " For snippets
 Plug 'rafamadriz/friendly-snippets'
+
+" lspkind for autocompletion stuff
+Plug 'onsails/lspkind.nvim'
 
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'

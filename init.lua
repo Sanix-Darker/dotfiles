@@ -1,5 +1,10 @@
 vim.cmd('source ~/.config/nvim/config.vim')
 
+-- [[ : sections backward or to the previous '{' in the first column.
+-- ]] : sections forward or to the next '{' in the first column.
+-- [] : sections backward or to the previous '}' in the first column.
+-- ][ : sections forward or to the next '}' in the first column.
+
 -- Uncomment this when debuging
 -- require('dap-python').setup('*env*/bin/python')
 -- require('dap-go').setup()
@@ -53,9 +58,9 @@ require('git-conflict').setup({
     default_mappings = true, -- disable buffer local mapping created by this plugin
     disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
     highlights = { -- They must have background color, otherwise the default color will be used
-    incoming = 'DiffText',
-    current = 'DiffAdd',
-}
+        incoming = 'DiffText',
+        current = 'DiffAdd',
+    }
 })
 -- for git conflicts resolutions
 
@@ -84,13 +89,46 @@ require('impatient')
 -- impatient
 -- set up an appropriate complation like lsp-nvim
 
-
 -- LSP nvim-cmp (much faster than coc-nvim)
-
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+local lsp_servers = {
+    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
+    'eslint', 'jsonls', 'gopls', 'phpactor',
+    'cssls', 'html', 'bashls', 'cssmodules_ls',
+    'emmet_ls', 'ruby_ls', 'vls', 'arduino_language_server',
+    'cssls', 'dockerls', 'gradle_ls', 'graphql',
+    'jdtls', 'kotlin_language_server', 'sumneko_lua', 'marksman',
+    'rnix', 'taplo', 'tailwindcss',
+    'terraformls', 'yamlls', 'zls', 'lemminx'
+}
+
+-- LSP servers managers
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+require("mason-lspconfig").setup({
+    -- ensure_installed = lsp_servers,
+    automatic_installation = false,
+})
+
 -- Set up nvim-cmp.
 local cmp = require'cmp'
+local types = require'cmp.types'
+local str = require'cmp.utils.str'
 local luasnip = require'luasnip'
+local lspkind = require'lspkind'
+
+local t = function(str)
+	return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 -- Selected option
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 
@@ -154,17 +192,33 @@ cmp.setup({
         { name = 'buffer' },
     }),
     formatting = {
-      fields = {'menu', 'abbr', 'kind'},
-      format = function(entry, item)
-        local menu_icon = {
-          nvim_lsp = 'λ',
-          luasnip = '⋗',
-          buffer = 'Ω',
-          path = '⚎',
-        }
-        item.menu = menu_icon[entry.source.name]
-        return item
-      end,
+		fields = {
+			cmp.ItemField.Kind,
+			cmp.ItemField.Abbr,
+			cmp.ItemField.Menu,
+		},
+		format = lspkind.cmp_format({
+            maxwidth = 50,
+			with_text = false,
+			before = function(entry, vim_item)
+				-- Get the full snippet (and only keep first line)
+				local word = entry:get_insert_text()
+				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+					word = vim.lsp.util.parse_snippet(word)
+				end
+				word = str.oneline(word)
+
+				if
+					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
+					and string.sub(vim_item.abbr, -1, -1) == "~"
+				then
+					word = word .. "~"
+				end
+				vim_item.abbr = word
+
+				return vim_item
+			end,
+		}),
     },
 })
 
@@ -203,13 +257,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 
 -- LSP Servers
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-local servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls', 'phpactor',
-    'cssls', 'html', 'bashls', 'cssmodules_ls',
-    'emmet_ls', 'ruby_ls', 'vls'
-}
-for _, lsp in ipairs(servers) do
+for _, lsp in ipairs(lsp_servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
     capabilities = local_capabilities,
@@ -240,6 +288,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
     bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
     -- Lists all the references 
     bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+
+	-- bufmap('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+	-- bufmap('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+	-- bufmap('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+	-- bufmap('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+	-- bufmap('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+	-- bufmap('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+	-- bufmap('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+	-- bufmap('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+	-- bufmap('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	-- bufmap('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+	-- bufmap('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 
     -- Displays a function's signature information
     bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
@@ -295,6 +355,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
   {border = 'rounded'}
 )
 
+-- check : https://github.com/arduino/arduino-language-server
 -- lspconfig.arduino_language_server.setup{}
 -- lspconfig.arduino_language_server.setup {
 --   cmd = {
@@ -305,3 +366,31 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 --     "-clangd", "clangd"
 --   }
 -- }
+
+require('vim.lsp.protocol').CompletionItemKind = {
+    '', -- Text
+    '', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '了', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+}

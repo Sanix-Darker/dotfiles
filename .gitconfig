@@ -1,3 +1,4 @@
+; a sick config i should inspire my self too : https://github.com/kbd/setup/blob/e23b3e8e2363284c3c766c0be2211f46c745354a/HOME/.config/git/config#L110
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
@@ -26,7 +27,12 @@
     ; You can use ssh or https, but; it's better to use ssh one
     ; to create a new PR
     ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
-    pr = !EDITOR=nvim gh pr create -a Sanix-Darker
+    ; This will create on the default main branch, could be master or main
+    pr = !EDITOR=nvim gh pr create -a sanix-darker
+
+    ; pr-to to specify a specific branch
+    ; git pr-to dev-branch
+    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker --base 
 
     ; to get the label list from the repo
     label-list = !gh label list
@@ -181,6 +187,9 @@
     ; just the short way to cherry-pick
     pick = !git cherry-pick
 
+    ; to pick a specific commit
+    pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi | cut -d ' ' -f1)
+
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
 
@@ -196,6 +205,10 @@
     ; checkout an orphan branch means, we create an empty branch not comming 
     ; from master/main or anythong else !
     checkout-orphan = !git checkout --orphan
+
+    ; checkout with search 
+    ; That will open a fuzzy finder popUp to search amount available branches
+    checkout-search = !git checkout $(git branch | fzf)
 
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
