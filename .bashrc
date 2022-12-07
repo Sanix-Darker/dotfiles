@@ -176,7 +176,8 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 # set the bluetooth for my earphone
 # bluetoothctl scan on
 # bluetoothctl devices 
-# bluetoothctl connect 6E:47:D9:FA:BA:44
+# bluetoothctl connect 6E:47:D9:FA:BA:44 # soundCore
+# bluetoothctl connect 56:E1:6D:80:B4:27 # box bluethooth
 
 # set the wifi 
 # nmcli dev wifi
