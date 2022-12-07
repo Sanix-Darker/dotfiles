@@ -16,7 +16,8 @@ class f(Command):
         import os.path
         try:
             fzf = self.fm.execute_command(
-                "fzf --preview='batcat {}' --bind shift-up:preview-page-up,shift-down:preview-page-down",
+                'fzf +m',
+                # "fzf --preview='batcat {}' --bind shift-up:preview-page-up,shift-down:preview-page-down",
                 universal_newlines=True,
                 stdout=subprocess.PIPE
             )
