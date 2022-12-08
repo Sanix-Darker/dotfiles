@@ -242,6 +242,8 @@ nnoremap vv :Vista!!<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" nvim $(git diff --name-only origin | fzf +m)
+
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
 " To undo a git hunk change
