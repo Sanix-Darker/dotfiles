@@ -25,14 +25,18 @@ _G.__luacache_config = {
 }
 
 -- Disabling just for now
--- require('which-key').setup()
+require('which-key').setup()
+
+-- hop to jump on any text base objects
 require('hop').setup()
+
+-- ti be able to use the ESC in the floatTerm terminal
 require('smart-term-esc').setup{
     key='<Esc>',
     except={'nvim', 'fzf'}
 }
 
--- neoscroll
+-- neoscroll (for smooth scrolling)
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
@@ -47,21 +51,21 @@ require('neoscroll').setup({
     performance_mode = false,    -- Disable "Performance Mode" on all buffers.
 })
 
-local t = {}
-t['<S-Up>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}}
-t['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
-require('neoscroll.config').set_mappings(t)
--- neoscroll
+local scroll_map = {}
+scroll_map['<S-Up>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}}
+scroll_map['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
+require('neoscroll.config').set_mappings(scroll_map)
+-- >>>>>>>>>>>>>>>
 
 -- for git conflicts resolutions
-require('git-conflict').setup({
-    default_mappings = true, -- disable buffer local mapping created by this plugin
-    disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
-    highlights = { -- They must have background color, otherwise the default color will be used
-        incoming = 'DiffText',
-        current = 'DiffAdd',
-    }
-})
+-- require('git-conflict').setup({
+--     default_mappings = true, -- disable buffer local mapping created by this plugin
+--     disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+--     highlights = { -- They must have background color, otherwise the default color will be used
+--         incoming = 'DiffText',
+--         current = 'DiffAdd',
+--     }
+-- })
 -- for git conflicts resolutions
 
 
@@ -98,9 +102,22 @@ local lsp_servers = {
     'cssls', 'html', 'bashls', 'cssmodules_ls',
     'emmet_ls', 'ruby_ls', 'vls', 'arduino_language_server',
     'cssls', 'dockerls', 'gradle_ls', 'graphql',
-    'jdtls', 'kotlin_language_server', 'sumneko_lua', 'marksman',
+    'jdtls', 'kotlin_language_server', 'marksman',
     'rnix', 'taplo', 'tailwindcss',
     'terraformls', 'yamlls', 'zls', 'lemminx'
+}
+
+require'lspconfig'.sumneko_lua.setup {
+    -- ... other configs
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- this is to allow vim to be consider as a globals
+                -- authorise variable
+                globals = { 'vim' }
+            }
+        }
+    }
 }
 
 -- LSP servers managers
@@ -125,8 +142,8 @@ local str = require'cmp.utils.str'
 local luasnip = require'luasnip'
 local lspkind = require'lspkind'
 
-local t = function(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
+local t = function(str_)
+	return vim.api.nvim_replace_termcodes(str_, true, true, true)
 end
 
 -- Selected option
@@ -252,7 +269,7 @@ local local_capabilities = cmp_nvim_lsp.default_capabilities()
 lsp_defaults.capabilities = vim.tbl_deep_extend(
     'force',
     lsp_defaults.capabilities,
-    local_capabilities 
+    local_capabilities
 )
 
 -- LSP Servers

@@ -66,7 +66,7 @@ Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 " A hinter for next moves
-" Plug 'folke/which-key.nvim'
+Plug 'folke/which-key.nvim'
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
@@ -100,7 +100,7 @@ Plug 'wellle/context.vim'
 " c0 — choose none
 " ]x — move to previous conflict
 " [x — move to next conflict
-Plug 'akinsho/git-conflict.nvim'
+" Plug 'akinsho/git-conflict.nvim'
 
 " For a minimap of my source code
 " you should install code-minimap first:
@@ -181,7 +181,7 @@ Plug 'joshdick/onedark.vim'
 " m<Space> to delete all bookmark
 " [` to jump to the prev bookmark
 " ]` to jump to the next bookmark
-Plug 'kshenoy/vim-signature'
+" Plug 'kshenoy/vim-signature'
 
 " Snippets are separated from the engine.
 " Add this if you want them:

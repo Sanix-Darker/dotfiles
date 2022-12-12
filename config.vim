@@ -111,7 +111,7 @@ set si "Smart indent
 set wrap "Wrap lines
 " Status line
 " Always show the status line
-set laststatus=2
+set laststatus=3
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 " set mouse= to disable the mouse
@@ -123,7 +123,7 @@ set winbar=%=%m\ %f
 " for the tagbar refresh time
 set updatetime=1
 " To keep the statusline only global not per file
-set laststatus=3
+" set laststatus=3
 " Fort the splitTerm plugin
 set splitbelow
 " to set the number
@@ -787,7 +787,7 @@ endtry
 function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
-" set statusline+=%{NearestMethodOrFunction()}
+set statusline+=%{NearestMethodOrFunction()}
 
 " By default vista.vim never run if you don't call it explicitly.
 " If you want to show the nearest function in your statusline automatically,
@@ -821,3 +821,4 @@ let g:vista#renderer#icons = {
 
 " Don't ask me why but i had to do this to disable synthx toggling
 nnoremap <CR> <cr>
+autocmd ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
