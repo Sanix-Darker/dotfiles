@@ -819,6 +819,5 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 
-" Don't ask me why but i had to do this to disable synthx toggling
+" Don't ask me why but i had to do this to disable synthx toggling forward and backward like an idiot
 nnoremap <CR> <cr>
-autocmd ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
