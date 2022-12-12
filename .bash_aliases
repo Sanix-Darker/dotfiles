@@ -243,7 +243,7 @@ _copy_to_dotfiles(){
     cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/ubu_arm64_Vagrantfile
 
     # For ranger configurationss
-    cpd ~/.config/ranger $DOT_DIR
+    cpd ~/.config/ranger/!(plugins/ranger_devicons/.git) $DOT_DIR
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
@@ -253,7 +253,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3mouse.sh
 
     # we copy polybar
-    cpd ~/.config/polybar $DOT_DIR/polybar
+    cpd ~/.config/polybar/!(*.git/|*.github/) $DOT_DIR/polybar
     
     # Our rofi theme for search
     cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi

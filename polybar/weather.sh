@@ -1,3 +1,4 @@
 #/bin/sh
 
-curl -s -L wttr.in/France+Argenteuil?format=2
+res="$(curl -s -L wttr.in/France+Argenteuil?format=1)"
+echo ${res##* }
