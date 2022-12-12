@@ -161,6 +161,7 @@ Plug 'onsails/lspkind.nvim'
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
 " Plug 'navarasu/onedark.nvim'
+Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
