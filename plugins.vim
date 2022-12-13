@@ -157,6 +157,9 @@ Plug 'rafamadriz/friendly-snippets'
 " lspkind for autocompletion stuff
 Plug 'onsails/lspkind.nvim'
 
+" Should help preview got to references
+Plug 'kevinhwang91/nvim-bqf'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color

@@ -243,7 +243,7 @@ _copy_to_dotfiles(){
     cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/ubu_arm64_Vagrantfile
 
     # For ranger configurationss
-    cpd ~/.config/ranger/!(plugins/ranger_devicons/.git) $DOT_DIR
+    cpd ~/.config/ranger/ $DOT_DIR
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
@@ -253,7 +253,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3mouse.sh
 
     # we copy polybar
-    cpd ~/.config/polybar/!(*.git/|*.github/) $DOT_DIR/polybar
+    cpd ~/.config/polybar/ $DOT_DIR/polybar
     
     # Our rofi theme for search
     cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi
@@ -834,6 +834,27 @@ git(){
 alias less="less -r"
 
 alias pypy3="./pypy3.9-v7.3.9-linux64/bin/pypy3.9"
+
+_stopWatch(){
+    # while true; do printf '%s\r' "$(date +%H:%M:%S:%N)"; done
+    start=$(date +%s)
+    while true; do
+        time="$(($(date +%s) - $start))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+    done
+}
+
+_countdown(){
+    seconds=$1
+    start="$(($(date +%s) + $seconds))"
+    while [ "$start" -ge `date +%s` ]; do
+        time="$(( $start - `date +%s` ))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+    done
+}
+
+alias stopwatch=_stopWatch
+alias countdown=_countdown
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 

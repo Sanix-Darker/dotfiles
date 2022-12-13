@@ -23,6 +23,10 @@ _G.__luacache_config = {
         path = vim.fn.stdpath('cache')..'/luacache_modpaths',
     }
 }
+-- impatient
+-- a plugin to speed up the loading of nvim
+require('impatient')
+-- >>>>>>>>>>>>>>>>>
 
 -- Disabling just for now
 require('which-key').setup()
@@ -87,12 +91,7 @@ require('silicon').setup({
 })
 -- >>>>>>>>>>>>>>>>>
 
--- impatient
--- a plugin to speed up the loading of nvim
-require('impatient')
--- impatient
 -- set up an appropriate complation like lsp-nvim
-
 -- LSP nvim-cmp (much faster than coc-nvim)
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 

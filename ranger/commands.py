@@ -6,9 +6,7 @@ class f(Command):
     :fzf_select
 
     Find a file using fzf.
-
     With a prefix argument select only directories.
-
     See: https://github.com/junegunn/fzf
     """
     def execute(self):

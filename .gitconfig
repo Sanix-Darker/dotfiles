@@ -165,10 +165,10 @@
     log-branch-details = !git log -p origin..HEAD --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
-    stat = !git diff --stat $(git merge-base HEAD origin)
+    ; stat = !git diff --stat $(git merge-base HEAD origin)
+    ; ; why should we target a specific branch or this diff again ?
+    stat = !git diff --stat
 
-    ; same as stat but here you specify the target branch
-    stat-to = !git diff --stat
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
