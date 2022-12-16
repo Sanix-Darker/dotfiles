@@ -30,16 +30,13 @@ require('impatient')
 
 -- Disabling just for now
 require('which-key').setup()
-
 -- hop to jump on any text base objects
 require('hop').setup()
-
 -- ti be able to use the ESC in the floatTerm terminal
 require('smart-term-esc').setup{
     key='<Esc>',
     except={'nvim', 'fzf'}
 }
-
 -- neoscroll (for smooth scrolling)
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
@@ -71,8 +68,14 @@ require('neoscroll.config').set_mappings(scroll_map)
 --     }
 -- })
 -- for git conflicts resolutions
-
-
+-- just like hop to search and jump really quickly
+-- require('leap').add_default_mappings()
+-- >>>>>>>>>>>>>>>>>>>>>
+-- for image preview inside the neovim editor
+-- require('hologram').setup{
+--     auto_display = true
+-- }
+-- >>>>>>>>>>>>>>>>>>>
 -- for snapshot from the source code
 require('silicon').setup({
     font = 'Hack=20',
@@ -91,35 +94,7 @@ require('silicon').setup({
 })
 -- >>>>>>>>>>>>>>>>>
 
--- set up an appropriate complation like lsp-nvim
--- LSP nvim-cmp (much faster than coc-nvim)
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
-
-local lsp_servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls', 'phpactor',
-    'cssls', 'html', 'bashls', 'cssmodules_ls',
-    'emmet_ls', 'ruby_ls', 'vls', 'arduino_language_server',
-    'cssls', 'dockerls', 'gradle_ls', 'graphql',
-    'jdtls', 'kotlin_language_server', 'marksman',
-    'rnix', 'taplo', 'tailwindcss',
-    'terraformls', 'yamlls', 'zls', 'lemminx'
-}
-
-require'lspconfig'.sumneko_lua.setup {
-    -- ... other configs
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- this is to allow vim to be consider as a globals
-                -- authorise variable
-                globals = { 'vim' }
-            }
-        }
-    }
-}
-
--- LSP servers managers
+-- mason utile for lsp
 require("mason").setup({
     ui = {
         icons = {
@@ -133,6 +108,33 @@ require("mason-lspconfig").setup({
     -- ensure_installed = lsp_servers,
     automatic_installation = false,
 })
+
+-- LSP servers managers
+-- set up an appropriate complation like lsp-nvim
+-- LSP nvim-cmp (much faster than coc-nvim)
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+local lsp_servers = {
+    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
+    'eslint', 'jsonls', 'gopls', 'phpactor',
+    'cssls', 'html', 'bashls', 'cssmodules_ls',
+    'emmet_ls', 'ruby_ls', 'vls', 'arduino_language_server',
+    'cssls', 'dockerls', 'gradle_ls', 'graphql',
+    'jdtls', 'kotlin_language_server', 'marksman',
+    'rnix', 'taplo', 'tailwindcss',
+    'terraformls', 'yamlls', 'zls', 'lemminx'
+}
+require'lspconfig'.sumneko_lua.setup {
+    -- ... other configs
+    settings = {
+        Lua = {
+            diagnostics = {
+                -- this is to allow vim to be consider as a globals
+                -- authorise variable
+                globals = { 'vim' }
+            }
+        }
+    }
+}
 
 -- Set up nvim-cmp.
 local cmp = require'cmp'

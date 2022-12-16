@@ -160,6 +160,9 @@ Plug 'onsails/lspkind.nvim'
 " Should help preview got to references
 Plug 'kevinhwang91/nvim-bqf'
 
+" For jumping fast on code am writing
+" Plug 'ggandor/leap.nvim'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
@@ -167,6 +170,9 @@ Plug 'kevinhwang91/nvim-bqf'
 Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" to preview images inside markdown...
+" Plug 'edluffy/hologram.nvim'
 
 " For multi cursor
 " Coul but am oing to comment that for now

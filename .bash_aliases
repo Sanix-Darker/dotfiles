@@ -801,7 +801,6 @@ _loc(){
     find "$@" -type f -print0 | xargs -r -0 cat | wc -l
 }
 alias loc=_loc
-
 alias ipinfo="curl ipinfo.io"
 
 _nan(){
@@ -832,7 +831,6 @@ git(){
 }
 
 alias less="less -r"
-
 alias pypy3="./pypy3.9-v7.3.9-linux64/bin/pypy3.9"
 
 _stopWatch(){

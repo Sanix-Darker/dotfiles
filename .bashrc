@@ -187,13 +187,16 @@ $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 $(command -v feh > /dev/null) && [[ $? == 0 ]] && feh --bg-fill ~/bg2.jpg
 
 _start_polybar(){
-    if type "xrandr" > /dev/null; then
-        for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-            MONITOR=$m nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
-        done
-    else
-        nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
-    fi
+    # if type "xrandr" > /dev/null; then
+    #     for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    #         MONITOR=$m nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+    #     done
+    # else
+    #     nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
+    # fi
+    
+    # start polybar only for the current window !
+    nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
 }
 
 _start_compton(){

@@ -290,7 +290,7 @@ tnoremap <Esc> <C-\><C-n>
 " nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
 
 " To actualize the vim configuration
-nnoremap so :so $MYVIMRC<CR>
+" nnoremap so :so $MYVIMRC<CR>
 
 " To clean the search hightlights
 nnoremap no :nohlsearch<CR>
