@@ -76,23 +76,6 @@ require('neoscroll.config').set_mappings(scroll_map)
 --     auto_display = true
 -- }
 -- >>>>>>>>>>>>>>>>>>>
--- for snapshot from the source code
-require('silicon').setup({
-    font = 'Hack=20',
-    theme = 'Dracula',
-    shadow = {
-        blur_radius = 5.3,
-        offset_x = 7,
-        offset_y = 7,
-        color = '#555'
-    },
-    line_number = true,
-    line_pad = 2,
-    line_offset = 1,
-    round_corner = true,
-    window_controls = true,
-})
--- >>>>>>>>>>>>>>>>>
 
 -- mason utile for lsp
 require("mason").setup({

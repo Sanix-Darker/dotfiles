@@ -854,6 +854,18 @@ _countdown(){
 alias stopwatch=_stopWatch
 alias countdown=_countdown
 
+# Execute comands on a different repository and 
+# come back to where we have been !
+_cdex(){
+    commandToBeExecuted="${@:2}"
+
+    echo "Executing => $commandToBeExecuted in $1"
+
+    cd "$1" && $commandToBeExecuted;
+    cd -
+}
+alias cdex=_cdex
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
 # # some coul git aliases to go fast

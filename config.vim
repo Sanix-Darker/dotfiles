@@ -819,5 +819,32 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 
+" ------ for silicon and screenshot from the source code
+" Generate an image of the current buffer and write it to /path/to/output.png
+" :Silicon /path/to/output.png
+" " Generate an image of the current buffer and write it to /path/to/output.png and clipboard.
+" :Silicon /path/to/output.png --to-clipboard
+" " Generate an image of the current buffer and write it to /path/to/<filename>.png
+" :Silicon /path/to/
+" " Generate an image of the current visual line selection and write it to /path/to/output.png
+" :'<,'>Silicon /path/to/output.png
+" " Generate an image of the current buffer, with the current visual line selection highlighted.
+" :'<,'>Silicon! /path/to/output.png
+let g:silicon = {
+      \   'theme':              'Dracula',
+      \   'font':                  'Hack',
+      \   'background':         '#FFFFFF',
+      \   'shadow-color':       '#555555',
+      \   'line-pad':                   2,
+      \   'pad-horiz':                 80,
+      \   'pad-vert':                 100,
+      \   'shadow-blur-radius':         0,
+      \   'shadow-offset-x':            0,
+      \   'shadow-offset-y':            0,
+      \   'line-number':           v:true,
+      \   'round-corner':          v:true,
+      \   'window-controls':       v:true,
+      \ }
+
 " Don't ask me why but i had to do this to disable synthx toggling forward and backward like an idiot
 nnoremap <CR> <cr>

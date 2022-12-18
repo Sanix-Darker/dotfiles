@@ -112,11 +112,14 @@ Plug 'wellle/context.vim'
 Plug 'ruanyl/vim-gh-line'
 
 " For snapshot from the code
-Plug 'krivahtoo/silicon.nvim', { 'do': './install.sh' }
+Plug 'segeljakt/vim-silicon'
 
 " For surrounding quotes
 " cs'> or ds'<
 Plug 'tpope/vim-surround'
+
+" For multicursor
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " for php
 " Plug 'tobyS/pdv'                        " Auto generating php docblocks
