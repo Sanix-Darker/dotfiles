@@ -114,12 +114,16 @@ Plug 'ruanyl/vim-gh-line'
 " For snapshot from the code
 Plug 'segeljakt/vim-silicon'
 
+" For gist stuffs
+Plug 'mattn/webapi-vim'
+Plug 'mattn/vim-gist'
+
 " For surrounding quotes
 " cs'> or ds'<
 Plug 'tpope/vim-surround'
 
-" For multicursor
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+" For multicursor (need more mappings)
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " for php
 " Plug 'tobyS/pdv'                        " Auto generating php docblocks

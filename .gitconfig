@@ -158,17 +158,26 @@
     last = !git log -1 HEAD --stat
     ; grv is a TUI to browse the git project
     ; browser = !grv
-    fd = !bash -ic 'git-fuzzy-diff \"$@\"' x
+    
+    ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
+    diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
+    ; git browse # to browse commits and changes
 	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
+    ; git browse-branch # to browse only commits that are away from the main branch
+	browse-branch = !bash -ic 'git-fuzzy-log-branch \"$@\"' x
 
     ; to get logs as oneline only
     log-branch = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+
+    ;get log from a given branch
+    log-from = !git log $1..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     log-branch-details = !git log -p origin..HEAD --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
     ; stat = !git diff --stat $(git merge-base HEAD origin)
     ; ; why should we target a specific branch or this diff again ?
-    stat = !git diff --stat
+    stat = !git diff --stat $(git merge-base HEAD origin)
+    stat-to = !git diff --stat
 
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
@@ -243,3 +252,5 @@
 	gpgsign = true
 [init]
 	defaultBranch = master
+[github]
+	user = Sanix-Darker

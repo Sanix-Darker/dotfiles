@@ -751,6 +751,34 @@ git-fuzzy-log ()
 		--bind "enter:execute:${ENTER_COMMAND}"
 }
 
+git-fuzzy-log-branch ()
+{
+	PREVIEW_COMMAND='f() {
+		set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}")
+		[ $# -eq 0 ] || (
+			git show --no-patch --color=always $1
+			echo
+			git show --stat --format="" --color=always $1 |
+			while read line; do
+				tput dim
+				echo " $line" | sed "s/\x1B\[m/\x1B\[2m/g"
+				tput sgr0
+			done |
+			tac | sed "1 a \ " | tac
+		)
+	}; f {}'
+
+	ENTER_COMMAND='(grep -o "[a-f0-9]\{7\}" | head -1 |
+		xargs -I % bash -ic "git-fuzzy-diff %^1 %") <<- "FZF-EOF"
+		{}
+		FZF-EOF'
+
+	git log-branch --graph --color=always --format="%C(auto)%h %s%d " | \
+		fzf ${GIT_FZF_DEFAULT_OPTS} --no-sort --tiebreak=index \
+		--preview "${PREVIEW_COMMAND}" --preview-window=top:15 \
+		--bind "enter:execute:${ENTER_COMMAND}"
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup
@@ -854,13 +882,15 @@ _countdown(){
 alias stopwatch=_stopWatch
 alias countdown=_countdown
 
-# Execute comands on a different repository and 
+# Execute commands on a different repository and 
 # come back to where we have been !
 _cdex(){
     commandToBeExecuted="${@:2}"
 
-    echo "Executing => $commandToBeExecuted in $1"
+    echo "Executing => '$commandToBeExecuted' in \"$1\""
 
+    # Using zoxide i can navigate to a directory just 
+    # by it's name and not the full path
     cd "$1" && $commandToBeExecuted;
     cd -
 }

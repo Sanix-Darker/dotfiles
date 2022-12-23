@@ -143,6 +143,7 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:/usr/local/go/src/src
+export PATH=$PATH:/usr/local/groovy/bin
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export BUN_INSTALL="$HOME/.bun"
