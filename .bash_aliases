@@ -144,6 +144,7 @@ _set_nvim(){
     cpd $DOT_DIR/init.lua ~/.config/nvim/
     cpd $DOT_DIR/config.vim ~/.config/nvim/
     cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
+    cpd $DOT_DIR/lua  ~/.config/nvim/lua
 
     # mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
     cpd $DOT_DIR/autoload  ~/.config/nvim/
@@ -154,19 +155,6 @@ _set_nvim(){
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
-
-    # cocInstall servers
-    # coc_servers=(
-    #     "coc-json" "coc-html" "coc-css" "coc-sh"
-    #     "coc-pyright" "coc-go" "coc-tsserver"
-    #     "coc-snippets" "coc-prettier" "coc-phpls"
-    #     "coc-eslint" "coc-vetur" "coc-clang"
-    # )
-    # for i in "${coc_servers[@]}"
-    # do
-    #     echo "[-] Nvim CocInstall $i..."
-    #     nvim --headless +"CocInstall $1" +qall
-    # done
     
     # yeah, we remove coc-nvim in favor of LSP
     lsp_conf=(
@@ -224,7 +212,7 @@ _set_dot_files(){
 
 _copy_to_dotfiles(){
     # vim stuffs
-    cpd ~/.config/nvim/{init.lua,config.vim,plugins.vim} $DOT_DIR/
+    cpd ~/.config/nvim/{lua/,init.lua,config.vim,plugins.vim} $DOT_DIR/
 
     # mkdir $DOT_DIR/autoload $DOT_DIR/colors
     cpd ~/.config/nvim/autoload $DOT_DIR
