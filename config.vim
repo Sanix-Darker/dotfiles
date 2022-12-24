@@ -1,13 +1,6 @@
-set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
+set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after " runtimepath+=~/.config/nvim/lua
 let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
-
-" Vundle Plugins
-filetype off                  " required
-" To have as default delimiter for the csv , and |
-" let g:csv_delim_test = ',;|'
-" All of your Plugins must be added before the following line
-filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -25,9 +18,6 @@ set omnifunc=syntaxcomplete#Complete
 " Set to auto read when a file is changed from the outside
 set autoread
 au FocusGained,BufEnter * checktime
-
-" Fast saving
-nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
@@ -112,8 +102,6 @@ set wrap "Wrap lines
 " Status line
 " Always show the status line
 set laststatus=3
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 " set mouse= to disable the mouse
 set mouse=a
 " Enable persistent undo so that undo history persists across vim sessions
@@ -128,6 +116,17 @@ set updatetime=1
 set splitbelow
 " to set the number
 set number
+
+" Enable folding
+set foldmethod=indent
+set foldlevel=99
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
 
 " To show hidden files
 let NERDTreeShowHidden=1
@@ -153,19 +152,6 @@ let g:context_enabled = 1
 let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
 " <<<<<<<
-
-" To activate emmet for html and css | since LSP html is already handled
-" let g:user_emmet_mode='a'
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css EmmetInstall
-" <<<
-
-" To jump into a next error
-" try
-"     nmap <silent> [c :call CocAction('diagnosticNext')<cr>
-"     nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
-" catch
-" endtry
 
 nnoremap <leader>f <Esc>:cd %:p:h<CR><Esc>:Ag<CR>
 " For commentary on multilines
@@ -206,12 +192,6 @@ au TabLeave * let g:lasttab = tabpagenr()
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -230,10 +210,8 @@ nnoremap mm :MundoToggle<cr>
 " For the :Ag search on the whole project
 " --hidden --ignore .git
 nnoremap fg :Ag<CR>
-
 " For the map of the code
 nnoremap vv :Vista!!<CR>
-
 " For Emmet html and css
 " documentation : https://docs.emmet.io/cheat-sheet/
 " nnoremap em :Emmet 
@@ -242,26 +220,30 @@ nnoremap vv :Vista!!<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" nvim $(git diff --name-only origin | fzf +m)
-
 " To search for ctags
 nnoremap bg :Vista finder ctags<CR>
 " To undo a git hunk change
 nnoremap ZX :GitGutterUndoHunk<CR>
-
 " To format the code
 nnoremap fv :Neoformat<CR>
-
 " To jump fastly on a word
 nnoremap jj :HopWord<CR>
-
 " To search in the current files
-" Most efficient than the ? or /
-nnoremap ll :Lines<CR>
 " For hidden files of fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+" Most efficient than the ? or /
+nnoremap ll :Lines<CR>
 " For the file search
-nnoremap ff :FZF<cr>
+nnoremap ff :Files<cr>
+" To access all tabs in a single view as a popUp
+nnoremap tt :Windows<cr>
+" To access all marks i left from all opened files...
+" anywhere...
+nnoremap tg :Marks<cr>
+" To get the history of all my opened files  
+nnoremap hh :History<cr>
+" To get the whole history of the current buffer in term of commits
+nnoremap hg :BCommit<cr>
 " To get the diffview history of the repo
 nnoremap ft :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
@@ -277,7 +259,7 @@ nnoremap bb :Buffers<CR>
 " For git blame
 nnoremap b :GitBlame<CR>
 " To get +/- on changes inside a file from a project
-nnoremap hh :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
+nnoremap HH :GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>
 nnoremap <C-Space> :GitGutterPreviewHunk<CR>
 nnoremap hn :GitGutterNextHunk<CR>
 nnoremap hp :GitGutterPrevHunk<CR>
@@ -290,11 +272,9 @@ tnoremap <Esc> <C-\><C-n>
 " nnoremap co :tabnew ~/.config/nvim/config.vim<CR>
 
 " To actualize the vim configuration
-" nnoremap so :so $MYVIMRC<CR>
-
+nnoremap so :so $MYVIMRC<CR>
 " To clean the search hightlights
 nnoremap no :nohlsearch<CR>
-
 " To paste multiple times the same 
 " stuff or use P for the default behaviour
 xnoremap p pgvy
@@ -302,8 +282,6 @@ xnoremap p pgvy
 " To Ctrl-BackSpace delete a whole previous word
 xnoremap <C-H> dvbh
 nnoremap <C-H> dvbh
-" nnoremap D <S-v>d
-" nnoremap Y yy
 
 " To cut directly the current line
 xnoremap X dd
@@ -328,18 +306,6 @@ nnoremap B yyp
 nnoremap nk :FloatermNew --height=0.9 --width=0.9<CR>
 nnoremap kkk :FloatermKill<CR>
 nnoremap kk :FloatermToggle<CR>
-
-" For tagBar jumping
-" nnoremap >> :TagbarJumpNext<CR>
-" nnoremap << :TagbarJumpPrev<CR>
-
-" # For the fzf preview
-" let g:fzf_preview_window = ['right:50%', 'ctrl-/']
-" " Preview window on the upper side of the window with 40% height,
-" " hidden by default, ctrl-/ to toggle
-" let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
-" " Empty value to disable preview window altogether
-" let g:fzf_preview_window = []
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -390,7 +356,6 @@ map <leader>x :e ~/buffer.md<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -401,6 +366,8 @@ function! HasPaste()
     endif
     return ''
 endfunction
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -453,56 +420,6 @@ function NERDTreeToggleAndRefresh()
   endif
 endfunction
 
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-" if has('nvim')
-"   inoremap <silent><expr> <c-space> coc#refresh()
-" else
-"   inoremap <silent><expr> <c-@> coc#refresh()
-" endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-""                              \: \<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" inoremap <expr> <cr> pumvisible() ? \"\<C-y>" : \"\<C-g>u\<CR>"
-" inoremap <silent><expr> <cr> \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" " Remap keys for applying codeAction to the current line.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" GoTo code navigation.
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-
-" inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(1) : \"\<down>"
-" inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(1) : \"\<up>"
-" inoremap <silent><expr> <PageDown> coc#pum#visible() ? coc#pum#scroll(1) :\"\<PageDown>"
-" inoremap <silent><expr> <PageUp> coc#pum#visible() ? coc#pum#scroll(0) : \"\<PageUp>"
-" >>>
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : \"\<CR>"
-" inoremap <silent><expr> <tab> coc#pum#visible() ? coc#pum#confirm() : \"\<tab>"
-
 " For the synthax
 let b:ale_linters = ['flake8']
 " Some fixers...
@@ -514,30 +431,24 @@ nnoremap <silent> KKK :call <SID>show_documentation()<CR>
 
 " nnoremap <C-[> <Esc><CR>
 
-" To change rom horizontals to vertical views
-" nnoremap <C-H> :windo wincmd H<CR>
-
-" Use deoplete.
-" let g:deoplete#enable_at_startup = 1
-
 " Use the Ctrl
 " nnoremap <Up>  <C-w>-
 " nnoremap <Down>  <C-w>+
 " nnoremap <Left>  <C-w> h
 " nnoremap <Right> <C-w> l
 
-" function! s:SID()
-"     if ! exists('s:sid')
-"         let s:sid = matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
-"     endif
-"     return s:sid
-" endfunction
-" let s:SNR = '<SNR>'.s:SID().'_'
+function! s:SID()
+    if ! exists('s:sid')
+        let s:sid = matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
+    endif
+    return s:sid
+endfunction
+let s:SNR = '<SNR>'.s:SID().'_'
 
-" autocmd VimEnter * call NERDTreeAddKeyMap({
-"      \ 'key': 'w',
-"      \ 'callback': s:SNR.'toggle_width',
-"     \ 'quickhelpText': 'Toggle window width' })
+autocmd VimEnter * call NERDTreeAddKeyMap({
+     \ 'key': 'w',
+     \ 'callback': s:SNR.'toggle_width',
+    \ 'quickhelpText': 'Toggle window width' })
 function! s:toggle_width()
     let l:max = 0
     for l:z in range(1, line('$'))
@@ -549,110 +460,21 @@ function! s:toggle_width()
     exe 'vertical resize '.(l:max == winwidth('.') ? g:NERDTreeWinSize : l:max)
 endfunction
 
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   elseif (coc#rpc#ready())
-"     call CocActionAsync('doHover')
-"   else
-"     execute '!' . &keywordprg . \" " . expand('<cword>')
-"   endif
-" endfunction
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . \" " . expand('<cword>')
+  endif
+endfunction
 
 " set thosse elements depending on the filetype am inside
 if has("autocmd")
     autocmd FileType yaml set cursorcolumn
     autocmd FileType yml set cursorcolumn
 endif
-
-" if has("autocmd")
-"     " Highlight the symbol and its references when holding the cursor.
-"     autocmd CursorHold * silent call CocActionAsync('highlight')
-" endif
-
-" Symbol renaming.
-" nmap <leader>rn <Plug>(coc-rename)
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" if has("autocmd")
-"     augroup mygroup
-"       autocmd!
-"       " Setup formatexpr specified filetype(s).
-"       autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-"       " Update signature help on jump placeholder.
-"       autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-"     augroup end
-" endif
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" " Remap keys for applying codeAction to the current buffer.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" " Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" " Map function and class text objects
-" " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" omap ac <Plug>(coc-classobj-a)
-
-" " Remap <C-f> and <C-b> for scroll float windows/popups.
-" if has('nvim-0.4.0') || has('patch-8.2.0750')
-"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : \"\<C-f>"
-"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : \"\<C-b>"
-"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? \"\<c-r>=coc#float#scroll(1)\<cr>" : \"\<Right>"
-"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? \"\<c-r>=coc#float#scroll(0)\<cr>" : \"\<Left>"
-"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : \"\<C-f>"
-"   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : \"\<C-b>"
-" endif
-
-" " Use CTRL-S for selections ranges.
-" " Requires 'textDocument/selectionRange' support of language server.
-" nmap <silent> <C-s> <Plug>(coc-range-select)
-" xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" " Add `:Format` command to format current buffer.
-" command! -nargs=0 Format :call CocAction('format')
-
-" " Add `:Fold` command to fold current buffer.
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" " Add `:OR` command for organize imports of the current buffer.
-" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" " Add (Neo)Vim's native statusline support.
-" " NOTE: Please see `:h coc-status` for integrations with external plugins that
-" " provide custom statusline: lightline.vim, vim-airline.
-" " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" " Mappings for CoCList
-" " Show all diagnostics.
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands.
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 try
     if has("autocmd")
@@ -669,6 +491,9 @@ try
             \	call mkdir($HOME . "/.config/nvim") |
             \ endif |
             \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
+
+        " To print the exception
+        echomsg v:exception
     endif
 catch
 endtry
@@ -684,21 +509,18 @@ try
             \	endfor |
             \	tabclose 1 |
             \ endif
+
+        " to print the exception
+        echomsg v:exception
     endif
 catch
 endtry
-
-" let g:coc_disable_startup_warning = 1
 
 try
     " Auto generate tags file on file write of *.c and *.h files
     autocmd BufWritePost *.c,*.h silent! !ctags . &
 catch
 endtry
-
-" Enable folding
-set foldmethod=indent
-set foldlevel=99
 
 " Enable folding with the spacebar
 nnoremap <space> za
@@ -719,12 +541,6 @@ try
             \ set expandtab |
             \ set autoindent |
             \ set fileformat=unix
-
-        " \" \" all other js html
-        " au BufNewFile,BufRead *.js, *.html, *.css,*.vue
-        "     \ set tabstop=2 |
-        "     \ set softtabstop=2 |
-        "     \ set shiftwidth=2
 
         " To activate the rest plugin if we're inside a rest file
         au BufNewFile,BufRead *.rest
@@ -792,7 +608,11 @@ set statusline+=%{NearestMethodOrFunction()}
 " By default vista.vim never run if you don't call it explicitly.
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+"
+try
+    autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+catch
+endtry
 " How each level is indented and what to prepend.
 " This could make the display more compact or more spacious.
 " e.g., more compact: ["▸ ", ""]
@@ -845,6 +665,3 @@ let g:silicon = {
       \   'round-corner':          v:true,
       \   'window-controls':       v:true,
       \ }
-
-" Don't ask me why but i had to do this to disable synthx toggling forward and backward like an idiot
-nnoremap <CR> <cr>
