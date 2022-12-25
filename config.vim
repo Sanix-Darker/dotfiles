@@ -1,71 +1,32 @@
-set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after " runtimepath+=~/.config/nvim/lua
+set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
 let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" For the autocompletion
-set omnifunc=syntaxcomplete#Complete
-" Set to auto read when a file is changed from the outside
-set autoread
-au FocusGained,BufEnter * checktime
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
-" => VIM user interface
-set nocompatible              " be iMproved, required
-" Sets how many lines of history VIM has to remember
 set history=300
-set nowrap
 set colorcolumn=1000
-set relativenumber
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 " Avoid garbled characters in Chinese language windows OS
 " let en_US.UTF-8='en'
 set langmenu=en
-" Turn on the Wild menu
-set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-"Always show current position
-set ruler
 " Height of the command bar
 set cmdheight=1
-" A buffer becomes hidden when it is abandoned
-set hid
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-" Ignore case when searching
-set ignorecase
-" When searching try to be smart about cases
-set smartcase
-" No Highlight search results
-set hlsearch
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-" For regular expressions turn magic on
-set magic
-" Show matching brackets when text indicator is over them
-set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
 set t_vb=
 set tm=500
 " Add a bit extra margin to the left
@@ -76,46 +37,23 @@ set encoding=utf8
 set ffs=unix,dos,mac
 " To keep the cursor on block
 set guicursor=i:block
-" Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup
-set nowb
-set noswapfile
-" Enable syntax highlighting
-syntax enable
 " Synthaxic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-" Use spaces instead of tabs
-set expandtab
-" Be smart when using tabs ;)
-set smarttab
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 " Linebreak on 500 characters
-set lbr
 set tw=500
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-" Status line
-" Always show the status line
+" Status line Always show the status line
 set laststatus=3
 " set mouse= to disable the mouse
 set mouse=a
-" Enable persistent undo so that undo history persists across vim sessions
-set undofile
 set undodir=~/.config/nvim/undo
 set winbar=%=%m\ %f
 " for the tagbar refresh time
 set updatetime=1
-" To keep the statusline only global not per file
-" set laststatus=3
-" Fort the splitTerm plugin
-set splitbelow
-" to set the number
-set number
 
 " Enable folding
 set foldmethod=indent
@@ -153,9 +91,70 @@ let g:fzf_preview_window = 'right:50%'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
 " <<<<<<<
 
+" For the synthax
+let b:ale_linters = ['flake8']
+" Some fixers...
+let b:ale_fixers = ['eslint']
+let b:ale_fix_on_save = 1
+
+" For simplyfolding
+let g:SimpylFold_docstring_preview=1
+
+" Vista stuffs
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ \", \""]
+" Note: this option only works for the kind renderer, not the tree renderer.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+" Declare the command including the executable and options used to generate ctags output
+" for some certain filetypes.The file path will be appened to your custom command.
+" For example:
+let g:vista_ctags_cmd = {
+\ 'haskell': 'hasktags -x -o - -c',
+\ }
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:40%']
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+" ------ for silicon and screenshot from the source code
+" Generate an image of the current buffer and write it to /path/to/output.png
+" :Silicon /path/to/output.png
+" " Generate an image of the current buffer and write it to /path/to/output.png and clipboard.
+" :Silicon /path/to/output.png --to-clipboard
+" " Generate an image of the current buffer and write it to /path/to/<filename>.png
+" :Silicon /path/to/
+" " Generate an image of the current visual line selection and write it to /path/to/output.png
+" :'<,'>Silicon /path/to/output.png
+" " Generate an image of the current buffer, with the current visual line selection highlighted.
+" :'<,'>Silicon! /path/to/output.png
+let g:silicon = {
+      \   'theme':              'Dracula',
+      \   'font':                  'Hack',
+      \   'background':         '#FFFFFF',
+      \   'shadow-color':       '#555555',
+      \   'line-pad':                   2,
+      \   'pad-horiz':                 80,
+      \   'pad-vert':                 100,
+      \   'shadow-blur-radius':         0,
+      \   'shadow-offset-x':            0,
+      \   'shadow-offset-y':            0,
+      \   'line-number':           v:true,
+      \   'round-corner':          v:true,
+      \   'window-controls':       v:true,
+      \ }
+
 nnoremap <leader>f <Esc>:cd %:p:h<CR><Esc>:Ag<CR>
-" For commentary on multilines
-" noremap <leader>/ Commentary<cr>
 
 " For the column scheme
 try
@@ -338,7 +337,7 @@ endif
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
+" Shortcuts using <leader> for spelling
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
@@ -368,6 +367,8 @@ function! HasPaste()
 endfunction
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+au FocusGained,BufEnter * checktime
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -420,22 +421,8 @@ function NERDTreeToggleAndRefresh()
   endif
 endfunction
 
-" For the synthax
-let b:ale_linters = ['flake8']
-" Some fixers...
-let b:ale_fixers = ['eslint']
-let b:ale_fix_on_save = 1
-
 " Use K to show documentation in preview window.
 nnoremap <silent> KKK :call <SID>show_documentation()<CR>
-
-" nnoremap <C-[> <Esc><CR>
-
-" Use the Ctrl
-" nnoremap <Up>  <C-w>-
-" nnoremap <Down>  <C-w>+
-" nnoremap <Left>  <C-w> h
-" nnoremap <Right> <C-w> l
 
 function! s:SID()
     if ! exists('s:sid')
@@ -525,11 +512,6 @@ endtry
 " Enable folding with the spacebar
 nnoremap <space> za
 
-" For simplyfolding
-let g:SimpylFold_docstring_preview=1
-" python hightlights
-let python_highlight_all=1
-
 try
     if has("autocmd")
         " To add the proper PEP8 indentation
@@ -559,8 +541,6 @@ try
     endif
 catch
 endtry
-" to fix the pymode error for python
-" let g:pymode_python = 'python3'
 
 " Format the code on save
 " augroup fmt
@@ -613,55 +593,3 @@ try
     autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 catch
 endtry
-" How each level is indented and what to prepend.
-" This could make the display more compact or more spacious.
-" e.g., more compact: ["▸ ", ""]
-" Note: this option only works for the kind renderer, not the tree renderer.
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-" Executive used when opening vista sidebar without specifying it.
-" See all the avaliable executives via `:echo g:vista#executives`.
-let g:vista_default_executive = 'ctags'
-" Declare the command including the executable and options used to generate ctags output
-" for some certain filetypes.The file path will be appened to your custom command.
-" For example:
-let g:vista_ctags_cmd = {
-      \ 'haskell': 'hasktags -x -o - -c',
-      \ }
-" To enable fzf's preview window set g:vista_fzf_preview.
-" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
-" For example:
-let g:vista_fzf_preview = ['right:40%']
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 1
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-
-" ------ for silicon and screenshot from the source code
-" Generate an image of the current buffer and write it to /path/to/output.png
-" :Silicon /path/to/output.png
-" " Generate an image of the current buffer and write it to /path/to/output.png and clipboard.
-" :Silicon /path/to/output.png --to-clipboard
-" " Generate an image of the current buffer and write it to /path/to/<filename>.png
-" :Silicon /path/to/
-" " Generate an image of the current visual line selection and write it to /path/to/output.png
-" :'<,'>Silicon /path/to/output.png
-" " Generate an image of the current buffer, with the current visual line selection highlighted.
-" :'<,'>Silicon! /path/to/output.png
-let g:silicon = {
-      \   'theme':              'Dracula',
-      \   'font':                  'Hack',
-      \   'background':         '#FFFFFF',
-      \   'shadow-color':       '#555555',
-      \   'line-pad':                   2,
-      \   'pad-horiz':                 80,
-      \   'pad-vert':                 100,
-      \   'shadow-blur-radius':         0,
-      \   'shadow-offset-x':            0,
-      \   'shadow-offset-y':            0,
-      \   'line-number':           v:true,
-      \   'round-corner':          v:true,
-      \   'window-controls':       v:true,
-      \ }
