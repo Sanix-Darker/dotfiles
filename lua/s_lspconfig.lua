@@ -9,7 +9,7 @@ local lsp_servers = {
     'rnix', 'taplo', 'tailwindcss',
     'terraformls', 'yamlls', 'zls', 'lemminx'
 }
-require'lspconfig'.sumneko_lua.setup {
+local lspconfig_setup = {
     -- ... other configs
     settings = {
         Lua = {
@@ -28,13 +28,12 @@ local types = require'cmp.types'
 local str = require'cmp.utils.str'
 local luasnip = require'luasnip'
 local lspkind = require'lspkind'
-
 local t = function(str_)
-	return vim.api.nvim_replace_termcodes(str_, true, true, true)
+    return vim.api.nvim_replace_termcodes(str_, true, true, true)
 end
-
 -- Selected option
 local select_opts = {behavior = cmp.SelectBehavior.Select}
+require('lspconfig').sumneko_lua.setup(lspconfig_setup)
 
 cmp.setup({
     snippet = {
@@ -204,20 +203,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	-- bufmap('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 	-- bufmap('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
 	-- bufmap('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
-
     -- Displays a function's signature information
     bufmap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-
     -- Renames all references to the symbol under the cursor
     bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-
     -- Selects a code action available at the current cursor position
     bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
     bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
-
     -- Show diagnostics in a floating window
     bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-
     -- Move to the previous diagnostic
     bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
     -- Move to the next diagnostic
