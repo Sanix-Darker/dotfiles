@@ -31,5 +31,3 @@ require('plugins_config')
 require('s_lspconfig')
 -- all set configurations
 require('set_config')
-
-vim.cmd.colorscheme("onedark")

@@ -2,10 +2,14 @@ set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
 let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
+try
+	colorscheme onedark
+catch
+endtry
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
@@ -13,36 +17,11 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 " To show hidden files
 let NERDTreeShowHidden=1
 
-" syntax checking
-let g:syntastic_enable_signs  = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq   = 0
-" <<<<<
-
-" For the sticky header
-let g:context_enabled = 1
-" <<<<<
-
-" For the minimap plugin
-" let g:minimap_width = 10
-" let g:minimap_auto_start = 1
-" let g:minimap_auto_start_win_enter = 1
-" >>>>>>>>>>
-
-" For the fuzzy search
-let g:fzf_preview_window = 'right:50%'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9  }  }
-" <<<<<<<
-
 " For the synthax
 let b:ale_linters = ['flake8']
 " Some fixers...
 let b:ale_fixers = ['eslint']
 let b:ale_fix_on_save = 1
-
-" For simplyfolding
-let g:SimpylFold_docstring_preview=1
 
 " Vista stuffs
 " How each level is indented and what to prepend.
@@ -257,10 +236,8 @@ fun! CleanExtraSpaces()
     call setreg('/', old_query)
 endfun
 
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-    " autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
-endif
+autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+" autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -379,48 +356,42 @@ function! s:show_documentation()
 endfunction
 
 " set thosse elements depending on the filetype am inside
-if has("autocmd")
-    autocmd FileType yaml set cursorcolumn
-    autocmd FileType yml set cursorcolumn
-endif
+autocmd FileType yaml set cursorcolumn
+autocmd FileType yml set cursorcolumn
 
 try
-    if has("autocmd")
-        " Open last active file(s) if VIM is invoked without arguments.
-        autocmd VimLeave * nested let buffernr = bufnr("$") |
-            \ let buflist = [] |
-            \ while buffernr > 0 |
-            \	if buflisted(buffernr) |
-            \	    let buflist += [ bufname(buffernr) ] |
-            \	endif |
-            \   let buffernr -= 1 |
-            \ endwhile |
-            \ if (!isdirectory($HOME . "/.config/nvim")) |
-            \	call mkdir($HOME . "/.config/nvim") |
-            \ endif |
-            \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
+    " Open last active file(s) if VIM is invoked without arguments.
+    autocmd VimLeave * nested let buffernr = bufnr("$") |
+        \ let buflist = [] |
+        \ while buffernr > 0 |
+        \	if buflisted(buffernr) |
+        \	    let buflist += [ bufname(buffernr) ] |
+        \	endif |
+        \   let buffernr -= 1 |
+        \ endwhile |
+        \ if (!isdirectory($HOME . "/.config/nvim")) |
+        \	call mkdir($HOME . "/.config/nvim") |
+        \ endif |
+        \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
 
-        " To print the exception
-        echomsg v:exception
-    endif
+    " To print the exception
+    echomsg v:exception
 catch
 endtry
 
 try
-    if has("autocmd")
-        autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
-            \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
-            \	    if filereadable(line) |
-            \		execute "tabedit " . line |
-            \		set bufhidden=delete |
-            \	    endif |
-            \	endfor |
-            \	tabclose 1 |
-            \ endif
+    autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
+        \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
+        \	    if filereadable(line) |
+        \		execute "tabedit " . line |
+        \		set bufhidden=delete |
+        \	    endif |
+        \	endfor |
+        \	tabclose 1 |
+        \ endif
 
-        " to print the exception
-        echomsg v:exception
-    endif
+    " To print the exception
+    echomsg v:exception
 catch
 endtry
 
@@ -434,32 +405,30 @@ endtry
 nnoremap <space> za
 
 try
-    if has("autocmd")
-        " To add the proper PEP8 indentation
-        au BufNewFile,BufRead *.py
-            \ set tabstop=4 |
-            \ set softtabstop=4 |
-            \ set shiftwidth=4 |
-            \ set textwidth=79 |
-            \ set expandtab |
-            \ set autoindent |
-            \ set fileformat=unix
+    " To add the proper PEP8 indentation
+    au BufNewFile,BufRead *.py
+        \ set tabstop=4 |
+        \ set softtabstop=4 |
+        \ set shiftwidth=4 |
+        \ set textwidth=79 |
+        \ set expandtab |
+        \ set autoindent |
+        \ set fileformat=unix
 
-        " To activate the rest plugin if we're inside a rest file
-        au BufNewFile,BufRead *.rest
-            \ set ft=rest
+    " To activate the rest plugin if we're inside a rest file
+    au BufNewFile,BufRead *.rest
+        \ set ft=rest
 
-        " We want everything fold depending on the synthax when we jump into it
-        set foldmethod=syntax
-        set foldnestmax=1
+    " We want everything fold depending on the synthax when we jump into it
+    set foldmethod=syntax
+    set foldnestmax=1
 
-        "Flagging Unnecessary Whitespace
-        highlight BadWhitespace ctermbg=red guibg=darkred
-        au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+    "Flagging Unnecessary Whitespace
+    highlight BadWhitespace ctermbg=red guibg=darkred
+    au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-        " For the tagbag list of tags
-        " au BufRead * :Vista<CR> <C-w> h
-    endif
+    " For the tagbag list of tags
+    " au BufRead * :Vista<CR> <C-w> h
 catch
 endtry
 
@@ -494,10 +463,8 @@ endtry
 " nnoremap D? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
 
 try
-    if has("autocmd")
-        " To refresh for i3 after the edition of its config file
-        autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
-    endif
+    " To refresh for i3 after the edition of its config file
+    autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
 catch
 endtry
 

@@ -3,10 +3,9 @@ vim.api.nvim_command('filetype plugin indent on')
 -- Enable syntax highlighting
 vim.api.nvim_command('syntax enable on')
 
--- mapleader for extra commands combinations
-vim.g.mapleader = ','
-
+-- set
 local set = vim.opt
+set.completeopt = {'menu', 'menuone', 'noselect'}
 -- Set to auto read when a file is changed from the outside
 set.autoread = true
 -- Turn on the Wild menu
@@ -88,3 +87,30 @@ set.stal = 2
 -- Enable folding
 set.foldmethod = 'indent'
 set.foldlevel = 99
+
+-- g
+local g = vim.g
+-- mapleader for extra commands combinations
+g.mapleader = ','
+
+-- syntax checking
+g.syntastic_enable_signs  = 0
+g.syntastic_auto_loc_list = 0
+g.syntastic_check_on_open = 0
+g.syntastic_check_on_wq   = 0
+
+-- For the sticky header
+g.context_enabled = 1
+
+-- For the minimap plugin
+-- let g:minimap_width = 10
+-- let g:minimap_auto_start = 1
+-- let g:minimap_auto_start_win_enter = 1
+-- >>>>>>>>>>
+
+-- For the fuzzy search
+g.fzf_preview_window = 'right:50%'
+g.fzf_layout = { window = { width = 0.9, height = 0.9}}
+
+-- For simplyfolding
+g.SimpylFold_docstring_preview=1
