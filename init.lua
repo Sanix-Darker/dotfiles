@@ -25,9 +25,11 @@ _G.__luacache_config = {
     }
 }
 require('impatient')
--- all set configurations
-require('set_config')
 -- to import plugins configurations
 require('plugins_config')
 -- lsp configurations
 require('s_lspconfig')
+-- all set configurations
+require('set_config')
+
+vim.cmd.colorscheme("onedark")
