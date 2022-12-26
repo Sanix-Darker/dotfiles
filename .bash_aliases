@@ -870,6 +870,14 @@ _countdown(){
 alias stopwatch=_stopWatch
 alias countdown=_countdown
 
+_get_date(){
+    while true; do
+        printf '>> %s\r' "$(date -u +"%d/%m/%Y %H:%M:%S")"
+        sleep 1
+    done
+}
+alias get_date=_get_date
+
 # Execute commands on a different repository and 
 # come back to where we have been !
 _cdex(){

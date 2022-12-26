@@ -1,5 +1,4 @@
 vim.cmd('source ~/.config/nvim/config.vim')
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 -- [[ : sections backward or to the previous '{' in the first column.
 -- ]] : sections forward or to the next '{' in the first column.
@@ -28,6 +27,6 @@ require('impatient')
 -- to import plugins configurations
 require('plugins_config')
 -- lsp configurations
-require('s_lspconfig')
+require('lsp_config')
 -- all set configurations
 require('set_config')
