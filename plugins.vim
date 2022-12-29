@@ -170,10 +170,17 @@ Plug 'kevinhwang91/nvim-bqf'
 " For jumping fast on code am writing
 " Plug 'ggandor/leap.nvim'
 
+" For code review using octo
+Plug 'pwntester/octo.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
+" Telescope (SHIT i need this to use octo,
+" will remove when the support of fzf will be available)
+Plug 'nvim-telescope/telescope.nvim'
+
 " A framework for some plugin to be working (gh.nvim) for example
-Plug 'ldelossa/litee.nvim'
+" Plug 'ldelossa/litee.nvim'
 " For code review on nvim directly
-Plug 'ldelossa/gh.nvim'
+" Plug 'ldelossa/gh.nvim'
 
 " For icons on modules types
 " Plug 'onsails/lspkind.nvim'

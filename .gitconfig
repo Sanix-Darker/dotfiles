@@ -107,9 +107,6 @@
     commit-empty = !git commit --allow-empty -m
 
     ; The 'git revise' can also be installed by using 'pip install --user git-revise'
-    ; To delete all merge branches
-    ; to install : pip install git-delete-merged-branches
-    delete-merge-branches = !git-delete-merged-branches
 
     ; only in a middle of a rebase
     ; git add-their
@@ -153,6 +150,9 @@
     alias = !git config --get-regexp alias
     ; to undo a precedent commit you made
     undo = reset HEAD~1 --mixed
+    
+    ; to undo and clear all unstaged changes
+    undo-clear = !git reset HEAD~1 --mixed && git clear
     ; to get branch list with a lot of informations on it
     branch-details = !git branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     ; To search inside commit

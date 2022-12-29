@@ -159,6 +159,8 @@ nnoremap tg :Marks<cr>
 nnoremap hh :History<cr>
 " To get the whole history of the current buffer in term of commits
 nnoremap hg :BCommit<cr>
+" To get and search from command history
+nnoremap hc :Commands<cr>
 " To get the diffview history of the repo
 nnoremap ft :DiffviewFileHistory<CR>
 " For the copy/paste power of yankring
@@ -402,7 +404,7 @@ catch
 endtry
 
 " Enable folding with the spacebar
-nnoremap <space> za
+nnoremap <C-space> za
 
 try
     " To add the proper PEP8 indentation
@@ -448,8 +450,6 @@ endtry
 " nnoremap <S-j> :lua require'dap'.step_over()<CR>
 " nnoremap DS :lua require'dap'.close()<CR>
 " nnoremap DN :lua require'dap'.continue()<CR>
-" nnoremap DUI :lua require'dapui'.toggle()<CR>
-" nnoremap DK :lua require'dap'.up()<CR>
 " nnoremap DJ :lua require'dap'.down()<CR>
 " nnoremap D_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
 " nnoremap DR :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
