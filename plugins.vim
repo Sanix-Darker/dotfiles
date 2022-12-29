@@ -170,6 +170,19 @@ Plug 'kevinhwang91/nvim-bqf'
 " For jumping fast on code am writing
 " Plug 'ggandor/leap.nvim'
 
+" A framework for some plugin to be working (gh.nvim) for example
+Plug 'ldelossa/litee.nvim'
+" For code review on nvim directly
+Plug 'ldelossa/gh.nvim'
+
+" For icons on modules types
+" Plug 'onsails/lspkind.nvim'
+
+" For easy aligning...
+" :EasyAlign *= | to align around each occurence
+" of '=', 2= to align for the second occurence
+Plug 'junegunn/vim-easy-align'
+
 " For sections in the codebase
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
@@ -177,6 +190,10 @@ Plug 'kevinhwang91/nvim-bqf'
 Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+
+" Just another way for review
+" Plug 'junkblocker/patchreview-vim'
+" Plug 'codegram/vim-codereview'
 
 " to preview images inside markdown...
 " Plug 'edluffy/hologram.nvim'
@@ -208,9 +225,6 @@ Plug 'joshdick/onedark.vim'
 
 " Animation on the cursor
 " Plug 'DanilaMihailov/beacon.nvim'
-
-" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-" Plug 'junegunn/vim-easy-align'
 
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
@@ -268,19 +282,6 @@ Plug 'joshdick/onedark.vim'
 
 " Unmanaged plugin (manually installed and updated)
 " Plug '~/my-prototype-plugin'
-
-" A framework for some plugin to be working (gh.nvim) for example
-" Plug 'ldelossa/litee.nvim'
-" For code review on nvim directly
-" Plug 'ldelossa/gh.nvim'
-
-" For icons on modules types
-" Plug 'onsails/lspkind.nvim'
-
-" For easy aligning...
-" :EasyAlign *= | to align around each occurence
-" of '=', 2= to align for the second occurence
-" Plug 'junegunn/vim-easy-align'
 
 " For viewing csv files
 " Plug 'chrisbra/csv.vim'

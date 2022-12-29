@@ -20,6 +20,7 @@
     line-numbers = true
     features = decorations
     light = false
+    side-by-side = false
 
 [alias]
     ; To use pr
