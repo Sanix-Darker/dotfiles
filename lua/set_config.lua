@@ -77,7 +77,7 @@ set.tw = 500
 set.laststatus = 3
 -- set mouse= to disable the mouse
 set.mouse = 'a'
-set.undodir = '~/.config/nvim/undo'
+set.undodir = '/home/dk/.config/nvim/undo'
 set.winbar = '%=%m\\ %f'
 -- for the tagbar refresh time
 set.updatetime = 1
