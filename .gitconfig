@@ -105,6 +105,11 @@
     ; To commit an empty commit
     commit-empty = !git commit --allow-empty -m
 
+    ; The 'git revise' can also be installed by using 'pip install --user git-revise'
+    ; To delete all merge branches
+    ; to install : pip install git-delete-merged-branches
+    delete-merge-branches = !git-delete-merged-branches
+
     ; only in a middle of a rebase
     ; git add-their
     ; accept incomming changes
@@ -206,7 +211,7 @@
     pick = !git cherry-pick
 
     ; to pick a specific commit
-    pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi | cut -d ' ' -f1)
+    pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi --preview \"git show {1} | delta\" --preview-window \"right,60%\" --pointer=\">\" | cut -d ' ' -f1)
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate

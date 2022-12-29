@@ -767,6 +767,10 @@ git-fuzzy-log-branch ()
 		--bind "enter:execute:${ENTER_COMMAND}"
 }
 
+amend_to () {
+    c=`git rev-parse "$1"` && git commit --fixup "$c" && GIT_SEQUENCE_EDITOR=true git rebase --interactive --autosquash "$c^"
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup
