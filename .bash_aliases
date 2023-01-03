@@ -141,14 +141,7 @@ DOT_DIR="$HOME/dotfiles"
 _set_nvim(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/nvim/init.lua ~/.config/nvim/
-    cpd $DOT_DIR/nvim/config.vim ~/.config/nvim/
-    cpd $DOT_DIR/nvim/plugins.vim  ~/.config/nvim/
-    cpd $DOT_DIR/nvim/lua  ~/.config/nvim/lua
-
-    # mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
-    cpd $DOT_DIR/nvim/autoload  ~/.config/nvim/
-    # cpd $DOT_DIR/colors ~/.config/nvim/
+    cpd $DOT_DIR/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} ~/.config/nvim/
 
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -214,10 +207,7 @@ _copy_to_dotfiles(){
     mkdir -p $DOT_DIR/nvim/
     mkdir -p $DOT_DIR/nvim/autoload
     # vim stuffs
-    cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim} $DOT_DIR/nvim/
-
-    # for some autoload
-    cpd ~/.config/nvim/autoload $DOT_DIR/nvim/autoload/
+    cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
     cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
