@@ -204,7 +204,7 @@ _set_dot_files(){
     # For my git configurations
     cpd $DOT_DIR/.gitconfig ~/.gitconfig
     cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
-    cpd $DOT_DIR/rofi_config.rasi ~/.config/rofi/config.rasi
+    cpd $DOT_DIR/rofi.rasi ~/.config/rofi/config.rasi
 
     # we return on our previus directory
     cd -
@@ -232,7 +232,7 @@ _copy_to_dotfiles(){
     cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/vagrant/ubu_arm64_Vagrantfile
 
     # For ranger configurationss
-    cpd ~/.config/ranger/ $DOT_DIR
+    cpd ~/.config/ranger/{commands.py,rifle.conf,rc.conf,colorschemes} $DOT_DIR/ranger
 
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
@@ -245,7 +245,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/polybar/ $DOT_DIR/polybar
     
     # Our rofi theme for search
-    cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi_config.rasi
+    cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi.rasi
 
     # For my git configurations
     cpd ~/.gitconfig $DOT_DIR
