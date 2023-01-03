@@ -182,10 +182,10 @@ _set_dot_files(){
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
-    cpd $DOT_DIR/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
-    cpd $DOT_DIR/ubu_Vagrantfile ~/vagrant/vms/ubu/Vagrantfile
-    cpd $DOT_DIR/win_Vagrantfile ~/vagrant/vms/win/Vagrantfile
-    cpd $DOT_DIR/ubu_arm64_Vagrantfile ~/vagrant/vms/ubu-arm64/Vagrantfile 
+    cpd $DOT_DIR/vagrant/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
+    cpd $DOT_DIR/vagrant/ubu_Vagrantfile ~/vagrant/vms/ubu/Vagrantfile
+    cpd $DOT_DIR/vagrant/win_Vagrantfile ~/vagrant/vms/win/Vagrantfile
+    cpd $DOT_DIR/vagrant/ubu_arm64_Vagrantfile ~/vagrant/vms/ubu-arm64/Vagrantfile 
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
@@ -194,9 +194,9 @@ _set_dot_files(){
     cpd $DOT_DIR/ranger ~/.config/ranger
 
     # we copy our i3 config 
-    cpd $DOT_DIR/i3_config ~/.config/i3/config
-    cpd $DOT_DIR/i3lock.sh ~/.config/i3/i3lock.sh
-    cpd $DOT_DIR/i3mouse.sh ~/.config/i3/i3mouse.sh
+    cpd $DOT_DIR/i3/i3_config ~/.config/i3/config
+    cpd $DOT_DIR/i3/i3lock.sh ~/.config/i3/i3lock.sh
+    cpd $DOT_DIR/i3/i3mouse.sh ~/.config/i3/i3mouse.sh
 
     # we set polybar
     cpd $DOT_DIR/polybar ~/.config/polybar
@@ -226,10 +226,10 @@ _copy_to_dotfiles(){
     cpd ~/.tmux.conf $DOT_DIR
 
     # my vagrant stuffs
-    cpd ~/vagrant/vms/mac/Vagrantfile $DOT_DIR/mac_Vagrantfile
-    cpd ~/vagrant/vms/ubu/Vagrantfile $DOT_DIR/ubu_Vagrantfile
-    cpd ~/vagrant/vms/win/Vagrantfile $DOT_DIR/win_Vagrantfile
-    cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/ubu_arm64_Vagrantfile
+    cpd ~/vagrant/vms/mac/Vagrantfile $DOT_DIR/vagrant/mac_Vagrantfile
+    cpd ~/vagrant/vms/ubu/Vagrantfile $DOT_DIR/vagrant/ubu_Vagrantfile
+    cpd ~/vagrant/vms/win/Vagrantfile $DOT_DIR/vagrant/win_Vagrantfile
+    cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/vagrant/ubu_arm64_Vagrantfile
 
     # For ranger configurationss
     cpd ~/.config/ranger/ $DOT_DIR
@@ -237,9 +237,9 @@ _copy_to_dotfiles(){
     # copy alacritty conf
     cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
     # copy i3 conf
-    cpd ~/.config/i3/config $DOT_DIR/i3_config
-    cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3lock.sh
-    cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3mouse.sh
+    cpd ~/.config/i3/config $DOT_DIR/i3/i3_config
+    cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3/i3lock.sh
+    cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3/i3mouse.sh
 
     # we copy polybar
     cpd ~/.config/polybar/ $DOT_DIR/polybar
