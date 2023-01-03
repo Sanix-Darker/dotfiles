@@ -87,6 +87,8 @@ set.stal = 2
 -- Enable folding
 set.foldmethod = 'indent'
 set.foldlevel = 99
+-- For spell checking
+-- set.spell = true
 
 -- g
 local g = vim.g
@@ -114,3 +116,31 @@ g.fzf_layout = { window = { width = 0.9, height = 0.9}}
 
 -- For simplyfolding
 g.SimpylFold_docstring_preview=1
+
+
+-- Vista stuffs
+-- How each level is indented and what to prepend.
+-- This could make the display more compact or more spacious.
+-- e.g., more compact: ["▸ \", \""]
+-- Note: this option only works for the kind renderer, not the tree renderer.
+g.vista_icon_indent = {"╰─▸ ", "├─▸ "}
+-- Executive used when opening vista sidebar without specifying it.
+-- See all the avaliable executives via `:echo g:vista#executives`.
+g.vista_default_executive = 'ctags'
+-- Declare the command including the executable and options used to generate ctags output
+-- for some certain filetypes.The file path will be appened to your custom command.
+-- For example:
+g.vista_ctags_cmd = {
+    ["haskell"]="hasktags -x -o - -c"
+}
+-- To enable fzf's preview window set g:vista_fzf_preview.
+-- The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+-- For example:
+g.vista_fzf_preview = { 'right:40%' }
+-- Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+g['vista#renderer#enable_icon'] = 1
+-- The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+g['vista#renderer#icons'] = {
+    ["function"]="\\uf794",
+    ["variable"]="\\uf71b",
+}

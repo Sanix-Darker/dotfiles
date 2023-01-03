@@ -43,7 +43,7 @@ alias mkdir='mkdir -p'
 # This will create a directory if it doesn't exist
 # And paste into it (cpd instead of normal cp to differentiate those)
 _cpd(){
-    mkdir "$(dirname ${@: -1})" && cp -r $@
+    mkdir -p "$(dirname ${@: -1})" && cp -r $@
 }
 alias cpd=_cpd
 
@@ -141,13 +141,13 @@ DOT_DIR="$HOME/dotfiles"
 _set_nvim(){
     # vim stuffs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/init.lua ~/.config/nvim/
-    cpd $DOT_DIR/config.vim ~/.config/nvim/
-    cpd $DOT_DIR/plugins.vim  ~/.config/nvim/
-    cpd $DOT_DIR/lua  ~/.config/nvim/lua
+    cpd $DOT_DIR/nvim/init.lua ~/.config/nvim/
+    cpd $DOT_DIR/nvim/config.vim ~/.config/nvim/
+    cpd $DOT_DIR/nvim/plugins.vim  ~/.config/nvim/
+    cpd $DOT_DIR/nvim/lua  ~/.config/nvim/lua
 
     # mkdir ~/.config/nvim/autoload ~/.config/nvim/colors
-    cpd $DOT_DIR/autoload  ~/.config/nvim/
+    cpd $DOT_DIR/nvim/autoload  ~/.config/nvim/
     # cpd $DOT_DIR/colors ~/.config/nvim/
 
     # for neovim
@@ -156,7 +156,7 @@ _set_nvim(){
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
     
-    # yeah, we remove coc-nvim in favor of LSP
+    # yeah, we removed coc-nvim in favor of LSP
     lsp_conf=(
         "pyright" "ts-server" "vscode-langservers-extracted"
         "bash-language-server" "cssmodules-language-server"
@@ -211,12 +211,13 @@ _set_dot_files(){
 }
 
 _copy_to_dotfiles(){
+    mkdir -p $DOT_DIR/nvim/
+    mkdir -p $DOT_DIR/nvim/autoload
     # vim stuffs
-    cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim} $DOT_DIR/
+    cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim} $DOT_DIR/nvim/
 
-    # mkdir $DOT_DIR/autoload $DOT_DIR/colors
-    cpd ~/.config/nvim/autoload $DOT_DIR
-    # cpd ~/.config/nvim/colors $DOT_DIR
+    # for some autoload
+    cpd ~/.config/nvim/autoload $DOT_DIR/nvim/autoload/
 
     # for my bash stuffs
     cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
@@ -898,7 +899,10 @@ alias cdex=_cdex
 # alias gs="git status"
 # alias gss="git stat"
 # alias gd="git diff"
-# alias gm="git commit"
+# alias gds="git diff --staged"
+# alias gc="git commit"
+# alias gm="git commit -m"
+# alias gam="git commit -am"
 # alias ga="git add"
 # alias gp="git push"
 # alias gl="git log"

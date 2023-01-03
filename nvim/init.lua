@@ -30,3 +30,5 @@ require('plugins_config')
 require('lsp_config')
 -- all set configurations
 require('set_config')
+-- for my keymaps
+require('keymaps')
