@@ -105,9 +105,9 @@ g.syntastic_check_on_wq   = 0
 g.context_enabled = 1
 
 -- For the minimap plugin
--- let g:minimap_width = 10
--- let g:minimap_auto_start = 1
--- let g:minimap_auto_start_win_enter = 1
+-- g.minimap_width = 10
+-- g.minimap_auto_start = 1
+-- g.minimap_auto_start_win_enter = 1
 -- >>>>>>>>>>
 
 -- For the fuzzy search

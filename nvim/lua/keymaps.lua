@@ -85,7 +85,7 @@ map("t", "<Esc>", "<C-\\><C-n>")
 -- map("n", "co :tabnew ~/.config/nvim/config.vim<CR>
 
 -- To actualize the vim configuration
-map("n", "so", ":so $MYVIMRC<CR>")
+map("n", "so", ":so %<CR><Esc>:e<CR>")
 -- To clean the search hightlights
 map("n", "no", ":nohlsearch<CR>")
 -- To paste multiple times the same 
@@ -160,6 +160,10 @@ map("n", "<leader>q", ":e ~/buffer<cr>")
 map("n", "<leader>x", ":e ~/buffer.md<cr>")
 -- Toggle paste mode on and off
 map("n", "<leader>pp", ":setlocal paste!<cr>")
+map("n", "<S-Left>", "<S-Left>")
+map("x", "<S-Left>", "<S-Left>")
+map("n", "<S-Right>", "<S-Right>")
+map("x", "<S-Right>", "<S-Right>")
 
 -- NVIM DAP
 --Uncomment this when debuging

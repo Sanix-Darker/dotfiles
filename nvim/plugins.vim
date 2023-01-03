@@ -207,7 +207,7 @@ Plug 'joshdick/onedark.vim'
 
 " For multi cursor
 " Coul but am oing to comment that for now
-" Plug 'mg979/vim-visual-multi'
+Plug 'mg979/vim-visual-multi'
 
 " For distraction disabling
 " Plug 'junegunn/goyo.vim'

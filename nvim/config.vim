@@ -123,17 +123,15 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-map <C-n> :call NERDTreeToggleAndRefresh()<CR>
+map <C-M> :call NERDTreeToggleAndRefresh()<CR>
 function NERDTreeToggleAndRefresh()
-  if g:NERDTree.IsOpen()
-    :NERDTreeToggle
-  else
-    :NERDTreeFind
-  endif
+    if g:NERDTree.IsOpen()
+        :NERDTreeClose
+    else
+        :NERDTreeFind
+    endif
 endfunction
 
-" Use K to show documentation in preview window.
-nnoremap <silent> KKK :call <SID>show_documentation()<CR>
 function! s:SID()
     if ! exists('s:sid')
         let s:sid = matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_SID$')
@@ -167,6 +165,8 @@ function! s:show_documentation()
     execute '!' . &keywordprg . \" " . expand('<cword>')
   endif
 endfunction
+" Use K to show documentation in preview window.
+nnoremap <silent> KKK :call <SID>show_documentation()<CR>
 
 " set thosse elements depending on the filetype am inside
 autocmd FileType yaml set cursorcolumn
@@ -227,17 +227,8 @@ try
     "Flagging Unnecessary Whitespace
     highlight BadWhitespace ctermbg=red guibg=darkred
     au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-    " For the tagbag list of tags
-    " au BufRead * :Vista<CR> <C-w> h
 catch
 endtry
-
-" Format the code on save
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre * undojoin | Neoformat
-" augroup END
 
 " To refresh for i3 after the edition of its config file
 autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
@@ -252,3 +243,6 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 "
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+nmap <S-Left> <S-Left>
+nmap <S-Right> <S-Right>

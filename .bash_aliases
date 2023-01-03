@@ -205,7 +205,6 @@ _set_dot_files(){
 
 _copy_to_dotfiles(){
     mkdir -p $DOT_DIR/nvim/
-    mkdir -p $DOT_DIR/nvim/autoload
     # vim stuffs
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
