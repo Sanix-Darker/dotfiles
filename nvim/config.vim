@@ -123,7 +123,7 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-map <C-M> :call NERDTreeToggleAndRefresh()<CR>
+map <C-n> :call NERDTreeToggleAndRefresh()<CR>
 function NERDTreeToggleAndRefresh()
     if g:NERDTree.IsOpen()
         :NERDTreeClose

@@ -307,7 +307,7 @@ _install_alacritty(){
         libxcb-xfixes0-dev libxkbcommon-dev \
         python3 -y
     cargo install alacritty
-
+    # for theming
     npm i -g alacritty-themes
 }
 

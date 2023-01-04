@@ -15,6 +15,12 @@ map("n", "<C-l>", ":SyntasticToggleMode<cr>")
 map("n", "tn", ":tabnew<CR>")
 map("n", "to", ":tabonly<CR>")
 map("n", "tc", ":tabclose<CR>")
+map("n", "tm", ":tabmove<CR>")
+
+-- for spliting screen
+map("n", ";ws", ":split<cr>")
+map("n", ";wv", ":vsplit<cr>")
+
 -- Opens a new tab with the current buffer's path
 -- Super useful when editing files in the same directory
 map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
@@ -29,7 +35,7 @@ map("n", "cd", ":cd %:p:h<cr>:pwd<cr>")
 map("n", "mm", ":MundoToggle<cr>")
 -- For the :Ag search on the whole project
 -- --hidden --ignore .git
-map("n", "fg", ":Ag<CR>")
+map("n", "fg", ":Ag<CR>", { noremap = true }) -- noremap for non recursive
 -- For the map("of the code
 map("n", "vv", ":Vista!!<CR>")
 
@@ -164,6 +170,9 @@ map("n", "<S-Left>", "<S-Left>")
 map("x", "<S-Left>", "<S-Left>")
 map("n", "<S-Right>", "<S-Right>")
 map("x", "<S-Right>", "<S-Right>")
+
+--  inoremap ;; <Esc>
+map("i", ";;", "<Esc>")
 
 -- NVIM DAP
 --Uncomment this when debuging

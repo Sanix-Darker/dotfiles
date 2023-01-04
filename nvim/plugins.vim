@@ -6,6 +6,8 @@
 call plug#begin('~/.config/nvim/plugged')
 " On-demand loading
 Plug 'preservim/nerdtree'
+" for status of files changes/tracked... by git
+Plug 'Xuyuanp/nerdtree-git-plugin'
 " The wakatime plugin
 " Commenting this for now
 Plug 'wakatime/vim-wakatime'
@@ -207,7 +209,7 @@ Plug 'joshdick/onedark.vim'
 
 " For multi cursor
 " Coul but am oing to comment that for now
-Plug 'mg979/vim-visual-multi'
+" Plug 'mg979/vim-visual-multi'
 
 " For distraction disabling
 " Plug 'junegunn/goyo.vim'
