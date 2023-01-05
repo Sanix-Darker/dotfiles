@@ -200,6 +200,10 @@ Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
+" To view images in neovim
+" Plug 'm00qek/baleia.nvim'
+" Plug 'princejoogie/chafa.nvim'
+
 " Just another way for review
 " Plug 'junkblocker/patchreview-vim'
 " Plug 'codegram/vim-codereview'

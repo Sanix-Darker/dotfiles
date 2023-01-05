@@ -757,6 +757,18 @@ git-fuzzy-log-branch ()
 		--bind "enter:execute:${ENTER_COMMAND}"
 }
 
+fuzzy_add_search()
+{
+    DIFF_VIEW='git diff {1} | delta'
+    ADD_PATCH='git add -p {1}'
+
+    git diff --shortstat --name-only | \
+    fzf ${GIT_FZF_DEFAULT_OPTS} --header "Changes to Add" \
+    --preview "${DIFF_VIEW}" \
+    --preview-window top:20 --pointer=">" \
+    --bind "enter:execute:${ADD_PATCH}"
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup

@@ -43,6 +43,18 @@ require('hop').setup()
 -- require('litee.lib').setup()
 -- require('litee.gh').setup()
 -- neoscroll (for smooth scrolling)
+--
+-- for images previewing
+-- require("chafa").setup({
+--   render = {
+--     min_padding = 5,
+--     show_label = true,
+--   },
+--   events = {
+--     update_on_nvim_resize = true,
+--   },
+-- })
+
 require('neoscroll').setup(neoscroll_setup)
 require('neoscroll.config').set_mappings(scroll_map_setup)
 require("mason").setup(mason_setup)

@@ -185,6 +185,9 @@
     stat = !git diff --stat $(git merge-base HEAD origin)
     stat-to = !git diff --stat
 
+    ; to add smartly on file changes only
+    add-search = !bash -ic 'fuzzy_add_search \"$@\"' x
+
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
