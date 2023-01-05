@@ -168,7 +168,7 @@ map("n", "<leader>x", ":e ~/buffer.md<cr>")
 map("n", "<leader>pp", ":setlocal paste!<cr>")
 
 --  inoremap ;; <Esc>
-map("i", ";;", "<Esc>")
+-- map("i", ";;", "<Esc>")
 
 -- NVIM DAP
 --Uncomment this when debuging
