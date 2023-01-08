@@ -33,7 +33,6 @@ local t = function(str_)
 end
 -- Selected option
 local select_opts = {behavior = cmp.SelectBehavior.Select}
-require('lspconfig').sumneko_lua.setup(lspconfig_setup)
 
 cmp.setup({
     snippet = {
@@ -91,6 +90,7 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'buffer' },
         { name = 'luasnip' }, -- For luasnip users.
+        { name = 'nvim_lsp_signature_help' }
     }, {
         { name = 'buffer' },
     }),
@@ -167,6 +167,14 @@ for _, lsp in ipairs(lsp_servers) do
   }
 end
 
+lspconfig.sumneko_lua.setup(lspconfig_setup)
+-- require "lsp_signature".setup({
+--     bind = true, -- This is mandatory, otherwise border config won't get registered.
+--     handler_opts = {
+--         border = "rounded"
+--     }
+-- })
+
 -- To load all our snippets
 require('luasnip.loaders.from_vscode').lazy_load()
 
@@ -198,9 +206,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	-- bufmap('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 	-- bufmap('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
 	-- bufmap('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-	-- bufmap('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
-	-- bufmap('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-	-- bufmap('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+	bufmap('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+	bufmap('n','<leader>rr','<cmd>lua vim.lsp.buf.rename()<CR>')
+	bufmap('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')
 	-- bufmap('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
 	-- bufmap('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
     -- Displays a function's signature information

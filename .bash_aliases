@@ -763,7 +763,8 @@ fuzzy_add_search()
     ADD_PATCH='git add -p {1}'
 
     git diff --shortstat --name-only | \
-    fzf ${GIT_FZF_DEFAULT_OPTS} --header "Changes to Add" \
+    fzf ${GIT_FZF_DEFAULT_OPTS} --exit-0 \
+    --header "Changes to Add" \
     --preview "${DIFF_VIEW}" \
     --preview-window top:20 --pointer=">" \
     --bind "enter:execute:${ADD_PATCH}"

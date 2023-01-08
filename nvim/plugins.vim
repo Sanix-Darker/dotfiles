@@ -157,8 +157,10 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'ray-x/lsp_signature.nvim'
 
 " For snippets
 Plug 'rafamadriz/friendly-snippets'
@@ -183,9 +185,6 @@ Plug 'nvim-telescope/telescope.nvim'
 " Plug 'ldelossa/litee.nvim'
 " For code review on nvim directly
 " Plug 'ldelossa/gh.nvim'
-
-" For icons on modules types
-" Plug 'onsails/lspkind.nvim'
 
 " For easy aligning...
 " :EasyAlign *= | to align around each occurence

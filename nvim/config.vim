@@ -55,7 +55,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 
 " Clean and erase the buffer
-nnoremap bbb :%bd\|e#\|bd#<cr>
+nnoremap cbu :%bd\|e#\|bd#<cr>
 
 " To search in the current files
 " For hidden files of fzf
@@ -243,6 +243,3 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 "
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
-
-nmap <S-Left> <S-Left>
-nmap <S-Right> <S-Right>

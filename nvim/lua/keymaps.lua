@@ -46,7 +46,7 @@ map("v", ">", ">gv")
 -- To search for ctags
 map("n", "bg", ":Vista finder ctags<CR>")
 -- To undo a git hunk change
-map("n", "ZX", ":GitGutterUndoHunk<CR>")
+map("n", "ZX", ":GitGutterUndoHunk<CR>", { noremap = true })
 -- To format the code
 map("n", "fv", ":Neoformat<CR>")
 -- To jump fastly on a word
@@ -74,14 +74,14 @@ map("n", "_", ":vertical resize -5<CR>")
 map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
 -- To open buffers
-map("n", "bb", ":Buffers<CR>")
+map("n", "bu", ":Buffers<CR>")
 -- For git blame
-map("n", "b", ":GitBlame<CR>")
+map("n", "gb", ":GitBlame<CR>")
 -- To get +/- on changes inside a file from a project
-map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>")
-map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>")
-map("n", "hn", ":GitGutterNextHunk<CR>")
-map("n", "hp", ":GitGutterPrevHunk<CR>")
+map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
+map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
+map("n", "hn", ":GitGutterNextHunk<CR>", { noremap = true })
+map("n", "hp", ":GitGutterPrevHunk<CR>", { noremap = true })
 -- This should go on terminal normal mode such as normal edition on neovim
 map("t", "<Esc>", "<C-\\><C-n>")
 -- For command execution directly in vim
@@ -132,8 +132,8 @@ map("v", "#", ":<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>", { silen
 
 -- => Moving around, tabs, windows and buffers
 -- map("<Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map("n", "<space>", "/")
-map("n", "<C-space>", "?")
+-- map("n", "<space>", "/")
+-- map("n", "<C-space>", "?")
 -- Disable highlight when <leader><cr> is pressed
 map("n", "<leader><cr>", ":noh<cr>", {silent = true})
 -- Close the current buffer
