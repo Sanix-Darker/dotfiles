@@ -35,8 +35,6 @@ Plug 'yuki-yano/fzf-preview.vim'
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
 Plug 'tmhedberg/SimpylFold'
-" For log hightlighting
-" Plug 'mtdl9/vim-log-highlighting'
 " For the git diff/git blame
 Plug 'zivyangll/git-blame.vim'
 " For the gitbutter (live git diff on changes)
@@ -129,7 +127,6 @@ Plug 'tpope/vim-surround'
 
 " for php
 " Plug 'tobyS/pdv'                        " Auto generating php docblocks
-" Plug 'StanAngeloff/php.vim'             " Improved syntax highlighting for php
 " Plug 'phpactor/phpactor', {'do': 'composer install', 'for': 'php'} " PHP introspection and refactor tools
 " Plug 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
 " Plug 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
@@ -162,6 +159,9 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'ray-x/lsp_signature.nvim'
 
+" Just like org on emacs, to organise your stuffs
+Plug 'phaazon/mind.nvim'
+
 " For snippets
 Plug 'rafamadriz/friendly-snippets'
 
@@ -170,6 +170,9 @@ Plug 'onsails/lspkind.nvim'
 
 " Should help preview got to references
 Plug 'kevinhwang91/nvim-bqf'
+
+" For syntax highlighting on a lot of stuffs
+Plug 'sheerun/vim-polyglot'
 
 " For jumping fast on code am writing
 " Plug 'ggandor/leap.nvim'

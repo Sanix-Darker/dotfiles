@@ -167,6 +167,13 @@
     
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
+
+    ; to get diff smartly on file changes only
+    diff-search = !bash -ic 'fuzzy_diff_search \"$@\"' x
+
+    ; to get stash smartly on file changes only
+    stash-search = !bash -ic 'fuzzy_stash_search \"$@\"' x
+
     ; git browse # to browse commits and changes
 	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
     ; git browse-branch # to browse only commits that are away from the main branch

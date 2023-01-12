@@ -60,7 +60,13 @@ nnoremap cbu :%bd\|e#\|bd#<cr>
 " To search in the current files
 " For hidden files of fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-
+" let $FZF_DEFAULT_OPTS = "--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
+" \ --bind ctrl-y:preview-up,ctrl-e:preview-down,
+" \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
+" \ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
+" \shift-up:preview-top,shift-down:preview-bottom,
+" \alt-up:half-page-up,alt-down:half-page-down'
+let $FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-down,ctrl-p:preview-up\""
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 

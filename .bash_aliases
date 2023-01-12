@@ -770,6 +770,61 @@ fuzzy_add_search()
     --bind "enter:execute:${ADD_PATCH}"
 }
 
+fuzzy_diff_search()
+{
+    DIFF_VIEW='git diff {1} | delta'
+
+    git diff --shortstat --name-only | \
+    fzf ${GIT_FZF_DEFAULT_OPTS} --exit-0 \
+    --header "Changes to Add" \
+    --preview "${DIFF_VIEW}" \
+    --preview-window top:20 --pointer=">"
+}
+
+fuzzy_stash_search()
+{
+    while out=$(git stash list "$@" |
+                fzf --ansi --no-sort --reverse --print-query --query="$query"              \
+                    --expect=ctrl-a,ctrl-b,ctrl-p,del                                      \
+                    --bind="ctrl-u:preview-page-up"                                        \
+                    --bind="ctrl-d:preview-page-down"                                      \
+                    --bind="ctrl-k:preview-up"                                             \
+                    --bind="ctrl-j:preview-down"                                           \
+                    --preview="echo {} | cut -d':' -f1 | xargs git stash show -p | delta"  \
+                    --preview-window "top:40");
+    do
+        # Tokenize selection by newline
+        IFS=$'\n' read -rd '' -a selection <<< "$out"
+        # Keep the query accross fzf calls
+        query="${selection[1]}"
+        # Represents the stash, e.g. stash{1}
+        reflog_selector=$(echo "${selection[3]}" | cut -d ':' -f 1)
+
+        case "${selection[2]}" in
+            # ctrl-a applies the stash to the current tree
+            ctrl-a)
+                git stash apply "$reflog_selector"
+                break
+                ;;
+            # ctrl-b checks out the stash as a branch
+            ctrl-b)
+                sha=$(echo "${selection[3]}" | grep -o '[a-f0-9]\{7\}')
+                git stash branch "stash-$sha" "$reflog_selector"
+                break
+                ;;
+            # ctrl-p is like ctrl-a but it drops the stash. Uses stash pop.
+            ctrl-p)
+                git stash pop "$reflog_selector"
+                break
+                ;;
+            # del will drop the stash
+            del)
+                git stash drop "$reflog_selector"
+                ;;
+        esac
+    done
+}
+
 # To install apt-clone for backups
 # sudo apt-get install apt-clone
 # To Make a backup
@@ -902,10 +957,11 @@ alias cdex=_cdex
 # alias gss="git stat"
 # alias gd="git diff"
 # alias gds="git diff --staged"
-# alias gc="git commit"
+# alias gc="gIt commit"
 # alias gm="git commit -m"
 # alias gam="git commit -am"
 # alias ga="git add"
+# alias gap="git add -p"
 # alias gp="git push"
 # alias gl="git log"
 # alias gll="git log-branch"

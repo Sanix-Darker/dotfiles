@@ -35,37 +35,40 @@ map("n", "cd", ":cd %:p:h<cr>:pwd<cr>")
 map("n", "mm", ":MundoToggle<cr>")
 -- For the :Ag search on the whole project
 -- --hidden --ignore .git
-map("n", "fg", ":Ag<CR>", { noremap = true }) -- noremap for non recursive
+map("n", "<Leader>fg", ":Ag<CR>", { noremap = true }) -- noremap for non recursive
 -- For the map("of the code
 map("n", "vv", ":Vista!!<CR>")
+map("n", "<Leader>w", ":w<CR>")
+map("n", "<Leader>q", ":q<CR>")
+map("n", "<Leader>e", ":e<CR>")
 
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- To search for ctags
-map("n", "bg", ":Vista finder ctags<CR>")
+map("n", "<Leader>bg", ":Vista finder ctags<CR>")
 -- To undo a git hunk change
 map("n", "ZX", ":GitGutterUndoHunk<CR>", { noremap = true })
 -- To format the code
 map("n", "fv", ":Neoformat<CR>")
 -- To jump fastly on a word
-map("n", "jj", ":HopWord<CR>")
+map("n", "<Leader>jj", ":HopWord<CR>")
 -- Most efficient than the ? or /
-map("n", "ll", ":Lines<CR>")
+map("n", "<Leader>ll", ":Lines<CR>")
 -- For the file search
-map("n", "ff", ":Files<cr>")
+map("n", "<Leader>ff", ":Files<cr>")
 -- To access all tabs in a single view as a popUp
-map("n", "tt", ":Windows<cr>")
+map("n", "<Leader>tt", ":Windows<cr>")
 -- To access all marks i left from all opened files...
 -- anywhere.
-map("n", "tg", ":Marks<cr>")
--- To get th, history of all my opened files  
-map("n", "hh", ":History<cr>")
+map("n", "<Leader>tg", ":Marks<cr>")
+-- To get th, history of all my opened files
+map("n", "<Leader>hh", ":History<cr>")
 -- To get th, whole history of the current buffer in term of commits
-map("n", "hg", ":BCommit<cr>")
+map("n", "<Leader>hg", ":BCommit<cr>")
 -- To get an, search from command history
-map("n", "hc", ":Commands<cr>")
+map("n", "<Leader>hc", ":Commands<cr>")
 -- To get th, diffview history of the repo
 map("n", "ft", ":DiffviewFileHistory<CR>")
 -- For panes resizing
@@ -74,14 +77,14 @@ map("n", "_", ":vertical resize -5<CR>")
 map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
 -- To open buffers
-map("n", "bu", ":Buffers<CR>")
+map("n", "<Leader>bb", ":Buffers<CR>")
 -- For git blame
 map("n", "gb", ":GitBlame<CR>")
 -- To get +/- on changes inside a file from a project
 map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
 map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
-map("n", "hn", ":GitGutterNextHunk<CR>", { noremap = true })
-map("n", "hp", ":GitGutterPrevHunk<CR>", { noremap = true })
+-- map("n", "hn", ":GitGutterNextHunk<CR>", { noremap = true })
+-- map("n", "hp", ":GitGutterPrevHunk<CR>", { noremap = true })
 -- This should go on terminal normal mode such as normal edition on neovim
 map("t", "<Esc>", "<C-\\><C-n>")
 -- For command execution directly in vim
@@ -94,12 +97,12 @@ map("t", "<Esc>", "<C-\\><C-n>")
 map("n", "so", ":so %<CR><Esc>:e<CR>")
 -- To clean the search hightlights
 map("n", "no", ":nohlsearch<CR>")
--- To paste multiple times the same 
+-- To paste multiple times the same
 -- stuff or use P for the default behaviour
 map("x", "p", "pgvy")
 -- To Ctrl-BackSpace delete a whole previous word
-map("x", "<C-H>", "dvbh")
-map("n", "<C-H>", "dvbh")
+map("x", "<C-H>", "db")
+map("n", "<C-H>", "db")
 -- To cut directly the current line
 map("x", "X", "dd<Esc>")
 map("n", "X", "dd")
@@ -118,11 +121,11 @@ map("v", "P", "\"+p")
 
 -- Disable/Uninstalled for now
 -- For floating windows
--- map("n", "k :15Term 
+-- map("n", "k :15Term
 -- map("n", "kb :15Term bash <CR>
-map("n", "nk", ":FloatermNew --height=0.9 --width=0.9<CR>")
-map("n", "kkk", ":FloatermKill<CR>")
-map("n", "kk", ":FloatermToggle<CR>")
+map("n", "<Leader>nk", ":FloatermNew --height=0.9 --width=0.9<CR>")
+map("n", "<Leader>kkk", ":FloatermKill<CR>")
+map("n", "<Leader>kk", ":FloatermToggle<CR>")
 
 -- => Visual mode related
 -- Visual mode pressing * or # searches for the current selection
@@ -161,9 +164,9 @@ map("v", "<M-k>", ":m'<-2<cr><mzgvz")
 -- --Remove the Windows ^M - when the encodings gets messed up
 map("n", "<Leader>m", "mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm")
 -- Quickly open a buffer for scribble
-map("n", "<leader>q", ":e ~/buffer<cr>")
+-- map("n", "<leader>q", ":e ~/buffer<cr>")
 -- Quickly open a markdown buffer for scribble
-map("n", "<leader>x", ":e ~/buffer.md<cr>")
+-- map("n", "<leader>x", ":e ~/buffer.md<cr>")
 -- Toggle paste mode on and off
 map("n", "<leader>pp", ":setlocal paste!<cr>")
 
