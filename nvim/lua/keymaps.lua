@@ -113,8 +113,8 @@ map("n", "RR", ":20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old
 map("x", "Z", ":Commentary<CR>")
 map("n", "Z", ":Commentary<CR>")
 -- To duplicate the current line
-map("x", "B", "yyp")
-map("n", "B", "yyp")
+-- map("x", "B", "yyp")
+-- map("n", "B", "yyp")
 -- Normal copy paste Shortcuts
 map("v", "Y", "\"+y")
 map("v", "P", "\"+p")
@@ -123,9 +123,11 @@ map("v", "P", "\"+p")
 -- For floating windows
 -- map("n", "k :15Term
 -- map("n", "kb :15Term bash <CR>
-map("n", "<Leader>nk", ":FloatermNew --height=0.9 --width=0.9<CR>")
-map("n", "<Leader>kkk", ":FloatermKill<CR>")
-map("n", "<Leader>kk", ":FloatermToggle<CR>")
+map("n", "<Leader>k", ":FloatermNew --height=0.9 --width=0.9<CR>")
+-- map("n", "<Leader>kkk", ":FloatermKill<CR>") -- should be killed by exiting it directly
+map("n", "<Leader><C-k>", ":FloatermToggle<CR>")
+map("n", "<Leader>kn", ":FloatermNext<CR>")
+map("n", "<Leader>kp", ":FloatermPrev<CR>")
 
 -- => Visual mode related
 -- Visual mode pressing * or # searches for the current selection

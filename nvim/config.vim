@@ -57,6 +57,8 @@ au TabLeave * let g:lasttab = tabpagenr()
 " Clean and erase the buffer
 nnoremap cbu :%bd\|e#\|bd#<cr>
 
+inoremap jk <ESC>
+
 " To search in the current files
 " For hidden files of fzf
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'

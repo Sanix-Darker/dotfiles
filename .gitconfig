@@ -139,10 +139,10 @@
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
 
     ; Some interesting amend commands to not let me write all the flags
-    amend = !git commit --amend
-    amend-no-edit = !git commit --amend --no-edit
-    amend-no-verify = !git commit --amend --no-verify
-    amend-no-edit-no-verify = !git commit --amend --no-edit --no-verify
+    amend = !git commit --amend -v
+    amend-no-edit = !git amend --no-edit
+    amend-no-verify = !git amend --no-verify
+    amend-no-edit-no-verify = !git amend-no-edit --no-verify
 
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
