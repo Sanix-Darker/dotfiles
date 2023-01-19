@@ -209,6 +209,11 @@ _gogo(){
     pkill compton; _start_compton
 }
 
+
+# to be honnest i don't need the capslock
+# so this is to disable it
+# xmodmap -e "remove lock = Caps_Lock"
+
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 

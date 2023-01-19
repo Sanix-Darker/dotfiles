@@ -58,6 +58,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 nnoremap cbu :%bd\|e#\|bd#<cr>
 
 inoremap jk <ESC>
+" vnoremap jk <ESC>
 
 " To search in the current files
 " For hidden files of fzf

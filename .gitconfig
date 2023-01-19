@@ -153,6 +153,7 @@
     
     ; to undo and clear all unstaged changes
     undo-clear = !git reset HEAD~1 --mixed && git clear
+
     ; to get branch list with a lot of informations on it
     branch-details = !git branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
     ; To search inside commit
@@ -249,6 +250,8 @@
     status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
 
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
+
+    ignores = !git ls-files --other --ignored --exclude-standard
 
 
 [merge]
