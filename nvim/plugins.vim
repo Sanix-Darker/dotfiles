@@ -202,6 +202,8 @@ Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
 " To view images in neovim
 " Plug 'm00qek/baleia.nvim'
 " Plug 'princejoogie/chafa.nvim'
@@ -280,7 +282,7 @@ Plug 'joshdick/onedark.vim'
 " Plug 'https://github.com/w0rp/ale'
 
 " For Fugitive for git command directly inside the command section
-" Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " vim plugin for flake8 PEP
 " Plug 'nvie/vim-flake8'

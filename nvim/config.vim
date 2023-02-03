@@ -53,23 +53,61 @@ let g:silicon = {
 let g:lasttab = 1
 au TabLeave * let g:lasttab = tabpagenr()
 
+" Firenvim
+" let g:firenvim_config = { 
+"     \ 'globalSettings': {
+"         \ 'alt': 'all',
+"     \  },
+"     \ 'localSettings': {
+"         \ '.*': {
+"             \ 'cmdline': 'neovim',
+"             \ 'content': 'markdown',
+"             \ 'priority': 0,
+"             \ 'selector': 'textarea',
+"             \ 'takeover': 'always',
+"         \ },
+"     \ }
+" \ }
+" function! s:IsFirenvimActive(event) abort
+"   if !exists('*nvim_get_chan_info')
+"     return 0
+"   endif
+"   let l:ui = nvim_get_chan_info(a:event.chan)
+"   return has_key(l:ui, 'client') && has_key(l:ui.client, 'name') &&
+"       \ l:ui.client.name =~? 'Firenvim'
+" endfunction
+" function! SetLinesForFirefox(timer)
+"     " set lines=28 columns=70 laststatus=0
+"     " exec 'resize -10'
+" endfunction
+" function! OnUIEnter(event) abort
+"   if s:IsFirenvimActive(a:event)
+"     set guifont=Hack:h14
+"     call timer_start(1000, function("SetLinesForFirefox"))
+"   endif
+" endfunction
+
+" " Already add the line below to the end of the file
+" autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+
 
 " Clean and erase the buffer
 nnoremap cbu :%bd\|e#\|bd#<cr>
 
 inoremap jk <ESC>
+inoremap JK <ESC>
 " vnoremap jk <ESC>
 
 " To search in the current files
 " For hidden files of fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git --ignore node_modules --ignore poetry.lock --ignore yarn.lock -g ""'
 " let $FZF_DEFAULT_OPTS = "--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
 " \ --bind ctrl-y:preview-up,ctrl-e:preview-down,
 " \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
 " \ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
 " \shift-up:preview-top,shift-down:preview-bottom,
 " \alt-up:half-page-up,alt-down:half-page-down'
-let $FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-down,ctrl-p:preview-up\""
+let $FZF_DEFAULT_OPTS="--bind \"ctrl-d:preview-down,ctrl-u:preview-up\""
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
@@ -83,7 +121,8 @@ fun! CleanExtraSpaces()
 endfun
 
 autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+" am getting weird warning errors when saving a tsx file, so am commenting this for now
+" autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -204,6 +243,17 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/
     \	endfor |
     \	tabclose 1 |
     \ endif
+
+" i want to disable capsLock when am leaving the insert mode
+" because my keyboard doesn't help me knowing when the capsLock
+" is on or not
+function TurnOffCaps()  
+    let capsState = matchstr(system('xset -q'), '00: Caps Lock:\s\+\zs\(on\|off\)\ze')
+    if capsState == 'on'
+        silent! execute ':!xdotool key Caps_Lock'
+    endif
+endfunction
+au InsertLeave * call TurnOffCaps()
 
 try
     " Auto generate tags file on file write of *.c and *.h files

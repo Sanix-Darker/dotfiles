@@ -116,8 +116,8 @@ map("n", "Z", ":Commentary<CR>")
 -- map("x", "B", "yyp")
 -- map("n", "B", "yyp")
 -- Normal copy paste Shortcuts
-map("v", "Y", "\"+y")
-map("v", "P", "\"+p")
+map("v", "Y", '"+y')
+map("v", "P", '"+p')
 
 -- Disable/Uninstalled for now
 -- For floating windows
@@ -154,7 +154,6 @@ map("n", "<leader>h", ":bprevious<cr>")
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- Remap("VIM 0 to first non-blank character
 map("n", "0", "^")
-
 -- Move a line of text using ALT+[jk] or Command+[jk] on mac
 map("n", "<M-j>", "mz:m+<cr>z")
 map("v", "<M-j>", ":m'>+<cr>>mzgvz")
@@ -171,6 +170,44 @@ map("n", "<Leader>m", "mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm")
 -- map("n", "<leader>x", ":e ~/buffer.md<cr>")
 -- Toggle paste mode on and off
 map("n", "<leader>pp", ":setlocal paste!<cr>")
+
+
+-- Displays hover information about the symbol under the cursor
+map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
+-- Jump to the definition
+map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+-- Jump to declaration
+map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+-- Lists all the implementations for the symbol under the cursor
+map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
+-- Jumps to the definition of the type symbol
+map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
+-- Lists all the references 
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+-- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+-- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
+-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+-- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+map('n','<leader>rr','<cmd>lua vim.lsp.buf.rename()<CR>')
+map('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')
+-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+-- Displays a function's signature information
+map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
+-- Renames all references to the symbol under the cursor
+map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
+-- Selects a code action available at the current cursor position
+map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+map('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
+-- Show diagnostics in a floating window
+map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+-- Move to the previous diagnostic
+map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+-- Move to the next diagnostic
+map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 --  inoremap ;; <Esc>
 -- map("i", ";;", "<Esc>")

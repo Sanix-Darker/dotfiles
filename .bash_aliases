@@ -950,6 +950,13 @@ _cdex(){
 }
 alias cdex=_cdex
 
+
+# to record my terminal when am writing something
+alias rec='asciinema rec'
+
+# an alias for rustc
+alias r=rustc
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
 # # some coul git aliases to go fast
