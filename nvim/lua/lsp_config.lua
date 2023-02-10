@@ -178,6 +178,9 @@ lspconfig.sumneko_lua.setup(lspconfig_setup)
 -- To load all our snippets
 require('luasnip.loaders.from_vscode').lazy_load()
 
+-- We enable/init the toggle lsp pluggin to enable quickly the lsp diagnosttic messages
+require('toggle_lsp_diagnostics').init()
+
 -- keybindings to go to definition/declaration
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',

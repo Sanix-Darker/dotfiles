@@ -56,7 +56,6 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-
 new_line() {
     printf "\n$ "
 }
@@ -69,21 +68,21 @@ parse_git_branch() {
 
 if [ "$color_prompt" = yes ]; then
     # for the host it's @\h\[\033[00m\]
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch)$(new_line)'
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch) $(new_line)'
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\ $ '
 fi
 unset color_prompt force_color_prompt
 
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# # If this is an xterm set the title to user@host:dir
+# case "$TERM" in
+# xterm*|rxvt*)
+#     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\a\]$PS1"
+#     ;;
+# *)
+#     ;;
+# esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -113,6 +112,23 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+if [ -f ~/.bash-preexec.sh ]; then
+    # Source our file to bring it into our environment
+    source ~/.bash-preexec.sh
+fi
+
+# Define a couple functions.
+preexec() {
+    # before all my bash commands lines, it will execute this
+    command_timer_start=$SECONDS
+}
+precmd() {
+    # after all my bash  commands, this will be executed
+    echo -e "\\033[33;1m^$(( SECONDS - command_timer_start ))s\\033[0m"
+    # we reset this value
+    command_timer_start=$SECONDS
+}
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -208,7 +224,6 @@ _gogo(){
     pkill polybar; _start_polybar
     pkill compton; _start_compton
 }
-
 
 # to be honnest i don't need the capslock
 # so this is to disable it

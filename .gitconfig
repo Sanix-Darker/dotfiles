@@ -274,3 +274,5 @@
 	defaultBranch = master
 [github]
 	user = Sanix-Darker
+[push]
+	autoSetupRemote = true

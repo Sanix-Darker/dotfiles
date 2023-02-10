@@ -490,10 +490,17 @@ _install_extras_stuffs(){
     sudo snap install slides aria2c
 }
 
+_install_bash_preexc(){
+    # Pull down our file from GitHub and write it to your home directory as a hidden file.
+    curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
+}
+
 _install_dev_stack(){
     _source_dev_stack
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
+    # setup the preExc bash command for some usefull stuff just like telling the time 
+    _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
@@ -950,12 +957,17 @@ _cdex(){
 }
 alias cdex=_cdex
 
-
 # to record my terminal when am writing something
 alias rec='asciinema rec'
 
 # an alias for rustc
 alias r=rustc
+
+# replace all numbers from a given pipe
+alias _hide_number="sed 's/[0-9]/*/g'"
+
+# Don't blame me, sometiome am found myself hitting gti instead of git
+alias gti="git"
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
@@ -964,12 +976,14 @@ alias r=rustc
 # alias gss="git stat"
 # alias gd="git diff"
 # alias gds="git diff --staged"
-# alias gc="gIt commit"
+# alias gc="git commit"
+# alias gcc="git checkout"
 # alias gm="git commit -m"
 # alias gam="git commit -am"
 # alias ga="git add"
 # alias gap="git add -p"
-# alias gp="git push"
+# alias gps="git push"
+# alias gpl="git pull"
 # alias gl="git log"
 # alias gll="git log-branch"
 # alias gsq="git squash"

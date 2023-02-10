@@ -40,7 +40,7 @@ Plug 'zivyangll/git-blame.vim'
 " For the gitbutter (live git diff on changes)
 Plug 'airblade/vim-gitgutter'
 " For dev-icons
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 " For hichlight all occurences
 " Of the current word where we have the cursor
 Plug 'itchyny/vim-cursorword'
@@ -69,7 +69,9 @@ Plug 'voldikss/vim-floaterm'
 Plug 'folke/which-key.nvim'
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
-Plug 'sindrets/diffview.nvim'
+" diff view for changes, since i have git browse, 
+" this is not needed anymore
+" Plug 'sindrets/diffview.nvim'
 " The Zig hightligh & 
 " Plug 'ziglang/zig.vim'
 " Just to use the ESC in a floaterm
@@ -77,7 +79,7 @@ Plug 'sychen52/smart-term-esc.nvim'
 " ReactJs/typescript support
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'maxmellon/vim-jsx-pretty'
 " For debugging, we add dap
 " Plug 'mfussenegger/nvim-dap'
 " Plug 'Pocco81/DAPInstall.nvim'
@@ -161,6 +163,9 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 " Just like org on emacs, to organise your stuffs
 Plug 'phaazon/mind.nvim'
+
+" To toggle and untoggle the lsp diagnostic
+Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
 
 " For snippets
 Plug 'rafamadriz/friendly-snippets'
