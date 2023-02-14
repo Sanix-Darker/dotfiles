@@ -230,6 +230,9 @@ _copy_to_dotfiles(){
     cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3/i3lock.sh
     cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3/i3mouse.sh
 
+    # greenclip configuration
+    cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
+
     # we copy polybar
     cpd ~/.config/polybar/ $DOT_DIR/polybar
     
@@ -425,6 +428,9 @@ _install_i3(){
     sudo apt-get install i3-gaps mpv feh rofi arandr -y
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
+    # install greenclip for clipboard history
+    _confirm "Install greenclip for clipboard history, depends on rofi ?" _install_greenclip
+
     # install autolock
     # sudo apt-get install xautolock -y
 }
@@ -442,6 +448,16 @@ _install_FZF(){
 _install_locales_lang(){
     sudo locale-gen en_GB.UTF-8 && \
     dpkg-reconfigure locales
+}
+
+_install_greenclip(){
+    wget https://github.com/erebe/greenclip/releases/download/v4.2/greenclip
+    sudo mv ./greenclip /usr/local/bin/
+    # we add rights for rofi to run it
+    sudo chmod +x /usr/local/bin/greenclip                                                                                                       │
+
+    # we need to spawn the daemon
+    nohup greenclip daemon &                                                                     │
 }
 
 _install_basics(){
@@ -504,7 +520,7 @@ _install_dev_stack(){
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
-    _confirm "Install i3 stuffs (heavy | ui) ?" _install_i3
+    _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
     _confirm "Install alacritty terminal (ui) ?" _install_alacritty
     _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
