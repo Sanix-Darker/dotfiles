@@ -43,10 +43,27 @@ Vagrant.configure(2) do |config|
   # config.vm.provision :docker
   # config.vm.provision :docker_compose
 
-  # Install Git,
+  # Install Essential devs/bins stufs,
   config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
-    apt-get install -y build-essential
+    # Casual apt update/installations
+    apt-get update -y
+    apt-get install -y --force-yes \
+      git vim curl \
+      lsb-release \
+      ca-certificates \
+      build-essential \
+      apt-transport-https \
+      software-properties-common
     apt-get autoremove -y
+
+    # Get my dotfiles ready
+    echo "> cloning dotfiles..."
+    git clone https://github.com/sanix-darker/dotfiles && cd dotfiles
+    cp ./.bash_aliases $HOME/
+    cp ./.bashrc $HOME/
+
+    # We source what we just copied
+    source ~/.bashrc
+    echo ">> all set dk !"
   SHELL
 end

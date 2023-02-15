@@ -446,6 +446,7 @@ _install_FZF(){
 }
 
 _install_locales_lang(){
+    sudo apt-get update -y
     sudo locale-gen en_GB.UTF-8 && \
     dpkg-reconfigure locales
 }
@@ -454,10 +455,9 @@ _install_greenclip(){
     wget https://github.com/erebe/greenclip/releases/download/v4.2/greenclip
     sudo mv ./greenclip /usr/local/bin/
     # we add rights for rofi to run it
-    sudo chmod +x /usr/local/bin/greenclip                                                                                                       │
-
+    sudo chmod +x /usr/local/bin/greenclip
     # we need to spawn the daemon
-    nohup greenclip daemon &                                                                     │
+    nohup greenclip daemon &
 }
 
 _install_basics(){
@@ -489,9 +489,6 @@ _install_basics(){
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt-get install $i -y
     done
-    
-    # For a weird perl warning error on locales UTF-8
-    _confirm "Reconfigure locale langs ? " _install_locales_lang
 
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
@@ -513,6 +510,10 @@ _install_bash_preexc(){
 
 _install_dev_stack(){
     _source_dev_stack
+    
+    # For a weird perl warning error on locales UTF-8
+    # Should be on top
+    _confirm "Reconfigure locale langs ? " _install_locales_lang
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
     # setup the preExc bash command for some usefull stuff just like telling the time 
@@ -984,6 +985,51 @@ alias _hide_number="sed 's/[0-9]/*/g'"
 
 # Don't blame me, sometiome am found myself hitting gti instead of git
 alias gti="git"
+
+# vagrant stuffs
+# ---------------------------------------
+_vup(){
+    vmm=$1
+    cd $HOME/vagrant/vms/$vmm
+    vagrant up
+    cd -
+}
+_vdown(){
+    vmm=$1
+    cd $HOME/vagrant/vms/$vmm
+    vagrant halt
+    cd -
+}
+_vlistvmsconfs(){
+    echo "> available vms :"
+    ls -al $HOME/vagrant/vms
+}
+_vlistbox(){
+    vagrant box list
+}
+_vlistvms(){
+    VBoxManage list vms
+}
+_vssh(){
+    vmm=$1
+    cd $HOME/vagrant/vms/$vmm
+    vagrant ssh
+    cd -
+}
+_vdestroy(){
+    vagrant destroy -f $@
+}
+_vdestroyvm(){
+    _vdown $@
+    VBoxManage unregistervm $@ --delete 
+}
+_vstatus(){
+    vagrant global-status
+}
+_vremove(){
+    vmm=$1
+    vagrant box remove $vmm
+}
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
