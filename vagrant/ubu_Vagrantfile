@@ -55,15 +55,5 @@ Vagrant.configure(2) do |config|
       apt-transport-https \
       software-properties-common
     apt-get autoremove -y
-
-    # Get my dotfiles ready
-    echo "> cloning dotfiles..."
-    git clone https://github.com/sanix-darker/dotfiles && cd dotfiles
-    cp ./.bash_aliases $HOME/
-    cp ./.bashrc $HOME/
-
-    # We source what we just copied
-    source ~/.bashrc
-    echo ">> all set dk !"
   SHELL
 end

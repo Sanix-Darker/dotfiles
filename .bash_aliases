@@ -495,6 +495,9 @@ _install_basics(){
 
     # install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
+
+    # path browsing such as exa or zoxide
+    _confirm "Install Path browsing utils ?" _install_path_browsing_utils
 }
 
 _install_extras_stuffs(){
@@ -519,7 +522,6 @@ _install_dev_stack(){
     # setup the preExc bash command for some usefull stuff just like telling the time 
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
-    _confirm "Install Path browsing utils ?" _install_path_browsing_utils
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
