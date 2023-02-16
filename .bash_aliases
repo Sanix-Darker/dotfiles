@@ -327,6 +327,9 @@ _install_path_browsing_utils(){
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     sudo rm -rf exa*.zip
 
+
+    _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
+
     # putting this in comment for now
     # pip install ranger
 }
@@ -365,22 +368,26 @@ _install_nvim_and_utils(){
     _confirm "Install the latest nvim nightly release ?" _install_nvim
 
     # To install CocInstall, we need nodejs
-    _confirm "Install the nodejs, npm and nvm (usefull for Coc-Server) ? " _install_node_stuffs
+    _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
 
     # To install ctags( the universal one) for vista plugins
     _confirm "Install ctags (universal) ?" _install_ctags_universal
 }
 
 _install_python_stuffs(){
-    sudo add-apt-repository ppa:deadsnakes/ppa -y
+    sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update -y
 
     devStack=(
+        "python3.10" "python3.11"
         "python3-dev" "python3-pip"
         "python3-setuptools"
         "python3-testresources"
         "python3.10-distutils"
         "python3.10-dev"
+
+        # for virtualenv
+        "python-virtualenv"
     )
     for i in "${devStack[@]}"
     do
@@ -478,7 +485,7 @@ _install_basics(){
         "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
-        "git" "hub" "bat" "snap"
+        "git" "hub" "snap"
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
 
@@ -498,6 +505,13 @@ _install_basics(){
 
     # path browsing such as exa or zoxide
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
+}
+
+_install_batcat(){
+    git clone https://github.com/sharkdp/bat
+    cd bat 
+    # cargo should be already present for this to be installed
+    cargo install --locked bat
 }
 
 _install_extras_stuffs(){
@@ -543,7 +557,7 @@ alias postman='~/Postman/Postman &'
 alias clean_docker_images='docker rmi $(docker images -f "dangling=true" -q)'
 alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
-alias cat='batcat -p'
+alias cat='bat -p'
 alias tmux='tmux -2'
 
 # To fastly jump in a remote branch

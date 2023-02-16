@@ -7,7 +7,7 @@ local lsp_servers = {
     'cssls', 'dockerls', 'gradle_ls', 'graphql',
     'jdtls', 'kotlin_language_server', 'marksman',
     'rnix', 'taplo', 'tailwindcss',
-    'terraformls', 'yamlls', 'zls', 'lemminx'
+    'terraformls', 'yamlls', 'zls', 'lemminx', "lua_ls"
 }
 local lspconfig_setup = {
     -- ... other configs
@@ -167,7 +167,7 @@ for _, lsp in ipairs(lsp_servers) do
   }
 end
 
-lspconfig.sumneko_lua.setup(lspconfig_setup)
+lspconfig.lua_ls.setup(lspconfig_setup)
 -- require "lsp_signature".setup({
 --     bind = true, -- This is mandatory, otherwise border config won't get registered.
 --     handler_opts = {
