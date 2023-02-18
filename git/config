@@ -33,6 +33,13 @@
     side-by-side = false
 
 [alias]
+    ; hide already tracked files from the git status/diff...
+    hide = update-index --skip-worktree
+    ; unhide those file (keep in mind that's like a stash but in .gitignore)
+    unhide = update-index --no-skip-worktree
+    ; list of those hidden files
+    hidden = "!git ls-files -v | grep ^[hsS] | cut -c 3-"
+
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
