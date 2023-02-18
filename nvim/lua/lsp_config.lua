@@ -7,7 +7,7 @@ local lsp_servers = {
     'cssls', 'dockerls', 'gradle_ls', 'graphql',
     'jdtls', 'kotlin_language_server', 'marksman',
     'rnix', 'taplo', 'tailwindcss',
-    'terraformls', 'yamlls', 'zls', 'lemminx', "lua_ls"
+    'terraformls', 'yamlls', 'zls', 'lemminx'
 }
 local lspconfig_setup = {
     -- ... other configs
@@ -178,7 +178,7 @@ lspconfig.lua_ls.setup(lspconfig_setup)
 -- To load all our snippets
 require('luasnip.loaders.from_vscode').lazy_load()
 
--- We enable/init the toggle lsp pluggin to enable quickly the lsp diagnosttic messages
+-- We enable/init the toggle lsp pluggin to enable quickly the lsp diagnosttic messatges
 require('toggle_lsp_diagnostics').init()
 
 -- keybindings to go to definition/declaration

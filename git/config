@@ -1,0 +1,309 @@
+; a sick config i should inspire my self too : https://github.com/kbd/setup/blob/e23b3e8e2363284c3c766c0be2211f46c745354a/HOME/.config/git/config#L110
+[user]
+	email = s4nixd@gmail.com
+	name = sanix-darker
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+    required = true
+
+; Let's say, we want to ignore some lines in the git diff, add....
+; we just need to create a new filter
+; this means, i just need to add //NOCOMMIT in a line to be invisible from git
+;
+; We need to add to ./.git/info/attributes a line to trigger the nocommit,
+; like:
+; main.py filter=nocommit
+[filter "nocommit"]
+    clean = grep -v NOCOMMIT
+
+[core]
+    pager = delta
+    editor = nvim
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    navigate = true
+    line-numbers = true
+    features = decorations
+    light = false
+    side-by-side = false
+
+[alias]
+    ; To use pr
+    ; pr auth login to authenticate it !
+    ; You can use ssh or https, but; it's better to use ssh one
+    ; to create a new PR
+    ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
+    ; This will create on the default main branch, could be master or main
+    ; as draft (--draft/-d)
+    pr = !EDITOR=nvim gh pr create -a sanix-darker -d
+
+    ; pr-to to specify a specific branch
+    ; git pr-to dev-branch
+    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker --base 
+
+    ; to get the label list from the repo
+    label-list = !gh label list
+
+    ; to list all available pull requests
+    pr-list = !gh pr list
+
+    ; to list all available pull requests
+    ; Ex: git pr-view 23
+    pr-view = !gh pr view
+
+    ; for release tags
+    ; Interactively create a release
+    ; $ gh release create
+    ; Interactively create a release from specific tag
+    ; $ gh release create v1.2.3
+    ; Non-interactively create a release
+    ; $ gh release create v1.2.3 --notes "bugfix release"
+    ; Use automatically generated release notes
+    ; $ gh release create v1.2.3 --generate-notes
+    ; Use release notes from a file
+    ; $ gh release create v1.2.3 -F changelog.md
+    ; Upload all tarballs in a directory as release assets
+    ; $ gh release create v1.2.3 ./dist/*.tgz
+    ; Upload a release asset with a display label
+    ; $ gh release create v1.2.3 '/path/to/asset.zip#My display label'
+    ; Create a release and start a discussion
+    ; $ gh release create v1.2.3 --discussion-category "General"
+    release = !EDITOR=nvim gh release create
+
+    ; to list commits from the current branch
+    ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
+    commit-list = !git cherry -v origin
+
+    ; to create a new Issur
+    issue = !EDITOR=nvim gh issue create
+
+    ; git reset --hard
+    clear = !git reset --hard
+
+    ; to list all vailable issues
+    issue-list = !gh issue list
+
+    log-branch = !git log origin..HEAD
+
+    ; to get the base branch
+    branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
+
+    ; to view an Issue
+    ; Ex: git issue-view 23
+    issue-view = !gh issue view
+
+    ; to view an Issue
+    issue-comment = !EDITOR=nvim gh issue comment -e
+
+    ; All my commits should be signed
+    ; git config --global commit.gpgsign true
+    ; commit-signed = !git commit -S
+
+    ; To clone a sub directory from a random project
+    ; git clone-sub directory1 https://github.com/author/repo
+    ; Or from a specific branch
+    ; git clone-sub directory1 https://github.com/author/repo
+    clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
+
+    ; to cat inside a code state for a given line, commit and file as parameter
+    ; ideal to run just after the git search
+    open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
+
+    ; To commit an empty commit
+    commit-empty = !git commit --allow-empty -m
+
+    ; The 'git revise' can also be installed by using 'pip install --user git-revise'
+
+    ; only in a middle of a rebase
+    ; git add-their
+    ; accept incomming changes
+    add-their = !git checkout --ours "$@" && git add "$@"
+    ; git add-our
+    ; accept only current changes
+    add-our = !git checkout --theirs "$@" && git add "$@"
+
+    ; to generate a new patch from changes
+    ; git patch-put -1 <sha>
+    ; git patch-put -1 HEAD
+    patch-put = !git format-patch $@
+    ; to get a new patch from file
+    ; git patch-get file.patch
+    patch-get = !git am < $@
+
+    ; to get remote coworker's code
+    pull-coworker = !bash -c 'source $HOME/.bash_aliases && _git_coworker "$1"' -s
+
+    ; git fork-set-upstream <git-repo-link>
+    fork-set-upstream = !git remote add upstream
+    ; git refresh-fork
+    fork-pull-upstream = !git fetch upstream && git rebase upstream/$(git branch --show-current) && git push origin $(git branch --show-current)
+
+    ; to push the current branch as an upstream
+    ; Normally, this is not needed anymore on recent git version
+    ; but, hey, why not keeping it ?
+    pushit = !git push --set-upstream origin $(git branch --show-current)
+
+    ; to update a branch
+    update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
+
+    ; Some interesting amend commands to not let me write all the flags
+    amend = !git commit --amend -v
+    amend-no-edit = !git amend --no-edit
+    amend-no-verify = !git amend --no-verify
+    amend-no-edit-no-verify = !git amend-no-edit --no-verify
+
+    ; To erase a file across your git history
+    erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
+    ; To list all Aliasses
+    alias = !git config --get-regexp alias
+    ; to undo a precedent commit you made
+    undo = reset HEAD~1 --mixed
+    
+    ; to undo and clear all unstaged changes
+    undo-clear = !git reset HEAD~1 --mixed && git clear
+
+    ; to get branch list with a lot of informations on it
+    branch-details = !git branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+    ; To search inside commit
+    ; And then git show to see all changes from a commit
+    search = !git rev-list --all | xargs git grep -F
+    ; get diff with the vimdiff tool
+    vdiff = !git difftool -t vimdiff -y
+    ; to get the last commit
+    last = !git log -1 HEAD --stat
+    ; grv is a TUI to browse the git project
+    ; browser = !grv
+    
+    ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
+    diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
+
+    ; to get diff smartly on file changes only
+    diff-search = !bash -ic 'fuzzy_diff_search \"$@\"' x
+
+    ; to get stash smartly on file changes only
+    stash-search = !bash -ic 'fuzzy_stash_search \"$@\"' x
+
+    ; git browse # to browse commits and changes
+	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
+    ; git browse-branch # to browse only commits that are away from the main branch
+	changes= !bash -ic 'git-fuzzy-log-branch \"$@\"' x
+
+    ; to get logs as oneline only
+    log-branch = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+
+    ; to log given lines for a file from git history
+    ; git log-line 1,2:main.py
+    ; great if we want to know how a bunch of line were 
+    ; changed during the time
+    log-line = !git log -L
+
+    ; git log-after 2022-12-10
+    log-after = !git log --after
+    ; same as after but we can provide the date
+    log-since = !git log --since
+    ; for a specific author
+    log-author = !git log --author
+
+    ; For ignored files, we could either list what are available
+    ; Or what we're trying to delete
+    list-ignore-files = !git clean -Xn
+    remove-ignore-files = !git clean -Xf
+
+    ;get log from a given branch
+    log-from = !git log $1..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    log-branch-details = !git log -p origin..HEAD --no-merges
+    ; Same as above, but with a diff stat instead of just names
+    ; (better for interactive use)
+    ; stat = !git diff --stat $(git merge-base HEAD origin)
+    ; ; why should we target a specific branch or this diff again ?
+    stat = !git diff --stat $(git merge-base HEAD origin)
+    stat-to = !git diff --stat
+
+    ; to add smartly on file changes only
+    add-search = !bash -ic 'fuzzy_add_search \"$@\"' x
+
+    ; which adds a zero-length blob to the index at that location.
+    ; The upshot is that your "untracked" file now becomes a modification to add
+    ; all the content to this zero-length file, and that shows up in the "git diff" output.
+    add-intent = !git add -N
+    ; The famous squash and merge for all commits on my current branch
+    ; To a target branch
+    ; git squash (it will target master)
+    ; git squash dev (it will target dev branch)
+    squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
+
+    ; to specify a target branch from where i want to squash
+    squash-to = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin:$1)
+    ; squash-to = !git rebase -i HEAD~$(git log --oneline $(git branch --show) ^$1 | wc -l)
+
+    ; git squash-count to squash with a specific amount of commit from the top
+    squash-count = !git rebase -i HEAD~$1
+
+    ; lost-commit
+    ; to list all dangling commits
+    lost-commits = !git fsck --lost-found
+
+    ; to revert commits on the current branch at once
+    revert-all = !git revert --no-commit HEAD~$(git rev-list --count HEAD ^origin)..
+
+    ; just the short way to cherry-pick
+    pick = !git cherry-pick
+
+    ; to pick a specific commit
+    pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi --preview \"git show {1} | delta\" --preview-window \"right,60%\" --pointer=\">\" | cut -d ' ' -f1)
+
+    ; we want branch listing based on the last commit date
+    branch-sorted = !git branch --sort=committerdate
+
+    ; to create a repo easily from the command line
+    repo = !gh repo create
+
+    ; git reflog for the branch am currently on
+    reflog-branch = !git reflog $(git branch --show-current)
+
+    ; to pull only the current branch
+    pull-it = !git pull origin $(git branch --show-current)
+
+    ; checkout an orphan branch means, we create an empty branch not comming 
+    ; from master/main or anythong else !
+    checkout-orphan = !git checkout --orphan
+
+    ; checkout with search 
+    ; That will open a fuzzy finder popUp to search amount available branches
+    checkout-search = !git checkout $(git branch --sort=committerdate | fzf)
+
+    ; to search for files updated
+    status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
+
+    brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
+
+    ignores = !git ls-files --other --ignored --exclude-standard
+
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    file-style = omit
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file syntax
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = master
+[github]
+	user = Sanix-Darker
+[push]
+	autoSetupRemote = true
