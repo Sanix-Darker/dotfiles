@@ -38,7 +38,7 @@ require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
 -- hop to jump on any text base objects
-require('hop').setup()
+-- require('hop').setup()
 -- setup for litee
 -- require('litee.lib').setup()
 -- require('litee.gh').setup()

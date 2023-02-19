@@ -47,9 +47,9 @@ Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
-Plug 'diepm/vim-rest-console'
+" Plug 'diepm/vim-rest-console'
 " For EasyMotion
-Plug 'phaazon/hop.nvim'
+" Plug 'phaazon/hop.nvim'
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
@@ -162,13 +162,13 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'ray-x/lsp_signature.nvim'
 
 " Just like org on emacs, to organise your stuffs
-Plug 'phaazon/mind.nvim'
+" Plug 'phaazon/mind.nvim'
 
 " To toggle and untoggle the lsp diagnostic
 Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
 
 " For snippets
-Plug 'rafamadriz/friendly-snippets'
+" Plug 'rafamadriz/friendly-snippets'
 
 " lspkind for autocompletion stuff
 Plug 'onsails/lspkind.nvim'
@@ -206,7 +206,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'joshdick/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " To view images in neovim
@@ -263,9 +262,6 @@ Plug 'joshdick/onedark.vim'
 
 " For grep search [because the :Lines freeze as shit]
 " Plug 'dkprice/vim-easygrep'
-
-" For git
-" Plug 'https://github.com/tpope/vim-fugitive'
 
 " Colors on brackets
 " Plug 'frazrepo/vim-rainbow'

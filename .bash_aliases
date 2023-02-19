@@ -172,32 +172,28 @@ _set_dot_files(){
     _set_nvim
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases,.tmux.conf} ~/
 
     # my vagrant stuffs
-    cpd $DOT_DIR/vagrant/mac_Vagrantfile ~/vagrant/vms/mac/Vagrantfile
-    cpd $DOT_DIR/vagrant/ubu_Vagrantfile ~/vagrant/vms/ubu/Vagrantfile
-    cpd $DOT_DIR/vagrant/win_Vagrantfile ~/vagrant/vms/win/Vagrantfile
-    cpd $DOT_DIR/vagrant/ubu_arm64_Vagrantfile ~/vagrant/vms/ubu-arm64/Vagrantfile 
+    cpd $DOT_DIR/vagrant/vms/ ~/vagrant/vms
 
     # we copy our terminal alacritty
-    cpd $DOT_DIR/alacritty.yml ~/.config/alacritty/alacritty.yml
+    cpd $DOT_DIR/alacritty/ ~/.config/
 
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
 
     # we copy our i3 config 
-    cpd $DOT_DIR/i3/i3_config ~/.config/i3/config
-    cpd $DOT_DIR/i3/i3lock.sh ~/.config/i3/i3lock.sh
-    cpd $DOT_DIR/i3/i3mouse.sh ~/.config/i3/i3mouse.sh
+    cpd $DOT_DIR/i3/ ~/.config/
+
+    # for git config
+    cpd $DOT_DIR/git/ ~/.config/
 
     # we set polybar
-    cpd $DOT_DIR/polybar ~/.config/polybar
+    cpd $DOT_DIR/polybar ~/.config/
 
     # For my git configurations
-    cpd $DOT_DIR/.gitconfig ~/.gitconfig
-    cpd $DOT_DIR/.tmux.conf ~/.tmux.conf
-    cpd $DOT_DIR/rofi.rasi ~/.config/rofi/config.rasi
+    cpd $DOT_DIR/rofi/ ~/.config/
 
     # we return on our previus directory
     cd -
@@ -209,38 +205,31 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
-
-    # other configurations
-    cpd ~/.tmux.conf $DOT_DIR
+    cpd ~/{.bashrc,.bash_aliases,.tmux.conf} $DOT_DIR/
 
     # my vagrant stuffs
-    cpd ~/vagrant/vms/mac/Vagrantfile $DOT_DIR/vagrant/mac_Vagrantfile
-    cpd ~/vagrant/vms/ubu/Vagrantfile $DOT_DIR/vagrant/ubu_Vagrantfile
-    cpd ~/vagrant/vms/win/Vagrantfile $DOT_DIR/vagrant/win_Vagrantfile
-    cpd ~/vagrant/vms/ubu-arm64/Vagrantfile $DOT_DIR/vagrant/ubu_arm64_Vagrantfile
+    cpd ~/vagrant/vms/ $DOT_DIR/vagrant/vms/
 
     # For ranger configurationss
     cpd ~/.config/ranger/{commands.py,rifle.conf,rc.conf,colorschemes} $DOT_DIR/ranger
 
     # copy alacritty conf
-    cpd ~/.config/alacritty/alacritty.yml $DOT_DIR
+    cpd ~/.config/alacritty/ $DOT_DIR/
+
     # copy i3 conf
-    cpd ~/.config/i3/config $DOT_DIR/i3/i3_config
-    cpd ~/.config/i3/i3lock.sh $DOT_DIR/i3/i3lock.sh
-    cpd ~/.config/i3/i3mouse.sh $DOT_DIR/i3/i3mouse.sh
+    cpd ~/.config/i3/ $DOT_DIR/
+
+    # for git config
+    cpd ~/.config/git/ $DOT_DIR/
 
     # greenclip configuration
     cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
 
     # we copy polybar
-    cpd ~/.config/polybar/ $DOT_DIR/polybar
+    cpd ~/.config/polybar/ $DOT_DIR/
     
     # Our rofi theme for search
-    cpd ~/.config/rofi/config.rasi $DOT_DIR/rofi.rasi
-
-    # For my git configurations
-    cpd ~/.gitconfig $DOT_DIR
+    cpd ~/.config/rofi/ $DOT_DIR/
 }
 
 _push_dot_files(){
@@ -601,10 +590,10 @@ _only(){
     watch -n 0.5 "$1"
 }
 
-_f() (
-  [ "$?" != 0 ] && fuck;
-)
-alias f="_f"
+# _f() (
+#   [ "$?" != 0 ] && fuck;
+# )
+# alias f="_f"
 alias x='xdg-open .'
 
 # _git_search "function name"
@@ -1049,22 +1038,24 @@ _vremove(){
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
-# # some coul git aliases to go fast
-# alias gs="git status"
-# alias gss="git stat"
-# alias gd="git diff"
-# alias gds="git diff --staged"
-# alias gc="git commit"
-# alias gcc="git checkout"
-# alias gm="git commit -m"
-# alias gam="git commit -am"
-# alias ga="git add"
-# alias gap="git add -p"
-# alias gps="git push"
-# alias gpl="git pull"
-# alias gl="git log"
-# alias gll="git log-branch"
-# alias gsq="git squash"
-# alias gb="git branch"
-# alias gr="git restore"
-# alias grs="git restore --staged"
+# # # some coul git aliases to go fast
+# alias ga='git add'
+# alias gap='git add -p'
+# alias gm='git commit'
+# alias gam='git amend'
+# alias gmm='git commit -m'
+# alias gmam='git commit -am'
+# alias gs='git status'
+# alias gd='git diff'
+# alias gds='git diff --staged'
+# alias gps='git push'
+# alias gpl='git pull'
+# alias gu='git update'
+# alias gcb='git checkout -b'
+# alias gl='git log-branch'
+# # alias gss="git stat"
+# # alias gcc="git checkout"
+# # alias gsq="git squash"
+# # alias gb="git branch"
+# # alias gr="git restore"
+# # alias grs="git restore --staged"
