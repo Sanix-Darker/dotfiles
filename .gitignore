@@ -4,9 +4,10 @@
 **/.vagrant
 alacritty/theme/.github
 
+# we may not want to ignore polybar for now... ?
 # i want to ignore everything inside polybar
 # except what i listed here
-polybar/*
-!polybar/config.ini
-!polybar/launch.sh
-!polybar/weather.sh
+# polybar/*
+# !polybar/config.ini
+# !polybar/launch.sh
+# !polybar/weather.sh
