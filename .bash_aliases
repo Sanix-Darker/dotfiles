@@ -453,7 +453,7 @@ _install_greenclip(){
     # we add rights for rofi to run it
     sudo chmod +x /usr/local/bin/greenclip
     # we need to spawn the daemon
-    nohup greenclip daemon &
+    # nohup greenclip daemon &
 }
 
 _install_basics(){

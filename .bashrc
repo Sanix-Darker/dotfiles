@@ -220,9 +220,14 @@ _start_compton(){
     nohup compton -f & > /dev/null
 }
 
+_start_greenclip(){
+    nohup greenclip daemon & > /dev/null
+}
+
 _gogo(){
     pkill polybar; _start_polybar
     pkill compton; _start_compton
+    pkill greenclip; _start_greenclip
 }
 
 # to be honnest i don't need the capslock
