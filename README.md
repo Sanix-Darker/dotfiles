@@ -2,7 +2,9 @@
 
 My dotfiles setUp, that can be run with docker or not !
 
-![demo](./stack.gif)
+<a href="https://ibb.co/bmR0fxd">
+    <img src="https://i.ibb.co/6wJMd2s/stack2.gif" alt="demo" width="100%" border="0" />
+</a>
 
 ### REQUIREMENTS
 
