@@ -5,7 +5,10 @@ ENV USER=dk
 RUN apt-get update &&\
     apt-get install -y\
     apt-utils \
-    bash sudo fuse libfuse2
+    bash sudo fuse libfuse2 \
+    software-properties-common
+
+RUN apt-get update
 
 # Create user `$USER`
 RUN useradd -ms /bin/bash $USER 
