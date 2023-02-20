@@ -146,10 +146,10 @@ Plug 'tpope/vim-surround'
 " :MasonUninstall <package> ... - uninstalls the provided packages
 " :MasonUninstallAll - uninstalls all packages
 " :MasonLog - opens the mason.nvim log file in a new tab window
-Plug 'williamboman/mason.nvim'
+" Plug 'williamboman/mason.nvim'
 " :LspInstall [<server>...] - installs the provided servers
 " :LspUninstall <server> ... - uninstalls the provided servers
-Plug 'williamboman/mason-lspconfig.nvim'
+" Plug 'williamboman/mason-lspconfig.nvim'
 
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
