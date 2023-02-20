@@ -23,8 +23,8 @@ make
 build               to build the dev-container
 build-no-cache      to build the dev-container and skip the cache
 run                 to run the dev-container
-exec                to exec inside an allready build and running dev-container
-start               to start an allready built dev-container
+exec                to exec inside an already build and running dev-container
+start               to start an already built dev-container
 stop                to stop the running dev-container
 go                  to build, run and exec
 help                to print this help

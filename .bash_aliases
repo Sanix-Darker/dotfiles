@@ -523,9 +523,9 @@ _install_dev_stack(){
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
     # setup the preExc bash command for some usefull stuff just like telling the time 
+    _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
-    _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
     _confirm "Install alacritty terminal (ui) ?" _install_alacritty
