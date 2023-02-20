@@ -5,11 +5,13 @@ _check_requirements(){
         "make" "git"
         "docker"
     )
-    for $req in "${requirements[@]}"
+    for req in "${requirements[@]}"
     do
-        $(command -v $$req > /dev/null) && [[ $? != 0 ]] && echo "$req is required for this script to run" && exit 1
+        command -v $req > /dev/null
+        if [ "$?" != "0" ]; then
+            echo "$req is required for this script to run" && exit 1
+        fi
     done
-    # all requirements available
 }
 
 _quick(){
