@@ -1,24 +1,32 @@
-## dk dotfiles
+## dk DOTFILES
 
-My dotfiles setUp with docker !
+My dotfiles setUp, that can be run with docker or not !
+
+![demo](./stack.gif)
 
 ### REQUIREMENTS
 
-- docker
+- docker (if you're planing to run it with docker)
 
 **NB:** This setUp can be done without docker but it will required not use the defaults make target to set it up (and can become a little hard to maintain)
 
 ### HOW TO GET IT RUN
 
-Considering you already have this repo locally !
-
-```
-cd dotfiles
+```bash
+# Clone and go inside the directory 
+git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 
 make
-# this will build the docker image, run it and exec into it !
+# This will build the docker image, run it and exec into it !
 # you can then get out and make start/stop to get it run
 
+## OR quickly :
+curl -Ls https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/quick.sh | bash
+```
+
+For all the make target command :
+
+```bash
 # Hit `make help` for more infos:
 build               to build the dev-container
 build-no-cache      to build the dev-container and skip the cache
