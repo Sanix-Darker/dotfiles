@@ -356,6 +356,7 @@ _install_nvim_and_utils(){
     # For neovim we get the latests nightly version
     _confirm "Install the latest nvim nightly release ?" _install_nvim
 
+    # not needed anymore
     # To install CocInstall, we need nodejs
     _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
 
@@ -453,7 +454,7 @@ _install_greenclip(){
     # we add rights for rofi to run it
     sudo chmod +x /usr/local/bin/greenclip
     # we need to spawn the daemon
-    # nohup greenclip daemon &
+    nohup greenclip daemon &
 }
 
 _install_basics(){
@@ -523,9 +524,9 @@ _install_dev_stack(){
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
     # setup the preExc bash command for some usefull stuff just like telling the time 
-    _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
+    _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
     _confirm "Install alacritty terminal (ui) ?" _install_alacritty

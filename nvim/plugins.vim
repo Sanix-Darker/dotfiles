@@ -107,7 +107,10 @@ Plug 'wellle/context.vim'
 " For a minimap of my source code
 " you should install code-minimap first:
 " cargo install --locked code-minimap
-Plug 'wfxr/minimap.vim'
+" Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+" Plug 'petertriho/nvim-scrollbar'
+" just for the gitsigns
+" Plug 'lewis6991/gitsigns.nvim'
 
 " To get a direct link to a github link from vim
 " :GH or :GHInteractive (for github)/ GB or :GBInteractive (for gitlab)
