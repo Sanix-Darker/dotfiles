@@ -7,7 +7,7 @@ _check_requirements(){
     )
     for $req in "${requirements[@]}"
     do
-        $(command -v $req > /dev/null) && [[ $? != 0 ]] && echo "$req is required for this script to run" && exit 1
+        $(command -v $$req > /dev/null) && [[ $? != 0 ]] && echo "$req is required for this script to run" && exit 1
     done
     # all requirements available
 }
