@@ -1037,9 +1037,22 @@ _vremove(){
     vagrant box remove $vmm
 }
 
+# ------
+# for bluetoothctl service
+_b_connect(){
+    bluetoothctl connect
+}
+_b_connect_me(){
+    _b_connect AC:12:2F:50:D9:56
+}
+_b_scan(){
+    bluetoothctl scan on
+}
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
-# # # some coul git aliases to go fast
+# # some coul git aliases to go fast
+# I don't know why i cannot stand those
 # alias ga='git add'
 # alias gap='git add -p'
 # alias gm='git commit'
