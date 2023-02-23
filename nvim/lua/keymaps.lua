@@ -116,8 +116,9 @@ map("n", "Z", ":Commentary<CR>")
 -- map("x", "B", "yyp")
 -- map("n", "B", "yyp")
 -- Normal copy paste Shortcuts
-map("v", "Y", '"+y')
-map("v", "P", '"+p')
+map("v", "Y", '"+y<CR>')
+map("v", "P", '"+p<CR>')
+map("n", "P", '"+p<CR>')
 
 -- Disable/Uninstalled for now
 -- For floating windows

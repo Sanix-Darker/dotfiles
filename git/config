@@ -39,6 +39,10 @@
     unhide = update-index --no-skip-worktree
     ; list of those hidden files
     hidden = "!git ls-files -v | grep ^[hsS] | cut -c 3-"
+    
+    ; quick lazy shortcut to jump on the master or main branches
+    master = !git checkout master
+    main = !git checkout main
 
     ; To use pr
     ; pr auth login to authenticate it !
@@ -49,9 +53,11 @@
     ; as draft (--draft/-d)
     pr = !EDITOR=nvim gh pr create -a sanix-darker -d
 
-    ; pr-to to specify a specific branch
+    base = !git checkout 
+
+    ; pr-to to specify a specific branch also on draft too
     ; git pr-to dev-branch
-    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker --base 
+    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base 
 
     ; to get the label list from the repo
     label-list = !gh label list
@@ -81,6 +87,7 @@
     ; Create a release and start a discussion
     ; $ gh release create v1.2.3 --discussion-category "General"
     release = !EDITOR=nvim gh release create
+    release-to = !EDITOR=nvim gh release create --target
 
     ; to list commits from the current branch
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
@@ -197,6 +204,8 @@
 
     ; git browse # to browse commits and changes
 	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
+	b = !git browse
+
     ; git browse-branch # to browse only commits that are away from the main branch
 	changes= !bash -ic 'git-fuzzy-log-branch \"$@\"' x
 
@@ -263,6 +272,10 @@
 
     ; to pick a specific commit
     pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi --preview \"git show {1} | delta\" --preview-window \"right,60%\" --pointer=\">\" | cut -d ' ' -f1)
+
+    ; let say i want to backport a commit or a bunch of commit inside a side pull-request at once, this util will hwlp
+    ; me do that in one command line
+    backport = !git log # tmp, will finish it soon
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
