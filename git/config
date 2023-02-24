@@ -44,6 +44,10 @@
     master = !git checkout master
     main = !git checkout main
 
+    ; git nocommit Makefile
+    ; to set the nofilter commit
+    nocommit = !echo "$@ filter=nocommit " >> ./.git/info/attributes
+
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one

@@ -1053,6 +1053,34 @@ _b_scan(){
     bluetoothctl scan on
 }
 
+## For my work on the datasetservice and the cli 
+## queries am going to make to the service
+#_graphql_curl(){
+#    # $2 should be the host but if it's empty 
+#    # then there is a default value
+#    if [ -z "$2" ]; then HOST="http://localhost:5003"; else HOST=$2; fi;
+#    # and easy removal for new lines
+#    PAYLOAD=$(echo $1 | tr -d '\n' | tr '"' '\"')
+#    QUERY_PAYLOAD='{ "query": "'"$PAYLOAD"'" }'
+
+#    echo "> HOST: $HOST"
+#    echo "> PAYLOAD: $PAYLOAD"
+#    echo ''"$QUERY_PAYLOAD"''
+
+#    curl -Ls -X POST \
+#    -H "Content-Type: application/json" \
+#    -H "X-Tenant-Id: tenant-1" \
+#    -H "X-Workspace-Id: workspace-1" \
+#    -H "Authorization: Bearer this-is-my-maggical-token" \
+#    -d ''"$QUERY_PAYLOAD"'' $HOST/graphql/
+#}
+## Example of a query:
+## gqc "{ contries { name } }"
+##
+## or by specifying the host
+## gqc "{ contries { name } }" https://apihere.com/graphql
+#alias gq='_graphql_curl'
+
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
 # # some coul git aliases to go fast

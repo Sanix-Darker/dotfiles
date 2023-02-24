@@ -20,19 +20,19 @@ local scroll_map_setup = {
     ['<S-Up>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}},
     ['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
 }
--- local mason_setup = {
---     ui = {
---         icons = {
---             package_installed = "✓",
---             package_pending = "➜",
---             package_uninstalled = "✗"
---         }
---     }
--- }
--- local masonlspconfig_setup = {
---     -- ensure_installed = lsp_servers,
---     automatic_installation = false,
--- }
+local mason_setup = {
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+}
+local masonlspconfig_setup = {
+    ensure_installed = lsp_servers,
+    automatic_installation = false,
+}
 -- be able to use the ESC in the floatTerm terminal
 require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
@@ -206,8 +206,8 @@ require('neoscroll').setup(neoscroll_setup)
 require('neoscroll.config').set_mappings(scroll_map_setup)
 
 -- mason 
--- require("mason").setup(mason_setup)
--- require("mason-lspconfig").setup(masonlspconfig_setup)
+require("mason").setup(mason_setup)
+require("mason-lspconfig").setup(masonlspconfig_setup)
 require"octo".setup({
   default_remote = {"upstream", "origin"}; -- order to try remotes
   ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`

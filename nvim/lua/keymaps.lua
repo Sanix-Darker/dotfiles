@@ -46,6 +46,19 @@ map("n", "<Leader>e", ":e<CR>")
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+-- # rest-console
+-- jq formating of the content of the current buffer
+-- We set the modifiable for it then we pipe the output to jq 
+-- for json
+map("n", "=j",  ":set ma<CR>:%!jq<CR>")
+-- for yaml 
+map("n", "=y",  ":set ma<CR>:%!yq<CR>")
+-- for rest-console Ctrl+j shortCut to format the output too
+-- should be change depending on the output type, but for now 
+-- as default will be json so jq
+map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR><C-w><C-w>")
+-- rest-console
+
 -- To search for ctags
 map("n", "<Leader>bg", ":Vista finder ctags<CR>")
 -- To undo a git hunk change
@@ -58,11 +71,10 @@ map("n", "<Leader>jj", ":HopWord<CR>")
 map("n", "<Leader>ll", ":Lines<CR>")
 -- For the file search
 map("n", "<Leader>ff", ":Files<cr>")
+-- To access all marks i left from all opened files...
+map("n", "<Leader>mm", ":Marks<cr>")
 -- To access all tabs in a single view as a popUp
 map("n", "<Leader>tt", ":Windows<cr>")
--- To access all marks i left from all opened files...
--- anywhere.
-map("n", "<Leader>tg", ":Marks<cr>")
 -- To get th, history of all my opened files
 map("n", "<Leader>hh", ":History<cr>")
 -- To get th, whole history of the current buffer in term of commits
