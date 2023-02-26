@@ -101,7 +101,8 @@ map("n", "<Leader>hg", ":BCommit<cr>")
 -- To get an, search from command history
 map("n", "<Leader>hc", ":Commands<cr>")
 -- To get th, diffview history of the repo
-map("n", "ft", ":DiffviewFileHistory<CR>")
+-- since this got remove as a plugin
+-- map("n", "ft", ":DiffviewFileHistory<CR>")
 -- For panes resizing
 map("n", "+", ":vertical resize +5<CR>")
 map("n", "_", ":vertical resize -5<CR>")
@@ -113,15 +114,15 @@ map("n", "<Leader>bb", ":Buffers<CR>")
 -- For git blame using GitMessenger
 map("n", "<Leader><space>", ":GitMessenger<CR>")
 
-
 -- to copy the current path of a file in the clipboard(the empty registry)
 map("n", "cp", ":let @\" = expand(\"%\")<cr>")
 
 -- To get +/- on changes inside a file from a project
 map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
 map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
--- map("n", "hn", ":GitGutterNextHunk<CR>", { noremap = true })
--- map("n", "hp", ":GitGutterPrevHunk<CR>", { noremap = true })
+-- since the lsp can help me do that
+-- map("n", "<Leader>hn", ":GitGutterNextHunk<CR>", { noremap = true })
+-- map("n", "<Leader>hp", ":GitGutterPrevHunk<CR>", { noremap = true })
 -- This should go on terminal normal mode such as normal edition on neovim
 map("t", "<Esc>", "<C-\\><C-n>")
 -- For command execution directly in vim
@@ -137,18 +138,15 @@ map("n", "no", ":nohlsearch<CR>")
 -- To paste multiple times the same
 -- stuff or use P for the default behaviour
 map("x", "p", "pgvy")
--- To Ctrl-BackSpace delete a whole previous word
-map("x", "<C-H>", "db")
-map("n", "<C-H>", "db")
 -- To cut directly the current line
-map("x", "X", "dd<Esc>")
-map("n", "X", "dd")
+-- to delete without saving in any register
+map("x", "X", "\"_dd")
+map("n", "X", "\"_dd")
+map("x", "x", "\"_dd")
+map("n", "x", "\"_dd")
 map("n", "<Del>", "\"_dd")
 -- To replace in the whole project a string by another one:
 map("n", "RR", ":20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old>/<new>/ge' -V1 -scwq! {} ';'")
--- To comment fastly
-map("x", "Z", ":Commentary<CR>")
-map("n", "Z", ":Commentary<CR>")
 -- To duplicate the current line
 -- map("x", "B", "yyp")
 -- map("n", "B", "yyp")
@@ -209,7 +207,6 @@ map("n", "<Leader>m", "mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm")
 -- Toggle paste mode on and off
 map("n", "<leader>pp", ":setlocal paste!<cr>")
 
-
 -- Displays hover information about the symbol under the cursor
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
 -- Jump to the definition
@@ -224,10 +221,10 @@ map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 -- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
--- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
--- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
--- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
--- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 map('n','<leader>rr','<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')

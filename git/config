@@ -107,6 +107,7 @@
     issue-list = !gh issue list
 
     log-branch = !git log origin..HEAD
+    ll = !git log origin..HEAD
 
     ; to get the base branch
     branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
@@ -181,7 +182,6 @@
     alias = !git config --get-regexp alias
     ; to undo a precedent commit you made
     undo = reset HEAD~1 --mixed
-    
     ; to undo and clear all unstaged changes
     undo-clear = !git reset HEAD~1 --mixed && git clear
 
