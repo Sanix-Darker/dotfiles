@@ -16,14 +16,14 @@ My dotfiles setUp, that can be run with docker or not !
 
 ```bash
 # Clone and go inside the directory 
-git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
+$ git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 
 make
 # This will build the docker image, run it and exec into it !
 # you can then get out and make start/stop to get it run
 
 ## OR quickly :
-curl -Ls https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/quick.sh | bash
+$ curl -Ls https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/quick.sh | bash
 ```
 
 For all the make target command :
@@ -44,11 +44,11 @@ After inside the container, you can run :
 
 ```bash
 # To well start
-_install_dev_stack
+$ _install_dev_stack
 ## An interactive installer will start with all your options
 ## Either you activate them or not
 
-_set_dot_files
+$ _set_dot_files
 ## this will just set a bunch of configuration files
 ```
 

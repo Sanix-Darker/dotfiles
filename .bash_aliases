@@ -1053,6 +1053,15 @@ _b_scan(){
     bluetoothctl scan on
 }
 
+# git blame
+# _gb 1 1 Makefile
+_gb(){
+    start=$1
+    if [ -z "$2" ]; then end=$start; else end=$2; fi;
+    git blame -L $3 $start,$end
+}
+export -f _gb
+
 ## For my work on the datasetservice and the cli 
 ## queries am going to make to the service
 #_graphql_curl(){

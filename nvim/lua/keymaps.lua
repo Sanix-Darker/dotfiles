@@ -7,6 +7,7 @@ local map = function (mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, options)
 end
 
+
 -- Toggle linter
 map("n", "<C-k>", ":SyntasticCheck<cr>")
 map("n", "<C-l>", ":SyntasticToggleMode<cr>")
@@ -16,16 +17,15 @@ map("n", "tn", ":tabnew<CR>")
 map("n", "to", ":tabonly<CR>")
 map("n", "tc", ":tabclose<CR>")
 map("n", "tm", ":tabmove<CR>")
-
--- for spliting screen
-map("n", ";ws", ":split<cr>")
-map("n", ";wv", ":vsplit<cr>")
-
 -- Opens a new tab with the current buffer's path
 -- Super useful when editing files in the same directory
 map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
 -- tl To toggle to the last table where i was !
 map("n", "tl", ":exe \"tabn \".g:lasttab<CR>")
+
+-- for spliting screen
+map("n", ";s", ":split<cr>")
+map("n", ";v", ":vsplit<cr>")
 
 -- Switch CWD to the directory of the open buffer
 map("n", "cd", ":cd %:p:h<cr>:pwd<cr>")
@@ -45,6 +45,25 @@ map("n", "<Leader>e", ":e<CR>")
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
+
+-- to paste and select what we jut paste
+map("n", "gp", "`[v`]")
+-- For easyAlig--
+map("x", "ga", ":EasyAlign*")
+
+-- let's say i made a lot of changes in 
+-- my file and i didn't save yet and i want to go back 
+-- to the previous state of my file
+map("n", "U", ":ea 1f<CR>")
+
+-- To move text up and down like a pro
+-- shortcuts to move texts up and down
+map("n", "<A-S-j>", ":m .+1<CR>==")
+map("n", "<A-S-k>", ":m .-2<CR>==")
+map("i", "<A-S-j>", "<Esc>:m .+1<CR>==gi")
+map("i", "<A-S-k>", "<Esc>:m .-2<CR>==gi")
+map("v", "<A-S-j>", ":m '>+1<CR>gv=gv")
+map("v", "<A-S-k>", ":m '<-2<CR>gv=gv")
 
 -- # rest-console
 -- jq formating of the content of the current buffer
@@ -90,8 +109,14 @@ map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
 -- To open buffers
 map("n", "<Leader>bb", ":Buffers<CR>")
--- For git blame
-map("n", "gb", ":GitBlame<CR>")
+
+-- For git blame using GitMessenger
+map("n", "<Leader><space>", ":GitMessenger<CR>")
+
+
+-- to copy the current path of a file in the clipboard(the empty registry)
+map("n", "cp", ":let @\" = expand(\"%\")<cr>")
+
 -- To get +/- on changes inside a file from a project
 map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
 map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })

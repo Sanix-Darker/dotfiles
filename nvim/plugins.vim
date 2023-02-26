@@ -36,7 +36,17 @@ Plug 'yuki-yano/fzf-preview.vim'
 " For code folding
 Plug 'tmhedberg/SimpylFold'
 " For the git diff/git blame
-Plug 'zivyangll/git-blame.vim'
+" Plug 'zivyangll/git-blame.vim'
+" Magically check for commits inside the project even through history
+" q Close the popup window
+" o older. Back to older commit at the line
+" O Opposite to o. Forward to newer commit at the line
+" d Toggle unified diff hunks only in current file of the commit
+" D Toggle all unified diff hunks of the commit
+" r Toggle word diff hunks only in current file of the commit
+" R Toggle all word diff hunks of current commit
+" ? Show mappings help
+Plug 'rhysd/git-messenger.vim'
 " For the gitbutter (live git diff on changes)
 Plug 'airblade/vim-gitgutter'
 " For dev-icons

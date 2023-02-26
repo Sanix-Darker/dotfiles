@@ -14,6 +14,9 @@ endtry
 " (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
+" For my command line to be running alias on command mode inside vim editor
+let $BASH_ENV = "~/.vim_bash_env"
+
 " To show hidden files
 let NERDTreeShowHidden=1
 
@@ -52,6 +55,20 @@ let g:silicon = {
 
 let g:lasttab = 1
 au TabLeave * let g:lasttab = tabpagenr()
+
+" Git Messegen colorscheme
+hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=None ctermfg=255 ctermbg=None
+hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111
+hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229
+hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210
+" to shyow diff for the current version am having
+" can be current, all or None
+let g:git_messenger_include_diff = 'current'
+let g:git_messenger_always_into_popup = v:true
+let g:git_messenger_max_popup_height = 25
+let g:git_messenger_max_popup_width = 100
+let g:git_messenger_extra_blame_args = ''
+let g:git_messenger_floating_win_opts = { 'border': 'single' }
 
 " Firenvim
 " let g:firenvim_config = { 
