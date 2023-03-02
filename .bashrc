@@ -118,14 +118,28 @@ if [ -f ~/.bash-preexec.sh ]; then
     source ~/.bash-preexec.sh
 fi
 
+convertAndPrintSeconds() {
+    local totalSeconds=$1;
+    local seconds=$((totalSeconds%60));
+    local minutes=$((totalSeconds/60%60));
+    local hours=$((totalSeconds/60/60%24));
+    local days=$((totalSeconds/60/60/24));
+    (( $days > 0 )) && printf '%dd ' $days;
+    (( $hours > 0 )) && printf '%dh:' $hours;
+    (( $minutes > 0 )) && printf '%dm:' $minutes;
+    (( $days > 0 || $hours > 0 || $minutes > 0 ));
+    printf '%ds\n' $seconds;
+}
+
 # Define a couple functions.
 preexec() {
     # before all my bash commands lines, it will execute this
     command_timer_start=$SECONDS
 }
 precmd() {
+    second_to_print=$(( SECONDS - command_timer_start ))
     # after all my bash  commands, this will be executed
-    echo -e "\\033[33;1m^$(( SECONDS - command_timer_start ))s\\033[0m"
+    echo -e "\\033[33;1m^$( convertAndPrintSeconds $second_to_print )\\033[0m"
     # we reset this value
     command_timer_start=$SECONDS
 }
@@ -240,3 +254,8 @@ _gogo(){
 alias luamake=/luamake
 export PATH="/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.local/bin:/home/dk/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v18.6.0/bin:/home/dk/.local/bin:/home/dk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin://home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin"
 . "$HOME/.cargo/env"
+
+
+# for ssh-add
+# ssh-add ...
+

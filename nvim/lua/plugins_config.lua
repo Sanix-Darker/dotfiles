@@ -208,6 +208,8 @@ require('neoscroll.config').set_mappings(scroll_map_setup)
 -- mason 
 require("mason").setup(mason_setup)
 require("mason-lspconfig").setup(masonlspconfig_setup)
+
+-- octo nvim to review pull requests inside nvim
 require"octo".setup({
   default_remote = {"upstream", "origin"}; -- order to try remotes
   ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
@@ -327,7 +329,7 @@ require"octo".setup({
     review_diff = {
       add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
       add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
-      focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
+      focus_files = { lhs = "<leader>ee", desc = "move focus to changed file panel" },
       toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
       next_thread = { lhs = "]t", desc = "move to next thread" },
       prev_thread = { lhs = "[t", desc = "move to previous thread" },

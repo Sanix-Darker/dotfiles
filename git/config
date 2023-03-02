@@ -167,6 +167,19 @@
     ; but, hey, why not keeping it ?
     pushit = !git push --set-upstream origin $(git branch --show-current)
 
+    ; worktree add a newone
+    tree-add = !git worktree add 
+    ; to list all worktree
+    tree-list = !git worktree list 
+    ; to move a worktree to a new path
+    tree-move = !git worktree move 
+    tree-remove = !git worktree remove 
+    ; to locl/unlock a worktree
+    tree-lock = !git worktree lock 
+    tree-unlock = !git worktree unlock 
+    tree-prune = !git worktree prune 
+    tree-repair = !git worktree repair 
+
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
 

@@ -65,6 +65,20 @@ map("i", "<A-S-k>", "<Esc>:m .-2<CR>==gi")
 map("v", "<A-S-j>", ":m '>+1<CR>gv=gv")
 map("v", "<A-S-k>", ":m '<-2<CR>gv=gv")
 
+-- # Octo nvim shortcuts
+map("n", "<Leader>prc", ":Octo pr create<CR>")
+map("n", "<Leader>prl", ":Octo pr list<CR>")
+
+map("n", "<Leader>rs", ":Octo review start<CR>")
+map("n", "<Leader>rss", ":Octo review resume<CR>")
+map("n", "<Leader>rsm", ":Octo review submit<CR>")
+map("n", "<Leader>rd", ":Octo review discard<CR>")
+map("n", "<Leader>rc", ":Octo review close<CR>")
+-- Octo nvim
+
+-- Commentary
+map("v", "Z", ":Commentary<CR>")
+
 -- # rest-console
 -- jq formating of the content of the current buffer
 -- We set the modifiable for it then we pipe the output to jq 
@@ -140,10 +154,10 @@ map("n", "no", ":nohlsearch<CR>")
 map("x", "p", "pgvy")
 -- To cut directly the current line
 -- to delete without saving in any register
+map("x", "x", "\"_x")
+map("n", "x", "\"_x")
 map("x", "X", "\"_dd")
 map("n", "X", "\"_dd")
-map("x", "x", "\"_dd")
-map("n", "x", "\"_dd")
 map("n", "<Del>", "\"_dd")
 -- To replace in the whole project a string by another one:
 map("n", "RR", ":20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old>/<new>/ge' -V1 -scwq! {} ';'")
