@@ -125,6 +125,38 @@ map("n", "-", ":resize -5<CR>")
 -- To open buffers
 map("n", "<Leader>bb", ":Buffers<CR>")
 
+-- movements on the panes
+map("n", "<space>h", "<C-W>h")
+map("n", "<space>l", "<C-W>l")
+map("n", "<space>k", "<C-W>k")
+map("n", "<space>j", "<C-W>j")
+
+-- let's add some registers shortcuts, 
+-- i only need those 3
+map("v", "<Leader>a", "\"ay") -- to add to register
+map("v", "<Leader>A", "\"Ay") -- to append to the register
+map("n", "<Leader>a", "\"ap")
+
+-- could be usefull to fastly edit and use registers
+map("v", "<Leader>q", "\"qy")
+map("v", "<Leader>Q", "\"Qy")
+map("n", "<Leader>q", "\"qp")
+
+-- will use numbers to go fast
+-- register 1
+map("v", "<Leader>1", "\"1y")
+map("n", "<Leader>1", "\"1p")
+-- register 2
+map("v", "<Leader>2", "\"2y")
+map("n", "<Leader>2", "\"2p")
+-- register 3
+map("v", "<Leader>3", "\"3y")
+map("n", "<Leader>3", "\"3p")
+
+map("v", "<Leader>x", "\"xy")
+map("v", "<Leader>X", "\"Xy")
+map("n", "<Leader>x", "\"xp")
+
 -- For git blame using GitMessenger
 map("n", "<Leader><space>", ":GitMessenger<CR>")
 
@@ -132,7 +164,7 @@ map("n", "<Leader><space>", ":GitMessenger<CR>")
 map("n", "cp", ":let @\" = expand(\"%\")<cr>")
 
 -- To get +/- on changes inside a file from a project
-map("n", "HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
+map("n", "<Leader>HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
 map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
 -- since the lsp can help me do that
 -- map("n", "<Leader>hn", ":GitGutterNextHunk<CR>", { noremap = true })
@@ -237,8 +269,8 @@ map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+-- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 map('n','<leader>rr','<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')
