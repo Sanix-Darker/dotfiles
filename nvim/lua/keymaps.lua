@@ -137,10 +137,13 @@ map("v", "<Leader>a", "\"ay") -- to add to register
 map("v", "<Leader>A", "\"Ay") -- to append to the register
 map("n", "<Leader>a", "\"ap")
 
+map("v", "<Leader>c", "\"cy") -- to add to register
+map("v", "<Leader>C", "\"Cy") -- to append to the register
+map("n", "<Leader>c", "\"cp")
 -- could be usefull to fastly edit and use registers
-map("v", "<Leader>q", "\"qy")
-map("v", "<Leader>Q", "\"Qy")
-map("n", "<Leader>q", "\"qp")
+-- map("v", "<Leader>q", "\"qy")
+-- map("v", "<Leader>Q", "\"Qy")
+-- map("n", "<Leader>q", "\"qp")
 
 -- will use numbers to go fast
 -- register 1
