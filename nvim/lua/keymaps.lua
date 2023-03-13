@@ -42,6 +42,9 @@ map("n", "<Leader>w", ":w<CR>")
 map("n", "<Leader>q", ":q<CR>")
 map("n", "<Leader>e", ":e<CR>")
 
+-- calculator mode
+map("n", "<Leader>i", "i<C-r>=")
+
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -78,6 +81,7 @@ map("n", "<Leader>rc", ":Octo review close<CR>")
 
 -- Commentary
 map("v", "Z", ":Commentary<CR>")
+map("n", "Z", "V:Commentary<CR>")
 
 -- # rest-console
 -- jq formating of the content of the current buffer
@@ -97,7 +101,7 @@ map("n", "<Leader>bg", ":Vista finder ctags<CR>")
 -- To undo a git hunk change
 map("n", "ZX", ":GitGutterUndoHunk<CR>", { noremap = true })
 -- To format the code
-map("n", "fv", ":Neoformat<CR>")
+map("v", "fv", ":Neoformat<CR>")
 -- To jump fastly on a word
 map("n", "<Leader>jj", ":HopWord<CR>")
 -- Most efficient than the ? or /
@@ -114,6 +118,8 @@ map("n", "<Leader>hh", ":History<cr>")
 map("n", "<Leader>hg", ":BCommit<cr>")
 -- To get an, search from command history
 map("n", "<Leader>hc", ":Commands<cr>")
+-- To open buffers
+map("n", "<Leader>bb", ":Buffers<CR>")
 -- To get th, diffview history of the repo
 -- since this got remove as a plugin
 -- map("n", "ft", ":DiffviewFileHistory<CR>")
@@ -122,8 +128,6 @@ map("n", "+", ":vertical resize +5<CR>")
 map("n", "_", ":vertical resize -5<CR>")
 map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
--- To open buffers
-map("n", "<Leader>bb", ":Buffers<CR>")
 
 -- movements on the panes
 map("n", "<space>h", "<C-W>h")
@@ -200,9 +204,9 @@ map("n", "RR", ":20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old
 -- map("x", "B", "yyp")
 -- map("n", "B", "yyp")
 -- Normal copy paste Shortcuts
-map("v", "Y", '"+y<CR>')
-map("v", "P", '"+p<CR>')
-map("n", "P", '"+p<CR>')
+map("v", "Y", '"+y')
+map("v", "P", '"+p')
+map("n", "P", '"+p')
 
 -- Disable/Uninstalled for now
 -- For floating windows

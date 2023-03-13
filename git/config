@@ -73,8 +73,12 @@
     ; just to be sure to ignore all lignes from with that word
     ; PS : make sure that file  exist first !!!
     nocommit = !echo "$@ filter=nocommit " >> ./.git/info/attributes
-
+    ; to open the commit with an editor to see what changed
     commit = commit -e
+
+    ; we can commit a specific file with a direct message in one line
+    ; git commit ./test -m "this is a test file"
+    ; works with a single file or multiple files
 
     ; To use pr
     ; pr auth login to authenticate it !
@@ -233,6 +237,10 @@
     ;
     ; it's possible to amend a commit and update the message without
     ; opening the editor : git amend -m "inline comment"
+
+    ; it's possible and simple to impersonate someone else and even the date
+    ; for the date its only need a --date flag
+    ; git commit --amend --author "someone <someone@gmail.com>" --date "$(date)"
 
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD

@@ -181,7 +181,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
 
 " For snippets
-" Plug 'rafamadriz/friendly-snippets'
+Plug 'rafamadriz/friendly-snippets'
 
 " lspkind for autocompletion stuff
 Plug 'onsails/lspkind.nvim'
@@ -252,7 +252,7 @@ Plug 'joshdick/onedark.vim'
 
 " Snippets are separated from the engine.
 " Add this if you want them:
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Jedi-vim autocompletion
 " Plug 'davidhalter/jedi-vim'
