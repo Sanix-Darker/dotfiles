@@ -339,6 +339,7 @@
     ; The upshot is that your "untracked" file now becomes a modification to add
     ; all the content to this zero-length file, and that shows up in the "git diff" output.
     add-intent = !git add -N
+    add-interactive = !git add -e
 
     ; The famous squash and merge for all commits on my current branch
     ; To a target branch
@@ -413,7 +414,7 @@
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file syntax
 [commit]
-	gpgsign = true
+	gpgsign = false
 [init]
 	defaultBranch = master
 [github]
