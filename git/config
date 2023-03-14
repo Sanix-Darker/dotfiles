@@ -21,6 +21,7 @@
 [core]
     pager = delta
     editor = nvim
+	excludesfile = Session.vim
 
 ; >> ============================================================================
 ; Some interesting stuffs to know for git diff

@@ -15,6 +15,8 @@ Plug 'wakatime/vim-wakatime'
 Plug 'mileszs/ack.vim'
 " To add comments
 Plug 'tpope/vim-commentary'
+" To restore my vim session after closing/opening
+Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline

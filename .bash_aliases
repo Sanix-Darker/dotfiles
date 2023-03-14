@@ -461,6 +461,14 @@ _install_greenclip(){
     nohup greenclip daemon &
 }
 
+_install_tt(){
+    # a fast switcher for sessions and panel inside tmux
+    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh
+
+    # Then copy the session wizard shell to t
+    sudo cp ./session-wizard.sh /usr/local/bin/t
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
 
@@ -490,6 +498,9 @@ _install_basics(){
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt-get install $i -y
     done
+
+    # Install tt
+    _confirm "Install tt (For vim fast jumping) ?" _install_tt
 
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
@@ -551,6 +562,7 @@ alias postman='~/Postman/Postman &'
 alias clean_docker_images='docker rmi $(docker images -f "dangling=true" -q)'
 alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
+alias clean_docker_volume='docker volume prune'
 alias cat='bat -p'
 alias tmux='tmux -2'
 
@@ -983,6 +995,15 @@ _cdex(){
     cd -
 }
 alias cdex=_cdex
+
+
+# To take note about something
+# note "note to my self...
+note(){
+    echo "date: $(date)" >> $HOME/notes.txt
+    echo -e "$@" >> $HOME/notes.txt
+    echo "" >> $HOME/notes.txt
+}
 
 # to record my terminal when am writing something
 alias rec='asciinema rec'

@@ -238,28 +238,28 @@ autocmd FileType yaml set cursorcolumn
 autocmd FileType yml set cursorcolumn
 
 " Open last active file(s) if VIM is invoked without arguments.
-autocmd VimLeave * nested let buffernr = bufnr("$") |
-    \ let buflist = [] |
-    \ while buffernr > 0 |
-    \	if buflisted(buffernr) |
-    \	    let buflist += [ bufname(buffernr) ] |
-    \	endif |
-    \   let buffernr -= 1 |
-    \ endwhile |
-    \ if (!isdirectory($HOME . "/.config/nvim")) |
-    \	call mkdir($HOME . "/.config/nvim") |
-    \ endif |
-    \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
+" autocmd VimLeave * nested let buffernr = bufnr("$") |
+"     \ let buflist = [] |
+"     \ while buffernr > 0 |
+"     \	if buflisted(buffernr) |
+"     \	    let buflist += [ bufname(buffernr) ] |
+"     \	endif |
+"     \   let buffernr -= 1 |
+"     \ endwhile |
+"     \ if (!isdirectory($HOME . "/.config/nvim")) |
+"     \	call mkdir($HOME . "/.config/nvim") |
+"     \ endif |
+"     \ call writefile(reverse(buflist), $HOME . "/.config/nvim/buflist.txt")
 
-autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
-    \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
-    \	    if filereadable(line) |
-    \		execute "tabedit " . line |
-    \		set bufhidden=delete |
-    \	    endif |
-    \	endfor |
-    \	tabclose 1 |
-    \ endif
+" autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.config/nvim/buflist.txt") |
+"     \	for line in readfile($HOME . "/.config/nvim/buflist.txt") |
+"     \	    if filereadable(line) |
+"     \		execute "tabedit " . line |
+"     \		set bufhidden=delete |
+"     \	    endif |
+"     \	endfor |
+"     \	tabclose 1 |
+"     \ endif
 
 " i want to disable capsLock when am leaving the insert mode
 " because my keyboard doesn't help me knowing when the capsLock

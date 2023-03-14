@@ -7,6 +7,10 @@ local map = function (mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- to saved Obsession session
+map("n", "<Leader>ss", ":Obsession<cr>")
+-- to reload a saved session for the current directory
+map("n", "ss", ":source Session.vim<cr>")
 
 -- Toggle linter
 map("n", "<C-k>", ":SyntasticCheck<cr>")
@@ -24,7 +28,7 @@ map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
 map("n", "tl", ":exe \"tabn \".g:lasttab<CR>")
 
 -- for spliting screen
-map("n", ";s", ":split<cr>")
+map("n", ";b", ":split<cr>")
 map("n", ";v", ":vsplit<cr>")
 
 -- Switch CWD to the directory of the open buffer
