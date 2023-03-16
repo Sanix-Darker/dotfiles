@@ -123,6 +123,14 @@ _lf(){
 alias lf='_lf'
 # to put inside the trash
 alias rf='trash-put'
+
+# recursivelly put inside the trashbin something
+_rfr(){
+    # search for $1 and rf it
+    find . -name ''$1'' -type d -prune -exec trash-put '{}' +
+}
+alias rfr='_rfr'
+
 # To delete from trash
 alias rrf='trash-rm'
 # to empty the trans
@@ -996,6 +1004,10 @@ _cdex(){
 }
 alias cdex=_cdex
 
+psaux(){
+    # just to search for a running process quickly
+    ps aux | grep $1
+}
 
 # To take note about something
 # note "note to my self...

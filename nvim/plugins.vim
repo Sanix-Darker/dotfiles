@@ -59,7 +59,7 @@ Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
-Plug 'diepm/vim-rest-console'
+" Plug 'diepm/vim-rest-console'
 " For EasyMotion
 " Plug 'phaazon/hop.nvim'
 " To fastly start neovim
@@ -67,12 +67,12 @@ Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
 " Plug 'https://github.com/preservim/tagbar'
 " Another tagging system like tagbar
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 " TO install vista, we need 
 " https://github.com/universal-ctags/ctags not the default ctags
 " Plug 'lukas-reineke/indent-blankline.nvim'
 " The magical local history
-Plug 'simnalamburt/vim-mundo'
+" Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
 Plug 'voldikss/vim-floaterm'
 " For formating the code:
@@ -192,17 +192,17 @@ Plug 'onsails/lspkind.nvim'
 Plug 'kevinhwang91/nvim-bqf'
 
 " For syntax highlighting on a lot of stuffs
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " For jumping fast on code am writing
 " Plug 'ggandor/leap.nvim'
 
-" For code review using octo
-Plug 'pwntester/octo.nvim'
-Plug 'nvim-tree/nvim-web-devicons'
 " Telescope (SHIT i need this to use octo,
 " will remove when the support of fzf will be available)
-Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" For code review using octo
+" Plug 'pwntester/octo.nvim'
+" Plug 'nvim-tree/nvim-web-devicons'
 
 " A framework for some plugin to be working (gh.nvim) for example
 " Plug 'ldelossa/litee.nvim'
@@ -254,7 +254,7 @@ Plug 'joshdick/onedark.vim'
 
 " Snippets are separated from the engine.
 " Add this if you want them:
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
 " Jedi-vim autocompletion
 " Plug 'davidhalter/jedi-vim'
