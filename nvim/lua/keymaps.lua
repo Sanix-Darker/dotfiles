@@ -182,6 +182,9 @@ map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
 -- map("n", "<Leader>hp", ":GitGutterPrevHunk<CR>", { noremap = true })
 -- This should go on terminal normal mode such as normal edition on neovim
 map("t", "<Esc>", "<C-\\><C-n>")
+-- When the terminal is open on Insert ode, i wanna be able to hit the same shortcut to 
+-- get back on Normal mode
+map("t", "jk", "<Esc>")
 -- For command execution directly in vim
 -- map("n", "z :!
 -- map("<Leader>s :<C-u>call gitblame#echo()<CR>

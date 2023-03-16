@@ -256,6 +256,6 @@ export PATH="/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.local/bin:/h
 . "$HOME/.cargo/env"
 
 
-# for ssh-add
+# for gpg keys and everything ... ssh-add
 # ssh-add ...
-
+alias expose='/home/dk/expose'

@@ -415,7 +415,7 @@
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file syntax
 [commit]
-	gpgsign = false
+	gpgsign = true
 [init]
 	defaultBranch = master
 [github]
