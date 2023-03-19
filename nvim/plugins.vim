@@ -51,6 +51,10 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'rhysd/git-messenger.vim'
 " For the gitbutter (live git diff on changes)
 Plug 'airblade/vim-gitgutter'
+
+" syntax hightligh for graphql
+Plug 'jparise/vim-graphql'
+
 " For dev-icons
 " Plug 'ryanoasis/vim-devicons'
 " For hichlight all occurences

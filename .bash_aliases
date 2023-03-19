@@ -990,6 +990,10 @@ _get_date(){
 }
 alias get_date=_get_date
 
+_uptime(){
+    uptime -p | awk '{split($0,a,", "); print a[1]}'
+}
+
 # Execute commands on a different repository and 
 # come back to where we have been !
 _cdex(){

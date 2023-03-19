@@ -1,7 +1,12 @@
 ---
+# for more options : https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
+  - { key: H, mods: Control|Shift, chars: "\x1B[1;5D" }
+  - { key: L, mods: Control|Shift, chars: "\x1B[1;5C" }
+  - { key: K, mods: Control|Shift, chars: "\x1B[A" }
+  - { key: J, mods: Control|Shift, chars: "\x1B[B" }
 
 window:
   opacity: 0.70
@@ -44,3 +49,4 @@ colors:
     - { index: 17, color: '0xffa198' }
 
 theme: github_dark_default
+dynamic_title: true
