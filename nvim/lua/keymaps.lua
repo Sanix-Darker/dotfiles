@@ -113,6 +113,9 @@ map("n", "<Leader>ll", ":Lines<CR>")
 -- For the file search
 map("n", "<Leader>ff", ":Files<cr>")
 -- To access all marks i left from all opened files...
+-- to add a new mark : ma (a is the mark)
+-- to go to a mark : 'a (a is the mark)
+-- to delete a mark : d'a (a is the mark)
 map("n", "<Leader>mm", ":Marks<cr>")
 -- To access all tabs in a single view as a popUp
 map("n", "<Leader>tt", ":Windows<cr>")
