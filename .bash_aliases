@@ -570,7 +570,18 @@ alias postman='~/Postman/Postman &'
 alias clean_docker_images='docker rmi $(docker images -f "dangling=true" -q)'
 alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
-alias clean_docker_volume='docker volume prune'
+_clean_volumes(){
+    # List all volumes from docker volume
+    # then remove the first line 
+    # sed to delete "local " from the /tmp/volumes
+    # and then apply the docker volume rm on each lines from that file
+    docker volume ls > /tmp/volumes && \
+    tail -n +2 /tmp/volumes && \
+    sed -i 's/local //g' /tmp/volumes && \
+    while read in; do docker volume rm "$in"; sleep 1; done < /tmp/volumes
+}
+alias clean_docker_volume_rmall='_clean_volumes'
+alias clean_docker_volume_prune='docker volume prune'
 alias cat='bat -p'
 alias tmux='tmux -2'
 
@@ -1069,6 +1080,7 @@ alias _hide_number="sed 's/[0-9]/*/g'"
 # Don't blame me, sometiome am found myself hitting gti instead of git
 alias gti="git"
 
+
 # vagrant stuffs
 # ---------------------------------------
 _vup(){
@@ -1124,6 +1136,11 @@ _b_connect_me(){
 }
 _b_scan(){
     bluetoothctl scan on
+}
+
+# To clean the swap memory
+_swapclear(){
+    sudo swapoff -a;sudo swapon -a
 }
 
 ## For my work on the datasetservice and the cli 
