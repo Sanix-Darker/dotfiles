@@ -1013,12 +1013,48 @@ psaux(){
     ps aux | grep $1
 }
 
-# To take note about something
-# note "note to my self...
+# To take note about something really quickly
+# Requirements : fzf and ag
+#
+# $ note topic note to my self... # will add a new note for the topic
+# $ note topic # will seach for notes on this topic
+# $ note # will list for you all notes taken globally
 note(){
-    echo "date: $(date)" >> $HOME/notes.txt
-    echo -e "$@" >> $HOME/notes.txt
-    echo "" >> $HOME/notes.txt
+    NOTES_DIR=$HOME/notes/
+    CONTENT_VIEW="cat $NOTES_DIR/{1}-notes.md"
+    TODAY_NOTE_FILE="$NOTES_DIR/$(date '+%Y-%m-%d')-notes.md"
+    ENTER_COMMAND="cat $NOTES_DIR/{}-notes.md"
+
+    # We create the notes directory if it doesn't exist
+    if [ ! -d "$NOTES_DIR" ]; then mkdir -p $NOTES_DIR; fi
+
+    # We browse context (topic) elements if only one argument is passed
+    if [ "$#" = "1" ]
+    then
+        ls $NOTES_DIR | ag $1 $NOTES_DIR        
+    fi
+
+    # We browse the content of notes if no arguments are passed
+    if [ -z $1 ]; then 
+        # if fzf is installed, use it as a live browser, otherwise,
+        # cat the list of note from today
+        if ! command -v fzf &> /dev/null; then
+            cat $TODAY_NOTE_FILE
+        else
+            ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
+                --preview "${CONTENT_VIEW}" --preview-window "right:70" \
+                --bind "enter:execute:${ENTER_COMMAND}" \
+                --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
+                --tac # for the reverse order
+        fi
+    else
+        echo -e "- **$(date '+%H:%M:%S')** > [$1] ${@:2} \n" >> $TODAY_NOTE_FILE
+    fi
+}
+
+_ddf(){
+    # storage of my nvme0n1p2
+    df -h | grep /dev/nvme0n1p2
 }
 
 # to record my terminal when am writing something
