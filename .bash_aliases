@@ -1034,32 +1034,31 @@ note(){
     NOTES_DIR=$HOME/notes/
     CONTENT_VIEW="cat $NOTES_DIR/{1}-notes.md"
     TODAY_NOTE_FILE="$NOTES_DIR/$(date '+%Y-%m-%d')-notes.md"
-    ENTER_COMMAND="cat $NOTES_DIR/{}-notes.md"
+	ENTER_COMMAND="nvim $NOTES_DIR/{1}-notes.md"
 
     # We create the notes directory if it doesn't exist
-    if [ ! -d "$NOTES_DIR" ]; then mkdir -p $NOTES_DIR; fi
+    if [ ! -d "$NOTES_DIR" ]; then mkdir -p $NOTES_DIR; fi;
 
     # We browse context (topic) elements if only one argument is passed
-    if [ "$#" = "1" ]
-    then
-        ls $NOTES_DIR | ag $1 $NOTES_DIR        
-    fi
+    if [ "$#" = "1" ]; then ls $NOTES_DIR | ag $1 $NOTES_DIR; fi;
 
     # We browse the content of notes if no arguments are passed
     if [ -z $1 ]; then 
         # if fzf is installed, use it as a live browser, otherwise,
         # cat the list of note from today
-        if ! command -v fzf &> /dev/null; then
-            cat $TODAY_NOTE_FILE
-        else
+        if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
             ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
                 --preview "${CONTENT_VIEW}" --preview-window "right:70" \
                 --bind "enter:execute:${ENTER_COMMAND}" \
                 --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
-                --tac # for the reverse order
+                --tac; # for the reverse order
         fi
     else
-        echo -e "- **$(date '+%H:%M:%S')** > [$1] ${@:2} \n" >> $TODAY_NOTE_FILE
+        CONTENT_MESSAGE="${@:2}"
+        # We only save a > 3 note
+        if [ ${#CONTENT_MESSAGE} -ge 3 ]; then 
+            echo -e "- **$(date '+%H:%M:%S')** > [$1] $CONTENT_MESSAGE \n" >> $TODAY_NOTE_FILE; 
+        fi; 
     fi
 }
 
