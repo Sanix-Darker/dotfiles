@@ -981,7 +981,8 @@ _stopWatch(){
     done
 }
 
-_countdown(){
+# _sleep 10
+_sleep(){
     seconds=$1
     start="$(($(date +%s) + $seconds))"
     while [ "$start" -ge `date +%s` ]; do
@@ -991,13 +992,9 @@ _countdown(){
 }
 
 alias stopwatch=_stopWatch
-alias countdown=_countdown
 
 _get_date(){
-    while true; do
-        printf '>> %s\r' "$(date -u +"%d/%m/%Y %H:%M:%S")"
-        sleep 1
-    done
+    while true; do echo "$(date -u +"%H:%M:%S")"; sleep 1; done;
 }
 alias get_date=_get_date
 
@@ -1048,7 +1045,7 @@ note(){
         # cat the list of note from today
         if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
             ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
-                --preview "${CONTENT_VIEW}" --preview-window "right:70" \
+                --preview "${CONTENT_VIEW}" --preview-window "right:130" \
                 --bind "enter:execute:${ENTER_COMMAND}" \
                 --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
                 --tac; # for the reverse order

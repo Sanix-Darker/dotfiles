@@ -150,6 +150,10 @@ map("v", "<Leader>a", "\"ay") -- to add to register
 map("v", "<Leader>A", "\"Ay") -- to append to the register
 map("n", "<Leader>a", "\"ap")
 
+map("v", "<Leader>d", "\"dy") -- to add to register
+map("v", "<Leader>D", "\"Dy") -- to append to the register
+map("n", "<Leader>d", "\"dp")
+
 map("v", "<Leader>c", "\"cy") -- to add to register
 map("v", "<Leader>C", "\"Cy") -- to append to the register
 map("n", "<Leader>c", "\"cp")

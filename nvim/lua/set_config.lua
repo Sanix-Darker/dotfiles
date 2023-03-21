@@ -89,6 +89,9 @@ set.foldmethod = 'indent'
 set.foldlevel = 99
 -- For spell checking
 -- set.spell = true
+-- equal distribution on splitted window
+set.equalalways = true
+
 
 -- g
 local g = vim.g
