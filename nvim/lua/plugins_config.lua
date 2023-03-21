@@ -352,3 +352,6 @@ require("mason-lspconfig").setup(masonlspconfig_setup)
 --     }
 --   }
 -- })
+
+-- for autoclosing brackets
+require('insx.preset.standard').setup()

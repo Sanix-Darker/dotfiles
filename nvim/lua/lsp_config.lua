@@ -86,6 +86,7 @@ cmp.setup({
         end, {'i', 's'}),
     }),
     sources = cmp.config.sources({
+        -- { name = 'emoji' },
         { name = 'path' },
         { name = 'nvim_lsp' },
         { name = 'buffer' },

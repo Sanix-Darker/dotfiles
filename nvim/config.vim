@@ -94,8 +94,8 @@ let g:git_messenger_floating_win_opts = { 'border': 'single' }
 "       \ l:ui.client.name =~? 'Firenvim'
 " endfunction
 " function! SetLinesForFirefox(timer)
-"     " set lines=28 columns=70 laststatus=0
-"     " exec 'resize -10'
+"     set lines=18 columns=40 laststatus=0
+"     exec 'resize -10'
 " endfunction
 " function! OnUIEnter(event) abort
 "   if s:IsFirenvimActive(a:event)

@@ -122,11 +122,13 @@ map("n", "<Leader>tt", ":Windows<cr>")
 -- To get th, history of all my opened files
 map("n", "<Leader>hh", ":History<cr>")
 -- To get th, whole history of the current buffer in term of commits
-map("n", "<Leader>hg", ":BCommit<cr>")
+map("n", "<Leader>gc", ":BCommit<cr>")
 -- To get an, search from command history
 map("n", "<Leader>hc", ":Commands<cr>")
 -- To open buffers
 map("n", "<Leader>bb", ":Buffers<CR>")
+-- To get files changes from $(git status)
+map("n", "<Leader>gs", ":GF?<CR>")
 -- To get th, diffview history of the repo
 -- since this got remove as a plugin
 -- map("n", "ft", ":DiffviewFileHistory<CR>")
