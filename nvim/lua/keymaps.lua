@@ -7,6 +7,10 @@ local map = function (mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, options)
 end
 
+-- ShortCuts to switch from camelCase to snake_case and reverse too
+map("v", "<Leader>cs", ':s/\\v([[:lower:]]+|[[:upper:]]\\w*)([[:upper:]]\\w*)/\\1_\\l\\2/g<CR>', {noremap = true})
+map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
+
 -- to saved Obsession session
 map("n", "<Leader>ss", ":Obsession<cr>")
 -- to reload a saved session for the current directory
