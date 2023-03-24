@@ -97,10 +97,13 @@ map("n", "Z", "V:Commentary<CR>")
 -- # rest-console
 -- jq formating of the content of the current buffer
 -- We set the modifiable for it then we pipe the output to jq 
--- for json
-map("n", "=j",  ":set ma<CR>:%!jq<CR>")
--- for yaml 
-map("n", "=y",  ":set ma<CR>:%!yq<CR>")
+-- for json -> jq
+map("v", "<Leader>jq",  ":%!jq<CR>")
+-- for yaml -> yq
+map("v", "<Leader>yq",  ":%!yq<CR>")
+-- for html -> tidy
+-- to install : https://github.com/htacg/tidy-html5/releases/tag/5.8.0
+map("v", "<Leader>tq",  ":%!tidy<CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
 -- should be change depending on the output type, but for now 
 -- as default will be json so jq
