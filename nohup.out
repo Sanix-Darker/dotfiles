@@ -1,0 +1,2 @@
+[ 23/03/2023 07:55:38.993 x_fence_sync ERROR ] Failed to trigger the fence.
+[ 23/03/2023 07:55:38.993 paint_all ERROR ] x_fence_sync failed, xrender-sync-fence will be disabled from now on.

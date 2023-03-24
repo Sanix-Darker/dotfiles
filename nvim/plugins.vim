@@ -81,6 +81,10 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
+
+" To format the c/cpp code
+Plug 'rhysd/vim-clang-format'
+
 " A hinter for next moves
 Plug 'folke/which-key.nvim'
 " For differences in a file
@@ -127,6 +131,9 @@ Plug 'wellle/context.vim'
 " Plug 'petertriho/nvim-scrollbar'
 " just for the gitsigns
 " Plug 'lewis6991/gitsigns.nvim'
+
+" For camelcase to snakecase and the reverse
+" Plug 'nicwest/vim-camelsnek'
 
 " To get a direct link to a github link from vim
 " :GH or :GHInteractive (for github)/ GB or :GBInteractive (for gitlab)

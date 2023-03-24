@@ -8,8 +8,11 @@ local map = function (mode, lhs, rhs, opts)
 end
 
 -- ShortCuts to switch from camelCase to snake_case and reverse too
-map("v", "<Leader>cs", ':s/\\v([[:lower:]]+|[[:upper:]]\\w*)([[:upper:]]\\w*)/\\1_\\l\\2/g<CR>', {noremap = true})
+map("v", "<Leader>cs", ':s/\\v([a-z]+)([A-Z])/\\1_\\l\\2/g<CR>', {noremap = true})
 map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
+
+-- convert rows to columns
+map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 
 -- to saved Obsession session
 map("n", "<Leader>ss", ":Obsession<cr>")
@@ -110,6 +113,9 @@ map("n", "<Leader>bg", ":Vista finder ctags<CR>")
 map("n", "ZX", ":GitGutterUndoHunk<CR>", { noremap = true })
 -- To format the code
 map("v", "fv", ":Neoformat<CR>")
+-- for clang formating
+map("v", "<Leader>cf", ":ClangFormat<CR>")
+
 -- To jump fastly on a word
 map("n", "<Leader>jj", ":HopWord<CR>")
 -- Most efficient than the ? or /

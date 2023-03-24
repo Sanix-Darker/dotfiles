@@ -178,7 +178,9 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
+# For clang
+export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
+export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # We want to help jedi select the 
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir

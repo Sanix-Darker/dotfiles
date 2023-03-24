@@ -477,6 +477,18 @@ _install_tt(){
     sudo cp ./session-wizard.sh /usr/local/bin/t
 }
 
+_install_clang(){
+    cd /tmp
+    git clone --depth=1 https://github.com/llvm/llvm-project.git
+    cd llvm-project
+    mkdir build && cd build
+    cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release  ../llvm
+    make -j$(nproc)
+
+    # install clang-format too
+    sudo apt-get install clang-format
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
 
@@ -507,8 +519,11 @@ _install_basics(){
         sudo apt-get install $i -y
     done
 
-    # Install tt
-    _confirm "Install tt (For vim fast jumping) ?" _install_tt
+    # SetUp and install tt
+    _confirm "Install tt (For tmux fast jumping) ?" _install_tt
+
+    # Install and build Clang
+    _confirm "Install clang ?" _install_clang
 
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
