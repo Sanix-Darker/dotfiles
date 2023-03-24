@@ -101,9 +101,9 @@ map("n", "Z", "V:Commentary<CR>")
 map("v", "<Leader>jq",  ":%!jq<CR>")
 -- for yaml -> yq
 map("v", "<Leader>yq",  ":%!yq<CR>")
--- for html -> tidy
--- to install : https://github.com/htacg/tidy-html5/releases/tag/5.8.0
-map("v", "<Leader>tq",  ":%!tidy<CR>")
+-- for html -> tidy, install with : https://github.com/htacg/tidy-html5/releases/tag/5.8.0
+-- for xmllint, install with : sudo apt install libxml2-utils -y
+map("v", "<Leader>hq",  ":%!xmllint --format<CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
 -- should be change depending on the output type, but for now 
 -- as default will be json so jq

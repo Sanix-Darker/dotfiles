@@ -510,6 +510,7 @@ _install_basics(){
         "git" "hub" "snap"
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
+        "libxml2-utils"
 
         "trash-cli"
     )
