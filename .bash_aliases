@@ -1004,6 +1004,7 @@ _sleep(){
     while [ "$start" -ge `date +%s` ]; do
         time="$(( $start - `date +%s` ))"
         printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 1
     done
 }
 
@@ -1061,7 +1062,7 @@ note(){
         # cat the list of note from today
         if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
             ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
-                --preview "${CONTENT_VIEW}" --preview-window "right:130" \
+                --preview "${CONTENT_VIEW}" --preview-window "right:100" \
                 --bind "enter:execute:${ENTER_COMMAND}" \
                 --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
                 --tac; # for the reverse order
@@ -1154,6 +1155,9 @@ _b_scan(){
 _swapclear(){
     sudo swapoff -a;sudo swapon -a
 }
+
+# random wait live for 5mins
+alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 
 ## For my work on the datasetservice and the cli 
 ## queries am going to make to the service
