@@ -571,6 +571,7 @@ _install_FZF_POPUP(){
     chmod +x ./fzfp
 
     # to just set up C-F to search for tmux available session
+    # add this into ~/.fzf/shell/key-bindings.bash
     # __tmux_search__(){
     #     $HOME/t
     # }
