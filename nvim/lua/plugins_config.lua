@@ -37,8 +37,50 @@ local masonlspconfig_setup = {
 require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
+
+require('neoclip').setup({
+  history = 100,
+  enable_persistent_history = false,
+  length_limit = 10000,
+  continuous_sync = false,
+  db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+  filter = nil,
+  preview = true,
+  prompt = nil,
+  default_register = '"',
+  default_register_macros = 'q',
+  enable_macro_history = true,
+  content_spec_column = false,
+  on_select = {
+    move_to_front = false,
+    close_telescope = true,
+  },
+  on_paste = {
+    set_reg = false,
+    move_to_front = false,
+    close_telescope = true,
+  },
+  on_replay = {
+    set_reg = false,
+    move_to_front = false,
+    close_telescope = true,
+  },
+  on_custom_action = {
+    close_telescope = true,
+  },
+  keys = {
+    fzf = {
+      select = 'default',
+      paste = 'ctrl-p',
+      paste_behind = 'Enter',
+      custom = {},
+    },
+  },
+})
+
 -- hop to jump on any text base objects
--- require('hop').setup()
+require('hop').setup()
+
 -- setup for litee
 -- require('litee.lib').setup()
 -- require('litee.gh').setup()

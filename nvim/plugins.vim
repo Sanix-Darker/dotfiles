@@ -27,7 +27,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
 " Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
-" Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " For FZF preview
@@ -65,7 +65,7 @@ Plug 'ap/vim-css-color'
 " For REST requests inside vim
 " Plug 'diepm/vim-rest-console'
 " For EasyMotion
-" Plug 'phaazon/hop.nvim'
+Plug 'phaazon/hop.nvim'
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
@@ -84,6 +84,12 @@ Plug 'voldikss/vim-floaterm'
 
 " To format the c/cpp code
 Plug 'rhysd/vim-clang-format'
+
+" To manage sqlLite database
+" sudo apt-get install sqlite3 libsqlite3-dev 
+Plug 'kkharji/sqlite.lua'
+" To have history of clipboard
+Plug 'AckslD/nvim-neoclip.lua'
 
 " A hinter for next moves
 Plug 'folke/which-key.nvim'

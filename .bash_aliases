@@ -489,6 +489,31 @@ _install_clang(){
     sudo apt-get install clang-format
 }
 
+_install_tmux(){
+    VERSION=3.3a
+    WHERE_I_WAS=$PWD
+
+    # A requirement for the compilation of tmux
+    sudo apt install libevent-dev
+    cd /tmp
+    wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz
+    tar xf tmux-${VERSION}.tar.gz
+    rm -f tmux-${VERSION}.tar.gz
+
+    cd tmux-${VERSION}
+    ./configure
+    make
+    sudo make install
+
+    cd -
+    sudo mv tmux-${VERSION} /usr/bin/tmux
+
+    # to be sure we deleted all processes related to the old version
+    sudo killall -9 tmux
+
+    cd $WHERE_I_WAS
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
 
@@ -502,7 +527,7 @@ _install_basics(){
         "curl" "apt-transport-https"
         "lsb-release" "ca-certificates"
 
-        "tmux" "tmate" "git-lfs"
+        "tmate" "git-lfs"
         "tar" "zip" "unzip" "curl"
         "wget" "gcc" "g++" "make"
 
@@ -520,6 +545,9 @@ _install_basics(){
         sudo apt-get install $i -y
     done
 
+    # Install tmux ?
+    _confirm "Install tmux ?" _install_tmux
+
     # SetUp and install tt
     _confirm "Install tt (For tmux fast jumping) ?" _install_tt
 
@@ -534,6 +562,29 @@ _install_basics(){
 
     # path browsing such as exa or zoxide
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
+}
+
+_install_FZF_POPUP(){
+    # to have fzf popup inside tmux
+    cd $HOME
+    wget https://raw.githubusercontent.com/Sanix-Darker/fzf-tmux-script/main/popup/fzfp
+    chmod +x ./fzfp
+
+    # to just set up C-F to search for tmux available session
+    # __tmux_search__(){
+    #     $HOME/t
+    # }
+    # if (( BASH_VERSINFO[0] < 4 )); then
+    #   # CTRL-F - Paste the selected command from history into the command line
+    #   bind -m emacs-standard '"\C-f": "\C-e \C-u\C-y\ey\C-u"$(__tmux_search__)"\e\C-e\er"'
+    #   bind -m vi-command '"\C-f": "\C-z\C-f\C-z"'
+    #   bind -m vi-insert '"\C-f": "\C-z\C-f\C-z"'
+    # else
+    #   # CTRL-F - tmux search session/window
+    #   bind -m emacs-standard -x '"\C-f": __tmux_search__'
+    #   bind -m vi-command -x '"\C-f": __tmux_search__'
+    #   bind -m vi-insert -x '"\C-f": __tmux_search__'
+    # fi  
 }
 
 _install_batcat(){
@@ -925,7 +976,7 @@ _pdf(){
 alias pdf='_pdf'
 
 # For tmux command :
-alias t='tmux'
+# alias t='tmux'
 alias tn='tmux new -s'
 alias ta='tmux attach-session -t'
 alias to='ta other'
@@ -1159,6 +1210,8 @@ _swapclear(){
 # random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 
+alias fzfp='$HOME/fzfp'
+
 ## For my work on the datasetservice and the cli 
 ## queries am going to make to the service
 #_graphql_curl(){
@@ -1190,13 +1243,15 @@ alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
 # # some coul git aliases to go fast
-# I don't know why i cannot stand those
+# I don't know why i cannot stand those for now
 # alias ga='git add'
 # alias gap='git add -p'
 # alias gm='git commit'
-# alias gam='git amend'
 # alias gmm='git commit -m'
 # alias gmam='git commit -am'
+# alias gam='git amend'
+# alias gamn='git amend-no-edit'
+# alias gamnn='git amend-no-edit-no-verify'
 # alias gs='git status'
 # alias gd='git diff'
 # alias gds='git diff --staged'
@@ -1205,9 +1260,9 @@ alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 # alias gu='git update'
 # alias gcb='git checkout -b'
 # alias gl='git log-branch'
-# # alias gss="git stat"
-# # alias gcc="git checkout"
-# # alias gsq="git squash"
-# # alias gb="git branch"
-# # alias gr="git restore"
-# # alias grs="git restore --staged"
+# alias gss="git stat"
+# alias gcc="git checkout"
+# alias gsq="git squash"
+# alias gb="git branch"
+# alias gr="git restore"
+# alias grs="git restore --staged"

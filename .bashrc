@@ -187,6 +187,11 @@ export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # then set it or use the default one
 export PYTHONPATH="$PYTHONPATH:$(which python3)"
 
+# ~/.tmux/plugins
+# export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+# ~/.config/tmux/plugins
+# export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -229,14 +234,17 @@ _start_polybar(){
     # fi
     
     # start polybar only for the current window !
+    echo "Starting polybar..."
     nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
 }
 
 _start_compton(){
+    echo "Starting compton..."
     nohup compton -f & > /dev/null
 }
 
 _start_greenclip(){
+    echo "Starting greenclip..."
     nohup greenclip daemon & > /dev/null
 }
 
@@ -257,6 +265,9 @@ alias luamake=/luamake
 export PATH="/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.local/bin:/home/dk/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v18.6.0/bin:/home/dk/.local/bin:/home/dk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin://home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin"
 . "$HOME/.cargo/env"
 
+# tmux check for popUp display of $HOME/fzfp
+export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
+export TMUX_POPUP_WIDTH=80%
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...

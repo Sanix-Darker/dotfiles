@@ -6,8 +6,11 @@ key_bindings:
   # navigation in vim mode but for command line stuff (not Vi Mode)
   - { key: H, mods: Control|Shift, chars: "\x1B[1;5D" }
   - { key: L, mods: Control|Shift, chars: "\x1B[1;5C" }
+  - { key: H, mods: Alt, chars: "\x1b[D" }
+  - { key: L, mods: Alt, chars: "\x1b[C" }
   - { key: K, mods: Control|Shift, chars: "\x1B[A" }
   - { key: J, mods: Control|Shift, chars: "\x1B[B" }
+  # - { key: G, mods: Control, chars: "\x02\x54" }
 
 window:
   opacity: 0.70

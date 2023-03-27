@@ -196,6 +196,10 @@ map("n", "<Leader><space>", ":GitMessenger<CR>")
 -- to copy the current path of a file in the clipboard(the empty registry)
 map("n", "cp", ":let @\" = expand(\"%\")<cr>")
 
+-- to access the clipboard history
+map("n", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
+map("v", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
+
 -- To get +/- on changes inside a file from a project
 map("n", "<Leader>HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
 map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
