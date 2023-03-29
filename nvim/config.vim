@@ -56,8 +56,8 @@ let g:silicon = {
       \   'window-controls':       v:true,
       \ }
 
-let g:lasttab = 1
-au TabLeave * let g:lasttab = tabpagenr()
+" let g:lasttab = 1
+" au TabLeave * let g:lasttab = tabpagenr()
 
 " Clean and erase the buffer
 nnoremap cbu :%bd\|e#\|bd#<cr>

@@ -216,6 +216,36 @@ map("t", "<Esc>", "<C-\\><C-n>")
 -- To open the nvim configuration
 -- map("n", "co :tabnew ~/.config/nvim/config.vim<CR>
 
+-- Down is really the next line
+map('n', 'j', 'gj')
+map('n', 'k', 'gk')
+
+-- Stay on same position when searching word under cursor
+map('n', '*', '*N')
+map('n', '#', '#N')
+map('n', 'g*', 'g*N')
+map('n', 'g#', 'g#N')
+map('x', '*', [["yy/\V<C-R>=escape(getreg('y'), '\/?')<CR><CR>N]])
+map('x', '#', [["yy?\V<C-R>=escape(getreg('y'), '\/?')<CR><CR>N]])
+
+-- On search, center the screen:
+map('n', 'n', 'nzz')
+map('n', 'N', 'Nzz')
+
+-- Move to the end of yanked text after yank and paste
+map('n', 'p', 'p`]')
+map('v', 'y', 'y`]')
+map('v', 'p', 'p`]')
+
+-- Toggle between last 2 buffers
+map('n', '<leader><tab>', '<c-^>')
+
+-- Jump to definition in vertical split
+map('n', '<Leader>]', '<C-W>s<C-]>')
+
+-- Close all other buffers except current one
+map('n', '<Leader>db', ':silent w <BAR> :silent %bd <BAR> e#<CR>')
+
 -- To actualize the vim configuration
 map("n", "so", ":so %<CR><Esc>:e<CR>")
 -- To clean the search hightlights

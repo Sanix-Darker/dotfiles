@@ -1,3 +1,14 @@
+-- vim.api.nvim_create_autocmd('UIEnter', {
+--   callback = function()
+--     if vim.bo.filetype ~= '' then -- Check if the buffer has a filetype
+--       return
+--     end
+--     if vim.api.nvim_buf_get_lines(0, 0, -1, false)[1] == '' then
+--         vim.api.nvim_buf_delete(0, {force = true})
+--     end
+--   end,
+-- })
+
 vim.cmd('source ~/.config/nvim/config.vim')
 
 -- [[ : sections backward or to the previous '{' in the first column.
@@ -23,14 +34,13 @@ _G.__luacache_config = {
         path = vim.fn.stdpath('cache')..'/luacache_modpaths',
     }
 }
+-- to speed up the start
 require('impatient')
--- to import plugins configurations
-require('plugins_config')
--- lsp configurations
-require('lsp_config')
 -- all set configurations
 require('set_config')
 -- for my keymaps
 require('keymaps')
--- for the statusline
-require('statusline')
+-- to import plugins configurations
+require('plugins_config')
+-- lsp configurations
+require('lsp_config')

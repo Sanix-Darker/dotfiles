@@ -57,6 +57,8 @@ Plug 'airblade/vim-gitgutter'
 
 " For a fancy status Line:
 Plug 'nvim-lualine/lualine.nvim'
+" For icons on the statusline
+Plug 'kyazdani42/nvim-web-devicons'
 
 " For dev-icons
 " Plug 'ryanoasis/vim-devicons'
@@ -75,7 +77,7 @@ Plug 'lewis6991/impatient.nvim'
 " Plug 'https://github.com/preservim/tagbar'
 " Another tagging system like tagbar
 " Plug 'liuchengxu/vista.vim'
-" TO install vista, we need 
+" TO install vista, we need
 " https://github.com/universal-ctags/ctags not the default ctags
 " Plug 'lukas-reineke/indent-blankline.nvim'
 " The magical local history
@@ -89,7 +91,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'rhysd/vim-clang-format'
 
 " To manage sqlLite database
-" sudo apt-get install sqlite3 libsqlite3-dev 
+" sudo apt-get install sqlite3 libsqlite3-dev
 Plug 'kkharji/sqlite.lua'
 " To have history of clipboard
 Plug 'AckslD/nvim-neoclip.lua'
@@ -98,10 +100,10 @@ Plug 'AckslD/nvim-neoclip.lua'
 Plug 'folke/which-key.nvim'
 " For differences in a file
 Plug 'nvim-lua/plenary.nvim'
-" diff view for changes, since i have git browse, 
+" diff view for changes, since i have git browse,
 " this is not needed anymore
 " Plug 'sindrets/diffview.nvim'
-" The Zig hightligh & 
+" The Zig hightligh &
 " Plug 'ziglang/zig.vim'
 " Just to use the ESC in a floaterm
 Plug 'sychen52/smart-term-esc.nvim'
