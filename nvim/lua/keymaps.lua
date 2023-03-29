@@ -65,8 +65,8 @@ map("n", "gp", "`[v`]")
 -- For easyAlig--
 map("x", "ga", ":EasyAlign*")
 
--- let's say i made a lot of changes in 
--- my file and i didn't save yet and i want to go back 
+-- let's say i made a lot of changes in
+-- my file and i didn't save yet and i want to go back
 -- to the previous state of my file
 map("n", "U", ":ea 1f<CR>")
 
@@ -96,7 +96,7 @@ map("n", "Z", "V:Commentary<CR>")
 
 -- # rest-console
 -- jq formating of the content of the current buffer
--- We set the modifiable for it then we pipe the output to jq 
+-- We set the modifiable for it then we pipe the output to jq
 -- for json -> jq
 map("v", "<Leader>jq",  ":%!jq<CR>")
 -- for yaml -> yq
@@ -105,7 +105,7 @@ map("v", "<Leader>yq",  ":%!yq<CR>")
 -- for xmllint, install with : sudo apt install libxml2-utils -y
 map("v", "<Leader>hq",  ":%!xmllint --format<CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
--- should be change depending on the output type, but for now 
+-- should be change depending on the output type, but for now
 -- as default will be json so jq
 map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR><C-w><C-w>")
 -- rest-console
@@ -157,7 +157,7 @@ map("n", "<space>l", "<C-W>l")
 map("n", "<space>k", "<C-W>k")
 map("n", "<space>j", "<C-W>j")
 
--- let's add some registers shortcuts, 
+-- let's add some registers shortcuts,
 -- i only need those 3
 map("v", "<Leader>a", "\"ay") -- to add to register
 map("v", "<Leader>A", "\"Ay") -- to append to the register
@@ -208,9 +208,8 @@ map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
 -- map("n", "<Leader>hp", ":GitGutterPrevHunk<CR>", { noremap = true })
 -- This should go on terminal normal mode such as normal edition on neovim
 map("t", "<Esc>", "<C-\\><C-n>")
--- When the terminal is open on Insert ode, i wanna be able to hit the same shortcut to 
+-- When the terminal is open on Insert ode, i wanna be able to hit the same shortcut to
 -- get back on Normal mode
-map("t", "jk", "<Esc>")
 -- For command execution directly in vim
 -- map("n", "z :!
 -- map("<Leader>s :<C-u>call gitblame#echo()<CR>
@@ -303,7 +302,7 @@ map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
 -- Jumps to the definition of the type symbol
 map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
--- Lists all the references 
+-- Lists all the references
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
 -- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')

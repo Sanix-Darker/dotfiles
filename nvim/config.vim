@@ -2,6 +2,9 @@ set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
 let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
+" jk -> Esc to speed Up switching
+inoremap jk <ESC>
+
 try
 	colorscheme onedark
 catch
@@ -112,23 +115,6 @@ function! CmdLine(str)
     call feedkeys(":" . a:str)
 endfunction
 
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ack '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 map <C-n> :call NERDTreeToggleAndRefresh()<CR>
 function NERDTreeToggleAndRefresh()
     if g:NERDTree.IsOpen()
@@ -142,9 +128,6 @@ endfunction
 autocmd FileType yaml set cursorcolumn
 autocmd FileType yml set cursorcolumn
 
-" Auto generate tags file on file write of *.c and *.h files
-autocmd BufWritePost *.c,*.h silent! !ctags . &
-
 " To add the proper PEP8 indentation
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -156,14 +139,13 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 " To activate the rest plugin if we're inside a rest file
-au BufNewFile,BufRead *.rest
-    \ set ft=rest
+au BufNewFile,BufRead *.rest set ft=rest
 
 " We want everything fold depending on the synthax when we jump into it
 set foldmethod=syntax
 set foldnestmax=1
 
-"Flagging Unnecessary Whitespace
+" Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
@@ -192,5 +174,4 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " By default vista.vim never run if you don't call it explicitly.
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-"
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
