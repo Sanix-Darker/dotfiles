@@ -297,8 +297,8 @@ map("n", "<leader>bd", ":Bclose<cr>:tabclose<cr>gT")
 -- Close all the buffers
 map("n", "<leader>ba", ":bufdo bd<cr>")
 -- to switch between buffers
-map("n", "<leader>bn", ":bnext<cr>")
-map("n", "<leader>bp", ":bprevious<cr>")
+map("n", "<leader>>", ":bnext<cr>")
+map("n", "<leader><", ":bprevious<cr>")
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings

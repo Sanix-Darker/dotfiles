@@ -29,6 +29,12 @@ let b:ale_linters = ['flake8']
 let b:ale_fixers = ['eslint']
 let b:ale_fix_on_save = 1
 
+try
+    " to not show modes
+    set noshowmode
+catch
+endtry
+
 " ------ for silicon and screenshot from the source code
 " Generate an image of the current buffer and write it to /path/to/output.png
 " :Silicon /path/to/output.png

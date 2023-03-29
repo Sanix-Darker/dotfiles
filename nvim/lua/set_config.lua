@@ -115,8 +115,7 @@ set.foldlevel = 99
 -- equal distribution on splitted window
 set.equalalways = true
 
-
--- g
+-- g var
 local g = vim.g
 -- mapleader for extra commands combinations
 g.mapleader = ','
