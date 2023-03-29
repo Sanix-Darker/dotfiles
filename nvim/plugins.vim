@@ -36,7 +36,7 @@ Plug 'yuki-yano/fzf-preview.vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
-Plug 'tmhedberg/SimpylFold'
+" Plug 'tmhedberg/SimpylFold'
 " For the git diff/git blame
 " Plug 'zivyangll/git-blame.vim'
 " Magically check for commits inside the project even through history
@@ -53,7 +53,10 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'airblade/vim-gitgutter'
 
 " syntax hightligh for graphql
-Plug 'jparise/vim-graphql'
+" Plug 'jparise/vim-graphql'
+
+" For a fancy status Line:
+Plug 'nvim-lualine/lualine.nvim'
 
 " For dev-icons
 " Plug 'ryanoasis/vim-devicons'
@@ -103,8 +106,8 @@ Plug 'nvim-lua/plenary.nvim'
 " Just to use the ESC in a floaterm
 Plug 'sychen52/smart-term-esc.nvim'
 " ReactJs/typescript support
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'leafgarland/typescript-vim'
 " Plug 'maxmellon/vim-jsx-pretty'
 " For debugging, we add dap
 " Plug 'mfussenegger/nvim-dap'
@@ -319,7 +322,7 @@ Plug 'joshdick/onedark.vim'
 " Plug 'https://github.com/w0rp/ale'
 
 " For Fugitive for git command directly inside the command section
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " vim plugin for flake8 PEP
 " Plug 'nvie/vim-flake8'

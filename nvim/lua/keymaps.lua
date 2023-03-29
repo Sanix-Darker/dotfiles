@@ -35,8 +35,8 @@ map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
 map("n", "tl", ":exe \"tabn \".g:lasttab<CR>")
 
 -- for spliting screen
-map("n", ";b", ":split<cr>")
-map("n", ";v", ":vsplit<cr>")
+map("n", ";h", ":split<cr>")
+map("n", ";s", ":vsplit<cr>")
 
 -- Switch CWD to the directory of the open buffer
 map("n", "cd", ":cd %:p:h<cr>:pwd<cr>")
@@ -226,11 +226,11 @@ map("n", "no", ":nohlsearch<CR>")
 map("x", "p", "pgvy")
 -- To cut directly the current line
 -- to delete without saving in any register
-map("x", "x", "\"_x")
-map("n", "x", "\"_x")
-map("x", "X", "\"_dd")
-map("n", "X", "\"_dd")
-map("n", "<Del>", "\"_dd")
+map("x", "x", "\"_x<Esc>")
+map("n", "x", "\"_x<Esc>")
+map("x", "X", "\"_dd<Esc>")
+map("n", "X", "\"_dd<Esc>")
+map("n", "<Del>", "\"_dd<Esc>")
 -- To replace in the whole project a string by another one:
 map("n", "RR", ":20Term bash <CR>clear<CR>find . -name '*.py' -exec ex +'%s/<old>/<new>/ge' -V1 -scwq! {} ';'")
 -- To duplicate the current line
@@ -268,8 +268,8 @@ map("n", "<leader>bd", ":Bclose<cr>:tabclose<cr>gT")
 -- Close all the buffers
 map("n", "<leader>ba", ":bufdo bd<cr>")
 -- to switch between buffers
-map("n", "<leader>l", ":bnext<cr>")
-map("n", "<leader>h", ":bprevious<cr>")
+map("n", "<leader>bn", ":bnext<cr>")
+map("n", "<leader>bp", ":bprevious<cr>")
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings

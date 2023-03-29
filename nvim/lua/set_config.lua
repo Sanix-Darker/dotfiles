@@ -51,7 +51,30 @@ set.so = 7
 -- let en_US.UTF-8='en'
 set.langmenu = 'en'
 -- Ignore compiled files
-set.wildignore = '*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
+set.wildignore = {
+    '*.pyc',
+    '*.hg/*',
+    '*.o',
+    '*.obj,*~',
+    '*.git*',
+    '*.meteor*',
+    '*vim/backups*',
+    '*sass-cache*',
+    '*mypy_cache*',
+    '*__pycache__*',
+    '*cache*',
+    '*logs*',
+    '*node_modules*',
+    '**/node_modules/**',
+    '*DS_Store*',
+    '*.gem',
+    'log/**',
+    'tmp/**',
+    '*package-lock.json*',
+    '**/dist/**',
+    '**/.next/**',
+    '**/.nx/**',
+}
 -- Height of the command bar
 set.cmdheight = 1
 -- Configure backspace so it acts as it should act
@@ -155,3 +178,25 @@ g.gitgutter_sign_modified = '~'
 g.gitgutter_sign_removed = '>'
 g.gitgutter_sign_removed_first_line = '^'
 g.gitgutter_sign_modified_removed = 'w'
+
+-- Git Messegen colorscheme
+vim.cmd([[hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=None ctermfg=255 ctermbg=None]])
+vim.cmd([[hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111]])
+vim.cmd([[hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229]])
+vim.cmd([[hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210]])
+-- to shyow diff for the current version am having
+-- can be current, all or None
+g.git_messenger_include_diff = 'current'
+g.git_messenger_always_into_popup = true
+g.git_messenger_max_popup_height = 25
+g.git_messenger_max_popup_width = 100
+g.git_messenger_extra_blame_args = ''
+g.git_messenger_floating_win_opts = { ["border"]="single" }
+
+
+-- TODO: For autocmds
+-- vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {
+--   pattern = '*',
+--   command = [[if &nu | set nornu | endif]],
+--   group = vimrc_group,
+-- })

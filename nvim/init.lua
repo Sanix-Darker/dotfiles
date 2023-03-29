@@ -32,3 +32,5 @@ require('lsp_config')
 require('set_config')
 -- for my keymaps
 require('keymaps')
+-- for the statusline
+require('statusline')

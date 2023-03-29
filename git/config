@@ -349,7 +349,7 @@
     squash = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin)
 
     ; to specify a target branch from where i want to squash
-    squash-to = !git rebase -i HEAD~$(git rev-list --count HEAD ^origin:$1)
+    squash-to = !git rebase -i HEAD~$(git rev-list --count HEAD ^\"$1\")
     ; squash-to = !git rebase -i HEAD~$(git log --oneline $(git branch --show) ^$1 | wc -l)
 
     ; git squash-count to squash with a specific amount of commit from the top

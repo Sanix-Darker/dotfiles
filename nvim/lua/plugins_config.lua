@@ -38,6 +38,24 @@ require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
 
+-- Set lualine as statusline
+-- See `:help lualine.txt`
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'onedark',
+    component_separators = '|',
+    section_separators = '',
+  },
+  sections = {
+    lualine_a = {
+      {
+        'buffers',
+      }
+    }
+  }
+}
+
 require('neoclip').setup({
   history = 100,
   enable_persistent_history = false,
