@@ -20,8 +20,8 @@ Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options

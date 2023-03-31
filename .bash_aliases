@@ -116,7 +116,7 @@ alias nvclean='nvim --clean'
 
 # to list trash elements
 _lf(){
-    # list all trash delete elements and grep pipe to list all item deleted 
+    # list all trash delete elements and grep pipe to list all item deleted
     # referenced only by the directory i am at the moment this command
     trash-list | sort -r | cat | grep $(pwd)
 }
@@ -160,7 +160,7 @@ _set_nvim(){
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
-    
+
     # yeah, we removed coc-nvim in favor of LSP
     lsp_conf=(
         "pyright" "ts-server" "vscode-langservers-extracted"
@@ -195,7 +195,7 @@ _set_dot_files(){
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
 
-    # we copy our i3 config 
+    # we copy our i3 config
     cpd $DOT_DIR/i3/ ~/.config/
 
     # for git config
@@ -239,7 +239,7 @@ _copy_to_dotfiles(){
 
     # we copy polybar
     cpd ~/.config/polybar/ $DOT_DIR/
-    
+
     # Our rofi theme for search
     cpd ~/.config/rofi/ $DOT_DIR/
 }
@@ -313,6 +313,13 @@ _install_alacritty(){
     cargo install alacritty
     # for theming
     npm i -g alacritty-themes
+
+    # For updating to the latest version
+    # cd /tmp
+    # git clone https://github.com/alacritty/alacritty.git
+    # cd alacritty
+    # cargo build --release
+    # sudo cp ./target/release/alacritty $(which alacritty)
 }
 
 _install_path_browsing_utils(){
@@ -361,6 +368,8 @@ _install_ctags_universal(){
     make install
     ctags --version && [[ $? != 0 ]] && echo -e "\n$RED[+] ctags installation failed !$COLOROFF"
 }
+
+
 
 _install_nvim_and_utils(){
     sudo apt-get update -y
@@ -585,12 +594,12 @@ _install_FZF_POPUP(){
     #   bind -m emacs-standard -x '"\C-f": __tmux_search__'
     #   bind -m vi-command -x '"\C-f": __tmux_search__'
     #   bind -m vi-insert -x '"\C-f": __tmux_search__'
-    # fi  
+    # fi
 }
 
 _install_batcat(){
     git clone https://github.com/sharkdp/bat
-    cd bat 
+    cd bat
     # cargo should be already present for this to be installed
     cargo install --locked bat
 }
@@ -608,13 +617,13 @@ _install_bash_preexc(){
 
 _install_dev_stack(){
     _source_dev_stack
-    
+
     # For a weird perl warning error on locales UTF-8
     # Should be on top
     _confirm "Reconfigure locale langs ? " _install_locales_lang
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
-    # setup the preExc bash command for some usefull stuff just like telling the time 
+    # setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
@@ -640,7 +649,7 @@ alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
 _clean_volumes(){
     # List all volumes from docker volume
-    # then remove the first line 
+    # then remove the first line
     # sed to delete "local " from the /tmp/volumes
     # and then apply the docker volume rm on each lines from that file
     docker volume ls > /tmp/volumes && \
@@ -687,7 +696,7 @@ _back(){
     fi
 }
 
-# To have in the terminal 
+# To have in the terminal
 # only the command you executed got reload
 # and cleared instead of multilines
 _only(){
@@ -739,9 +748,9 @@ _git_open_code(){
 
 # To clone a sub_dir
 # To clone a sub directory from a random project
-# _git_clone_sub directory1 https://github.com/author/repo 
+# _git_clone_sub directory1 https://github.com/author/repo
 # Or from a specific branch
-# _git_clone_sub directory1 https://github.com/author/repo  
+# _git_clone_sub directory1 https://github.com/author/repo
 _git_clone_sub(){
     REPO_NAME="$(echo $2 | grep -oE '[^/]+$')";
     git clone --filter=blob:none --no-checkout $2
@@ -1071,14 +1080,14 @@ _uptime(){
     uptime -p | awk '{split($0,a,", "); print a[1]}'
 }
 
-# Execute commands on a different repository and 
+# Execute commands on a different repository and
 # come back to where we have been !
 _cdex(){
     commandToBeExecuted="${@:2}"
 
     echo "Executing => '$commandToBeExecuted' in \"$1\""
 
-    # Using zoxide i can navigate to a directory just 
+    # Using zoxide i can navigate to a directory just
     # by it's name and not the full path
     cd "$1" && $commandToBeExecuted;
     cd -
@@ -1109,7 +1118,7 @@ note(){
     if [ "$#" = "1" ]; then ls $NOTES_DIR | ag $1 $NOTES_DIR; fi;
 
     # We browse the content of notes if no arguments are passed
-    if [ -z $1 ]; then 
+    if [ -z $1 ]; then
         # if fzf is installed, use it as a live browser, otherwise,
         # cat the list of note from today
         if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
@@ -1122,9 +1131,9 @@ note(){
     else
         CONTENT_MESSAGE="${@:2}"
         # We only save a > 3 note
-        if [ ${#CONTENT_MESSAGE} -ge 3 ]; then 
-            echo -e "- **$(date '+%H:%M:%S')** > [$1] $CONTENT_MESSAGE \n" >> $TODAY_NOTE_FILE; 
-        fi; 
+        if [ ${#CONTENT_MESSAGE} -ge 3 ]; then
+            echo -e "- **$(date '+%H:%M:%S')** > [$1] $CONTENT_MESSAGE \n" >> $TODAY_NOTE_FILE;
+        fi;
     fi
 }
 
@@ -1181,7 +1190,7 @@ _vdestroy(){
 }
 _vdestroyvm(){
     _vdown $@
-    VBoxManage unregistervm $@ --delete 
+    VBoxManage unregistervm $@ --delete
 }
 _vstatus(){
     vagrant global-status
@@ -1213,10 +1222,10 @@ alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 
 alias fzfp='$HOME/fzfp'
 
-## For my work on the datasetservice and the cli 
+## For my work on the datasetservice and the cli
 ## queries am going to make to the service
 #_graphql_curl(){
-#    # $2 should be the host but if it's empty 
+#    # $2 should be the host but if it's empty
 #    # then there is a default value
 #    if [ -z "$2" ]; then HOST="http://localhost:5003"; else HOST=$2; fi;
 #    # and easy removal for new lines

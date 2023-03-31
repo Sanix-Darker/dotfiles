@@ -35,7 +35,7 @@ map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
 map("n", "tl", ":exe \"tabn \".g:lasttab<CR>")
 
 -- for spliting screen
-map("n", ";h", ":split<cr>")
+map("n", ";b", ":split<cr>")
 map("n", ";s", ":vsplit<cr>")
 
 -- Switch CWD to the directory of the open buffer
@@ -274,7 +274,7 @@ map("n", "P", '"+p')
 -- For floating windows
 -- map("n", "k :15Term
 -- map("n", "kb :15Term bash <CR>
-map("n", "<Leader>k", ":FloatermNew --height=0.9 --width=0.9<CR>")
+map("n", "<Leader>kk", ":FloatermNew --height=0.9 --width=0.9<CR>")
 -- map("n", "<Leader>kkk", ":FloatermKill<CR>") -- should be killed by exiting it directly
 map("n", "<Leader><C-k>", ":FloatermToggle<CR>")
 map("n", "<Leader>kn", ":FloatermNext<CR>")
@@ -299,6 +299,9 @@ map("n", "<leader>ba", ":bufdo bd<cr>")
 -- to switch between buffers
 map("n", "<leader>>", ":bnext<cr>")
 map("n", "<leader><", ":bprevious<cr>")
+
+map("n", "gL", "$", {silent = true})
+map("n", "gH", "0", {silent = true})
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings
@@ -353,7 +356,7 @@ map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
 map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
 -- Show diagnostics in a floating window
-map('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
+map('n', 'gll', '<cmd>lua vim.diagnostic.open_float()<cr>')
 -- Move to the previous diagnostic
 map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 -- Move to the next diagnostic

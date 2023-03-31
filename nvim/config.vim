@@ -62,8 +62,8 @@ let g:silicon = {
       \   'window-controls':       v:true,
       \ }
 
-" let g:lasttab = 1
-" au TabLeave * let g:lasttab = tabpagenr()
+let g:lasttab = 1
+au TabLeave * let g:lasttab = tabpagenr()
 
 " Clean and erase the buffer
 nnoremap cbu :%bd\|e#\|bd#<cr>
@@ -90,6 +90,23 @@ fun! CleanExtraSpaces()
     call setreg('/', old_query)
 endfun
 autocmd BufWritePre * :call CleanExtraSpaces()
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions

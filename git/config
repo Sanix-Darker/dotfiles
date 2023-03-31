@@ -28,7 +28,7 @@
 ; We can git diff a file from a specific commit
 ; We can git diff a file for a range of commits
 ; We can git diff all of that after given another branch as parameter
-; To show the diﬀerence between some version of a ﬁle in a given commit 
+; To show the diﬀerence between some version of a ﬁle in a given commit
 ; and the local HEAD version you can specify
 ;
 ; The commit you want to compare against:
@@ -50,7 +50,7 @@
 
 [alias]
     ; submodules
-    ; When we clone a repository, if we want to get all submodules, 
+    ; When we clone a repository, if we want to get all submodules,
     ; we just need to add the --recursive flag like :
     ; git clone --recursive git@github.com/sanix-darker/test-pr
     ;
@@ -64,7 +64,7 @@
     unhide = update-index --no-skip-worktree
     ; list of those hidden files
     hidden = "!git ls-files -v | grep ^[hsS] | cut -c 3-"
-    
+
     ; quick lazy shortcut to jump on the master or main branches
     master = !git checkout master
     main = !git checkout main
@@ -90,11 +90,11 @@
     ; as draft (--draft/-d)
     pr = !EDITOR=nvim gh pr create -a sanix-darker -d
 
-    base = !git checkout 
+    base = !git checkout
 
     ; pr-to to specify a specific branch also on draft too
     ; git pr-to dev-branch
-    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base 
+    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
 
     ; to get the label list from the repo
     label-list = !gh label list
@@ -125,6 +125,9 @@
     ; $ gh release create v1.2.3 --discussion-category "General"
     release = !EDITOR=nvim gh release create
     release-to = !EDITOR=nvim gh release create --target
+
+    ; to get the branch from which were made the release
+    get-branch-tag = !git branch -a --contains tags/\"$1\"
 
     ; to list commits from the current branch
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
@@ -171,7 +174,7 @@
 
     ; The 'git revise' can also be installed by using 'pip install --user git-revise'
 
-    ; >> GIT REBASE 
+    ; >> GIT REBASE
     ; --ours -> means their code
     ; --theirs -> means our code
     ; >> GIT MERGE
@@ -186,7 +189,7 @@
     ; accept only current changes
     add-our = !git checkout --theirs "$@" && git add "$@"
 
-    ; to add files that are only tracked, 
+    ; to add files that are only tracked,
     ; git add -u
 
     ; to generate a new patch from changes
@@ -211,17 +214,17 @@
     pushit = !git push --set-upstream origin $(git branch --show-current)
 
     ; worktree add a newone
-    tree-add = !git worktree add 
+    tree-add = !git worktree add
     ; to list all worktree
-    tree-list = !git worktree list 
+    tree-list = !git worktree list
     ; to move a worktree to a new path
-    tree-move = !git worktree move 
-    tree-remove = !git worktree remove 
+    tree-move = !git worktree move
+    tree-remove = !git worktree remove
     ; to locl/unlock a worktree
-    tree-lock = !git worktree lock 
-    tree-unlock = !git worktree unlock 
-    tree-prune = !git worktree prune 
-    tree-repair = !git worktree repair 
+    tree-lock = !git worktree lock
+    tree-unlock = !git worktree unlock
+    tree-prune = !git worktree prune
+    tree-repair = !git worktree repair
 
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
@@ -233,7 +236,7 @@
     amend-no-edit-no-verify = !git amend-no-edit --no-verify
 
     ; to keep the change or actualiz the date of an amend
-    ; we can use the flag --reset-author, this will set a new 
+    ; we can use the flag --reset-author, this will set a new
     ; date for amended commit
     ;
     ; it's possible to amend a commit and update the message without
@@ -256,7 +259,7 @@
     ; undo-count = !git reset HEAD~$@
     ; undo-count-clear = !git reset HEAD~$@ && git clear
 
-    ; to undo a specific target file/directory 
+    ; to undo a specific target file/directory
     ; Make sure to add -p or --patch to do it interactivelly
     undo-this = !git checkout --
 
@@ -276,14 +279,14 @@
     last = !git log -1 HEAD --stat
     ; grv is a TUI to browse the git project
     ; browser = !grv
-    
+
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
 
     ; to get diff smartly on file changes only
     diff-search = !bash -ic 'fuzzy_diff_search \"$@\"' x
 
-    ; to get a summary difference 
+    ; to get a summary difference
     ; git diff-summary <branch/commitId>
     diff-summary = diff --stat
 
@@ -307,7 +310,7 @@
 
     ; to log given lines for a file from git history
     ; git log-line 1,2:main.py
-    ; great if we want to know how a bunch of line were 
+    ; great if we want to know how a bunch of line were
     ; changed during the time
     log-line = !git log -L
 
@@ -384,11 +387,11 @@
     ; to pull only the current branch
     pull-it = !git pull origin $(git branch --show-current)
 
-    ; checkout an orphan branch means, we create an empty branch not comming 
+    ; checkout an orphan branch means, we create an empty branch not comming
     ; from master/main or anythong else !
     checkout-orphan = !git checkout --orphan
 
-    ; checkout with search 
+    ; checkout with search
     ; That will open a fuzzy finder popUp to search amount available branches
     checkout-search = !git checkout $(git branch --sort=committerdate | fzf)
 
