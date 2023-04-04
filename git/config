@@ -220,7 +220,7 @@
     ; to move a worktree to a new path
     tree-move = !git worktree move
     tree-remove = !git worktree remove
-    ; to locl/unlock a worktree
+    ; to lock/unlock a worktree
     tree-lock = !git worktree lock
     tree-unlock = !git worktree unlock
     tree-prune = !git worktree prune
@@ -357,6 +357,9 @@
 
     ; git squash-count to squash with a specific amount of commit from the top
     squash-count = !git rebase -i HEAD~$1
+
+    ; count all commits on the current branch
+    count-commits = !git rev-list --count $(git branch --show-current)
 
     ; lost-commit
     ; to list all dangling commits

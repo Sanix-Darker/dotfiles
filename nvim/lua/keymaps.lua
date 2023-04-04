@@ -300,8 +300,10 @@ map("n", "<leader>ba", ":bufdo bd<cr>")
 map("n", "<leader>>", ":bnext<cr>")
 map("n", "<leader><", ":bprevious<cr>")
 
-map("n", "gL", "$", {silent = true})
-map("n", "gH", "0", {silent = true})
+-- $ and 0 are hard to access, so this is to select
+-- to the last element in the line or the first
+map("n", "vL", "v$<left>", {silent = true})
+map("n", "vH", "v0", {silent = true})
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings

@@ -536,6 +536,8 @@ _install_basics(){
         "curl" "apt-transport-https"
         "lsb-release" "ca-certificates"
 
+        "cloc"
+
         "tmate" "git-lfs"
         "tar" "zip" "unzip" "curl"
         "wget" "gcc" "g++" "make"
@@ -659,6 +661,16 @@ _clean_volumes(){
 }
 alias clean_docker_volume_rmall='_clean_volumes'
 alias clean_docker_volume_prune='docker volume prune'
+
+_clean_recursive(){
+    _confirm "Delete recursivelly $1 from $2 " find $2 -name $1 -type d -prune -exec rm -rf '{}' +
+}
+
+_clean_nodemodules(){
+    _clean_recursive "node_modules" $1
+}
+alias clean_nodemodules='_clean_nodemodules'
+
 alias cat='bat -p'
 alias tmux='tmux -2'
 
@@ -1217,6 +1229,25 @@ _swapclear(){
     sudo swapoff -a;sudo swapon -a
 }
 
+# run a command again and again only if the standard output
+# hash change by a single bit
+# _inf git status
+_inf(){
+    echo "Executing '$@' until the output change or you quit:"
+    # we source our alias first
+    PREVIOUS_HASH=""
+    while true; do
+        CURRENT_HASH=$($(echo "${@}") | md5sum)
+        if [ "$CURRENT_HASH" != "$PREVIOUS_HASH" ]; then
+            $(echo "${@}");
+            echo -e "----------------------------------";
+            PREVIOUS_HASH=$CURRENT_HASH
+            sleep 1;
+        fi;
+        sleep 0.5; # to keep our cpu sane
+    done;
+}
+
 # random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 
@@ -1254,25 +1285,26 @@ alias fzfp='$HOME/fzfp'
 
 # # some coul git aliases to go fast
 # I don't know why i cannot stand those for now
-# alias ga='git add'
-# alias gap='git add -p'
-# alias gm='git commit'
-# alias gmm='git commit -m'
-# alias gmam='git commit -am'
-# alias gam='git amend'
-# alias gamn='git amend-no-edit'
-# alias gamnn='git amend-no-edit-no-verify'
-# alias gs='git status'
-# alias gd='git diff'
-# alias gds='git diff --staged'
-# alias gps='git push'
-# alias gpl='git pull'
-# alias gu='git update'
-# alias gcb='git checkout -b'
-# alias gl='git log-branch'
-# alias gss="git stat"
-# alias gcc="git checkout"
-# alias gsq="git squash"
-# alias gb="git branch"
-# alias gr="git restore"
-# alias grs="git restore --staged"
+alias ga='git add'
+alias gap='git add -p'
+alias gm='git commit'
+alias gmn='git commit --no-verify'
+alias gam='git commit -am'
+alias gae='git amend'
+alias gamn='git amend-no-edit'
+alias gamnn='git amend-no-edit-no-verify'
+alias gs='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gp='git push'
+alias gpf='git push --force'
+alias gl='git pull'
+alias gu='git update'
+alias gcb='git checkout -b'
+alias gl='git log-branch'
+alias gss="git stat"
+alias gcc="git checkout"
+alias gsq="git squash"
+alias gb="git branch"
+alias gr="git restore"
+alias grs="git restore --staged"
