@@ -37,6 +37,8 @@ Plug 'yuki-yano/fzf-preview.vim'
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
 " Plug 'tmhedberg/SimpylFold'
+" For twitter
+Plug 'https://github.com/twitvim/twitvim.git'
 " For the git diff/git blame
 " Plug 'zivyangll/git-blame.vim'
 " Magically check for commits inside the project even through history
@@ -227,7 +229,7 @@ Plug 'kevinhwang91/nvim-bqf'
 " will remove when the support of fzf will be available)
 " Plug 'nvim-telescope/telescope.nvim'
 " For code review using octo
-" Plug 'pwntester/octo.nvim'
+Plug 'pwntester/octo.nvim'
 " Plug 'nvim-tree/nvim-web-devicons'
 
 " A framework for some plugin to be working (gh.nvim) for example

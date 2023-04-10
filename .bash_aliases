@@ -1026,7 +1026,9 @@ m() {
 
 _loc(){
     echo -ne "Lines of Code : ";
-    find "$@" -type f -print0 | xargs -r -0 cat | wc -l
+    # find "$@" -type f -print0 | xargs -r -0 cat | wc -l
+
+    find . -name *.$@ | sed 's/.*/"&"/' | xargs  wc -l
 }
 alias loc=_loc
 alias ipinfo="curl ipinfo.io"
@@ -1303,7 +1305,7 @@ alias gu='git update'
 alias gcb='git checkout -b'
 alias gl='git log-branch'
 alias gss="git stat"
-alias gcc="git checkout"
+# alias gcc="git checkout"
 alias gsq="git squash"
 alias gb="git branch"
 alias gr="git restore"
