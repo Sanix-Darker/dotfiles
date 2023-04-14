@@ -335,13 +335,17 @@ _install_path_browsing_utils(){
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     sudo rm -rf exa*.zip
 
-
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
 
     # putting this in comment for now
     # pip install ranger
 }
 
+
+_install_golang_apps(){
+    # a cli reader for markdowns files
+    go install github.com/charmbracelet/glow@latest
+}
 
 _install_nvim(){
     sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -368,8 +372,6 @@ _install_ctags_universal(){
     make install
     ctags --version && [[ $? != 0 ]] && echo -e "\n$RED[+] ctags installation failed !$COLOROFF"
 }
-
-
 
 _install_nvim_and_utils(){
     sudo apt-get update -y
@@ -543,7 +545,7 @@ _install_basics(){
         "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
-        "git" "hub" "snap"
+        "git" "hub" "snap" "zeal"
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
         "libxml2-utils"

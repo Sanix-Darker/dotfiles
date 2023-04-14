@@ -27,7 +27,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
 " Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
-Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+" Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " For FZF preview
@@ -37,8 +37,14 @@ Plug 'yuki-yano/fzf-preview.vim'
 " Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
 " Plug 'tmhedberg/SimpylFold'
+
+" For DOC offline regarding any builtin func/class/modules/package
+" Works with the zea sofware
+" Will disable for now (for now the gd does a good job)
+" Plug 'KabbAmine/zeavim.vim'
+
 " For twitter
-Plug 'https://github.com/twitvim/twitvim.git'
+" Plug 'https://github.com/twitvim/twitvim.git'
 " For the git diff/git blame
 " Plug 'zivyangll/git-blame.vim'
 " Magically check for commits inside the project even through history
@@ -68,7 +74,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 " Of the current word where we have the cursor
 Plug 'itchyny/vim-cursorword'
 " For CSS color
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
 " For REST requests inside vim
 " Plug 'diepm/vim-rest-console'
 " For EasyMotion
@@ -85,7 +91,7 @@ Plug 'lewis6991/impatient.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
-Plug 'voldikss/vim-floaterm'
+" Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 
@@ -94,9 +100,9 @@ Plug 'rhysd/vim-clang-format'
 
 " To manage sqlLite database
 " sudo apt-get install sqlite3 libsqlite3-dev
-Plug 'kkharji/sqlite.lua'
+" Plug 'kkharji/sqlite.lua'
 " To have history of clipboard
-Plug 'AckslD/nvim-neoclip.lua'
+" Plug 'AckslD/nvim-neoclip.lua'
 
 " A hinter for next moves
 Plug 'folke/which-key.nvim'
@@ -108,7 +114,7 @@ Plug 'nvim-lua/plenary.nvim'
 " The Zig hightligh &
 " Plug 'ziglang/zig.vim'
 " Just to use the ESC in a floaterm
-Plug 'sychen52/smart-term-esc.nvim'
+" Plug 'sychen52/smart-term-esc.nvim'
 " ReactJs/typescript support
 " Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'
@@ -229,7 +235,7 @@ Plug 'kevinhwang91/nvim-bqf'
 " will remove when the support of fzf will be available)
 " Plug 'nvim-telescope/telescope.nvim'
 " For code review using octo
-Plug 'pwntester/octo.nvim'
+" Plug 'pwntester/octo.nvim'
 " Plug 'nvim-tree/nvim-web-devicons'
 
 " A framework for some plugin to be working (gh.nvim) for example

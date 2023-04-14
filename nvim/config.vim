@@ -23,6 +23,9 @@ let $BASH_ENV = "~/.vim_bash_env"
 " To show hidden files
 let NERDTreeShowHidden=1
 
+" To show the NerdTree on the right side
+" let g:NERDTreeWinPos = "right"
+
 " For the synthax
 let b:ale_linters = ['flake8']
 " Some fixers...

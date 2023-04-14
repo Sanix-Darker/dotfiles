@@ -1,8 +1,8 @@
 -- plugins configurations and setups
-local smart_term_esc_setup = {
-    key='<Esc>',
-    except={'nvim', 'fzf'}
-}
+-- local smart_term_esc_setup = {
+--     key='<Esc>',
+--     except={'nvim', 'fzf'}
+-- }
 local neoscroll_setup = {
     -- All these keys will be mapped to their corresponding default scrolling animation
     mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
@@ -34,7 +34,7 @@ local masonlspconfig_setup = {
     automatic_installation = false,
 }
 -- be able to use the ESC in the floatTerm terminal
-require('smart-term-esc').setup(smart_term_esc_setup)
+-- require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
 
@@ -84,45 +84,45 @@ require('lualine').setup {
   extensions = {}
 }
 
-require('neoclip').setup({
-  history = 100,
-  enable_persistent_history = false,
-  length_limit = 10000,
-  continuous_sync = false,
-  db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-  filter = nil,
-  preview = true,
-  prompt = nil,
-  default_register = '"',
-  default_register_macros = 'q',
-  enable_macro_history = true,
-  content_spec_column = false,
-  on_select = {
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_paste = {
-    set_reg = false,
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_replay = {
-    set_reg = false,
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_custom_action = {
-    close_telescope = true,
-  },
-  keys = {
-    fzf = {
-      select = 'default',
-      paste = 'ctrl-p',
-      paste_behind = 'Enter',
-      custom = {},
-    },
-  },
-})
+-- require('neoclip').setup({
+--   history = 100,
+--   enable_persistent_history = false,
+--   length_limit = 10000,
+--   continuous_sync = false,
+--   db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+--   filter = nil,
+--   preview = true,
+--   prompt = nil,
+--   default_register = '"',
+--   default_register_macros = 'q',
+--   enable_macro_history = true,
+--   content_spec_column = false,
+--   on_select = {
+--     move_to_front = false,
+--     close_telescope = true,
+--   },
+--   on_paste = {
+--     set_reg = false,
+--     move_to_front = false,
+--     close_telescope = true,
+--   },
+--   on_replay = {
+--     set_reg = false,
+--     move_to_front = false,
+--     close_telescope = true,
+--   },
+--   on_custom_action = {
+--     close_telescope = true,
+--   },
+--   keys = {
+--     fzf = {
+--       select = 'default',
+--       paste = 'ctrl-p',
+--       paste_behind = 'Enter',
+--       custom = {},
+--     },
+--   },
+-- })
 
 -- hop to jump on any text base objects
 require('hop').setup()

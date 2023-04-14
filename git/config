@@ -394,6 +394,8 @@
     ; from master/main or anythong else !
     checkout-orphan = !git checkout --orphan
 
+    fetch-checkout = !git fetch origin $@ && cd .. && cd - && git checkout $@
+
     ; checkout with search
     ; That will open a fuzzy finder popUp to search amount available branches
     checkout-search = !git checkout $(git branch --sort=committerdate | fzf)
