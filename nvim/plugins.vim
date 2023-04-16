@@ -91,7 +91,7 @@ Plug 'lewis6991/impatient.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
-" Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 
