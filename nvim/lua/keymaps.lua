@@ -14,6 +14,10 @@ map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
 -- convert rows to columns
 map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 
+-- to fold or unfold code :
+map("n", "<space><space>", "za")
+map("v", "<space>", "zf")
+
 -- to saved Obsession session
 map("n", "<Leader>ss", ":Obsession<cr>")
 -- to reload a saved session for the current directory

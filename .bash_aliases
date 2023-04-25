@@ -619,6 +619,14 @@ _install_bash_preexc(){
     curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
 }
 
+# to install a repl for C
+_install_cling(){
+    sudo apt install -y wget unar
+    wget https://root.cern/download/cling/cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
+    unar cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
+    ./cling_2020-11-05_ROOT-ubuntu2004/bin/cling
+}
+
 _install_dev_stack(){
     _source_dev_stack
 
@@ -1226,6 +1234,16 @@ _b_connect_me(){
 }
 _b_scan(){
     bluetoothctl scan on
+}
+
+#tail grep on a file
+# _tail_grep /tmp.file "item this"
+_tail_grep(){
+    tail -Fn+0 $1 | grep $2
+}
+# some principle but everything except the item
+_tail_no_grep(){
+    tail -Fn+0 $1 | grep -v $2
 }
 
 # To clean the swap memory

@@ -7,8 +7,8 @@ key_bindings:
   - { key: H, mods: Control|Shift, chars: "\x1B[1;5D" }
   - { key: L, mods: Control|Shift, chars: "\x1B[1;5C" }
   # since this is already taken by tmux on moving between panes
-  # - { key: H, mods: Alt, chars: "\x1b[D" }
-  # - { key: L, mods: Alt, chars: "\x1b[C" }
+  - { key: H, mods: Control|Shift|Alt, chars: "\x1b[D" }
+  - { key: L, mods: Control|Shift|Alt, chars: "\x1b[C" }
   - { key: K, mods: Control|Shift, chars: "\x1B[A" }
   - { key: J, mods: Control|Shift, chars: "\x1B[B" }
   # - { key: G, mods: Control, chars: "\x02\x54" }

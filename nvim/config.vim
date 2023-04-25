@@ -168,7 +168,7 @@ au BufNewFile,BufRead *.py
 au BufNewFile,BufRead *.rest set ft=rest
 
 " We want everything fold depending on the synthax when we jump into it
-set foldmethod=syntax
+set foldmethod=manual
 set foldnestmax=1
 
 " Flagging Unnecessary Whitespace
