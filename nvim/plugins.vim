@@ -43,8 +43,17 @@ Plug 'yuki-yano/fzf-preview.vim'
 " Will disable for now (for now the gd does a good job)
 " Plug 'KabbAmine/zeavim.vim'
 
-" For twitter
-" Plug 'https://github.com/twitvim/twitvim.git'
+" For twitter :
+"   :PosttoTwitter - This command will prompt you for a message to send to Twitter.
+"   :CPosttoTwitter - This command posts the current line in the current buffer to Twitter.
+"   :BPosttoTwitter - This command posts the current buffer to Twitter.
+"   :FriendsTwitter - View friends timeline.
+"   :UserTwitter - View your timeline.
+"   :MentionsTwitter - View @-mentions.
+"   :PublicTwitter - View public timeline.
+"   :DMTwitter - View direct messages.
+"   :SearchTwitter - Use Twitter Search.
+Plug 'https://github.com/twitvim/twitvim.git'
 " For the git diff/git blame
 " Plug 'zivyangll/git-blame.vim'
 " Magically check for commits inside the project even through history
@@ -332,7 +341,7 @@ Plug 'joshdick/onedark.vim'
 " Plug 'https://github.com/w0rp/ale'
 
 " For Fugitive for git command directly inside the command section
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " vim plugin for flake8 PEP
 " Plug 'nvie/vim-flake8'

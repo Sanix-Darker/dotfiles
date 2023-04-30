@@ -184,13 +184,16 @@ _set_dot_files(){
     _set_nvim
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases,.tmux.conf} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms/ ~/vagrant/vms
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty/ ~/.config/
+
+    # we copy tmux configurations
+    cpd $DOT_DIR/tmux/ ~/.config/
 
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
@@ -217,7 +220,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases,.tmux.conf} $DOT_DIR/
+    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
 
     # my vagrant stuffs
     cpd ~/vagrant/vms/ $DOT_DIR/vagrant/vms/
@@ -227,6 +230,9 @@ _copy_to_dotfiles(){
 
     # copy alacritty conf
     cpd ~/.config/alacritty/ $DOT_DIR/
+
+    # copy tmux conf
+    cpd ~/.config/tmux/ $DOT_DIR/
 
     # copy i3 conf
     cpd ~/.config/i3/ $DOT_DIR/
@@ -461,7 +467,9 @@ _install_delta(){
 }
 
 _install_FZF(){
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    # Yes i have my own version for searching on tmux session
+    # + history based on the directory
+    git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
     ~/.fzf/install
 }
 
