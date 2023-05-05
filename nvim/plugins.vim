@@ -77,6 +77,13 @@ Plug 'nvim-lualine/lualine.nvim'
 " For icons on the statusline
 Plug 'kyazdani42/nvim-web-devicons'
 
+" Finaly a search and replace tool i may like
+" NEED ripgrep
+Plug 'nvim-pack/nvim-spectre'
+
+" to list diagnostic and warning
+Plug 'folke/trouble.nvim'
+
 " For dev-icons
 " Plug 'ryanoasis/vim-devicons'
 " For hichlight all occurences

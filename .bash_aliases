@@ -575,6 +575,9 @@ _install_basics(){
     # Install and build Clang
     _confirm "Install clang ?" _install_clang
 
+    # Install and build Cling
+    _confirm "Install cling (C REPL) ?" _install_cling
+
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
 
@@ -583,6 +586,18 @@ _install_basics(){
 
     # path browsing such as exa or zoxide
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
+}
+
+_install_youtube_music_cli(){
+    # some required bindings
+    sudo apt update -y && sudo apt install youtube-dl libmpv1 libmpv-dev gcc-multilib -y
+
+    # rust install
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+    # cloning and install from source
+    cd $HOME && git clone git@github.com:sudipghimire533/ytui-music
+    cd ytui-music && cargo build --all --release
 }
 
 _install_FZF_POPUP(){
@@ -911,7 +926,7 @@ git-fuzzy-log-branch ()
 			git show --stat --format="" --color=always $1 |
 			while read line; do
 				tput dim
-				echo " $line" | sed "s/\x1B\[m/\x1B\[2m/g"
+				echo " $line" | sed "s/\x1B\[ m/\x1B\[2m/g"
 				tput sgr0
 			done |
 			tac | sed "1 a \ " | tac
@@ -1076,6 +1091,24 @@ git(){
   else
     command git "$@"
   fi
+}
+
+git_open_link(){
+    # $1 can be 'origin' or 'dev' depending on the source
+    remote_link=$(git remote get-url $1)
+    browser=firefox
+    CURL_CHECK="curl --head --silent --fail"
+    if $CURL_CHECK "$remote_link" &> /dev/null; then
+        $browser $remote_link;
+    else
+        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' | sed -e 's/:/\//')")
+        if $CURL_CHECK "$built_link" &> /dev/null; then
+            echo "> opening '$built_link'...";
+            $browser $built_link;
+        else
+            echo "< bad link : $built_link";
+        fi;
+    fi;
 }
 
 alias less="less -r"

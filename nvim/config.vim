@@ -20,24 +20,32 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 " For my command line to be running alias on command mode inside vim editor
 let $BASH_ENV = "~/.vim_bash_env"
 
+" --------------------- NERDTREE stuff
 " To show hidden files
 let NERDTreeShowHidden=1
-
 " To show the NerdTree on the right side
-" let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "right"
+map <C-n> :call NERDTreeToggleAndRefresh()<CR>
+function NERDTreeToggleAndRefresh()
+    if g:NERDTree.IsOpen()
+        :NERDTreeClose
+    else
+        :NERDTreeFind
+    endif
+endfunction
+" Always show NERDTree on opening a new buffer
+autocmd BufEnter * NERDTreeMirror
+" autocmd BufEnter * NERDTreeFind
+
+" Close Vim if NERDTree is the last window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" --------------------- NERDTREE stuff
 
 " For the synthax
 let b:ale_linters = ['flake8']
 " Some fixers...
 let b:ale_fixers = ['eslint']
 let b:ale_fix_on_save = 1
-
-try
-    " to not show modes
-    set noshowmode
-catch
-endtry
-
 " ------ for silicon and screenshot from the source code
 " Generate an image of the current buffer and write it to /path/to/output.png
 " :Silicon /path/to/output.png
@@ -73,7 +81,7 @@ nnoremap cbu :%bd\|e#\|bd#<cr>
 
 " To search in the current files
 " For hidden files of fzf
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git --ignore node_modules --ignore poetry.lock --ignore yarn.lock -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore bower_components --ignore __pycache__ --ignore env --ignore venv --ignore .git --ignore .cmd_history --ignore .cargo --ignore node_modules --ignore poetry.lock --ignore package-lock.json --ignore yarn.lock -g ""'
 " let $FZF_DEFAULT_OPTS = "--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
 " \ --bind ctrl-y:preview-up,ctrl-e:preview-down,
 " \ctrl-b:preview-page-up,ctrl-f:preview-page-down,
@@ -139,15 +147,6 @@ endfunction
 
 function! CmdLine(str)
     call feedkeys(":" . a:str)
-endfunction
-
-map <C-n> :call NERDTreeToggleAndRefresh()<CR>
-function NERDTreeToggleAndRefresh()
-    if g:NERDTree.IsOpen()
-        :NERDTreeClose
-    else
-        :NERDTreeFind
-    endif
 endfunction
 
 " set thosse elements depending on the filetype am inside
