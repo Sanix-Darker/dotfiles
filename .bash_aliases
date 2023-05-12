@@ -533,9 +533,16 @@ _install_tmux(){
     cd $WHERE_I_WAS
 }
 
+# for github action locally
+_install_act(){
+    # we install it using the bash command line
+    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+    # to use gh act
+    gh extension install nektos/gh-act
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
-
     sudo apt-get update -y
 
     # sudo apt-get install type
@@ -577,6 +584,9 @@ _install_basics(){
 
     # Install and build Cling
     _confirm "Install cling (C REPL) ?" _install_cling
+
+    # Install act
+    _confirm "Install act (github actions locally) ?" _install_act
 
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
@@ -1313,6 +1323,14 @@ _inf(){
 
 # random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
+
+# This need to be present fist on my /usr/local/bin
+# https://github.com/Sanix-Darker/zeal-lynx-cli
+alias zeal-cli='python3.10 /usr/local/bin/zeal-cli'
+
+_pydoc(){
+    zeal-cli Python_3 | fzf --height=50% --preview='zeal-cli --lynx-dump=true Python_3 {}' | xargs -d '\n' zeal-cli Python_3
+}
 
 alias fzfp='$HOME/fzfp'
 

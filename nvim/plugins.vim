@@ -41,7 +41,7 @@ Plug 'yuki-yano/fzf-preview.vim'
 " For DOC offline regarding any builtin func/class/modules/package
 " Works with the zea sofware
 " Will disable for now (for now the gd does a good job)
-" Plug 'KabbAmine/zeavim.vim'
+Plug 'KabbAmine/zeavim.vim'
 
 " For twitter :
 "   :PosttoTwitter - This command will prompt you for a message to send to Twitter.
