@@ -14,6 +14,10 @@ map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
 -- convert rows to columns
 map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 
+-- to fold or unfold code :
+map("n", "<space><space>", "za")
+map("v", "<space>", "zf")
+
 -- to saved Obsession session
 map("n", "<Leader>ss", ":Obsession<cr>")
 -- to reload a saved session for the current directory
@@ -302,8 +306,25 @@ map("n", "<leader><", ":bprevious<cr>")
 
 -- $ and 0 are hard to access, so this is to select
 -- to the last element in the line or the first
-map("n", "vL", "v$<left>", {silent = true})
-map("n", "vH", "v0", {silent = true})
+map("n", "vL", "v$", {silent = true})
+map("n", "vH", "v^", {silent = true})
+
+-- toggle fro diagnostics errors..
+map("n", "<Leader>tg", ":TroubleToggle<CR>")
+
+-- nvim spectre
+map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
+    desc = "Open Spectre"
+})
+map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+map('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings

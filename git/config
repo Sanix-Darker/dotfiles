@@ -21,7 +21,7 @@
 [core]
     pager = delta
     editor = nvim
-	excludesfile = Session.vim
+    excludesfile = Session.vim,nohup.out,.cmd_history
 
 ; >> ============================================================================
 ; Some interesting stuffs to know for git diff
@@ -95,6 +95,13 @@
     ; pr-to to specify a specific branch also on draft too
     ; git pr-to dev-branch
     pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
+
+    ; for github action utils
+    ; to list github actions ongoing or to view a current running action
+    action-list = !gh run list
+    action-view = !gh run view
+    action-view-log = !gh run view --log
+    action-view-log-failed = !gh run view --log-failed
 
     ; to get the label list from the repo
     label-list = !gh label list
@@ -302,6 +309,8 @@
 	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
 	b = !git browse
 
+    open=!bash -ic 'git_open_link \"$@\"' x
+
     ; git browse-branch # to browse only commits that are away from the main branch
 	changes= !bash -ic 'git-fuzzy-log-branch \"$@\"' x
 
@@ -393,6 +402,8 @@
     ; checkout an orphan branch means, we create an empty branch not comming
     ; from master/main or anythong else !
     checkout-orphan = !git checkout --orphan
+
+    fetch-checkout = !git fetch origin $@ && cd .. && cd - && git checkout $@
 
     ; checkout with search
     ; That will open a fuzzy finder popUp to search amount available branches

@@ -131,10 +131,30 @@ convertAndPrintSeconds() {
     printf '%ds\n' $seconds;
 }
 
+_handle_cmd_history(){
+    CMD_HISTORY_FILE=$PWD/.cmd_history
+    LATEST_LINES_TO_SHOW=30
+
+    if [ -f $CMD_HISTORY_FILE ]; then
+        echo $@ >> $CMD_HISTORY_FILE
+
+        # COUNT_LINES_HISTORY=$(wc -l $CMD_HISTORY_FILE | sed -e "s/[^0-9]*//g")
+        # if [ "$COUNT_LINES_HISTORY" -gt "$LATEST_LINES_TO_SHOW" ]; then
+            tail -n $LATEST_LINES_TO_SHOW $CMD_HISTORY_FILE | uniq > "$CMD_HISTORY_FILE.tmp"
+            mv "$CMD_HISTORY_FILE.tmp" $CMD_HISTORY_FILE
+        # fi;
+    else
+        echo $@ > $CMD_HISTORY_FILE
+    fi;
+}
+
 # Define a couple functions.
 preexec() {
     # before all my bash commands lines, it will execute this
     command_timer_start=$SECONDS
+
+    # To handle the command history of a directory
+    _handle_cmd_history $@
 }
 precmd() {
     second_to_print=$(( SECONDS - command_timer_start ))
@@ -165,7 +185,7 @@ export NVM_DIR="$HOME/.nvm"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
- eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
 
 export PATH="$HOME/.local/bin:$PATH"
@@ -181,7 +201,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # For clang
 export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
-# We want to help jedi select the 
+# We want to help jedi select the
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir
 # then set it or use the default one
@@ -209,15 +229,15 @@ $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && eval "$(zoxide init bash)"
 [[ -d "$HOME/.config/broot/launcher/bash/" ]] && source $HOME/.config/broot/launcher/bash/br
 
 # compton for opacity on terminal
-# $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &  
+# $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &
 
 # set the bluetooth for my earphone
 # bluetoothctl scan on
-# bluetoothctl devices 
+# bluetoothctl devices
 # bluetoothctl connect 6E:47:D9:FA:BA:44 # soundCore
 # bluetoothctl connect 56:E1:6D:80:B4:27 # box bluethooth
 
-# set the wifi 
+# set the wifi
 # nmcli dev wifi
 # nmcli device wifi connect 12:32:22:AE:11
 
@@ -232,7 +252,7 @@ _start_polybar(){
     # else
     #     nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
     # fi
-    
+
     # start polybar only for the current window !
     echo "Starting polybar..."
     nohup polybar --reload -c ~/.config/polybar/config.ini & > /dev/null
@@ -261,9 +281,13 @@ _gogo(){
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 
-alias luamake=/luamake
-export PATH="/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.local/bin:/home/dk/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.local/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v18.6.0/bin:/home/dk/.local/bin:/home/dk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin://home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/.cargo/bin:/usr/local/go/src/src:/bin:/home/dk/go/bin"
+alias luamake=/luamake #FIXME : what the fuck is this ? when did i added it ? maybe should remove later
+
+export PATH="$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
 . "$HOME/.cargo/env"
+
+# we set the .config/ dir
+export XDG_CONFIG_HOME=$HOME/.config/
 
 # tmux check for popUp display of $HOME/fzfp
 export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
@@ -271,4 +295,4 @@ export TMUX_POPUP_WIDTH=80%
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...
-alias expose='/home/dk/expose'
+alias expose="$HOME/expose"

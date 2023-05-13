@@ -184,13 +184,16 @@ _set_dot_files(){
     _set_nvim
 
     # for my bash stuffs
-    cpd $DOT_DIR/{.bashrc,.bash_aliases,.tmux.conf} ~/
+    cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms/ ~/vagrant/vms
 
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty/ ~/.config/
+
+    # we copy tmux configurations
+    cpd $DOT_DIR/tmux/ ~/.config/
 
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
@@ -217,7 +220,7 @@ _copy_to_dotfiles(){
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
-    cpd ~/{.bashrc,.bash_aliases,.tmux.conf} $DOT_DIR/
+    cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
 
     # my vagrant stuffs
     cpd ~/vagrant/vms/ $DOT_DIR/vagrant/vms/
@@ -227,6 +230,9 @@ _copy_to_dotfiles(){
 
     # copy alacritty conf
     cpd ~/.config/alacritty/ $DOT_DIR/
+
+    # copy tmux conf
+    cpd ~/.config/tmux/ $DOT_DIR/
 
     # copy i3 conf
     cpd ~/.config/i3/ $DOT_DIR/
@@ -335,13 +341,17 @@ _install_path_browsing_utils(){
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     sudo rm -rf exa*.zip
 
-
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
 
     # putting this in comment for now
     # pip install ranger
 }
 
+
+_install_golang_apps(){
+    # a cli reader for markdowns files
+    go install github.com/charmbracelet/glow@latest
+}
 
 _install_nvim(){
     sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
@@ -368,8 +378,6 @@ _install_ctags_universal(){
     make install
     ctags --version && [[ $? != 0 ]] && echo -e "\n$RED[+] ctags installation failed !$COLOROFF"
 }
-
-
 
 _install_nvim_and_utils(){
     sudo apt-get update -y
@@ -459,7 +467,9 @@ _install_delta(){
 }
 
 _install_FZF(){
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
+    # Yes i have my own version for searching on tmux session
+    # + history based on the directory
+    git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
     ~/.fzf/install
 }
 
@@ -523,9 +533,16 @@ _install_tmux(){
     cd $WHERE_I_WAS
 }
 
+# for github action locally
+_install_act(){
+    # we install it using the bash command line
+    curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+    # to use gh act
+    gh extension install nektos/gh-act
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
-
     sudo apt-get update -y
 
     # sudo apt-get install type
@@ -543,7 +560,7 @@ _install_basics(){
         "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
-        "git" "hub" "snap"
+        "git" "hub" "snap" "zeal"
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
         "libxml2-utils"
@@ -565,6 +582,12 @@ _install_basics(){
     # Install and build Clang
     _confirm "Install clang ?" _install_clang
 
+    # Install and build Cling
+    _confirm "Install cling (C REPL) ?" _install_cling
+
+    # Install act
+    _confirm "Install act (github actions locally) ?" _install_act
+
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
 
@@ -573,6 +596,18 @@ _install_basics(){
 
     # path browsing such as exa or zoxide
     _confirm "Install Path browsing utils ?" _install_path_browsing_utils
+}
+
+_install_youtube_music_cli(){
+    # some required bindings
+    sudo apt update -y && sudo apt install youtube-dl libmpv1 libmpv-dev gcc-multilib -y
+
+    # rust install
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+    # cloning and install from source
+    cd $HOME && git clone git@github.com:sudipghimire533/ytui-music
+    cd ytui-music && cargo build --all --release
 }
 
 _install_FZF_POPUP(){
@@ -615,6 +650,14 @@ _install_extras_stuffs(){
 _install_bash_preexc(){
     # Pull down our file from GitHub and write it to your home directory as a hidden file.
     curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
+}
+
+# to install a repl for C
+_install_cling(){
+    sudo apt install -y wget unar
+    wget https://root.cern/download/cling/cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
+    unar cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
+    ./cling_2020-11-05_ROOT-ubuntu2004/bin/cling
 }
 
 _install_dev_stack(){
@@ -893,7 +936,7 @@ git-fuzzy-log-branch ()
 			git show --stat --format="" --color=always $1 |
 			while read line; do
 				tput dim
-				echo " $line" | sed "s/\x1B\[m/\x1B\[2m/g"
+				echo " $line" | sed "s/\x1B\[ m/\x1B\[2m/g"
 				tput sgr0
 			done |
 			tac | sed "1 a \ " | tac
@@ -1058,6 +1101,24 @@ git(){
   else
     command git "$@"
   fi
+}
+
+git_open_link(){
+    # $1 can be 'origin' or 'dev' depending on the source
+    remote_link=$(git remote get-url $1)
+    browser=firefox
+    CURL_CHECK="curl --head --silent --fail"
+    if $CURL_CHECK "$remote_link" &> /dev/null; then
+        $browser $remote_link;
+    else
+        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' | sed -e 's/:/\//')")
+        if $CURL_CHECK "$built_link" &> /dev/null; then
+            echo "> opening '$built_link'...";
+            $browser $built_link;
+        else
+            echo "< bad link : $built_link";
+        fi;
+    fi;
 }
 
 alias less="less -r"
@@ -1226,6 +1287,16 @@ _b_scan(){
     bluetoothctl scan on
 }
 
+#tail grep on a file
+# _tail_grep /tmp.file "item this"
+_tail_grep(){
+    tail -Fn+0 $1 | grep $2
+}
+# some principle but everything except the item
+_tail_no_grep(){
+    tail -Fn+0 $1 | grep -v $2
+}
+
 # To clean the swap memory
 _swapclear(){
     sudo swapoff -a;sudo swapon -a
@@ -1252,6 +1323,14 @@ _inf(){
 
 # random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
+
+# This need to be present fist on my /usr/local/bin
+# https://github.com/Sanix-Darker/zeal-lynx-cli
+alias zeal-cli='python3.10 /usr/local/bin/zeal-cli'
+
+_pydoc(){
+    zeal-cli Python_3 | fzf --height=50% --preview='zeal-cli --lynx-dump=true Python_3 {}' | xargs -d '\n' zeal-cli Python_3
+}
 
 alias fzfp='$HOME/fzfp'
 
