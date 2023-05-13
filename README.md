@@ -1,21 +1,33 @@
-## dk DOTFILES
+## DOTFILES
 
 My dotfiles setUp, that can be run with docker or not !
 
-<a href="https://ibb.co/bmR0fxd">
-    <img src="https://i.ibb.co/6wJMd2s/stack2.gif" alt="demo" width="100%" border="0" />
-</a>
+[![demo](./demo.png)](https://ibb.co/bmR0fxd)
+
+### FEATURES
+
+Not features, but most likely, what's inside :
+
+- allacritty ( My GPU terminal configuration )
+- ranger ( My file browser conf on terminal )
+- polybar ( My OS status bar, small infos )
+- i3 ( My WM conf )
+- nvim ( My PDE conf )
+- rofi (for jumping on any running/available app)
+- tmux (my multiplexer term)
+- vagrant (for my vms on term)
+- Some interesting functions inside .bash_aliase to install devs stuffs really quickly and interactivelly
 
 ### REQUIREMENTS
 
-- docker (if you're planing to run it with docker)
+- docker (If you're planing to run it with docker)
 
 **NB:** This setUp can be done without docker but it will required not use the defaults make target to set it up (and can become a little hard to maintain)
 
 ### HOW TO GET IT RUN
 
 ```bash
-# Clone and go inside the directory 
+# Clone and go inside the directory
 $ git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 
 make
@@ -40,7 +52,7 @@ go                  to build, run and exec
 help                to print this help
 ```
 
-After inside the container, you can run : 
+After inside the container, you can run :
 
 ```bash
 # To well start
