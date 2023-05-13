@@ -3,6 +3,12 @@
 *.pyc
 **/.vagrant
 alacritty/theme/.github
+.cmd_history
+*/.cmd_history
+*/.git
+*/*/.git
+*/*/*/.git
+*/*/*/*/.git
 
 # we may not want to ignore polybar for now... ?
 # i want to ignore everything inside polybar
