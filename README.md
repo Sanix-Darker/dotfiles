@@ -2,7 +2,7 @@
 
 My dotfiles setUp, that can be run with docker or not !
 
-[![demo](./demo.png)](https://ibb.co/bmR0fxd)
+[![demo](https://i.ibb.co/6wJMd2s/stack2.gif)](https://ibb.co/bmR0fxd)
 
 ### FEATURES
 
