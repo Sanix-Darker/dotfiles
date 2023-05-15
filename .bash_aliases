@@ -793,7 +793,7 @@ _git_open_code(){
 
     # A checkout on the commit then a less on the line of the file
     git checkout "$commit"
-    cat +"$line" "$file" | less -r
+    cat +"$line" "$file" #  | less -r
 
     sleep 1
     echo "\n[-] Rolling back to your precedent branch..."

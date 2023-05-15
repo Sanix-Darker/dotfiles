@@ -81,6 +81,8 @@
     ; git commit ./test -m "this is a test file"
     ; works with a single file or multiple files
 
+    base = !git checkout
+
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
@@ -89,12 +91,16 @@
     ; This will create on the default main branch, could be master or main
     ; as draft (--draft/-d)
     pr = !EDITOR=nvim gh pr create -a sanix-darker -d
-
-    base = !git checkout
-
     ; pr-to to specify a specific branch also on draft too
     ; git pr-to dev-branch
     pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
+    ; to list all available pull requests
+    pr-list = !gh pr list
+    ; to list all available pull requests
+    ; Ex: git pr-view 23
+    pr-view = !gh pr view
+    ; to edit a PR alreadly available
+    pr-edit = !EDITOR=nvim gh pr edit
 
     ; for github action utils
     ; to list github actions ongoing or to view a current running action
@@ -105,13 +111,6 @@
 
     ; to get the label list from the repo
     label-list = !gh label list
-
-    ; to list all available pull requests
-    pr-list = !gh pr list
-
-    ; to list all available pull requests
-    ; Ex: git pr-view 23
-    pr-view = !gh pr view
 
     ; for release tags
     ; Interactively create a release

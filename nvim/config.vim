@@ -3,12 +3,9 @@ let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
 " jk -> Esc to speed Up switching
-inoremap jk <ESC>
-
-try
-	colorscheme onedark
-catch
-endtry
+" THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
+inoremap jk <ESC>:highlight CursorLine ctermbg=236<CR>
+colorscheme onedark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -34,8 +31,35 @@ function NERDTreeToggleAndRefresh()
     endif
 endfunction
 " Always show NERDTree on opening a new buffer
-autocmd BufEnter * NERDTreeMirror
+" autocmd BufEnter * NERDTreeMirror
 " autocmd BufEnter * NERDTreeFind
+
+" vimScript
+" -- On dailies, for random choice on given buffer with names
+function! StringInLine(line_number, search_string)
+  let line_text = getline(a:line_number)
+  let match_position = match(line_text, a:search_string)
+  return match_position >= 0
+endfunction
+
+function! Raffle()
+    let total_lines = line('$')
+    let random_line = (RandLine() % total_lines) + 1
+    let line_text = getline(random_line)
+
+    if StringInLine(random_line, '>> ')
+        :call Raffle()
+    else
+        let line_text = '>> ' . line_text
+        call setline(random_line, line_text)
+    endif
+endfunction
+
+function! RandLine()
+  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
+endfunction
+" -- run it with -> :call Raffle()
+"  by d4rk3r
 
 " Close Vim if NERDTree is the last window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

@@ -90,7 +90,7 @@ Plug 'folke/trouble.nvim'
 " Of the current word where we have the cursor
 Plug 'itchyny/vim-cursorword'
 " For CSS color
-" Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 " For REST requests inside vim
 " Plug 'diepm/vim-rest-console'
 " For EasyMotion
@@ -268,7 +268,7 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
 " Plug 'navarasu/onedark.nvim'
-Plug 'joshdick/onedark.vim'
+ Plug 'Sanix-Darker/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
