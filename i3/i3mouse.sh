@@ -1,6 +1,8 @@
 #/bin/bash
 
 # Set some mouse TouchPad
+# to keep the normal behaviour we should have when scrolling etc..
+# and not the one provided by i3
 xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1
 xinput set-prop "SynPS/2 Synaptics TouchPad" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000

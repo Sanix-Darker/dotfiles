@@ -75,7 +75,10 @@ Plug 'airblade/vim-gitgutter'
 " For a fancy status Line:
 Plug 'nvim-lualine/lualine.nvim'
 " For icons on the statusline
-Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'kyazdani42/nvim-web-devicons'
+
+" To handle case insensitive with :S"
+Plug 'tpope/vim-abolish'
 
 " Finaly a search and replace tool i may like
 " NEED ripgrep
@@ -182,7 +185,9 @@ Plug 'mattn/webapi-vim'
 Plug 'mattn/vim-gist'
 
 " For surrounding quotes
-" cs'> or ds'<
+" cs'> or ds'
+" csw"
+" S' (in visual selection)
 Plug 'tpope/vim-surround'
 
 " For multicursor (need more mappings)
@@ -224,7 +229,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'ray-x/lsp_signature.nvim'
 
 " For Brackets and stuffs
-Plug 'hrsh7th/nvim-insx'
+" Plug 'hrsh7th/nvim-insx'
 
 " Just like org on emacs, to organise your stuffs
 " Plug 'phaazon/mind.nvim'
@@ -252,7 +257,7 @@ Plug 'kevinhwang91/nvim-bqf'
 " Plug 'nvim-telescope/telescope.nvim'
 " For code review using octo
 " Plug 'pwntester/octo.nvim'
-" Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " A framework for some plugin to be working (gh.nvim) for example
 " Plug 'ldelossa/litee.nvim'
@@ -268,7 +273,7 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
 " Plug 'navarasu/onedark.nvim'
- Plug 'Sanix-Darker/onedark.vim'
+Plug 'Sanix-Darker/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }

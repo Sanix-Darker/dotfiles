@@ -104,10 +104,12 @@
 
     ; for github action utils
     ; to list github actions ongoing or to view a current running action
-    action-list = !gh run list
-    action-view = !gh run view
-    action-view-log = !gh run view --log
-    action-view-log-failed = !gh run view --log-failed
+    ; to get the list of checks available
+    ci = !gh pr checks
+    ci-list = !gh run list
+    ci-view = !gh run view
+    ci-view-log = !gh run view --log
+    ci-view-log-failed = !gh run view --log-failed
 
     ; to get the label list from the repo
     label-list = !gh label list

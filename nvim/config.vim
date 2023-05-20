@@ -5,7 +5,10 @@ source ~/.config/nvim/plugins.vim
 " jk -> Esc to speed Up switching
 " THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
 inoremap jk <ESC>:highlight CursorLine ctermbg=236<CR>
-colorscheme onedark
+try
+	colorscheme onedark
+catch
+endtry
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -224,3 +227,36 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" >> for transparent background
+function! AdaptColorscheme()
+   highlight clear CursorLine
+   highlight Normal ctermbg=none
+   highlight LineNr ctermbg=none
+   highlight Folded ctermbg=none
+   highlight NonText ctermbg=none
+   highlight SpecialKey ctermbg=none
+   highlight VertSplit ctermbg=none
+   highlight SignColumn ctermbg=none
+endfunction
+autocmd ColorScheme * call AdaptColorscheme()
+
+highlight Normal guibg=NONE ctermbg=NONE
+highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight clear LineNr
+highlight clear SignColumn
+highlight clear StatusLine
+
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave,VimEnter,BufEnter * set cursorline
+" Default Colors for CursorLine
+highlight CursorLine ctermbg=236 ctermfg=None
+
+"" extra settings, uncomment them if necessary :)
+"set cursorline
+"set noshowmode
+"set nocursorline
+" >> trasparent end
+
