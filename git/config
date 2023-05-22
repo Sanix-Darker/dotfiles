@@ -288,6 +288,10 @@
     ; grv is a TUI to browse the git project
     ; browser = !grv
 
+    ; to get log changes on a specific file ?
+    ; git log-for ./server/CHANGELOG.md
+    log-for = !bash -ic 'git-log-commits-for \"$@\"' x
+
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
 

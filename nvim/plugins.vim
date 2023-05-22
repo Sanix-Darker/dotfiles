@@ -229,7 +229,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'ray-x/lsp_signature.nvim'
 
 " For Brackets and stuffs
-" Plug 'hrsh7th/nvim-insx'
+Plug 'hrsh7th/nvim-insx'
 
 " Just like org on emacs, to organise your stuffs
 " Plug 'phaazon/mind.nvim'
@@ -320,7 +320,7 @@ Plug 'Sanix-Darker/onedark.vim'
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
 " Fcedpe
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 

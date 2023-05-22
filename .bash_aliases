@@ -28,6 +28,20 @@ BPURPLE='\033[1;35m'      # PURPLE
 BCYAN='\033[1;36m'        # CYAN
 BWHITE='\033[1;37m'       # WHITE
 
+# for all git + fzf commands
+GIT_FZF_DEFAULT_OPTS="
+	$FZF_DEFAULT_OPTS
+	--ansi
+	--reverse
+	--height=100%
+	--bind shift-down:preview-down
+	--bind shift-up:preview-up
+	--bind pgdn:preview-page-down
+	--bind pgup:preview-page-up
+	--bind q:abort
+	$GIT_FZF_DEFAULT_OPTS
+"
+
 # some more ls aliases
 alias ls='exa'
 alias ll='ls -alF'
@@ -46,6 +60,14 @@ _cpd(){
     mkdir -p "$(dirname ${@: -1})" && cp -r $@
 }
 alias cpd=_cpd
+
+IS_ENV_SET(){
+    GIVEN_ENV=$0
+    DEFAULT_VALUE=$1
+
+    # IS_ENV_SET $OUPS "default value"
+    [[ "$GIVEN_ENV" -ne "" ]] && echo "$GIVEN_ENV" || echo "$DEFAULT_VALUE"
+}
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
@@ -859,19 +881,6 @@ _git_coworker(){
     fi
 }
 
-GIT_FZF_DEFAULT_OPTS="
-	$FZF_DEFAULT_OPTS
-	--ansi
-	--reverse
-	--height=100%
-	--bind shift-down:preview-down
-	--bind shift-up:preview-up
-	--bind pgdn:preview-page-down
-	--bind pgup:preview-page-up
-	--bind q:abort
-	$GIT_FZF_DEFAULT_OPTS
-"
-
 git-fuzzy-diff ()
 {
 	PREVIEW_PAGER="less --tabs=4 -Rc"
@@ -1101,6 +1110,17 @@ git(){
   else
     command git "$@"
   fi
+}
+
+# show changes for a given file on a specific point int the history
+git-log-commits-for(){
+    git log --pretty=format:"%h" -- $@ | fzf --ansi --no-sort \
+    --reverse --print-query ${GIT_FZF_DEFAULT_OPTS} --exit-0 \
+    --header "Commit Changes for $@" \
+    --preview 'git show {1} -- '$@' | delta' \
+    --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
+    --preview-window right:90% \
+    --pointer=">"
 }
 
 git_open_link(){
@@ -1333,6 +1353,48 @@ _pydoc(){
 }
 
 alias fzfp='$HOME/fzfp'
+
+# _perf_website https://google.com
+_perf_website(){
+    cd $HOME/ACTUALC/github/performance-website
+    npx unlighthouse --site $1
+}
+
+# DOCKER COMMAND UTILS
+# postgres
+docker_postgres_run(){
+    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
+    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
+    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
+    IMAGE_TAG="$(IS_ENV_SET $IMAGE_TAG "latest")"
+    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
+    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
+
+    [[ "$(docker ps -a | grep $POSTGRES_NAME | wc -l)" -ne "0" ]] && \
+        echo "<< Available as container, will start it !" && \
+            docker start $POSTGRES_NAME ||
+        echo ">> Not available as containers, will pull or either run it" && \
+            docker run \
+            --name $POSTGRES_NAME \
+            -p $POSTGRES_PORT:5432 \
+            -e POSTGRES_USER=$POSTGRES_USER \
+            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+            -e POSTGRES_DB=$POSTGRES_DB \
+            -d postgres:$IMAGE_TAG
+}
+docker_postgres_exec(){
+    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
+    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
+    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
+    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
+    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
+
+    docker exec \
+        -ti $POSTGRES_NAME psql \
+        --username=$POSTGRES_USER \
+        --port=$POSTGRES_PORT \
+        --dbname=$POSTGRES_DB
+}
 
 ## For my work on the datasetservice and the cli
 ## queries am going to make to the service

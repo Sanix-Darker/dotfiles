@@ -259,4 +259,3 @@ highlight CursorLine ctermbg=236 ctermfg=None
 "set noshowmode
 "set nocursorline
 " >> trasparent end
-
