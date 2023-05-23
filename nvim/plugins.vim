@@ -138,13 +138,21 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'
 " Plug 'maxmellon/vim-jsx-pretty'
+
 " For debugging, we add dap
-" Plug 'mfussenegger/nvim-dap'
-" Plug 'Pocco81/DAPInstall.nvim'
-" Plug 'mfussenegger/nvim-dap-python'
-" Plug 'leoluz/nvim-dap-go'
-" Plug 'rcarriga/nvim-dap-ui'
-" Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'mfussenegger/nvim-dap'
+Plug 'Pocco81/DAPInstall.nvim'
+Plug 'mfussenegger/nvim-dap-python'
+" go install github.com/go-delve/delve/cmd/dlv@latest (debuger)
+Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+" for signature during debuging
+Plug 'folke/neodev.nvim'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
+" For hightlighs
+Plug 'LiadOz/nvim-dap-repl-highlights'
+Plug 'nvim-treesitter/nvim-treesitter'
 " For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
 " For the sticky header

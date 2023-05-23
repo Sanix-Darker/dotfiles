@@ -38,9 +38,9 @@ _G.__luacache_config = {
 require('impatient')
 -- all set configurations
 require('set_config')
--- for my keymaps
-require('keymaps')
 -- to import plugins configurations
 require('plugins_config')
+-- for my keymaps
+require('keymaps')
 -- lsp configurations
 require('lsp_config')
