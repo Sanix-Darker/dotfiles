@@ -1114,12 +1114,14 @@ git(){
 
 # show changes for a given file on a specific point int the history
 git-log-commits-for(){
-    git log --pretty=format:"%h" -- $@ | fzf --ansi --no-sort \
-    --reverse --print-query ${GIT_FZF_DEFAULT_OPTS} --exit-0 \
-    --header "Commit Changes for $@" \
-    --preview 'git show {1} -- '$@' | delta' \
-    --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
-    --preview-window right:90% \
+    SHOW_COMMIT_COMMAND='git show {1} -- '$@' | delta'
+    git log --pretty=format:"%h" -- $@ | fzf        \
+    --reverse --print-query ${GIT_FZF_DEFAULT_OPTS} \
+    --header "Commit Changes for $@"                \
+    --preview "${SHOW_COMMIT_COMMAND}"              \
+    --bind "ctrl-d:preview-down,ctrl-u:preview-up"  \
+    --bind "enter:execute:${SHOW_COMMIT_COMMAND}"   \
+    --preview-window right:90%                      \
     --pointer=">"
 }
 

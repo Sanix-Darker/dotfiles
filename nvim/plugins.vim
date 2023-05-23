@@ -214,6 +214,10 @@ Plug 'williamboman/mason.nvim'
 " :LspUninstall <server> ... - uninstalls the provided servers
 Plug 'williamboman/mason-lspconfig.nvim'
 
+" For github actions on the nvim editor
+Plug 'topaxi/gh-actions.nvim'
+Plug 'MunifTanjim/nui.nvim'
+
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/cmp-nvim-lsp'

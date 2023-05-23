@@ -172,6 +172,8 @@
     ; Or from a specific branch
     ; git clone-sub directory1 https://github.com/author/repo
     clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
+    ;clone-gh
+    clone-gh = !git clone git@github.com:\"$@\"
 
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search

@@ -60,6 +60,10 @@ map("n", "<Leader>e", ":e<CR>")
 -- calculator mode
 map("n", "<Leader>i", "i<C-r>=")
 
+-- github actions status
+map("n", "<Leader>gh", ":GhActions<CR>")
+
+
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
