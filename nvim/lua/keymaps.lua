@@ -115,7 +115,7 @@ map("v", "<Leader>hq",  ":%!xmllint --format - <CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
 -- should be change depending on the output type, but for now
 -- as default will be json so jq
-map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR><C-w><C-w>")
+map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR>:set filetype=json<CR><C-w><C-w>")
 -- rest-console
 
 -- To search for ctags
