@@ -3,8 +3,8 @@ let &packpath=&runtimepath
 source ~/.config/nvim/plugins.vim
 
 " jk -> Esc to speed Up switching
-inoremap jk <ESC>
-
+" THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
+inoremap jk <ESC>:highlight CursorLine ctermbg=236<CR>
 try
 	colorscheme onedark
 catch
@@ -34,8 +34,35 @@ function NERDTreeToggleAndRefresh()
     endif
 endfunction
 " Always show NERDTree on opening a new buffer
-autocmd BufEnter * NERDTreeMirror
+" autocmd BufEnter * NERDTreeMirror
 " autocmd BufEnter * NERDTreeFind
+
+" vimScript
+" -- On dailies, for random choice on given buffer with names
+function! StringInLine(line_number, search_string)
+  let line_text = getline(a:line_number)
+  let match_position = match(line_text, a:search_string)
+  return match_position >= 0
+endfunction
+
+function! Raffle()
+    let total_lines = line('$')
+    let random_line = (RandLine() % total_lines) + 1
+    let line_text = getline(random_line)
+
+    if StringInLine(random_line, '>> ')
+        :call Raffle()
+    else
+        let line_text = '>> ' . line_text
+        call setline(random_line, line_text)
+    endif
+endfunction
+
+function! RandLine()
+  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
+endfunction
+" -- run it with -> :call Raffle()
+"  by d4rk3r
 
 " Close Vim if NERDTree is the last window
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -200,3 +227,35 @@ autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" >> for transparent background
+function! AdaptColorscheme()
+   highlight clear CursorLine
+   highlight Normal ctermbg=none
+   highlight LineNr ctermbg=none
+   highlight Folded ctermbg=none
+   highlight NonText ctermbg=none
+   highlight SpecialKey ctermbg=none
+   highlight VertSplit ctermbg=none
+   highlight SignColumn ctermbg=none
+endfunction
+autocmd ColorScheme * call AdaptColorscheme()
+
+highlight Normal guibg=NONE ctermbg=NONE
+highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight clear LineNr
+highlight clear SignColumn
+highlight clear StatusLine
+
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave,VimEnter,BufEnter * set cursorline
+" Default Colors for CursorLine
+highlight CursorLine ctermbg=236 ctermfg=None
+
+"" extra settings, uncomment them if necessary :)
+"set cursorline
+"set noshowmode
+"set nocursorline
+" >> trasparent end

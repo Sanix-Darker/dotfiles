@@ -28,6 +28,20 @@ BPURPLE='\033[1;35m'      # PURPLE
 BCYAN='\033[1;36m'        # CYAN
 BWHITE='\033[1;37m'       # WHITE
 
+# for all git + fzf commands
+GIT_FZF_DEFAULT_OPTS="
+	$FZF_DEFAULT_OPTS
+	--ansi
+	--reverse
+	--height=100%
+	--bind shift-down:preview-down
+	--bind shift-up:preview-up
+	--bind pgdn:preview-page-down
+	--bind pgup:preview-page-up
+	--bind q:abort
+	$GIT_FZF_DEFAULT_OPTS
+"
+
 # some more ls aliases
 alias ls='exa'
 alias ll='ls -alF'
@@ -46,6 +60,30 @@ _cpd(){
     mkdir -p "$(dirname ${@: -1})" && cp -r $@
 }
 alias cpd=_cpd
+
+IS_ENV_SET(){
+    GIVEN_ENV=$0
+    DEFAULT_VALUE=$1
+
+    # IS_ENV_SET $OUPS "default value"
+    [[ "$GIVEN_ENV" -ne "" ]] && echo "$GIVEN_ENV" || echo "$DEFAULT_VALUE"
+}
+
+EXTRACT_REGEX(){
+    string=$1
+    regex=$2
+
+    if [[ $string =~ $regex ]]; then
+        # and yeah btw, the BASH_REMATCH variable is an array
+        # that is automatically populated by the [[ ]]
+        # double bracket conditional expression when using
+        # the =~ operator to match a regular expression pattern.
+        extracted_number="${BASH_REMATCH[1]}"
+        echo "$extracted_number"
+    else
+        echo ""
+    fi
+}
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
@@ -541,6 +579,14 @@ _install_act(){
     gh extension install nektos/gh-act
 }
 
+_install_yq(){
+    VERSION=v4.2.0
+    BINARY=yq_linux_amd64
+
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |\
+        tar xz && sudo mv ${BINARY} /usr/bin/yq
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -859,19 +905,6 @@ _git_coworker(){
     fi
 }
 
-GIT_FZF_DEFAULT_OPTS="
-	$FZF_DEFAULT_OPTS
-	--ansi
-	--reverse
-	--height=100%
-	--bind shift-down:preview-down
-	--bind shift-up:preview-up
-	--bind pgdn:preview-page-down
-	--bind pgup:preview-page-up
-	--bind q:abort
-	$GIT_FZF_DEFAULT_OPTS
-"
-
 git-fuzzy-diff ()
 {
 	PREVIEW_PAGER="less --tabs=4 -Rc"
@@ -1103,6 +1136,42 @@ git(){
   fi
 }
 
+# show changes for a given file on a specific point int the history
+git-log-commits-for(){
+    SHOW_COMMIT_COMMAND='git show {1} -- '$@' | delta'
+    git log --pretty=format:"%h" -- $@ | fzf        \
+    --reverse --print-query ${GIT_FZF_DEFAULT_OPTS} \
+    --header "Commit Changes for $@"                \
+    --preview "${SHOW_COMMIT_COMMAND}"              \
+    --bind "ctrl-d:preview-down,ctrl-u:preview-up"  \
+    --bind "enter:execute:${SHOW_COMMIT_COMMAND}"   \
+    --preview-window right:90%                      \
+    --pointer=">"
+}
+
+git_open_pr(){
+    browser=firefox
+    pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
+    # yes, you can specify the remote host for context switch (gitlab/bitbucket)
+    remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
+    # well, it may seem complex but in reality it's a whole regex
+    # beast that I pipe to extract the direct link of the repo from
+    # the git remote origin of the repo I'm in to get the PR link.
+    built_link="$(echo "https://$(echo "$remote_link" | sed -e 's/git@//' -e 's/\.git$//' -e 's/:/\//')")/pull/$pr_number"
+    # to check a link (for status 20x)
+    CURL_CHECK="curl --head --silent --fail"
+
+    echo "PR: $pr_number"
+    echo "browser: $browser"
+    echo "remote_link: $remote_link"
+    if $CURL_CHECK "$built_link" &> /dev/null; then
+        echo "> opening PR: '$built_link'...";
+        $browser $built_link;
+    else
+        echo "< bad link : $built_link";
+    fi;
+}
+
 git_open_link(){
     # $1 can be 'origin' or 'dev' depending on the source
     remote_link=$(git remote get-url $1)
@@ -1111,7 +1180,7 @@ git_open_link(){
     if $CURL_CHECK "$remote_link" &> /dev/null; then
         $browser $remote_link;
     else
-        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' | sed -e 's/:/\//')")
+        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' -e 's/:/\//')")
         if $CURL_CHECK "$built_link" &> /dev/null; then
             echo "> opening '$built_link'...";
             $browser $built_link;
@@ -1317,7 +1386,7 @@ _inf(){
             PREVIOUS_HASH=$CURRENT_HASH
             sleep 1;
         fi;
-        sleep 0.5; # to keep our cpu sane
+        sleep 10; # to keep our cpu sane
     done;
 }
 
@@ -1333,6 +1402,48 @@ _pydoc(){
 }
 
 alias fzfp='$HOME/fzfp'
+
+# _perf_website https://google.com
+_perf_website(){
+    cd $HOME/ACTUALC/github/performance-website
+    npx unlighthouse --site $1
+}
+
+# DOCKER COMMAND UTILS
+# postgres
+docker_postgres_run(){
+    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
+    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
+    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
+    IMAGE_TAG="$(IS_ENV_SET $IMAGE_TAG "latest")"
+    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
+    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
+
+    [[ "$(docker ps -a | grep $POSTGRES_NAME | wc -l)" -ne "0" ]] && \
+        echo "<< Available as container, will start it !" && \
+            docker start $POSTGRES_NAME ||
+        echo ">> Not available as containers, will pull or either run it" && \
+            docker run \
+            --name $POSTGRES_NAME \
+            -p $POSTGRES_PORT:5432 \
+            -e POSTGRES_USER=$POSTGRES_USER \
+            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
+            -e POSTGRES_DB=$POSTGRES_DB \
+            -d postgres:$IMAGE_TAG
+}
+docker_postgres_exec(){
+    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
+    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
+    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
+    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
+    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
+
+    docker exec \
+        -ti $POSTGRES_NAME psql \
+        --username=$POSTGRES_USER \
+        --port=$POSTGRES_PORT \
+        --dbname=$POSTGRES_DB
+}
 
 ## For my work on the datasetservice and the cli
 ## queries am going to make to the service

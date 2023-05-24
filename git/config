@@ -81,6 +81,8 @@
     ; git commit ./test -m "this is a test file"
     ; works with a single file or multiple files
 
+    base = !git checkout
+
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
@@ -89,29 +91,30 @@
     ; This will create on the default main branch, could be master or main
     ; as draft (--draft/-d)
     pr = !EDITOR=nvim gh pr create -a sanix-darker -d
-
-    base = !git checkout
-
     ; pr-to to specify a specific branch also on draft too
     ; git pr-to dev-branch
     pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
-
-    ; for github action utils
-    ; to list github actions ongoing or to view a current running action
-    action-list = !gh run list
-    action-view = !gh run view
-    action-view-log = !gh run view --log
-    action-view-log-failed = !gh run view --log-failed
-
-    ; to get the label list from the repo
-    label-list = !gh label list
-
     ; to list all available pull requests
     pr-list = !gh pr list
+    pr-list-all = !gh pr list --state all
 
     ; to list all available pull requests
     ; Ex: git pr-view 23
     pr-view = !gh pr view
+    ; to edit a PR alreadly available
+    pr-edit = !EDITOR=nvim gh pr edit
+
+    ; for github action utils
+    ; to list github actions ongoing or to view a current running action
+    ; to get the list of checks available
+    ci = !gh pr checks
+    ci-list = !gh run list
+    ci-view = !gh run view
+    ci-view-log = !gh run view --log
+    ci-view-log-failed = !gh run view --log-failed
+
+    ; to get the label list from the repo
+    label-list = !gh label list
 
     ; for release tags
     ; Interactively create a release
@@ -171,10 +174,15 @@
     ; Or from a specific branch
     ; git clone-sub directory1 https://github.com/author/repo
     clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
+    ;clone-gh
+    clone-gh = !git clone git@github.com:\"$@\"
 
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search
     open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
+
+    ; to open the Pull Request related to the current branch
+    open-pr=!bash -ic 'git_open_pr \"$@\"'
 
     ; To commit an empty commit
     commit-empty = !git commit --allow-empty -m
@@ -287,6 +295,10 @@
     ; grv is a TUI to browse the git project
     ; browser = !grv
 
+    ; to get log changes on a specific file ?
+    ; git log-for ./server/CHANGELOG.md
+    log-for = !bash -ic 'git-log-commits-for \"$@\"' x
+
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
 
@@ -367,8 +379,11 @@
     ; git squash-count to squash with a specific amount of commit from the top
     squash-count = !git rebase -i HEAD~$1
 
+    ; just to show the current branch name
+    branch-name = !git branch --show-current
+
     ; count all commits on the current branch
-    count-commits = !git rev-list --count $(git branch --show-current)
+    count-commits = !git rev-list --count $(git branch-name)
 
     ; lost-commit
     ; to list all dangling commits

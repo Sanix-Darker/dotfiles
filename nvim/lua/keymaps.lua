@@ -60,6 +60,10 @@ map("n", "<Leader>e", ":e<CR>")
 -- calculator mode
 map("n", "<Leader>i", "i<C-r>=")
 
+-- github actions status
+map("n", "<Leader>gh", ":GhActions<CR>")
+
+
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -104,10 +108,10 @@ map("n", "Z", "V:Commentary<CR>")
 -- for json -> jq
 map("v", "<Leader>jq",  ":%!jq<CR>")
 -- for yaml -> yq
-map("v", "<Leader>yq",  ":%!yq<CR>")
+map("v", "<Leader>yq",  ":%!yq eval<CR>")
 -- for html -> tidy, install with : https://github.com/htacg/tidy-html5/releases/tag/5.8.0
 -- for xmllint, install with : sudo apt install libxml2-utils -y
-map("v", "<Leader>hq",  ":%!xmllint --format<CR>")
+map("v", "<Leader>hq",  ":%!xmllint --format - <CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
 -- should be change depending on the output type, but for now
 -- as default will be json so jq
@@ -154,6 +158,11 @@ map("n", "+", ":vertical resize +5<CR>")
 map("n", "_", ":vertical resize -5<CR>")
 map("n", "=", ":resize +5<CR>")
 map("n", "-", ":resize -5<CR>")
+-- custom zoom IN/OUT
+map("n", "<Leader>)", ":resize +80<CR>:vertical resize +80<CR>")
+-- There is no need to zoom out because all the other split screen will still
+-- visibles
+-- map("n", "<Leader>(", ":resize -10<CR>:vertical resize -20<CR>")
 
 -- movements on the panes
 map("n", "<space>h", "<C-W>h")
@@ -389,21 +398,21 @@ map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 -- map("i", ";;", "<Esc>")
 
 -- NVIM DAP
---Uncomment this when debuging
--- nnoremap DH :lua require'dap'.toggle_breakpoint()<CR>
--- nnoremap <S-k> :lua require'dap'.step_out()<CR>
--- nnoremap <S-l> :lua require'dap'.step_into()<CR>
--- nnoremap <S-j> :lua require'dap'.step_over()<CR>
--- nnoremap DS :lua require'dap'.close()<CR>
--- nnoremap DN :lua require'dap'.continue()<CR>
--- nnoremap DJ :lua require'dap'.down()<CR>
--- nnoremap D_ :lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>
--- nnoremap DR :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
--- nnoremap DI :lua require'dap.ui.variables'.hover()<CR>
--- vnoremap DII :lua require'dap.ui.variables'.visual_hover()<CR>
--- nnoremap D? :lua require'dap.ui.variables'.scopes()<CR>
--- nnoremap DE :lua require'dap'.set_exception_breakpoints({"all"})<CR>
--- nnoremap DA :lua require'debugHelper'.attach()<CR>
--- nnoremap DA :lua require'debugHelper'.attachToRemote()<CR>
--- nnoremap DI :lua require'dap.ui.widgets'.hover()<CR>
--- nnoremap D? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
+map('n', '<Leader>dh', ':lua require\'dap\'.toggle_breakpoint()<CR>')
+map('n', '<Leader>dk', ':lua require\'dap\'.step_out()<CR>')
+map('n', '<Leader>dl', ':lua require\'dap\'.step_into()<CR>')
+map('n', '<Leader>dj', ':lua require\'dap\'.down()<CR>')
+map('n', '<Leader>do', ':lua require\'dap\'.step_over()<CR>')
+map('n', '<Leader>ds', ':lua require\'dap\'.close()<CR>')
+map('n', '<Leader>dn', ':lua require\'dap\'.continue()<CR>')
+map('n', '<Leader>d_', ':lua require\'dap\'.disconnect();require\'dap\'.stop();require\'dap\'.run_last()<CR>')
+map('n', '<Leader>dr', ':lua require\'dap\'.repl.open({}, \'vsplit\')<CR><C-w>l')
+map('n', '<Leader>di', ':lua require\'dap.ui.variables\'.hover()<CR>')
+map('n', '<Leader>dii', ':lua require\'dap.ui.variables\'.visual_hover()<CR>')
+map('n', '<Leader>d?', ':lua require\'dap.ui.variables\'.scopes()<CR>')
+map('n', '<Leader>de', ':lua require\'dap\'.set_exception_breakpoints({"all"})<CR>')
+map('n', '<Leader>da', ':lua require\'debugHelper\'.attach()<CR>')
+map('n', '<Leader>da', ':lua require\'debugHelper\'.attachToRemote()<CR>')
+map('n', '<Leader>di', ':lua require\'dap.ui.widgets\'.hover()<CR>')
+map('n', '<Leader>d?', ':lua local widgets=require\'dap.ui.widgets\';widgets.centered_float(widgets.scopes)<CR>')
+-- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>

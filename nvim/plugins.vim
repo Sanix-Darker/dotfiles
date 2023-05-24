@@ -75,7 +75,10 @@ Plug 'airblade/vim-gitgutter'
 " For a fancy status Line:
 Plug 'nvim-lualine/lualine.nvim'
 " For icons on the statusline
-Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'kyazdani42/nvim-web-devicons'
+
+" To handle case insensitive with :S"
+Plug 'tpope/vim-abolish'
 
 " Finaly a search and replace tool i may like
 " NEED ripgrep
@@ -90,7 +93,7 @@ Plug 'folke/trouble.nvim'
 " Of the current word where we have the cursor
 Plug 'itchyny/vim-cursorword'
 " For CSS color
-" Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color'
 " For REST requests inside vim
 " Plug 'diepm/vim-rest-console'
 " For EasyMotion
@@ -135,13 +138,21 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'
 " Plug 'maxmellon/vim-jsx-pretty'
+
 " For debugging, we add dap
-" Plug 'mfussenegger/nvim-dap'
-" Plug 'Pocco81/DAPInstall.nvim'
-" Plug 'mfussenegger/nvim-dap-python'
-" Plug 'leoluz/nvim-dap-go'
-" Plug 'rcarriga/nvim-dap-ui'
-" Plug 'theHamsta/nvim-dap-virtual-text'
+Plug 'mfussenegger/nvim-dap'
+Plug 'Pocco81/DAPInstall.nvim'
+Plug 'mfussenegger/nvim-dap-python'
+" go install github.com/go-delve/delve/cmd/dlv@latest (debuger)
+Plug 'leoluz/nvim-dap-go'
+Plug 'rcarriga/nvim-dap-ui'
+" for signature during debuging
+Plug 'folke/neodev.nvim'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
+" For hightlighs
+Plug 'LiadOz/nvim-dap-repl-highlights'
+Plug 'nvim-treesitter/nvim-treesitter'
 " For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
 " For the sticky header
@@ -182,7 +193,9 @@ Plug 'mattn/webapi-vim'
 Plug 'mattn/vim-gist'
 
 " For surrounding quotes
-" cs'> or ds'<
+" cs'> or ds'
+" csw"
+" S' (in visual selection)
 Plug 'tpope/vim-surround'
 
 " For multicursor (need more mappings)
@@ -208,6 +221,10 @@ Plug 'williamboman/mason.nvim'
 " :LspInstall [<server>...] - installs the provided servers
 " :LspUninstall <server> ... - uninstalls the provided servers
 Plug 'williamboman/mason-lspconfig.nvim'
+
+" For github actions on the nvim editor
+Plug 'topaxi/gh-actions.nvim'
+Plug 'MunifTanjim/nui.nvim'
 
 " Let's optimize the completion for snippets
 Plug 'neovim/nvim-lspconfig'
@@ -252,7 +269,7 @@ Plug 'kevinhwang91/nvim-bqf'
 " Plug 'nvim-telescope/telescope.nvim'
 " For code review using octo
 " Plug 'pwntester/octo.nvim'
-" Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " A framework for some plugin to be working (gh.nvim) for example
 " Plug 'ldelossa/litee.nvim'
@@ -268,7 +285,7 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'mfussenegger/nvim-ts-hint-textobject'
 " For color
 " Plug 'navarasu/onedark.nvim'
-Plug 'joshdick/onedark.vim'
+Plug 'Sanix-Darker/onedark.vim'
 " For python IDE tools inside vim
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -315,7 +332,7 @@ Plug 'joshdick/onedark.vim'
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
 " Fcedpe
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 

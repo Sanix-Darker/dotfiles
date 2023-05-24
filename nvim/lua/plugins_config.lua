@@ -5,8 +5,10 @@
 -- }
 local neoscroll_setup = {
     -- All these keys will be mapped to their corresponding default scrolling animation
-    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
-    '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    mappings = {
+        '<C-u>', '<C-d>', '<C-b>', '<C-f>',
+        '<C-y>', '<C-e>', 'zt', 'zz', 'zb'
+    },
     hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
@@ -37,6 +39,65 @@ local masonlspconfig_setup = {
 -- require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
+
+-- for github actions
+require('gh-actions').setup({
+  --- The browser executable path to open workflow runs/jobs in
+  ---@type string|nil
+  browser = nil,
+  --- Interval to refresh in seconds
+  refresh_interval = 10,
+  --- How much workflow runs and jobs should be indented
+  indent = 2,
+  icons = {
+    workflow_dispatch = '⚡️',
+    conclusion = {
+      success = '✓',
+      failure = 'X',
+      startup_failure = 'X',
+      cancelled = '⊘',
+      skipped = '◌',
+    },
+    status = {
+      unknown = '?',
+      pending = '○',
+      queued = '○',
+      requested = '○',
+      waiting = '○',
+      in_progress = '●',
+    },
+  },
+  highlights = {
+    GhActionsRunIconSuccess = { link = 'LspDiagnosticsVirtualTextHint' },
+    GhActionsRunIconFailure = { link = 'LspDiagnosticsVirtualTextError' },
+    GhActionsRunIconStartup_failure = { link = 'LspDiagnosticsVirtualTextError' },
+    GhActionsRunIconPending = { link = 'LspDiagnosticsVirtualTextWarning' },
+    GhActionsRunIconRequested = { link = 'LspDiagnosticsVirtualTextWarning' },
+    GhActionsRunIconWaiting = { link = 'LspDiagnosticsVirtualTextWarning' },
+    GhActionsRunIconIn_progress = { link = 'LspDiagnosticsVirtualTextWarning' },
+    GhActionsRunIconCancelled = { link = 'Comment' },
+    GhActionsRunIconSkipped = { link = 'Comment' },
+    GhActionsRunCancelled = { link = 'Comment' },
+    GhActionsRunSkipped = { link = 'Comment' },
+    GhActionsJobCancelled = { link = 'Comment' },
+    GhActionsJobSkipped = { link = 'Comment' },
+    GhActionsStepCancelled = { link = 'Comment' },
+    GhActionsStepSkipped = { link = 'Comment' },
+  },
+  split = {
+    relative = 'editor',
+    position = 'right',
+    size = 60,
+    win_options = {
+      wrap = false,
+      number = false,
+      foldlevel = nil,
+      foldcolumn = '0',
+      cursorcolumn = false,
+      signcolumn = 'no',
+    },
+  },
+})
 
 -- for search and replace on all a directory (text, not necessary a var/func..)
 require('spectre').setup({
@@ -595,3 +656,157 @@ require("mason-lspconfig").setup(masonlspconfig_setup)
 
 -- for autoclosing brackets
 require('insx.preset.standard').setup()
+
+-- for dap configurations
+require('dap-go').setup()
+require('dap-python').setup()
+
+local dap = require('dap')
+local dapui = require("dapui")
+
+dapui.setup(
+  {
+    controls = {
+      element = "repl",
+      enabled = true,
+      icons = {
+        disconnect = "",
+        pause = "",
+        play = "",
+        run_last = "",
+        step_back = "",
+        step_into = "",
+        step_out = "",
+        step_over = "",
+        terminate = ""
+      }
+    },
+    element_mappings = {},
+    expand_lines = true,
+    floating = {
+      border = "single",
+      mappings = {
+        close = { "q", "<Esc>" }
+      }
+    },
+    force_buffers = true,
+    icons = {
+      collapsed = "",
+      current_frame = "",
+      expanded = ""
+    },
+    layouts = { {
+        elements = { {
+            id = "scopes",
+            size = 0.40
+          }, {
+            id = "breakpoints",
+            size = 0.25
+          }, {
+            id = "stacks",
+            size = 0.25
+          },{
+            id = "console",
+            size = 0.10
+          }
+          -- {
+          --   id = "watches",
+          --   size = 0.25
+          -- }
+      },
+        position = "left",
+        size = 50
+      }, {
+        elements = { {
+            id = "repl",
+            size = 1
+          } },
+        position = "bottom",
+        size = 15
+      } },
+    mappings = {
+      edit = "e",
+      expand = { "<CR>", "<2-LeftMouse>" },
+      open = "o",
+      remove = "d",
+      repl = "r",
+      toggle = "t"
+    },
+    render = {
+      indent = 1,
+      max_value_lines = 200
+    }
+  }
+)
+dap.adapters.python = function(cb, config)
+  if config.request == 'attach' then
+    ---@diagnostic disable-next-line: undefined-field
+    local port = (config.connect or config).port
+    ---@diagnostic disable-next-line: undefined-field
+    local host = (config.connect or config).host or '127.0.0.1'
+    cb({
+      type = 'server',
+      port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+      host = host,
+      options = {
+        source_filetype = 'python',
+      },
+    })
+  else
+    cb({
+      type = 'executable',
+      command = 'env/bin/python',
+      args = { '-m', 'debugpy.adapter' },
+      options = {
+        source_filetype = 'python',
+      },
+    })
+  end
+end
+
+dap.configurations.python = {
+  {
+    -- The first three options are required by nvim-dap
+    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
+    request = 'launch';
+    name = "Launch file";
+    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
+    program = "${file}"; -- This configuration will launch the current file if used.
+    pythonPath = function()
+      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/env/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      else
+        return '/usr/bin/python3'
+      end
+    end;
+  },
+}
+
+dap.listeners.after.event_initialized["dapui_config"]=function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"]=function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"]=function()
+  dapui.close()
+end
+
+vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+  ...
+})
+-- for dap virtual text
+require("nvim-dap-virtual-text").setup()
+
+-- for highlights
+require('nvim-dap-repl-highlights').setup()
