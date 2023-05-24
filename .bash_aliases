@@ -69,6 +69,22 @@ IS_ENV_SET(){
     [[ "$GIVEN_ENV" -ne "" ]] && echo "$GIVEN_ENV" || echo "$DEFAULT_VALUE"
 }
 
+EXTRACT_REGEX(){
+    string=$1
+    regex=$2
+
+    if [[ $string =~ $regex ]]; then
+        # and yeah btw, the BASH_REMATCH variable is an array
+        # that is automatically populated by the [[ ]]
+        # double bracket conditional expression when using
+        # the =~ operator to match a regular expression pattern.
+        extracted_number="${BASH_REMATCH[1]}"
+        echo "$extracted_number"
+    else
+        echo ""
+    fi
+}
+
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
 alias vv='virtualenv -p python3.10 env'
@@ -561,6 +577,14 @@ _install_act(){
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
     # to use gh act
     gh extension install nektos/gh-act
+}
+
+_install_yq(){
+    VERSION=v4.2.0
+    BINARY=yq_linux_amd64
+
+    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |\
+        tar xz && sudo mv ${BINARY} /usr/bin/yq
 }
 
 _install_basics(){
@@ -1125,6 +1149,29 @@ git-log-commits-for(){
     --pointer=">"
 }
 
+git_open_pr(){
+    browser=firefox
+    pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
+    # yes, you can specify the remote host for context switch (gitlab/bitbucket)
+    remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
+    # well, it may seem complex but in reality it's a whole regex
+    # beast that I pipe to extract the direct link of the repo from
+    # the git remote origin of the repo I'm in to get the PR link.
+    built_link="$(echo "https://$(echo "$remote_link" | sed -e 's/git@//' -e 's/\.git$//' -e 's/:/\//')")/pull/$pr_number"
+    # to check a link (for status 20x)
+    CURL_CHECK="curl --head --silent --fail"
+
+    echo "PR: $pr_number"
+    echo "browser: $browser"
+    echo "remote_link: $remote_link"
+    if $CURL_CHECK "$built_link" &> /dev/null; then
+        echo "> opening PR: '$built_link'...";
+        $browser $built_link;
+    else
+        echo "< bad link : $built_link";
+    fi;
+}
+
 git_open_link(){
     # $1 can be 'origin' or 'dev' depending on the source
     remote_link=$(git remote get-url $1)
@@ -1133,7 +1180,7 @@ git_open_link(){
     if $CURL_CHECK "$remote_link" &> /dev/null; then
         $browser $remote_link;
     else
-        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' | sed -e 's/:/\//')")
+        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' -e 's/:/\//')")
         if $CURL_CHECK "$built_link" &> /dev/null; then
             echo "> opening '$built_link'...";
             $browser $built_link;

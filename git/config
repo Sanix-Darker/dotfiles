@@ -96,6 +96,8 @@
     pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
     ; to list all available pull requests
     pr-list = !gh pr list
+    pr-list-all = !gh pr list --state all
+
     ; to list all available pull requests
     ; Ex: git pr-view 23
     pr-view = !gh pr view
@@ -178,6 +180,9 @@
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search
     open-code = !bash -c 'source $HOME/.bash_aliases && _git_open_code "$@"' -s
+
+    ; to open the Pull Request related to the current branch
+    open-pr=!bash -ic 'git_open_pr \"$@\"'
 
     ; To commit an empty commit
     commit-empty = !git commit --allow-empty -m
@@ -374,8 +379,11 @@
     ; git squash-count to squash with a specific amount of commit from the top
     squash-count = !git rebase -i HEAD~$1
 
+    ; just to show the current branch name
+    branch-name = !git branch --show-current
+
     ; count all commits on the current branch
-    count-commits = !git rev-list --count $(git branch --show-current)
+    count-commits = !git rev-list --count $(git branch-name)
 
     ; lost-commit
     ; to list all dangling commits

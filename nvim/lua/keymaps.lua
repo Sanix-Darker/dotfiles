@@ -108,14 +108,14 @@ map("n", "Z", "V:Commentary<CR>")
 -- for json -> jq
 map("v", "<Leader>jq",  ":%!jq<CR>")
 -- for yaml -> yq
-map("v", "<Leader>yq",  ":%!yq<CR>")
+map("v", "<Leader>yq",  ":%!yq eval<CR>")
 -- for html -> tidy, install with : https://github.com/htacg/tidy-html5/releases/tag/5.8.0
 -- for xmllint, install with : sudo apt install libxml2-utils -y
-map("v", "<Leader>hq",  ":%!xmllint --format<CR>")
+map("v", "<Leader>hq",  ":%!xmllint --format - <CR>")
 -- for rest-console Ctrl+j shortCut to format the output too
 -- should be change depending on the output type, but for now
 -- as default will be json so jq
-map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR><C-w><C-w>")
+map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR>:set filetype=json<CR><C-w><C-w>")
 -- rest-console
 
 -- To search for ctags
@@ -415,3 +415,4 @@ map('n', '<Leader>da', ':lua require\'debugHelper\'.attach()<CR>')
 map('n', '<Leader>da', ':lua require\'debugHelper\'.attachToRemote()<CR>')
 map('n', '<Leader>di', ':lua require\'dap.ui.widgets\'.hover()<CR>')
 map('n', '<Leader>d?', ':lua local widgets=require\'dap.ui.widgets\';widgets.centered_float(widgets.scopes)<CR>')
+-- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>

@@ -95,7 +95,7 @@ Plug 'itchyny/vim-cursorword'
 " For CSS color
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
-" Plug 'diepm/vim-rest-console'
+Plug 'diepm/vim-rest-console'
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
 " To fastly start neovim
