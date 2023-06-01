@@ -1172,6 +1172,14 @@ git_open_pr(){
     fi;
 }
 
+git_last_commit_link(){
+    pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
+    remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
+    built_link="$(echo "https://$(echo "$remote_link" | sed -e 's/git@//' -e 's/\.git$//' -e 's/:/\//')")/pull/$pr_number"
+
+    echo $built_link/commits/$(git last-commit-hash)
+}
+
 git_open_link(){
     # $1 can be 'origin' or 'dev' depending on the source
     remote_link=$(git remote get-url $1)

@@ -16,7 +16,7 @@ Plug 'mileszs/ack.vim'
 " To add comments
 Plug 'tpope/vim-commentary'
 " To restore my vim session after closing/opening
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline
@@ -41,7 +41,7 @@ Plug 'yuki-yano/fzf-preview.vim'
 " For DOC offline regarding any builtin func/class/modules/package
 " Works with the zea sofware
 " Will disable for now (for now the gd does a good job)
-Plug 'KabbAmine/zeavim.vim'
+" Plug 'KabbAmine/zeavim.vim'
 
 " For twitter :
 "   :PosttoTwitter - This command will prompt you for a message to send to Twitter.
@@ -78,7 +78,7 @@ Plug 'nvim-lualine/lualine.nvim'
 " Plug 'kyazdani42/nvim-web-devicons'
 
 " To handle case insensitive with :S"
-Plug 'tpope/vim-abolish'
+" Plug 'tpope/vim-abolish'
 
 " Finaly a search and replace tool i may like
 " NEED ripgrep
@@ -110,12 +110,12 @@ Plug 'lewis6991/impatient.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
-Plug 'voldikss/vim-floaterm'
+" Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 
 " To format the c/cpp code
-Plug 'rhysd/vim-clang-format'
+" Plug 'rhysd/vim-clang-format'
 
 " To manage sqlLite database
 " sudo apt-get install sqlite3 libsqlite3-dev
@@ -189,8 +189,8 @@ Plug 'ruanyl/vim-gh-line'
 Plug 'segeljakt/vim-silicon'
 
 " For gist stuffs
-Plug 'mattn/webapi-vim'
-Plug 'mattn/vim-gist'
+" Plug 'mattn/webapi-vim'
+" Plug 'mattn/vim-gist'
 
 " For surrounding quotes
 " cs'> or ds'

@@ -292,6 +292,12 @@
     vdiff = !git difftool -t vimdiff -y
     ; to get the last commit
     last = !git log -1 HEAD --stat
+    ; let say i want the last commit and the link to that commit too:
+    last-commit-link = !bash -ic 'git_last_commit_link'
+
+    ; this is to have the last commit hash
+    last-commit-hash = !git last --pretty=format:"%h" --no-patch
+
     ; grv is a TUI to browse the git project
     ; browser = !grv
 
