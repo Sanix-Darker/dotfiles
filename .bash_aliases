@@ -115,6 +115,12 @@ _rd(){
     fi
 }
 alias rd=_rd
+
+cdd() {
+    local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)"  || return 1
+	cd "$sel"
+}
+
 # overrided the cd command with the zoxide command line
 # But let's do that only we're sure zoxide is installed properly
 $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='z'
@@ -453,10 +459,17 @@ _install_python_stuffs(){
     done
 }
 
+
 # With a given message as input, this function will execute anything
 # after the second argument passed
 # Ex : _confirm "Message" echo "test"
 _confirm(){
+    # We need a bypass param to run all installations without handling
+    # anykind of confirmation, that's the reason of $NOTINTERACTIVE
+    # variables. For example :
+    #
+    # NOTINTERACTIVE=1 _install_basics
+    #
     args=("${@}")
     if [[ $NOTINTERACTIVE = "1" ]]; then
         echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
@@ -587,6 +600,12 @@ _install_yq(){
         tar xz && sudo mv ${BINARY} /usr/bin/yq
 }
 
+_install_zathura(){
+    sudo apt-get update -y
+    sudo apt-get install zathura -y
+}
+
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -627,6 +646,9 @@ _install_basics(){
 
     # Install and build Clang
     _confirm "Install clang ?" _install_clang
+
+    # A simple pdf reader from terminal with vim bindings
+    _confirm "Install zathura (a pdf reader) ?" _install_zathura
 
     # Install and build Cling
     _confirm "Install cling (C REPL) ?" _install_cling
@@ -1129,8 +1151,10 @@ git(){
   #   shift 1
   #   command git log-line "$@"
   if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
-    shift 1
+    shift 1 # to remove the first argument passed
     command git branch-sorted "$@"
+  elif [[ "$1" == "restore" || "$1" == "add" ]]; then
+    command git "$@" && git status
   else
     command git "$@"
   fi
@@ -1166,10 +1190,11 @@ git_open_pr(){
     echo "remote_link: $remote_link"
     if $CURL_CHECK "$built_link" &> /dev/null; then
         echo "> opening PR: '$built_link'...";
-        $browser $built_link;
     else
-        echo "< bad link : $built_link";
+        echo "< seems like a bad link (or this terminal not have access): $built_link";
     fi;
+
+    $browser $built_link;
 }
 
 git_last_commit_link(){
@@ -1306,6 +1331,17 @@ alias _hide_number="sed 's/[0-9]/*/g'"
 # Don't blame me, sometiome am found myself hitting gti instead of git
 alias gti="git"
 
+# jira stuffs:
+jira_run_cli(){
+    docker run -it --rm --name jira-cli ghcr.io/ankitpokhrel/jira-cli:latest
+    # jira init
+    # Cloud
+}
+jira_exec_cli(){
+    docker exec -it jira-cli sh
+    # jira init
+    # Cloud
+}
 
 # vagrant stuffs
 # ---------------------------------------
@@ -1398,7 +1434,7 @@ _inf(){
     done;
 }
 
-# random wait live for 5mins
+# Random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 
 # This need to be present fist on my /usr/local/bin
@@ -1410,6 +1446,11 @@ _pydoc(){
 }
 
 alias fzfp='$HOME/fzfp'
+
+# to open a pdf with vim bindings.
+openpdf(){
+    zathura $1;
+}
 
 # _perf_website https://google.com
 _perf_website(){

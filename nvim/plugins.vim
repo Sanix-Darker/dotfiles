@@ -32,9 +32,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
-" Use release branch (recommend)
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
 " For code folding
 " Plug 'tmhedberg/SimpylFold'
 

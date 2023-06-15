@@ -140,6 +140,8 @@ map("n", "<Leader>ff", ":Files<cr>")
 map("n", "<Leader>mm", ":Marks<cr>")
 -- To access all tabs in a single view as a popUp
 map("n", "<Leader>tt", ":Windows<cr>")
+-- to list all trouble diagnostics i have in the same file:
+map("n", "<Leader>tr", ":TroubleToggle<CR>")
 -- To get th, history of all my opened files
 map("n", "<Leader>hh", ":History<cr>")
 -- To get th, whole history of the current buffer in term of commits
@@ -317,9 +319,6 @@ map("n", "<leader><", ":bprevious<cr>")
 -- to the last element in the line or the first
 map("n", "vL", "v$", {silent = true})
 map("n", "vH", "v^", {silent = true})
-
--- toggle fro diagnostics errors..
-map("n", "<Leader>tg", ":TroubleToggle<CR>")
 
 -- nvim spectre
 map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
