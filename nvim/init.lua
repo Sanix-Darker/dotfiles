@@ -34,6 +34,7 @@ _G.__luacache_config = {
         path = vim.fn.stdpath('cache')..'/luacache_modpaths',
     }
 }
+
 -- to speed up the start
 require('impatient')
 -- all set configurations

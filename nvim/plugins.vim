@@ -386,4 +386,6 @@ Plug 'tpope/vim-fugitive'
 " For vim-auto-save
 " Plug '907th/vim-auto-save'
 
+Plug 'Sanix-Darker/snips.nvim'
+
 call plug#end()

@@ -99,6 +99,7 @@ require('gh-actions').setup({
   },
 })
 
+
 -- for search and replace on all a directory (text, not necessary a var/func..)
 require('spectre').setup({
   color_devicons = true,
@@ -340,6 +341,9 @@ require('lualine').setup {
 -- hop to jump on any text base objects
 require('hop').setup()
 
+-- just so be sure it works
+require('snips').setup()
+
 -- setup for litee
 -- require('litee.lib').setup()
 -- require('litee.gh').setup()
@@ -501,6 +505,8 @@ require('hop').setup()
 --         ale = false, -- Requires ALE
 --     },
 -- })
+
+-- require('snips.nvim')
 
 -- for the neoscroll
 require('neoscroll').setup(neoscroll_setup)
