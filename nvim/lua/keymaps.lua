@@ -367,7 +367,7 @@ map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
 -- Jumps to the definition of the type symbol
 map('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
 -- Lists all the references
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')

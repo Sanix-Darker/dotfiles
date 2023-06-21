@@ -20,9 +20,15 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 " For my command line to be running alias on command mode inside vim editor
 let $BASH_ENV = "~/.vim_bash_env"
 
+" host url for tabby local server :
+" let g:tabby_server_url = 'http://147.182.205.116:7777'
+" let g:tabby_server_url = 'http://127.0.0.1:7777'
+" imap  <script><silent><nowait><expr>  <S-Tab>  tabby#Accept(pumvisible() ? \"\<C-N>" : \"\t\")
+
 " --------------------- NERDTREE stuff
 " To show hidden files
 let NERDTreeShowHidden=1
+
 " To show the NerdTree on the right side
 let g:NERDTreeWinPos = "right"
 map <C-n> :call NERDTreeToggleAndRefresh()<CR>
@@ -230,14 +236,14 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " >> for transparent background
 function! AdaptColorscheme()
-   highlight clear CursorLine
-   highlight Normal ctermbg=none
-   highlight LineNr ctermbg=none
-   highlight Folded ctermbg=none
-   highlight NonText ctermbg=none
-   highlight SpecialKey ctermbg=none
-   highlight VertSplit ctermbg=none
-   highlight SignColumn ctermbg=none
+    highlight clear CursorLine
+    highlight Normal ctermbg=none
+    highlight LineNr ctermbg=none
+    highlight Folded ctermbg=none
+    highlight NonText ctermbg=none
+    highlight SpecialKey ctermbg=none
+    highlight VertSplit ctermbg=none
+    highlight SignColumn ctermbg=none
 endfunction
 autocmd ColorScheme * call AdaptColorscheme()
 
@@ -253,6 +259,9 @@ autocmd InsertEnter * set nocursorline
 autocmd InsertLeave,VimEnter,BufEnter * set cursorline
 " Default Colors for CursorLine
 highlight CursorLine ctermbg=236 ctermfg=None
+
+" For whichKey to be compatible with my colorscheme
+autocmd ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
 
 "" extra settings, uncomment them if necessary :)
 "set cursorline

@@ -23,7 +23,7 @@ Plug 'vim-syntastic/syntastic'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
 " Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
@@ -149,11 +149,14 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 
 " For hightlighs
 Plug 'LiadOz/nvim-dap-repl-highlights'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+" For the sticky header
+" Plug 'wellle/context.vim'
+" The lua alternative (looks SO SLOOOOOWWWW)
+Plug 'nvim-treesitter/nvim-treesitter-context'
 " For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
-" For the sticky header
-Plug 'wellle/context.vim'
+
 " Emmet for html fast completion
 " Plug 'mattn/emmet-vim'
 " Can be nice to ave the terminal in split view
@@ -165,7 +168,7 @@ Plug 'wellle/context.vim'
 " c0 — choose none
 " ]x — move to previous conflict
 " [x — move to next conflict
-" Plug 'akinsho/git-conflict.nvim'
+Plug 'akinsho/git-conflict.nvim'
 
 " For a minimap of my source code
 " you should install code-minimap first:
@@ -253,7 +256,8 @@ Plug 'rafamadriz/friendly-snippets'
 Plug 'onsails/lspkind.nvim'
 
 " Should help preview got to references
-Plug 'kevinhwang91/nvim-bqf'
+" added the commit hash because the lastest release is not working properly
+Plug 'kevinhwang91/nvim-bqf', {'commit': '1276701ed0216b94d7919d5c07845dcdf05fbde5'}
 
 " For syntax highlighting on a lot of stuffs
 " Plug 'sheerun/vim-polyglot'
@@ -387,5 +391,10 @@ Plug 'tpope/vim-fugitive'
 " Plug '907th/vim-auto-save'
 
 Plug 'Sanix-Darker/snips.nvim'
+
+" Just testing a copilot concurent
+" Assume using vim-plug as plugin manager
+" docker run -p 7777:8080 -v $HOME/.tabby:/data tabbyml/tabby serve --model TabbyML/SantaCoder-1B
+" Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
 
 call plug#end()

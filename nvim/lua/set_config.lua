@@ -183,6 +183,9 @@ vim.cmd([[hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=None ctermfg=
 vim.cmd([[hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111]])
 vim.cmd([[hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229]])
 vim.cmd([[hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210]])
+-- For whichkey to have empty background
+-- vim.cmd([[hi WhichKeyFloat cterm=None guibg=None ctermbg=None ctermfg=None]])
+
 -- to shyow diff for the current version am having
 -- can be current, all or None
 g.git_messenger_include_diff = 'current'
@@ -199,3 +202,4 @@ g.git_messenger_floating_win_opts = { ["border"]="single" }
 --   command = [[if &nu | set nornu | endif]],
 --   group = vimrc_group,
 -- })
+

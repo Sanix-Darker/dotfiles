@@ -40,6 +40,59 @@ local masonlspconfig_setup = {
 -- Disabling just for now
 require('which-key').setup()
 
+-- for treesitter
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+      "c",
+      "lua",
+      "vim",
+      "vimdoc",
+      "query",
+      "python",
+      "toml",
+      "sql",
+      "vue",
+      "yaml",
+      "zig",
+      "go",
+      "cpp",
+      "bash",
+      "css",
+      "arduino",
+      "clojure",
+      "dockerfile",
+      "gomod",
+      "gosum",
+      "graphql",
+      "html",
+      "json",
+      "javascript",
+      "jq",
+      "make",
+      "php",
+      "ruby"
+  },
+  sync_install = false,
+  auto_install = true,
+}
+
+-- setup context nvim
+require'treesitter-context'.setup{
+  enable = true,
+  max_lines = 30,
+  min_window_height = 0,
+  line_numbers = true,
+  multiline_threshold = 20,
+  trim_scope = 'outer',
+  mode = 'cursor',
+  separator = nil,
+  zindex = 20,
+  on_attach = nil,
+}
+
+-- setup qbf
+require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'})
+
 -- for github actions
 require('gh-actions').setup({
   --- The browser executable path to open workflow runs/jobs in
@@ -341,8 +394,13 @@ require('lualine').setup {
 -- hop to jump on any text base objects
 require('hop').setup()
 
+-- just to call the conflitcs lib itself
+require('git-conflict').setup()
+
 -- just so be sure it works
-require('snips').setup()
+require('snips').setup({
+    post_behavior = "yank"
+})
 
 -- setup for litee
 -- require('litee.lib').setup()

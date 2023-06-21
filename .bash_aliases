@@ -641,6 +641,10 @@ _install_basics(){
     # Install tmux ?
     _confirm "Install tmux ?" _install_tmux
 
+    # Install aerc (email client)
+    # TODO config
+    # sudo apt-get install scdoc libnotmuch-dev -y
+
     # SetUp and install tt
     _confirm "Install tt (For tmux fast jumping) ?" _install_tt
 
@@ -1433,6 +1437,9 @@ _inf(){
         sleep 10; # to keep our cpu sane
     done;
 }
+
+# A formater for html
+alias llx='lynx -stdin'
 
 # Random wait live for 5mins
 alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'

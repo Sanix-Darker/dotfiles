@@ -1,3 +1,5 @@
+vim.cmd('source ~/.config/nvim/config.vim')
+
 -- vim.api.nvim_create_autocmd('UIEnter', {
 --   callback = function()
 --     if vim.bo.filetype ~= '' then -- Check if the buffer has a filetype
@@ -8,8 +10,6 @@
 --     end
 --   end,
 -- })
-
-vim.cmd('source ~/.config/nvim/config.vim')
 
 -- [[ : sections backward or to the previous '{' in the first column.
 -- ]] : sections forward or to the next '{' in the first column.
@@ -45,3 +45,4 @@ require('plugins_config')
 require('keymaps')
 -- lsp configurations
 require('lsp_config')
+
