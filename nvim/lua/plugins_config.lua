@@ -395,7 +395,8 @@ require('lualine').setup {
 require('hop').setup()
 
 -- just to call the conflitcs lib itself
-require('git-conflict').setup()
+-- i don't know yet what to do witht this since am not using it more often
+-- require('git-conflict').setup()
 
 -- just so be sure it works
 require('snips').setup({

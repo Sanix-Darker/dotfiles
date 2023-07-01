@@ -262,6 +262,8 @@ highlight CursorLine ctermbg=236 ctermfg=None
 
 " For whichKey to be compatible with my colorscheme
 autocmd ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
+" Minimap highlight
+" autocmd ColorScheme * highlight minimapRange ctermbg=236 ctermfg=2 guibg=236 guifg=#0089D9
 
 "" extra settings, uncomment them if necessary :)
 "set cursorline

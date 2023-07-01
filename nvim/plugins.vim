@@ -4,6 +4,9 @@
 " auto install vim-plug and plugins:
 "
 call plug#begin('~/.config/nvim/plugged')
+" For timing check of the loading time
+Plug 'dstein64/vim-startuptime'
+
 " On-demand loading
 Plug 'preservim/nerdtree'
 " for status of files changes/tracked... by git
@@ -16,7 +19,7 @@ Plug 'mileszs/ack.vim'
 " To add comments
 Plug 'tpope/vim-commentary'
 " To restore my vim session after closing/opening
-" Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline
@@ -28,7 +31,7 @@ Plug 'vim-syntastic/syntastic'
 " Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
 " Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'Sanix-Darker/fzf', { 'branch': 'me', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
@@ -50,7 +53,8 @@ Plug 'yuki-yano/fzf-preview.vim'
 "   :PublicTwitter - View public timeline.
 "   :DMTwitter - View direct messages.
 "   :SearchTwitter - Use Twitter Search.
-Plug 'https://github.com/twitvim/twitvim.git'
+" Plug 'https://github.com/twitvim/twitvim.git'
+
 " For the git diff/git blame
 " Plug 'zivyangll/git-blame.vim'
 " Magically check for commits inside the project even through history
@@ -168,7 +172,7 @@ Plug 'karb94/neoscroll.nvim'
 " c0 — choose none
 " ]x — move to previous conflict
 " [x — move to next conflict
-Plug 'akinsho/git-conflict.nvim'
+" Plug 'akinsho/git-conflict.nvim'
 
 " For a minimap of my source code
 " you should install code-minimap first:

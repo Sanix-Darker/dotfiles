@@ -151,11 +151,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias ls_services='systemctl list-units --type=service'
 # for nvim shortcuts
-alias v='nvim'
-alias nv='nvim'
+alias v='nvim -c "so ~/.config/nvim/init.lua"'
+alias nv='v'
 # for no user configuration
-alias vclean='nvim --clean'
-alias nvclean='nvim --clean'
+alias vclean='vim --clean'
+alias nvclean='v --clean'
 # we could use the trash-cli to rf or rm-rf
 
 # to list trash elements
@@ -398,9 +398,17 @@ _install_golang_apps(){
 }
 
 _install_nvim(){
-    sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    sudo chmod +x ./nvim.appimage
-    sudo mv ./nvim.appimage /usr/local/bin/nvim
+    # sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+    # sudo chmod +x ./nvim.appimage
+    # sudo mv ./nvim.appimage /usr/local/bin/nvim
+    # echo "[-] Installed version : $(nvim --version)"
+
+    # since installing from source is for better performances
+    cd /tmp
+    git clone https://github.com/neovim/neovim
+    cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+    sudo make install
+
     echo "[-] Installed version : $(nvim --version)"
 }
 
@@ -434,7 +442,7 @@ _install_nvim_and_utils(){
     _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
 
     # To install ctags( the universal one) for vista plugins
-    _confirm "Install ctags (universal) ?" _install_ctags_universal
+    # _confirm "Install ctags (universal) ?" _install_ctags_universal
 }
 
 _install_python_stuffs(){
