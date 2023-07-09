@@ -97,7 +97,7 @@ Plug 'ap/vim-css-color'
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
 " For EasyMotion
-" Plug 'phaazon/hop.nvim'
+Plug 'phaazon/hop.nvim'
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
@@ -262,7 +262,7 @@ Plug 'onsails/lspkind.nvim'
 
 " Should help preview got to references
 " added the commit hash because the lastest release is not working properly
-Plug 'kevinhwang91/nvim-bqf', {'commit': '1276701ed0216b94d7919d5c07845dcdf05fbde5'}
+Plug 'kevinhwang91/nvim-bqf' ", {'commit': '1276701ed0216b94d7919d5c07845dcdf05fbde5'}
 
 " For syntax highlighting on a lot of stuffs
 " Plug 'sheerun/vim-polyglot'
@@ -401,7 +401,7 @@ Plug 'Sanix-Darker/snips.nvim'
 " to install the client we need at first
 "
 " pip install pynvim keyring browser-cookie3 --user
-Plug 'ianding1/leetcode.vim'
+" Plug 'ianding1/leetcode.vim'
 
 " Just testing a copilot concurent
 " Assume using vim-plug as plugin manager

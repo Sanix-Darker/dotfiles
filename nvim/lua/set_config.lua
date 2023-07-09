@@ -197,8 +197,8 @@ g.git_messenger_floating_win_opts = { ["border"]="single" }
 
 
 -- to choose firefox as the current client for leetcode
-g.leetcode_browser = 'firefox'
-g.leetcode_solution_filetype = 'python3'
+-- g.leetcode_browser = 'firefox'
+-- g.leetcode_solution_filetype = 'python3'
 
 -- TODO: For autocmds
 -- vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'WinLeave' }, {

@@ -392,7 +392,7 @@ require('lualine').setup {
 -- })
 
 -- hop to jump on any text base objects
--- require('hop').setup()
+require('hop').setup()
 
 -- just to call the conflitcs lib itself
 -- i don't know yet what to do witht this since am not using it more often
