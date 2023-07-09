@@ -6,7 +6,6 @@
 call plug#begin('~/.config/nvim/plugged')
 " For timing check of the loading time
 Plug 'dstein64/vim-startuptime'
-
 " On-demand loading
 Plug 'preservim/nerdtree'
 " for status of files changes/tracked... by git
@@ -19,7 +18,7 @@ Plug 'mileszs/ack.vim'
 " To add comments
 Plug 'tpope/vim-commentary'
 " To restore my vim session after closing/opening
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline
@@ -98,7 +97,7 @@ Plug 'ap/vim-css-color'
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
 " For EasyMotion
-Plug 'phaazon/hop.nvim'
+" Plug 'phaazon/hop.nvim'
 " To fastly start neovim
 Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
@@ -141,24 +140,26 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'maxmellon/vim-jsx-pretty'
 
 " For debugging, we add dap
-Plug 'mfussenegger/nvim-dap'
-Plug 'Pocco81/DAPInstall.nvim'
-Plug 'mfussenegger/nvim-dap-python'
-" go install github.com/go-delve/delve/cmd/dlv@latest (debuger)
-Plug 'leoluz/nvim-dap-go'
-Plug 'rcarriga/nvim-dap-ui'
-" for signature during debuging
-Plug 'folke/neodev.nvim'
-Plug 'theHamsta/nvim-dap-virtual-text'
+"Plug 'mfussenegger/nvim-dap'
+"Plug 'Pocco81/DAPInstall.nvim'
+"Plug 'mfussenegger/nvim-dap-python'
+"" go install github.com/go-delve/delve/cmd/dlv@latest (debuger)
+"Plug 'leoluz/nvim-dap-go'
+"Plug 'rcarriga/nvim-dap-ui'
+"" for signature during debuging
+"Plug 'folke/neodev.nvim'
+"Plug 'theHamsta/nvim-dap-virtual-text'
+"
+"" For hightlighs
+"Plug 'LiadOz/nvim-dap-repl-highlights'
 
-" For hightlighs
-Plug 'LiadOz/nvim-dap-repl-highlights'
+" Threesiter
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-" For the sticky header
-" Plug 'wellle/context.vim'
-" The lua alternative (looks SO SLOOOOOWWWW)
+"" For the sticky header
+"" Plug 'wellle/context.vim'
+"" The lua alternative (looks SO SLOOOOOWWWW)
 Plug 'nvim-treesitter/nvim-treesitter-context'
-" For the smooth scroll
+"" For the smooth scroll
 Plug 'karb94/neoscroll.nvim'
 
 " Emmet for html fast completion
@@ -395,6 +396,12 @@ Plug 'tpope/vim-fugitive'
 " Plug '907th/vim-auto-save'
 
 Plug 'Sanix-Darker/snips.nvim'
+
+" To play on leetCode
+" to install the client we need at first
+"
+" pip install pynvim keyring browser-cookie3 --user
+Plug 'ianding1/leetcode.vim'
 
 " Just testing a copilot concurent
 " Assume using vim-plug as plugin manager

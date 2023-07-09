@@ -42,6 +42,8 @@ GIT_FZF_DEFAULT_OPTS="
 	$GIT_FZF_DEFAULT_OPTS
 "
 
+alias tmux='tmux -f ~/.config/tmux/tmux.conf -2'
+
 # some more ls aliases
 alias ls='exa'
 alias ll='ls -alF'
@@ -87,7 +89,7 @@ EXTRACT_REGEX(){
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
-alias vv='virtualenv -p python3.10 env'
+alias vv='virtualenv -p python3.11 env' # yes, i deactivated 3.10 on purposes
 alias de='deactivate'
 alias p='python3'
 
@@ -151,7 +153,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias ls_services='systemctl list-units --type=service'
 # for nvim shortcuts
-alias v='nvim -c "so ~/.config/nvim/init.lua"'
+# alias v='nvim -c "so ~/.config/nvim/init.lua"'
+alias v='nvim'
 alias nv='v'
 # for no user configuration
 alias vclean='vim --clean'
@@ -398,18 +401,24 @@ _install_golang_apps(){
 }
 
 _install_nvim(){
-    # sudo wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-    # sudo chmod +x ./nvim.appimage
-    # sudo mv ./nvim.appimage /usr/local/bin/nvim
-    # echo "[-] Installed version : $(nvim --version)"
+    # VERSION="nightly"
+    VERSION="v0.9.1" # speedy but for LSP code calls... really slow
+
+    echo "[-] -----------------------------------"
+    echo "[-] Current version : $(nvim --version)"
+
+    sudo wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage
+    sudo chmod +x ./nvim.appimage
+    sudo mv ./nvim.appimage /usr/local/bin/nvim
 
     # since installing from source is for better performances
-    cd /tmp
-    git clone https://github.com/neovim/neovim
-    cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
-    sudo make install
+    # cd /tmp
+    # git clone https://github.com/neovim/neovim
+    # cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
+    # sudo make install
 
     echo "[-] Installed version : $(nvim --version)"
+    echo "[-] -----------------------------------"
 }
 
 _install_node_stuffs(){
@@ -568,7 +577,7 @@ _install_clang(){
 }
 
 _install_tmux(){
-    VERSION=3.3a
+    VERSION=3.0
     WHERE_I_WAS=$PWD
 
     # A requirement for the compilation of tmux
@@ -795,7 +804,6 @@ _clean_nodemodules(){
 alias clean_nodemodules='_clean_nodemodules'
 
 alias cat='bat -p'
-alias tmux='tmux -2'
 
 # To fastly jump in a remote branch
 _get(){

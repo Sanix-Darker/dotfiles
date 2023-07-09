@@ -415,3 +415,9 @@ map('n', '<Leader>da', ':lua require\'debugHelper\'.attachToRemote()<CR>')
 map('n', '<Leader>di', ':lua require\'dap.ui.widgets\'.hover()<CR>')
 map('n', '<Leader>d?', ':lua local widgets=require\'dap.ui.widgets\';widgets.centered_float(widgets.scopes)<CR>')
 -- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
+
+-- LeetCode
+map('n', '<Leader>lel', ':LeetCodeList<CR>')
+map('n', '<Leader>let', ':LeetCodeTest<CR>')
+map('n', '<Leader>les', ':LeetCodeSubmit<CR>')
+map('n', '<Leader>lei', ':LeetCodeSignIn<CR>')--

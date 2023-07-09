@@ -16,14 +16,6 @@ vim.cmd('source ~/.config/nvim/config.vim')
 -- [] : sections backward or to the previous '}' in the first column.
 -- ][ : sections forward or to the next '}' in the first column.
 
--- Uncomment this when debuging
--- require('dap-python').setup('*env*/bin/python')
--- require('dap-go').setup()
--- require("nvim-dap-virtual-text").setup { commented = true }
--- vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
--- vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
--- vim.fn.sign_define("DapBreakpointRejected", {text='❌', texthl='', linehl='', numhl=''})
-
 _G.__luacache_config = {
     chunks = {
         enable = true,
@@ -45,4 +37,3 @@ require('plugins_config')
 require('keymaps')
 -- lsp configurations
 require('lsp_config')
-
