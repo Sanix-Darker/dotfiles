@@ -317,8 +317,8 @@ map("n", "<leader><", ":bprevious<cr>")
 
 -- $ and 0 are hard to access, so this is to select
 -- to the last element in the line or the first
-map("n", "vL", "v$", {silent = true})
-map("n", "vH", "v^", {silent = true})
+map("n", "vL", "v$h", {silent = true})
+map("n", "vH", "v^w", {silent = true})
 
 -- nvim spectre
 map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
