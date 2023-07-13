@@ -143,9 +143,6 @@
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
     commit-list = !git cherry -v origin
 
-    ; to create a new Issur
-    issue = !EDITOR=nvim gh issue create
-
     ; git reset --hard
     clear = !git reset --hard
 
@@ -157,6 +154,9 @@
 
     ; to get the base branch
     branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
+
+    ; to create a new Issur
+    issue-create = !EDITOR=nvim gh issue create
 
     ; to view an Issue
     ; Ex: git issue-view 23
@@ -244,11 +244,22 @@
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
 
+    ; to update (to get latest updates) and push what it's local
+    update-push = !git update && git push
+
     ; Some interesting amend commands to not let me write all the flags
     amend = !git commit --amend -v
     amend-no-edit = !git amend --no-edit
     amend-no-verify = !git amend --no-verify
     amend-no-edit-no-verify = !git amend-no-edit --no-verify
+
+    ; this will add all tracked files since..
+    ; some add but with the amend attached on it as up there
+    add-tracked = !git add --ignore-untracked .
+    add-amend = !git add-tracked && git amend
+    add-amend-no-edit = !git add-tracked && git amend --no-edit
+    add-amend-no-verify = !git add-tracked && git amend --no-verify
+    add-amend-no-edit-no-verify = !git add-tracked && git amend-no-edit --no-verify
 
     ; to keep the change or actualiz the date of an amend
     ; we can use the flag --reset-author, this will set a new
@@ -418,6 +429,7 @@
     reflog-branch = !git reflog $(git branch --show-current)
 
     ; to pull only the current branch
+    ; same as update (don't know why i should remove it)
     pull-it = !git pull origin $(git branch --show-current)
 
     ; checkout an orphan branch means, we create an empty branch not comming

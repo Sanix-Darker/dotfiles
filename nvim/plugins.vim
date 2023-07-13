@@ -115,7 +115,7 @@ Plug 'lewis6991/impatient.nvim'
 " Plug 'sbdchd/neoformat'
 
 " To format the c/cpp code
-" Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format'
 
 " To manage sqlLite database
 " sudo apt-get install sqlite3 libsqlite3-dev
