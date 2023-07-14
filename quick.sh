@@ -2,15 +2,11 @@
 
 _automatic_install(){
     echo "----------"
-    echo "Do you want it to be installed automatically ?"
+    echo "It will installed automatically !"
 
-    read -p "[?] (Y/y): " -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]];then
-        echo ""
-        echo ">> $1"
-        sudo $1
-    fi
     echo ""
+    echo ">> $1"
+    sudo $1
 }
 
 _check_requirements(){
@@ -21,7 +17,7 @@ _check_requirements(){
     for req in "${requirements[@]}"
     do
         command -v $req > /dev/null
-        if [ "$?" == "0" ]; then
+        if [ "$?" != "0" ]; then
             echo "---"
             echo "'$req' is required for this script to run"
 
