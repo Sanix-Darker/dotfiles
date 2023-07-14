@@ -1,13 +1,5 @@
 #!/bin/bash
 
-_automatic_install(){
-    echo "----------"
-    echo "It will installed automatically !"
-
-    echo ""
-    echo ">> $1"
-    sudo $1
-}
 
 _check_requirements(){
     requirements=(
@@ -22,20 +14,30 @@ _check_requirements(){
             echo "'$req' is required for this script to run"
 
             if [[ "$req" == "docker" ]]; then
-                echo "Tips: apt-get install \
-                    docker-ce docker-ce-cli containerd.io
-                    docker-buildx-plugin docker-compose-plugin -y
-                "
-                _automatic_install "apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y"
+                echo "It will installed automatically !"
+
+                sudo apt-get install ca-certificates curl gnupg -y
+
+                sudo install -m 0755 -d /etc/apt/keyrings
+                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+                    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+                sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+                echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+                    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+                sudo apt-get install \
+                    docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
             else
-                echo "Tips: apt-get install $req git -y"
-                _automatic_install "apt-get install $req -y"
+                sudo apt-get install $req -y
             fi
         fi
     done
 }
 
 _quick(){
+    sudo apt-get update -y
+
     _check_requirements
 
     echo ">> Cloning the repository..."
