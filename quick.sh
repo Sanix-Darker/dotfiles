@@ -12,10 +12,9 @@ _check_requirements(){
         if [ "$?" != "0" ]; then
             echo "---"
             echo "'$req' is required for this script to run"
+            echo "It will installed automatically !"
 
             if [[ "$req" == "docker" ]]; then
-                echo "It will installed automatically !"
-
                 sudo apt-get install ca-certificates curl gnupg -y
 
                 sudo install -m 0755 -d /etc/apt/keyrings
