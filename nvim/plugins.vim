@@ -103,9 +103,9 @@ Plug 'lewis6991/impatient.nvim'
 " get strucure of the code classes and functions
 " Plug 'https://github.com/preservim/tagbar'
 " Another tagging system like tagbar
-" Plug 'liuchengxu/vista.vim'
 " TO install vista, we need
 " https://github.com/universal-ctags/ctags not the default ctags
+Plug 'liuchengxu/vista.vim'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
@@ -113,6 +113,9 @@ Plug 'lewis6991/impatient.nvim'
 " Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
+
+" minimap for my project
+" Plug 'ziontee113/neo-minimap'
 
 " To format the c/cpp code
 Plug 'rhysd/vim-clang-format'
@@ -371,7 +374,7 @@ Plug 'SirVer/ultisnips'
 " Plug 'https://github.com/w0rp/ale'
 
 " For Fugitive for git command directly inside the command section
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " vim plugin for flake8 PEP
 " Plug 'nvie/vim-flake8'

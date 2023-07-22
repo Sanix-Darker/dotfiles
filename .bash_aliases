@@ -239,6 +239,9 @@ _set_dot_files(){
     # we copy our terminal alacritty
     cpd $DOT_DIR/alacritty/ ~/.config/
 
+    # we copy our mpv
+    cpd $DOT_DIR/mpv/ ~/.config/
+
     # we copy tmux configurations
     cpd $DOT_DIR/tmux/ ~/.config/
 
@@ -277,6 +280,9 @@ _copy_to_dotfiles(){
 
     # copy alacritty conf
     cpd ~/.config/alacritty/ $DOT_DIR/
+
+    # copy mpv conf
+    cpd ~/.config/mpv/ $DOT_DIR/
 
     # copy tmux conf
     cpd ~/.config/tmux/ $DOT_DIR/
@@ -508,6 +514,20 @@ _confirm(){
     echo
 }
 
+_install_mpv(){
+    sudo apt update -y
+
+    # To install the youtube/mpv
+    echo "> Installing yt-dlp_linux..."
+    cd /tmp
+    # let's fix yt-dlp and mpv versions
+    wget https://github.com/yt-dlp/yt-dlp/releases/download/2023.07.06/yt-dlp_linux
+    chmod +x ./yt-dlp_linux && mv ./yt-dlp_linux /usr/bin/yt-dlp
+
+    echo "> Installing mpv..."
+    sudo apt install mpv
+}
+
 _install_i3(){
     sudo apt install polybar
     # to install i3
@@ -519,7 +539,7 @@ _install_i3(){
         libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
-    sudo apt-get install i3-gaps mpv feh rofi arandr -y
+    sudo apt-get install feh rofi arandr -y
     git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
 
     # install greenclip for clipboard history
@@ -1166,20 +1186,6 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-git(){
-  # if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
-  #   shift 1
-  #   command git log-line "$@"
-  if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
-    shift 1 # to remove the first argument passed
-    command git branch-sorted "$@"
-  elif [[ "$1" == "restore" || "$1" == "add" ]]; then
-    command git "$@" && git status
-  else
-    command git "$@"
-  fi
-}
-
 # show changes for a given file on a specific point int the history
 git-log-commits-for(){
     SHOW_COMMIT_COMMAND='git show {1} -- '$@' | delta'
@@ -1224,6 +1230,7 @@ git_last_commit_link(){
 
     echo $built_link/commits/$(git last-commit-hash)
 }
+
 
 git_open_link(){
     # $1 can be 'origin' or 'dev' depending on the source
@@ -1419,6 +1426,11 @@ _b_connect_me(){
 _b_scan(){
     bluetoothctl scan on
 }
+# SoundCoreLite
+# # bluetoothctl connect 56:E1:6D:80:B4:27
+# YST
+# # bluetoothctl connect AC:12:2F:50:D9:56
+
 
 #tail grep on a file
 # _tail_grep /tmp.file "item this"
@@ -1546,6 +1558,27 @@ docker_postgres_exec(){
 #alias gq='_graphql_curl'
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
+
+# for the snap version
+_yv(){
+    # not passing as param... flemme
+    yt-dlp -o - "$(xclip -o)" | mpv -
+}
+alias yv='_yv'
+
+git(){
+  # if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
+  #   shift 1
+  #   command git log-line "$@"
+  if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
+    shift 1 # to remove the first argument passed
+    command git branch-sorted "$@"
+  elif [[ "$1" == "restore" || "$1" == "add" || "$1" == "update" || "$1" == "pull" ]]; then
+    command git "$@" && git status
+  else
+    command git "$@"
+  fi
+}
 
 # # some coul git aliases to go fast
 # I don't know why i cannot stand those for now

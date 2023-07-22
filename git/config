@@ -432,8 +432,7 @@
     ; same as update (don't know why i should remove it)
     pull-it = !git pull origin $(git branch --show-current)
 
-    ; checkout an orphan branch means, we create an empty branch not comming
-    ; from master/main or anythong else !
+    ; checkout an orphan branch means, we create an empty branch not comming from master/main or anythong else !
     checkout-orphan = !git checkout --orphan
 
     fetch-checkout = !git fetch origin $@ && cd .. && cd - && git checkout $@
