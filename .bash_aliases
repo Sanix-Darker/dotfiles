@@ -629,6 +629,12 @@ _install_act(){
     gh extension install nektos/gh-act
 }
 
+_install_dash(){
+    echo "[x] Install dash..."
+
+    gh extension install dlvhdr/gh-dash
+}
+
 _install_yq(){
     VERSION=v4.2.0
     BINARY=yq_linux_amd64
@@ -696,6 +702,9 @@ _install_basics(){
 
     # Install act
     _confirm "Install act (github actions locally) ?" _install_act
+
+    # Install dash (git pr and issues from my terminal)
+    _confirm "Install dash ?" _install_dash
 
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
@@ -1043,7 +1052,7 @@ git-fuzzy-log-branch ()
 		{}
 		FZF-EOF'
 
-	git log-branch --graph --color=always --format="%C(auto)%h %s%d " | \
+    git log origin..HEAD --no-merges  --graph --color=always --format="%C(auto)%h %s%d " | \
 		fzf ${GIT_FZF_DEFAULT_OPTS} --no-sort --tiebreak=index \
 		--preview "${PREVIEW_COMMAND}" --preview-window=top:15 \
 		--bind "enter:execute:${ENTER_COMMAND}"

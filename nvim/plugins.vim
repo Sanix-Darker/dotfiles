@@ -312,7 +312,13 @@ Plug 'Sanix-Darker/onedark.vim'
 
 " For multi cursor
 " Coul but am oing to comment that for now
-" Plug 'mg979/vim-visual-multi'
+" googd tutorial : https://www.youtube.com/watch?v=N-X_zjU5INs
+Plug 'mg979/vim-visual-multi'
+
+" To get import cost in a javascript codebase
+" like bundle phobia
+" check the documentation here : https://github.com/yardnsm/vim-import-cost/
+" Plug 'yardnsm/vim-import-cost', { 'do': 'npm install --production' }
 
 " For distraction disabling
 " Plug 'junegunn/goyo.vim'
