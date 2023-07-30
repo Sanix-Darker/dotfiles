@@ -92,6 +92,8 @@ alias ee='source *env*/bin/activate'
 alias vv='virtualenv -p python3.11 env' # yes, i deactivated 3.10 on purposes
 alias de='deactivate'
 alias p='python3'
+# the default size installed by default sucks
+alias size='du -sh'
 
 # the lock command
 alias lo='gnome-screensaver-command -l'
@@ -119,7 +121,7 @@ _rd(){
 alias rd=_rd
 
 cdd() {
-    local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)"  || return 1
+    local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)" || return 1
 	cd "$sel"
 }
 
@@ -127,7 +129,6 @@ cdd() {
 # But let's do that only we're sure zoxide is installed properly
 $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='z'
 
-# alias br='/usr/bin/broot'
 # Kill a process running on a specific port
 _killport(){
     sudo kill -9 $(sudo lsof -t -i:$1)
@@ -225,6 +226,17 @@ _set_nvim(){
     # go install github.com/arduino/arduino-language-server@latest
 }
 
+# copy alacritty mpv tmux i3 git config
+# we copy polybar
+# Our rofi theme for search
+# others
+CONFIG_PATHS=(
+    "autostart"
+    "rofi" "polybar"
+    "git" "i3" "tmux"
+    "mpv" "alacritty"
+)
+
 # Assuming we already have the dotfiles directory
 # on our workspace
 _set_dot_files(){
@@ -236,37 +248,21 @@ _set_dot_files(){
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms/ ~/vagrant/vms
 
-    # we copy our terminal alacritty
-    cpd $DOT_DIR/alacritty/ ~/.config/
-
-    # we copy our mpv
-    cpd $DOT_DIR/mpv/ ~/.config/
-
-    # we copy tmux configurations
-    cpd $DOT_DIR/tmux/ ~/.config/
-
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
 
-    # we copy our i3 config
-    cpd $DOT_DIR/i3/ ~/.config/
-
-    # for git config
-    cpd $DOT_DIR/git/ ~/.config/
-
-    # we set polybar
-    cpd $DOT_DIR/polybar ~/.config/
-
-    # For my git configurations
-    cpd $DOT_DIR/rofi/ ~/.config/
+    for path in "${CONFIG_PATHS[@]}"; do
+        echo "Copy of '$DOT_DIR/$path' in ~/.config/..."
+        cpd $DOT_DIR/$path/ ~/.config/
+    done
 
     # we return on our previus directory
     cd -
 }
 
 _copy_to_dotfiles(){
-    mkdir -p $DOT_DIR/nvim/
-    # vim stuffs
+    # nvim stuffs
+    # We prevent copying plugins git based repositories too.
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
@@ -276,31 +272,17 @@ _copy_to_dotfiles(){
     cpd ~/vagrant/vms/ $DOT_DIR/vagrant/vms/
 
     # For ranger configurationss
+    # to avoid copying plugins directories
     cpd ~/.config/ranger/{commands.py,rifle.conf,rc.conf,colorschemes} $DOT_DIR/ranger
-
-    # copy alacritty conf
-    cpd ~/.config/alacritty/ $DOT_DIR/
-
-    # copy mpv conf
-    cpd ~/.config/mpv/ $DOT_DIR/
-
-    # copy tmux conf
-    cpd ~/.config/tmux/ $DOT_DIR/
-
-    # copy i3 conf
-    cpd ~/.config/i3/ $DOT_DIR/
-
-    # for git config
-    cpd ~/.config/git/ $DOT_DIR/
 
     # greenclip configuration
     cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
 
-    # we copy polybar
-    cpd ~/.config/polybar/ $DOT_DIR/
-
-    # Our rofi theme for search
-    cpd ~/.config/rofi/ $DOT_DIR/
+    # we copy directories that needs to be copied
+    for path in "${CONFIG_PATHS[@]}"; do
+        echo "Copy of '~/.config/$path' in $DOT_DIR/..."
+        cpd ~/.config/$path/ $DOT_DIR/
+    done
 }
 
 _push_dot_files(){
@@ -1571,7 +1553,8 @@ docker_postgres_exec(){
 # for the snap version
 _yv(){
     # not passing as param... flemme
-    yt-dlp -o - "$(xclip -o)" | mpv -
+    link="$(xsel -b)"
+    yt-dlp -o - "$link" | mpv -
 }
 alias yv='_yv'
 
@@ -1587,6 +1570,10 @@ git(){
   else
     command git "$@"
   fi
+}
+
+_version(){
+    lsb_release -a
 }
 
 # # some coul git aliases to go fast

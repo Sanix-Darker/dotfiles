@@ -69,6 +69,14 @@
     master = !git checkout master
     main = !git checkout main
 
+    ; this command clean the .git to have a fresh with no dangling objects from it
+    ; 1- Prune Remote Tracking Branches
+    ; 2- Remove Stale References and Unused Objects
+    ; 3- Clean reflog
+    ; 4- Remove Unreachable Objects
+    ; 5- Optimize Pack Files
+    clean-git-dir = !git remote prune origin && git gc --prune=now && git reflog expire --all --expire=now && git prune && git repack -Ad
+
     ; git nocommit Makefile
     ; to set the nofilter commit inside the attributes of a repo
     ; just to be sure to ignore all lignes from with that word
