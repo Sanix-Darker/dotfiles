@@ -237,6 +237,9 @@
     pushit = !git push --set-upstream origin $(git branch --show-current)
 
     ; worktree add a newone
+    ; path and branch
+    ; git tree-add ../laputa-master-tree master
+    ; works for the rest of worktree commands
     tree-add = !git worktree add
     ; to list all worktree
     tree-list = !git worktree list

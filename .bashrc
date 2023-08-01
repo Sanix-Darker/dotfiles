@@ -298,7 +298,7 @@ export TMUX_POPUP_WIDTH=80%
 # ssh-add ...
 alias expose="$HOME/expose"
 
-# # for i3 purpose
+# # # for i3 purpose
 # xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
 # xinput set-prop "Synaptics TM3625-010" "Device Enabled" 1
 # xinput set-prop "Synaptics TM3625-010" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000

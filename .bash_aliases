@@ -645,7 +645,7 @@ _install_basics(){
 
         "cloc" "compton"
 
-        "tmate" "git-lfs"
+        "tmate" "git-lfs" "gh"
         "tar" "zip" "unzip" "curl"
         "wget" "gcc" "g++" "make"
 
@@ -762,6 +762,10 @@ _install_cling(){
     wget https://root.cern/download/cling/cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
     unar cling_2020-11-05_ROOT-ubuntu2004.tar.bz2
     ./cling_2020-11-05_ROOT-ubuntu2004/bin/cling
+}
+
+_install_nordvpn(){
+    sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 }
 
 _install_dev_stack(){
@@ -1141,7 +1145,7 @@ alias tkill='tmux kill-server'
 alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
 alias com='pkill compton; compton -f & > /dev/null;'
 
-# To control the brightness with xrandr
+# To control the brightness with xrandr contrast
 _xrandr(){
     # _xrandr lu eDP-1-1 0.9
     if [[ $1 == 'ls' ]];then
@@ -1605,3 +1609,7 @@ alias gsq="git squash"
 alias gb="git branch"
 alias gr="git restore"
 alias grs="git restore --staged"
+
+# for the ssh-add error on ssh-agent
+# eval "$(ssh-agent -k)"
+# eval "$(ssh-agent)"
