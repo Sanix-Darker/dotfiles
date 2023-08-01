@@ -246,7 +246,7 @@ _set_dot_files(){
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
     # my vagrant stuffs
-    cpd $DOT_DIR/vagrant/vms/ ~/vagrant/vms
+    cpd $DOT_DIR/vagrant/vms/ ~/vagrant/
 
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
@@ -269,7 +269,7 @@ _copy_to_dotfiles(){
     cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
 
     # my vagrant stuffs
-    cpd ~/vagrant/vms/ $DOT_DIR/vagrant/vms/
+    cpd ~/vagrant/vms/ $DOT_DIR/vagrant/
 
     # For ranger configurationss
     # to avoid copying plugins directories
