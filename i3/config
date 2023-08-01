@@ -246,3 +246,39 @@ bindsym $mod+Shift+u move workspace to output up
 bindsym $mod+Shift+d move workspace to output down
 bindsym $mod+Shift+o move workspace to output left
 bindsym $mod+Shift+p move workspace to output right
+
+
+# To keep touchPad as it should be !
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled Default" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Enabled Default" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Lock Enabled" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Drag Lock Enabled Default" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Button Mapping Enabled" 1, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Button Mapping Default" 1, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled Default" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Disable While Typing Enabled" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Disable While Typing Enabled Default" 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Methods Available" 1, 1, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Method Enabled" 1, 0, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Method Enabled Default" 1, 0, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Methods Available" 1, 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Method Enabled" 1, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Click Method Enabled Default" 1, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Middle Emulation Enabled" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Middle Emulation Enabled Default" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.000000
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed Default" 0.000000
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Left Handed Enabled" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Left Handed Enabled Default" 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Modes Available" 1, 1
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Mode Enabled" 0, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Send Events Mode Enabled Default" 0, 0
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Node" "/dev/input/event4"
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "Device Product ID" 2, 7
+# exec xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Horizontal Scroll Enabled" 1

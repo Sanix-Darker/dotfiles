@@ -105,7 +105,7 @@ Plug 'lewis6991/impatient.nvim'
 " Another tagging system like tagbar
 " TO install vista, we need
 " https://github.com/universal-ctags/ctags not the default ctags
-Plug 'liuchengxu/vista.vim'
+" Plug 'liuchengxu/vista.vim'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
@@ -336,7 +336,7 @@ Plug 'mg979/vim-visual-multi'
 
 " Snippets are separated from the engine.
 " Add this if you want them:
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 " Jedi-vim autocompletion
 " Plug 'davidhalter/jedi-vim'

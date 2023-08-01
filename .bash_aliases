@@ -643,7 +643,7 @@ _install_basics(){
         "curl" "apt-transport-https"
         "lsb-release" "ca-certificates"
 
-        "cloc"
+        "cloc" "compton"
 
         "tmate" "git-lfs"
         "tar" "zip" "unzip" "curl"
@@ -653,9 +653,13 @@ _install_basics(){
         "git" "hub" "snap" "zeal"
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
-        "libxml2-utils"
+        "libxml2-utils" "libfuse2" "libncurses-dev"
+        "libldap2-dev" "libsasl2-dev"
+        "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
+        "postgresql" "postgresql-contrib"
+        "libpq-dev"
 
-        "trash-cli"
+        "trash-cli" "python3-pynvim" "python3-virtualenv"
     )
     for i in "${devStack[@]}"
     do
