@@ -65,9 +65,8 @@
     ; list of those hidden files
     hidden = "!git ls-files -v | grep ^[hsS] | cut -c 3-"
 
-    ; quick lazy shortcut to jump on the master or main branches
-    master = !git checkout master
-    main = !git checkout main
+    ; to get the main/master branch
+    mainbranch = "!git remote show origin | sed -n '/HEAD branch/s/.*: //p'"
 
     ; this command clean the .git to have a fresh with no dangling objects from it
     ; 1- Prune Remote Tracking Branches
@@ -254,6 +253,10 @@
 
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
+
+    ; to squash and merge
+    ; git squash HEAD~2
+    squash = !git rebase -v -i
 
     ; to update (to get latest updates) and push what it's local
     update-push = !git update && git push

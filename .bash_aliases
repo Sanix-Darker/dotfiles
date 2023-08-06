@@ -410,6 +410,7 @@ _install_nvim(){
 }
 
 _install_node_stuffs(){
+    mkdir /home/dk/.nvm
     sudo apt-get install nodejs npm -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     # source $HOME/.bashrc
@@ -630,6 +631,24 @@ _install_zathura(){
     sudo apt-get install zathura -y
 }
 
+_install_docker(){
+    sudo apt install apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    sudo apt-get update -y
+    apt-cache policy docker-ce
+
+    sudo apt install docker-ce
+    sudo systemctl status docker
+
+    echo "Now making in run without sudo, please check for the instructions"
+    echo "> sudo usermod -aG docker ${USER}"
+    echo "> su - ${USER}"
+    echo "> groups"
+    echo "> sudo usermod -aG docker username"
+}
+
 
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
@@ -640,7 +659,7 @@ _install_basics(){
         "build-essential"
         "software-properties-common"
 
-        "curl" "apt-transport-https"
+        "curl" "tree" "apt-transport-https"
         "lsb-release" "ca-certificates"
 
         "cloc" "compton"
@@ -1302,6 +1321,58 @@ psaux(){
     ps aux | grep $1
 }
 
+# to install teleport shel
+_install_tsh(){
+    # download teleport gpg KEY
+    sudo curl https://deb.releases.teleport.dev/teleport-pubkey.asc \ -o /usr/share/keyrings/teleport-archive-keyring.asc
+
+    # add teleport to repository for apt
+    echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] https://deb.releases.teleport.dev/ stable main" | sudo tee /etc/apt/sources.list.d/teleport.list > /dev/null
+
+    # apt update and install :
+    sudo apt update
+    sudo apt-get install teleport
+
+    echo "Installed tsh version $(tsh version)"
+}
+
+# to set the mouse on required default ways
+_set_mouse(){
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "Device Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled Default" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Enabled Default" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Lock Enabled" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Lock Enabled Default" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Button Mapping Enabled" 1, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Tapping Button Mapping Default" 1, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Natural Scrolling Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Natural Scrolling Enabled Default" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Disable While Typing Enabled" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Disable While Typing Enabled Default" 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Scroll Methods Available" 1, 1, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Scroll Method Enabled" 1, 0, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Scroll Method Enabled Default" 1, 0, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Click Methods Available" 1, 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Click Method Enabled" 1, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Click Method Enabled Default" 1, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Middle Emulation Enabled" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Middle Emulation Enabled Default" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Accel Speed" 0.000000
+    xinput set-prop "Synaptics TM3625-010" "libinput Accel Speed Default" 0.000000
+    xinput set-prop "Synaptics TM3625-010" "libinput Left Handed Enabled" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Left Handed Enabled Default" 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Send Events Modes Available" 1, 1
+    xinput set-prop "Synaptics TM3625-010" "libinput Send Events Mode Enabled" 0, 0
+    xinput set-prop "Synaptics TM3625-010" "libinput Send Events Mode Enabled Default" 0, 0
+    xinput set-prop "Synaptics TM3625-010" "Device Node" "/dev/input/event4"
+    xinput set-prop "Synaptics TM3625-010" "Device Product ID" 2, 7
+    xinput set-prop "Synaptics TM3625-010" "libinput Horizontal Scroll Enabled" 1
+}
+
 # To take note about something really quickly
 # Requirements : fzf and ag
 #
@@ -1611,5 +1682,7 @@ alias gr="git restore"
 alias grs="git restore --staged"
 
 # for the ssh-add error on ssh-agent
-# eval "$(ssh-agent -k)"
-# eval "$(ssh-agent)"
+_ssh_add(){
+    eval "$(ssh-agent)"
+    ssh-add
+}

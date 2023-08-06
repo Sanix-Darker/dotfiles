@@ -25,17 +25,21 @@ Plug 'vim-syntastic/syntastic'
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
-" Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
+Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
 " Plugin outside ~/.vim/plugged with post-update hook
-" Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+" needed to add this because neoclip depends on it
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'Sanix-Darker/fzf', { 'branch': 'me', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " For FZF preview
 Plug 'yuki-yano/fzf-preview.vim'
 " For code folding
 " Plug 'tmhedberg/SimpylFold'
+
+" To automatically close a buffer after 20mins
+Plug 'chrisgrieser/nvim-early-retirement'
 
 " For DOC offline regarding any builtin func/class/modules/package
 " Works with the zea sofware
@@ -122,9 +126,10 @@ Plug 'rhysd/vim-clang-format'
 
 " To manage sqlLite database
 " sudo apt-get install sqlite3 libsqlite3-dev
-" Plug 'kkharji/sqlite.lua'
+" for clipboard history on nvim
+Plug 'kkharji/sqlite.lua'
 " To have history of clipboard
-" Plug 'AckslD/nvim-neoclip.lua'
+Plug 'AckslD/nvim-neoclip.lua'
 
 " A hinter for next moves
 Plug 'folke/which-key.nvim'
@@ -313,7 +318,7 @@ Plug 'Sanix-Darker/onedark.vim'
 " For multi cursor
 " Coul but am oing to comment that for now
 " googd tutorial : https://www.youtube.com/watch?v=N-X_zjU5INs
-Plug 'mg979/vim-visual-multi'
+" Plug 'mg979/vim-visual-multi'
 
 " To get import cost in a javascript codebase
 " like bundle phobia
@@ -341,6 +346,9 @@ Plug 'honza/vim-snippets'
 " Jedi-vim autocompletion
 " Plug 'davidhalter/jedi-vim'
 
+" Just for css to see composed values from class name
+" Plug 'MaximilianLloyd/tw-values.nvim'
+
 " Animation on the cursor
 " Plug 'DanilaMihailov/beacon.nvim'
 
@@ -355,13 +363,13 @@ Plug 'SirVer/ultisnips'
 " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Copy paste history
-" Plug 'https://github.com/vim-scripts/YankRing.vim'
+" Plug 'vim-scripts/YankRing.vim'
 
 " For grep search [because the :Lines freeze as shit]
 " Plug 'dkprice/vim-easygrep'
 
 " Colors on brackets
-" Plug 'frazrepo/vim-rainbow'
+Plug 'frazrepo/vim-rainbow'
 
 "if has('nvim')
 "  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

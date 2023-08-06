@@ -154,7 +154,7 @@ preexec() {
     command_timer_start=$SECONDS
 
     # To handle the command history of a directory
-    _handle_cmd_history $@
+    # _handle_cmd_history $@
 }
 precmd() {
     second_to_print=$(( SECONDS - command_timer_start ))
@@ -293,11 +293,17 @@ export XDG_CONFIG_HOME=$HOME/.config/
 # tmux check for popUp display of $HOME/fzfp
 export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
 export TMUX_POPUP_WIDTH=80%
+export EDITOR=nvim
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...
-alias expose="$HOME/expose"
+#
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#     eval "$(ssh-agent)"
+# fi
 
+# export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
+# export SSH_AGENT_PID=$SSH_AGENT_PID
 # # # for i3 purpose
 # xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
 # xinput set-prop "Synaptics TM3625-010" "Device Enabled" 1
