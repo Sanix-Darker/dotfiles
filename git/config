@@ -458,6 +458,9 @@
     ; That will open a fuzzy finder popUp to search amount available branches
     checkout-search = !git checkout $(git branch --sort=committerdate | fzf)
 
+    ; checkout a branch on another directory
+    checkout-tree = !bash -ic 'git_checkout_tree \"$@\"' x
+
     ; to search for files updated
     status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
 

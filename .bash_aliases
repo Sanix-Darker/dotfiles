@@ -649,6 +649,46 @@ _install_docker(){
     echo "> sudo usermod -aG docker username"
 }
 
+_install_rust(){
+    echo "> installing rustc and cargo..."
+
+    sudo apt update -y && sudo apt upgrade -y
+    sudo apt install -y curl gcc make build-essential
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+    # to check the rust version installed
+    rustc --version
+}
+
+_install_golang(){
+    echo "> installing golang..."
+
+    sudo apt update -y && sudo apt upgrade -y
+    sudo apt install golang-go -y
+
+    # to check the golang version installed
+    go version
+}
+
+_install_golang_specific_version(){
+    if [ -z $GOLANG_VERSION_TO_INSTALL ]; then
+        echo "< error: you need to set 'export GOLANG_VERSION_TO_INSTALL=1.xx.x' to run this command."
+        return
+    fi;
+
+    echo "> installing golang version '$GOLANG_VERSION_TO_INSTALL'"
+
+    cd /tmp/
+    wget https://golang.org/dl/go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz
+    sudo mkdir /usr/local/go$GOLANG_VERSION_TO_INSTALL
+    sudo tar -xf go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz -C /usr/local/go$GOLANG_VERSION_TO_INSTALL
+
+    echo "> available now on /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go"
+    /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go version
+
+    # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
+}
 
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
@@ -1133,6 +1173,43 @@ fuzzy_stash_search()
                 ;;
         esac
     done
+}
+
+git_checkout_tree(){
+    branch=$@
+    repo_path=$(git rev-parse --show-toplevel)
+    repo_name="$(basename $repo_path)"
+    # To get the root directory of the git project,
+    # because we could be in a subdirectory while running this command
+    root_path="$(dirname $repo_path)"
+
+    echo "> repo: $repo_name: "
+    echo "> root-path: $root_path: "
+
+    # Yes, we can checkout multiple branch at the same time
+    for bb in "${@}";do
+        # remove slashes to convert fix/this to fix-this
+        bb_formated=$(echo $bb | tr '/' '-')
+        new_path="$root_path/$repo_name-$bb_formated"
+
+        if [ -d $new_path ]; then
+            echo "> worktree $repo_name-$bb_formated already exist..."
+            _command="cd $new_path"
+        else
+            echo "> creating worktree ../$repo_name-$bb_formated"
+
+            # if we're taking from a distinct source
+            git fetch origin $bb
+
+            _command="git tree-add $new_path $bb"
+        fi;
+
+        echo "> Changing directory to $new_path... "
+
+        echo $_command
+        eval $_command
+        # cd to the new path
+    done;
 }
 
 # To install apt-clone for backups
