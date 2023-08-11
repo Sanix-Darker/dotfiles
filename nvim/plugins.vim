@@ -18,7 +18,7 @@ Plug 'mileszs/ack.vim'
 " To add comments
 Plug 'tpope/vim-commentary'
 " To restore my vim session after closing/opening
-" Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 " Vim synthaxic
 Plug 'vim-syntastic/syntastic'
 " vim-airline
@@ -355,7 +355,7 @@ Plug 'honza/vim-snippets'
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
 " Fcedpe
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 

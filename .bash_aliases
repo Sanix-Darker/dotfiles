@@ -1175,6 +1175,7 @@ fuzzy_stash_search()
     done
 }
 
+
 git_checkout_tree(){
     branch=$@
     repo_path=$(git rev-parse --show-toplevel)
@@ -1194,21 +1195,26 @@ git_checkout_tree(){
 
         if [ -d $new_path ]; then
             echo "> worktree $repo_name-$bb_formated already exist..."
-            _command="cd $new_path"
         else
             echo "> creating worktree ../$repo_name-$bb_formated"
 
-            # if we're taking from a distinct source
-            git fetch origin $bb
+            # We fetch from this env
+            # if not set we get from remote origin
+            if [ -z $GIT_REMOTE_SET_TO ]; then
+                git fetch origin $bb
+            else
+                git fetch $GIT_REMOTE_SET_TO $bb
+            fi
 
             _command="git tree-add $new_path $bb"
+
+            echo $_command
+            eval $_command
         fi;
 
         echo "> Changing directory to $new_path... "
-
-        echo $_command
-        eval $_command
         # cd to the new path
+        cd $new_path
     done;
 }
 
