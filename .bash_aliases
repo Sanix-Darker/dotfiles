@@ -233,7 +233,7 @@ _set_nvim(){
 CONFIG_PATHS=(
     "autostart"
     "rofi" "polybar"
-    "git" "i3" "tmux"
+    "git" "i3"
     "mpv" "alacritty"
 )
 
@@ -250,6 +250,12 @@ _set_dot_files(){
 
     # we copy our ranger configuration
     cpd $DOT_DIR/ranger ~/.config/ranger
+
+    # greenclip configuration
+    cpd $DOT_DIR/greenclip.toml ~/.config/greenclip.toml
+
+    # tmux configuration
+    cpd $DOT_DIR/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
     for path in "${CONFIG_PATHS[@]}"; do
         echo "Copy of '$DOT_DIR/$path' in ~/.config/..."
@@ -277,6 +283,9 @@ _copy_to_dotfiles(){
 
     # greenclip configuration
     cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
+
+    # copy tmux configuration too
+    cpd ~/.config/tmux/tmux.conf $DOT_DIR/tmux/tmux.conf
 
     # we copy directories that needs to be copied
     for path in "${CONFIG_PATHS[@]}"; do
