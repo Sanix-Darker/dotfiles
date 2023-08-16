@@ -464,6 +464,12 @@
     ; to search for files updated
     status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
 
+    status-modified = !git status -s | grep '^ M'
+    status-deleted = !git status -s | grep '^ D'
+    status-created = !git status -s | grep '^??'
+    ; get only status of files add on staged
+    status-staged = !git diff --cached --name-status
+
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
     ignores = !git ls-files --other --ignored --exclude-standard

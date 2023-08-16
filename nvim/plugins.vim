@@ -2,10 +2,10 @@
 " - For Neovim: stdpath data  . plugged
 " - Avoid using standard Vim directory names like plugin
 " auto install vim-plug and plugins:
-"
+
 call plug#begin('~/.config/nvim/plugged')
 " For timing check of the loading time
-Plug 'dstein64/vim-startuptime'
+" Plug 'dstein64/vim-startuptime'
 " On-demand loading
 Plug 'preservim/nerdtree'
 " for status of files changes/tracked... by git
@@ -355,12 +355,9 @@ Plug 'honza/vim-snippets'
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
 " Fcedpe
-"Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-
-" Using a non-default branch
-" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 " Copy paste history
 " Plug 'vim-scripts/YankRing.vim'
@@ -369,20 +366,7 @@ Plug 'honza/vim-snippets'
 " Plug 'dkprice/vim-easygrep'
 
 " Colors on brackets
-Plug 'frazrepo/vim-rainbow'
-
-"if has('nvim')
-"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-
-" To search for lines and files
-" Plug 'damage220/vim-finder'
-
-" Plug 'wincent/command-t'
+" Plug 'frazrepo/vim-rainbow'
 
 " Same as Synthax but asynchron
 " Plug 'https://github.com/w0rp/ale'

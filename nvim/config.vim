@@ -4,7 +4,7 @@ source ~/.config/nvim/plugins.vim
 
 " jk -> Esc to speed Up switching
 " THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
-inoremap jk <ESC>:highlight CursorLine ctermbg=236<CR>
+inoremap jk <ESC>
 try
 	colorscheme onedark
 catch

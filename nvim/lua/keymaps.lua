@@ -398,8 +398,8 @@ map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 -- Move to the next diagnostic
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
---  inoremap ;; <Esc>
--- map("i", ";;", "<Esc>")
+--  inoremap to hit normal keybinding in insert mode
+map("i", "kk", "<C-o>")
 
 -- NVIM DAP
 map('n', '<Leader>dh', ':lua require\'dap\'.toggle_breakpoint()<CR>')
