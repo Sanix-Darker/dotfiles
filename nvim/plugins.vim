@@ -114,7 +114,7 @@ Plug 'lewis6991/impatient.nvim'
 " The magical local history
 " Plug 'simnalamburt/vim-mundo'
 " For popUp all over the place
-" Plug 'voldikss/vim-floaterm'
+Plug 'voldikss/vim-floaterm'
 " For formating the code:
 " Plug 'sbdchd/neoformat'
 
@@ -140,8 +140,6 @@ Plug 'nvim-lua/plenary.nvim'
 " Plug 'sindrets/diffview.nvim'
 " The Zig hightligh &
 " Plug 'ziglang/zig.vim'
-" Just to use the ESC in a floaterm
-" Plug 'sychen52/smart-term-esc.nvim'
 " ReactJs/typescript support
 " Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'

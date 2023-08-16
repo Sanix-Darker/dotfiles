@@ -35,8 +35,6 @@ local masonlspconfig_setup = {
     ensure_installed = lsp_servers,
     automatic_installation = false,
 }
--- be able to use the ESC in the floatTerm terminal
--- require('smart-term-esc').setup(smart_term_esc_setup)
 -- Disabling just for now
 require('which-key').setup()
 

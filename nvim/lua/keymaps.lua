@@ -290,6 +290,7 @@ map("n", "P", '"+p')
 -- map("n", "k :15Term
 -- map("n", "kb :15Term bash <CR>
 map("n", "<Leader>kk", ":FloatermNew --height=0.9 --width=0.9<CR>")
+map("n", "<Leader>k<Space>", ":FloatermToggle<CR>")
 -- map("n", "<Leader>kkk", ":FloatermKill<CR>") -- should be killed by exiting it directly
 map("n", "<Leader><C-k>", ":FloatermToggle<CR>")
 map("n", "<Leader>kn", ":FloatermNext<CR>")

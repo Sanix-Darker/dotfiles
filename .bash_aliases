@@ -583,6 +583,7 @@ _install_tmux(){
     VERSION=3.0
     WHERE_I_WAS=$PWD
 
+    echo "> installing tmux v$VERSION..."
     # A requirement for the compilation of tmux
     sudo apt install libevent-dev
     cd /tmp
@@ -602,6 +603,9 @@ _install_tmux(){
     sudo killall -9 tmux
 
     cd $WHERE_I_WAS
+
+    wwecho "> Installing tpm..."
+    git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 }
 
 # for github action locally
@@ -662,18 +666,26 @@ _install_rust(){
 }
 
 _install_ruby(){
+    VERSION="3.2.2"
     sudo apt update -y
     sudo apt install libssl-dev \
         libreadline-dev zlib1g-dev autoconf \
         bison build-essential libyaml-dev \
         libreadline-dev libncurses5-dev libffi-dev \
         libgdbm-dev
-    curl -fsSL https://github.com/rbenv/rbenv-installer/raw/HEAD/bin/rbenv-installer | bash
-    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    source ~/.bashrc
 
-    type rbenv
+    echo "> Going to install ruby v$VERSION"
+    echo "> Downloading the ruby tar file..."
+    cd /tmp
+    wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-$VERSION.tar.gz
+    tar -xzvf ruby-$VERSION.tar.gz
+    cd ruby-$VERSION
+
+    echo "> make installing..."
+    ./configure
+    make
+    sudo make install
+
     ruby --version
 }
 
@@ -792,7 +804,7 @@ _install_youtube_music_cli(){
 _install_FZF_POPUP(){
     # to have fzf popup inside tmux
     cd $HOME
-    wget https://raw.githubusercontent.com/Sanix-Darker/fzf-tmux-script/main/popup/fzfp
+    wget https://raw.githubusercontent.com/Sanix-Darker/fzf-tmux-script/me/popup/fzfp
     chmod +x ./fzfp
 
     # to just set up C-F to search for tmux available session
