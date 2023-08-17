@@ -589,22 +589,27 @@ _install_clang(){
 }
 
 _install_tmux(){
-    VERSION="3.1c"
+    # VERSION="3.1c"
+    VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
-    echo "> installing tmux v$VERSION..."
+    echo "> Installing tmux $VERSION..."
     # A requirement for the compilation of tmux
-    sudo apt install libevent-dev
+    sudo apt install libevent-dev -y
     cd /tmp
-    wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz
+    echo "> Getting tmux $VERSION..."
+    wget https://github.com/Sanix-Darker/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
     tar xf tmux-${VERSION}.tar.gz
     rm -f tmux-${VERSION}.tar.gz
 
+    echo "> Compile tmux $VERSION..."
     cd tmux-${VERSION}
+    bash ./autogen.sh
     ./configure
     make
     sudo make install
 
+    echo "> Set to appropriate path v$VERSION..."
     cd -
     sudo mv tmux-${VERSION} /usr/bin/tmux
 
@@ -613,8 +618,10 @@ _install_tmux(){
 
     cd $WHERE_I_WAS
 
-    wwecho "> Installing tpm..."
-    git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
+    if [ -d "~/.tmux/plugins/tpm" ]; then
+        echo "> Installing tpm..."
+        git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
+    fi;
 }
 
 # for github action locally
@@ -628,6 +635,7 @@ _install_act(){
 _install_dash(){
     echo "[x] Install dash..."
 
+    gh extension remove dlvhdr/gh-dash
     gh extension install dlvhdr/gh-dash
 }
 
