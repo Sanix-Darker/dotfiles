@@ -589,7 +589,7 @@ _install_clang(){
 }
 
 _install_tmux(){
-    VERSION=3.0
+    VERSION="3.1c"
     WHERE_I_WAS=$PWD
 
     echo "> installing tmux v$VERSION..."
@@ -1806,3 +1806,4 @@ _ssh_add(){
     eval "$(ssh-agent)"
     ssh-add
 }
+alias tmux-jump='~/.config/tmux/plugins/tmux-jump/scripts/tmux-jump.sh'
