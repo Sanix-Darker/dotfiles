@@ -761,7 +761,7 @@ _install_basics(){
         "libldap2-dev" "libsasl2-dev"
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
         "postgresql" "postgresql-contrib"
-        "libpq-dev"
+        "libpq-dev" "entr"
 
         "trash-cli" "python3-pynvim" "python3-virtualenv"
     )
