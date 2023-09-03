@@ -41,6 +41,10 @@ Plug 'yuki-yano/fzf-preview.vim'
 " To automatically close a buffer after 20mins
 Plug 'chrisgrieser/nvim-early-retirement'
 
+" For SourceGraph nvim integration
+" Waiting for the mailing list
+" Plug 'sourcegraph/sg.nvim', { 'do': 'nvim -l build/init.lua' }
+
 " For DOC offline regarding any builtin func/class/modules/package
 " Works with the zea sofware
 " Will disable for now (for now the gd does a good job)

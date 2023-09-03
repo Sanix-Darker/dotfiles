@@ -186,9 +186,8 @@ alias rrff='trash-empty'
 # to restore an item
 alias rr='trash-restore'
 
-alias gg='google-chrome-stable'
 alias hs='http-server -o'
-alias i='ipython'
+alias i='ipython3'
 # To refresh stuff with source on bash alialses and bashrc itself
 alias so='source ~/.bashrc'
 
@@ -1257,9 +1256,7 @@ git_checkout_tree(){
             eval $_command
         fi;
 
-        echo "> Changing directory to $new_path... "
-        # cd to the new path
-        cd $new_path
+        echo "> Now you can cd to $new_path... "
     done;
 }
 
@@ -1369,6 +1366,7 @@ git_open_pr(){
     $browser $built_link;
 }
 
+# Can be usefull sometimes (even for the latest commit hash for example)
 git_last_commit_link(){
     pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
     remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
@@ -1434,9 +1432,7 @@ _uptime(){
 # come back to where we have been !
 _cdex(){
     commandToBeExecuted="${@:2}"
-
     echo "Executing => '$commandToBeExecuted' in \"$1\""
-
     # Using zoxide i can navigate to a directory just
     # by it's name and not the full path
     cd "$1" && $commandToBeExecuted;
@@ -1458,8 +1454,8 @@ _install_tsh(){
     echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] https://deb.releases.teleport.dev/ stable main" | sudo tee /etc/apt/sources.list.d/teleport.list > /dev/null
 
     # apt update and install :
-    sudo apt update
-    sudo apt-get install teleport
+    sudo apt update -y
+    sudo apt-get install teleport -y
 
     echo "Installed tsh version $(tsh version)"
 }
@@ -1785,29 +1781,29 @@ _version(){
 
 # # some coul git aliases to go fast
 # I don't know why i cannot stand those for now
-alias ga='git add'
-alias gap='git add -p'
-alias gm='git commit'
-alias gmn='git commit --no-verify'
-alias gam='git commit -am'
-alias gae='git amend'
-alias gamn='git amend-no-edit'
-alias gamnn='git amend-no-edit-no-verify'
-alias gs='git status'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gp='git push'
-alias gpf='git push --force'
-alias gl='git pull'
-alias gu='git update'
-alias gcb='git checkout -b'
-alias gl='git log-branch'
-alias gss="git stat"
-# alias gcc="git checkout"
-alias gsq="git squash"
-alias gb="git branch"
-alias gr="git restore"
-alias grs="git restore --staged"
+# alias ga='git add'
+# alias gap='git add -p'
+# alias gm='git commit'
+# alias gmn='git commit --no-verify'
+# alias gam='git commit -am'
+# alias gae='git amend'
+# alias gamn='git amend-no-edit'
+# alias gamnn='git amend-no-edit-no-verify'
+# alias gs='git status'
+# alias gd='git diff'
+# alias gds='git diff --staged'
+# alias gp='git push'
+# alias gpf='git push --force'
+# alias gl='git pull'
+# alias gu='git update'
+# alias gcb='git checkout -b'
+# alias gl='git log-branch'
+# alias gss="git stat"
+# # alias gcc="git checkout"
+# alias gsq="git squash"
+# alias gb="git branch"
+# alias gr="git restore"
+# alias grs="git restore --staged"
 
 # for the ssh-add error on ssh-agent
 _ssh_add(){

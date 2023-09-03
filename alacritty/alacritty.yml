@@ -13,7 +13,7 @@ key_bindings:
   - { key: J, mods: Control|Shift, chars: "\x1B[B" }
   # - { key: G, mods: Control, chars: "\x02\x54" }
   # Run custom command line
-  - { key: G, mods: Control, chars: "tmux-jump\n" }
+  - { key: P, mods: Control, chars: "tmux-jump\n" }
 
 window:
   opacity: 0.70

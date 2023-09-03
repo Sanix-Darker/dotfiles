@@ -174,17 +174,17 @@ map("n", "<space>j", "<C-W>j")
 
 -- let's add some registers shortcuts,
 -- i only need those 3
-map("v", "<Leader>a", "\"ay") -- to add to register
-map("v", "<Leader>A", "\"Ay") -- to append to the register
-map("n", "<Leader>a", "\"ap")
+-- map("v", "<Leader>a", "\"ay") -- to add to register
+-- map("v", "<Leader>A", "\"Ay") -- to append to the register
+-- map("n", "<Leader>a", "\"ap")
 
-map("v", "<Leader>d", "\"dy") -- to add to register
-map("v", "<Leader>D", "\"Dy") -- to append to the register
-map("n", "<Leader>d", "\"dp")
+-- map("v", "<Leader>d", "\"dy") -- to add to register
+-- map("v", "<Leader>D", "\"Dy") -- to append to the register
+-- map("n", "<Leader>d", "\"dp")
 
-map("v", "<Leader>c", "\"cy") -- to add to register
-map("v", "<Leader>C", "\"Cy") -- to append to the register
-map("n", "<Leader>c", "\"cp")
+-- map("v", "<Leader>c", "\"cy") -- to add to register
+-- map("v", "<Leader>C", "\"Cy") -- to append to the register
+-- map("n", "<Leader>c", "\"cp")
 -- could be usefull to fastly edit and use registers
 -- map("v", "<Leader>q", "\"qy")
 -- map("v", "<Leader>Q", "\"Qy")
@@ -378,8 +378,8 @@ map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 -- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
 map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
--- map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
--- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
 map('n','<leader>rr','<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')
@@ -390,7 +390,7 @@ map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
 -- Renames all references to the symbol under the cursor
 map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
 -- Selects a code action available at the current cursor position
-map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
+-- map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
 -- Show diagnostics in a floating window
 map('n', 'gll', '<cmd>lua vim.diagnostic.open_float()<cr>')
@@ -400,7 +400,7 @@ map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
 --  inoremap to hit normal keybinding in insert mode
-map("i", "kk", "<C-o>")
+-- map("i", "", "<C-o>")
 
 -- NVIM DAP
 map('n', '<Leader>dh', ':lua require\'dap\'.toggle_breakpoint()<CR>')
@@ -423,7 +423,7 @@ map('n', '<Leader>d?', ':lua local widgets=require\'dap.ui.widgets\';widgets.cen
 -- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
 
 -- LeetCode
-map('n', '<Leader>lel', ':LeetCodeList<CR>')
-map('n', '<Leader>let', ':LeetCodeTest<CR>')
-map('n', '<Leader>les', ':LeetCodeSubmit<CR>')
-map('n', '<Leader>lei', ':LeetCodeSignIn<CR>')--
+-- map('n', '<Leader>lel', ':LeetCodeList<CR>')
+-- map('n', '<Leader>let', ':LeetCodeTest<CR>')
+-- map('n', '<Leader>les', ':LeetCodeSubmit<CR>')
+-- map('n', '<Leader>lei', ':LeetCodeSignIn<CR>')--

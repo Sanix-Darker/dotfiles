@@ -38,6 +38,10 @@ local masonlspconfig_setup = {
 -- Disabling just for now
 require('which-key').setup()
 
+-- SourceGraph integration
+-- Waiting for the mailing list
+-- require("sg").setup()
+
 -- for treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {

@@ -60,6 +60,11 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# Focus the first pane (window) in the split container
+# bindsym $mod+o focus left
+# Focus the second pane (window) in the split container
+# bindsym $mod+p focus right
+
 # start dmenu (a program launcher)
 # bindsym $mod+Shift+d exec dmenu_run
 bindsym $mod+space exec rofi -show drun
