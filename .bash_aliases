@@ -458,19 +458,22 @@ _install_python_stuffs(){
     devStack=(
         "python3.10" "python3.11"
         "python3-dev" "python3-pip"
+
         "python3-setuptools"
         "python3-testresources"
-        "python3.10-distutils"
-        "python3.10-dev"
 
-        # for virtualenv
-        "python-virtualenv"
+        "python3-distutils"
+
+        "python3.10-dev"
+        "python3.11-dev"
     )
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt-get install $i -y
     done
+    # to install python3.11 pip version
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 }
 
 

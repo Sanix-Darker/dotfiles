@@ -1,6 +1,11 @@
-# list of all files, i want to skip from
+# List of all files, i want to skip from
 # from versioning in any of my .git project
 
+# from obsession nvim
 Session.vim
+# for all logs saved on "nohup ... &" process
 nohup.out
+# for my custom command lines runned related to a specific path
 .cmd_history
+*.zip
+*.tar
