@@ -138,11 +138,11 @@ _handle_cmd_history(){
     if [ -f $CMD_HISTORY_FILE ]; then
         echo $@ >> $CMD_HISTORY_FILE
 
-        # COUNT_LINES_HISTORY=$(wc -l $CMD_HISTORY_FILE | sed -e "s/[^0-9]*//g")
-        # if [ "$COUNT_LINES_HISTORY" -gt "$LATEST_LINES_TO_SHOW" ]; then
+        COUNT_LINES_HISTORY=$(wc -l $CMD_HISTORY_FILE | sed -e "s/[^0-9]*//g")
+        if [ "$COUNT_LINES_HISTORY" -gt "$LATEST_LINES_TO_SHOW" ]; then
             tail -n $LATEST_LINES_TO_SHOW $CMD_HISTORY_FILE | uniq > "$CMD_HISTORY_FILE.tmp"
             mv "$CMD_HISTORY_FILE.tmp" $CMD_HISTORY_FILE
-        # fi;
+        fi;
     else
         echo $@ > $CMD_HISTORY_FILE
     fi;
@@ -154,7 +154,7 @@ preexec() {
     command_timer_start=$SECONDS
 
     # To handle the command history of a directory
-    # _handle_cmd_history $@
+    _handle_cmd_history $@
 }
 precmd() {
     second_to_print=$(( SECONDS - command_timer_start ))

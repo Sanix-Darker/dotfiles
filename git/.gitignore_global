@@ -1,0 +1,6 @@
+# list of all files, i want to skip from
+# from versioning in any of my .git project
+
+Session.vim
+nohup.out
+.cmd_history

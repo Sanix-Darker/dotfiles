@@ -21,7 +21,7 @@
 [core]
     pager = delta
     editor = nvim
-    excludesfile = Session.vim,nohup.out,.cmd_history
+    excludesfile = ~/.config/git/.gitignore_global
 
 ; >> ============================================================================
 ; Some interesting stuffs to know for git diff
