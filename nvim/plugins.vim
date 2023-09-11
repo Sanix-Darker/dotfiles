@@ -85,8 +85,8 @@ Plug 'nvim-lualine/lualine.nvim'
 " For icons on the statusline
 " Plug 'kyazdani42/nvim-web-devicons'
 
-" To handle case insensitive with :S"
-" Plug 'tpope/vim-abolish'
+" To handle case insensitive with :S a.k.a sed"
+Plug 'tpope/vim-abolish'
 
 " Finaly a search and replace tool i may like
 " NEED ripgrep

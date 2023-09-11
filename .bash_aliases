@@ -630,6 +630,9 @@ _install_tmux(){
 _install_act(){
     # we install it using the bash command line
     curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+    # Looks like we need to move the ./bin/act to /usr/local/bin/
+    sudo mv ./bin/act /usr/local/bin/act
+
     # to use gh act
     gh extension install nektos/gh-act
 }
@@ -766,6 +769,9 @@ _install_basics(){
         "libpq-dev" "entr"
 
         "trash-cli" "python3-pynvim" "python3-virtualenv"
+
+        # for notifications
+        "libnotify-bin" "notify-osd" "xfce4-notifyd"
     )
     for i in "${devStack[@]}"
     do
@@ -1642,6 +1648,10 @@ _tail_no_grep(){
 # To clean the swap memory
 _swapclear(){
     sudo swapoff -a;sudo swapon -a
+}
+# To clean virtual memory on linux
+_clean_virtual_ram(){
+    sync && echo 3>/proc/sys/vm/drop_caches
 }
 
 # run a command again and again only if the standard output

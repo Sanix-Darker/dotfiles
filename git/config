@@ -206,6 +206,12 @@
     ; --ours -> means our code
     ; --theirs -> means their code
     ;
+
+
+    ; rebase
+    ;     add-our -> mes changements (branche sur laquelle je suis)
+    ; merge
+    ;     add-their -> mes changements (branche sur laquelle je suis)
     ; only in a middle of a rebase
     ; git add-their
     ; accept incomming changes
