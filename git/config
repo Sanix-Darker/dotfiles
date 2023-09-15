@@ -207,7 +207,6 @@
     ; --theirs -> means their code
     ;
 
-
     ; rebase
     ;     add-our -> mes changements (branche sur laquelle je suis)
     ; merge

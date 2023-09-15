@@ -9,3 +9,6 @@ nohup.out
 .cmd_history
 *.zip
 *.tar
+# while working on API, i may have a .rest file on the root directory
+# that helps me to "postman" my requests, i may ignore those for now everywere
+*.rest

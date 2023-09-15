@@ -476,7 +476,6 @@ _install_python_stuffs(){
     curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 }
 
-
 # With a given message as input, this function will execute anything
 # after the second argument passed
 # Ex : _confirm "Message" echo "test"
@@ -489,20 +488,20 @@ _confirm(){
     #
     args=("${@}")
     if [[ $NOTINTERACTIVE = "1" ]]; then
-        echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
+        echo -e "$BLUE[+] ${args[0]} $COLOROFF"
         callback=${args[@]:1}
         $callback
     else
-        echo -e "\n$BLUE[-] ${args[0]} $COLOROFF"
+        echo -e "$BLUE[-] ${args[0]} $COLOROFF"
         read -p "[?] (Y/y): " -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
-            clear
-            echo -e "\n$BLUE[+] ${args[0]} $COLOROFF"
+            # clear
+            # echo -e "$BLUE[+] ${args[0]} $COLOROFF"
             callback=${args[@]:1}
             # echo ">>" $callback
             $callback
-            echo -e "\n$BWHITE-----------------------------------------------------------------$COLOROFF"
+            echo -e "$BWHITE-----------------------------------------------------------------$COLOROFF"
         fi
     fi
     echo
@@ -1684,7 +1683,7 @@ alias live_wait='clear && echo "LIVE WILL START IN" && _sleep 300'
 alias zeal-cli='python3.10 /usr/local/bin/zeal-cli'
 
 _pydoc(){
-    zeal-cli Python_3 | fzf --height=50% --preview='zeal-cli --lynx-dump=true Python_3 {}' | xargs -d '\n' zeal-cli Python_3
+    zeal-cli Python_3 | fzf --height=50% --preview='zeal-cli --lynx-dump=true Python_3 { }' | xargs -d '\n' zeal-cli Python_3
 }
 
 alias fzfp='$HOME/fzfp'
@@ -1824,3 +1823,54 @@ _ssh_add(){
     ssh-add
 }
 alias tmux-jump='~/.config/tmux/plugins/tmux-jump/scripts/tmux-jump.sh'
+
+# fancy parting parrot
+alias parrot='curl parrot.live'
+
+# To boot an usb device for a specific .iso file
+# no need of a special app for that...
+#
+# $ _boot_usb /dev/sda ~/Downloads/Win11_22H2_English_x64v2.iso NTFS
+#
+_boot_usb(){
+    usb_drive=$1
+    iso_path=$2
+
+    # checking for lsblk then list all available devs
+    $(command -v lsblk > /dev/null) && [[ $? == 0 ]] && \
+        echo ">available /dev:" && lsblk | grep "sd" || echo "> [not blocking] lsblk not present !"
+
+    # As FAT by default
+    # if there is no format provided or FAT is provided, use FAT
+    # if NTFS is provided, use it
+    # else use the provided format
+    [[ -z $3 || "$3" == "FAT" ]] && format_type_command="mkfs.vfat -F 32" || \
+        [[ "$3" == "NTFS" ]] && format_type_command="mkfs.ntfs" || \
+        format_type_command="$3"
+
+    # boot util, because it's a long one
+    _boot(){
+        sudo dd bs=4M if=$iso_path of=$usb_drive status=progress oflag=sync
+    }
+    _status(){
+        [[ $? == 0 ]] && echo -e "$GREEN< $1 Operation suceeded !$COLOROFF" || \
+            $(echo -e "$RED<[blocking] $1 Operation failed !$COLOROFF" && \
+            _confirm ">> Wish to continue anyway ?" echo )
+    }
+
+    _confirm "> boot-usb:$usb_drive, format:$format_type_command, iso:$iso_path" echo
+
+    # Make sure to format your /dev/drive with the appropriate format given
+    _confirm ">> format $usb_drive" sudo $format_type_command $usb_drive
+    _status "format"
+
+    # Make sure to umount your /dev/drive and
+    _confirm ">> umount $usb_drive" sudo umount $usb_drive
+    _status "umount"
+
+    # boot USB
+    _confirm  ">> boot $iso_path into $usb_drive" _boot
+    # no need for this check as it's the final one ?
+    _status "boot"
+}
+
