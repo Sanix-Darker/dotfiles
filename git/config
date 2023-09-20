@@ -361,6 +361,7 @@
 	b = !git browse
 
     open=!bash -ic 'git_open_link \"$@\"' x
+    compare=!bash -ic 'git_compare_online \"$@\"' x
 
     ; git browse-branch # to browse only commits that are away from the main branch
 	changes= !bash -ic 'git-fuzzy-log-branch \"$@\"' x

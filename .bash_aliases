@@ -1395,10 +1395,29 @@ git_open_link(){
         built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' -e 's/:/\//')")
         if $CURL_CHECK "$built_link" &> /dev/null; then
             echo "> opening '$built_link'...";
-            $browser $built_link;
         else
-            echo "< bad link : $built_link";
+            echo "< seems like a bad link (or this terminal not have access): $built_link";
         fi;
+        $browser $built_link;
+    fi;
+}
+
+git_compare_online(){
+    # $1 can be 'origin' or 'dev' depending on the source
+    remote_link=$(git remote get-url $1)
+    current_branch=$(git branch --show-current)
+    browser=firefox
+    CURL_CHECK="curl --head --silent --fail"
+    if $CURL_CHECK "$remote_link" &> /dev/null; then
+        $browser $remote_link;
+    else
+        built_link=$(echo "https://$(echo $remote_link | sed -e 's/git@//' -e 's/:/\//' -e 's/\.git$//')")
+        if $CURL_CHECK "$built_link" &> /dev/null; then
+            echo "> opening '$built_link'...";
+        else
+            echo "< seems like a bad link (or this terminal not have access): $built_link";
+        fi;
+        $browser "$built_link/compare/$current_branch?expand=1";
     fi;
 }
 
