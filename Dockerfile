@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NOTINTERACTIVE=1
@@ -9,8 +9,6 @@ RUN apt-get update -y &&\
     apt-utils \
     bash sudo fuse libfuse2 \
     software-properties-common
-
-RUN apt-get update -y
 
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
