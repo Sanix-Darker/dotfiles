@@ -27,7 +27,7 @@ Plug 'vim-syntastic/syntastic'
 " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Plugin options
-Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim'}
+Plug 'nsf/gocode', { 'rtp': 'vim'} "'tag': 'v.20150303',
 " Plugin outside ~/.vim/plugged with post-update hook
 " needed to add this because neoclip depends on it
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}

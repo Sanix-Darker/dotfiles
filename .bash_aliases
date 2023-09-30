@@ -879,6 +879,14 @@ _install_nordvpn(){
     sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 }
 
+# for my electronics stuffs
+_install_libre_pcb(){
+    cd ~/Downloads/
+    wget "https://download.librepcb.org/releases/1.0.0/librepcb-1.0.0-linux-x86_64.AppImage"
+    chmod +x ./librepcb-1.0.0-linux-x86_64.AppImage
+    ./librepcb-1.0.0-linux-x86_64.AppImage
+}
+
 _install_dev_stack(){
     _source_dev_stack
 

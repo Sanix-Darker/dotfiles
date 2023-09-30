@@ -243,9 +243,19 @@ map('n', 'g#', 'g#N')
 map('x', '*', [["yy/\V<C-R>=escape(getreg('y'), '\/?')<CR><CR>N]])
 map('x', '#', [["yy?\V<C-R>=escape(getreg('y'), '\/?')<CR><CR>N]])
 
+-- global centering stuffs zz
+local opts_center = {
+    noremap = true,
+    silent = true
+}
 -- On search, center the screen:
-map('n', 'n', 'nzz')
-map('n', 'N', 'Nzz')
+map('n', 'n', 'nzz', opts_center)
+map('n', 'N', 'Nzz', opts_center)
+map('n', '}', '}zz', opts_center)
+map('n', '{', '{zz', opts_center)
+map('n', '<C-o>', '<C-o>zz', opts_center)
+map('n', '<C-i>', '<C-i>zz', opts_center)
+map('n', '<tab>', '<tab>zz', opts_center)
 
 -- Move to the end of yanked text after yank and paste
 map('n', 'p', 'p`]')
