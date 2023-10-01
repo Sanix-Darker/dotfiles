@@ -154,6 +154,9 @@ preexec() {
     command_timer_start=$SECONDS
 
     # To handle the command history of a directory
+    # FIXME: i need to refacto this to have it at root level instead of each files
+    # so that i can have the same aborescense inside a ~/.cmd_history/path/to/repo/.cmd_history
+    # for example
     _handle_cmd_history $@
 }
 precmd() {

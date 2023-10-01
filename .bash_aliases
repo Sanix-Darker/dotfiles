@@ -769,6 +769,21 @@ _install_golang_specific_version(){
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
 }
 
+# to install nerdfonts
+_install_nerdfonts(){
+    # download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
+    # and then run : fc-cache -f -v
+    echo "cd /usr/local/share/fonts/ ..."
+    cd /usr/local/share/fonts/
+
+    echo "wget HackNerdFontMono-Regular ttf"
+    sudo wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf
+
+    echo ">> installing the ttf..."
+    fc-cache -f -v
+}
+
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -1184,7 +1199,7 @@ git-fuzzy-log-branch ()
 			git show --stat --format="" --color=always $1 |
 			while read line; do
 				tput dim
-				echo " $line" | sed "s/\x1B\[ m/\x1B\[2m/g"
+				echo " $line" | sed "s/\x1B\[m/\x1B\[2m/g"
 				tput sgr0
 			done |
 			tac | sed "1 a \ " | tac
@@ -1939,6 +1954,7 @@ _boot_usb(){
 # docker command to access external running host
 # docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
 # then inside, curl host.docker.internal:<port>
+
 
 # For git trace
 # export GIT_TRACE=1
