@@ -650,8 +650,7 @@ _install_act(){
     sudo mv ./bin/act /usr/local/bin/act
 
     echo "[x] Install gh..."
-    sudo apt update -y
-    sudo apt install gh -y
+    sudo snap install gh
 
     # to use gh act
     gh extension install nektos/gh-act
@@ -659,8 +658,7 @@ _install_act(){
 
 _install_dash(){
     echo "[x] install gh..."
-    sudo apt update -y
-    sudo apt install gh -y
+    sudo snap install gh
 
     echo "[x] Install dash..."
 
