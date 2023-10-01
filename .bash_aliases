@@ -604,6 +604,9 @@ _install_clang(){
 }
 
 _install_tmux(){
+    echo "Installing yacc (flex and bison)..."
+    sudo apt-get install bison flex -y
+
     # VERSION="3.1c"
     VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
