@@ -205,6 +205,10 @@ _set_nvim(){
     # for neovim
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+    echo "[x] nvm use stable..."
+    nvm use stable
+
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
 
@@ -539,6 +543,9 @@ _install_mpv(){
 }
 
 _install_i3(){
+    # another alternative
+    # after downloading a release here : https://i3wm.org/downloads/
+    # follow theses stemsp with meson
     sudo apt install polybar
     # to install i3
     sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
@@ -788,7 +795,7 @@ _install_basics(){
         "libldap2-dev" "libsasl2-dev"
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
         "postgresql" "postgresql-contrib"
-        "libpq-dev" "entr"
+        "libpq-dev" "entr" "htop" "nvtop"
 
         "trash-cli" "python3-pynvim" "python3-virtualenv"
 
@@ -1932,3 +1939,6 @@ _boot_usb(){
 # docker command to access external running host
 # docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
 # then inside, curl host.docker.internal:<port>
+
+# For git trace
+# export GIT_TRACE=1
