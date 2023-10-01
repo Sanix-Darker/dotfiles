@@ -1901,3 +1901,6 @@ _boot_usb(){
     _status "boot"
 }
 
+# docker command to access external running host
+# docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
+# then inside, curl host.docker.internal:<port>
