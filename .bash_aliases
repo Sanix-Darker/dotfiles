@@ -353,13 +353,20 @@ _install_vagrant(){
 
 _install_alacritty(){
     sudo apt-get update -y
+
     curl https://sh.rustup.rs -sSf | sh
     # we install alacritty as our terminal
     sudo apt-get install cmake pkg-config \
         libfreetype6-dev libfontconfig1-dev \
         libxcb-xfixes0-dev libxkbcommon-dev \
         python3 -y
+
+    echo "[x] cargo install allacrity..."
     cargo install alacritty
+
+    echo "[x] nvm use stable..."
+    nvm use stable
+    echo "[x] npm install alacritty-themes..."
     # for theming
     npm i -g alacritty-themes
 
@@ -369,6 +376,10 @@ _install_alacritty(){
     # cd alacritty
     # cargo build --release
     # sudo cp ./target/release/alacritty $(which alacritty)
+}
+
+_install_ranger(){
+    pip3 install ranger
 }
 
 _install_path_browsing_utils(){
@@ -387,7 +398,7 @@ _install_path_browsing_utils(){
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
 
     # putting this in comment for now
-    # pip install ranger
+    _install_ranger
 }
 
 
@@ -419,8 +430,15 @@ _install_nvim(){
 
 _install_node_stuffs(){
     mkdir /home/dk/.nvm
+
+    sudo apt-get update -y
     sudo apt-get install nodejs npm -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+    echo "[x] nvm installing stable version..."
+
+    nvm install stable
+    nvm use stable
     # source $HOME/.bashrc
     # source $HOME/.bash_aliases
     # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
@@ -452,7 +470,7 @@ _install_nvim_and_utils(){
 }
 
 _install_python_stuffs(){
-    sudo add-apt-repository ppa:deadsnakes/ppa
+    # sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update -y
 
     devStack=(
@@ -464,7 +482,6 @@ _install_python_stuffs(){
 
         "python3-distutils"
 
-        "python3.10-dev"
         "python3.11-dev"
     )
     for i in "${devStack[@]}"
@@ -571,10 +588,7 @@ _install_greenclip(){
 
 _install_tt(){
     # a fast switcher for sessions and panel inside tmux
-    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh
-
-    # Then copy the session wizard shell to t
-    sudo cp ./session-wizard.sh /usr/local/bin/t
+    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh && sudo cp ./session-wizard.sh /usr/local/bin/t
 }
 
 _install_clang(){
@@ -632,11 +646,19 @@ _install_act(){
     # Looks like we need to move the ./bin/act to /usr/local/bin/
     sudo mv ./bin/act /usr/local/bin/act
 
+    echo "[x] Install gh..."
+    sudo apt update -y
+    sudo apt install gh -y
+
     # to use gh act
     gh extension install nektos/gh-act
 }
 
 _install_dash(){
+    echo "[x] install gh..."
+    sudo apt update -y
+    sudo apt install gh -y
+
     echo "[x] Install dash..."
 
     gh extension remove dlvhdr/gh-dash
@@ -857,9 +879,14 @@ _install_batcat(){
 }
 
 _install_extras_stuffs(){
+    echo "[x] snap killaal, refresh install..."
+    sudo killall snap-store;
+    sudo snap refresh;
+    sudo snap refresh --list;
+
     # the most beautifull downloader
     # and the markdown powerpoint presenter
-    sudo snap install slides aria2c
+    sudo snap install slides aria2c;
 }
 
 _install_bash_preexc(){
