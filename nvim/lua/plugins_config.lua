@@ -33,7 +33,7 @@ local mason_setup = {
 }
 local masonlspconfig_setup = {
     ensure_installed = lsp_servers,
-    automatic_installation = false,
+    automatic_installation = true,
 }
 -- Disabling just for now
 require('which-key').setup()

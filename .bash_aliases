@@ -508,37 +508,37 @@ _install_python_stuffs(){
     # ok, since deadsnakes is not available on ubuntu20.10 and
     # it's the distro am on at the moment, i have to use another
     # way to install python
-    VERSION=3.11.5
+    # VERSION=3.11.5
 
-    cd /tmp
-    echo "Installing Python$VERSION..."
-    wget https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tgz
-    tar xvf Python-$VERSION.tgz
-    cd Python-$VERSION
-    ./configure --enable-optimizations --enable-shared --with-ensurepip=install
-    make -j8
-    sudo make altinstall
+    # cd /tmp
+    # echo "Installing Python$VERSION..."
+    # wget https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tgz
+    # tar xvf Python-$VERSION.tgz
+    # cd Python-$VERSION
+    # ./configure --enable-optimizations --enable-shared --with-ensurepip=install
+    # make -j8
+    # sudo make altinstall
 
-    echo "Installing Pip$VERSION..."
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python$VERSION
 
-    echo "Python/Pip $VERSION installed successfully !"
+    # echo "Python/Pip $VERSION installed successfully !"
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt-get update -y
+    devStack=(
+        "python3.10" "python3.11"
+        "python3-dev" "python3-pip"
+        "python3-setuptools"
+        "python3-testresources"
+        "python3-distutils"
+        "python3.11-dev"
+    )
+    for i in "${devStack[@]}"
+    do
+        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
+        sudo apt-get install $i -y
+    done
 
-#     # sudo add-apt-repository ppa:deadsnakes/ppa
-#     sudo apt-get update -y
-#     devStack=(
-#         "python3.10" "python3.11"
-#         "python3-dev" "python3-pip"
-#         "python3-setuptools"
-#         "python3-testresources"
-#         "python3-distutils"
-#         "python3.11-dev"
-#     )
-#     for i in "${devStack[@]}"
-#     do
-#         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-#         sudo apt-get install $i -y
-#     done
+    echo "Installing Pip..."
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
     # to install python3.11 pip version
 }
 
@@ -620,7 +620,7 @@ _install_FZF(){
     # Yes i have my own version for searching on tmux session
     # + history based on the directory
     git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
-    git checkout me && ~/.fzf/install # [me] is my special branch btw
+    cd ~/.fzf/ && git pull origin me && ~/.fzf/install # [me] is my special branch btw
 }
 
 _install_locales_lang(){
@@ -997,6 +997,9 @@ _install_dev_stack(){
     _confirm "Reconfigure locale langs ? " _install_locales_lang
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
+
+    echo "To clean apt stuffs with autoremove..."
+    sudo apt autoremove
     # setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
