@@ -530,6 +530,7 @@ _install_python_stuffs(){
         "python3-testresources"
         "python3-distutils"
         "python3.11-dev"
+        "python3-sphinx "
     )
     for i in "${devStack[@]}"
     do
@@ -659,8 +660,9 @@ _install_tmux(){
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
-    # VERSION="3.1c"
-    VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
+    VERSION="3.1c"
+    # VERSION="3.3" # becaue i can
+    # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
     echo "> Installing tmux $VERSION..."
@@ -668,7 +670,7 @@ _install_tmux(){
     sudo apt install libevent-dev -y
     cd /tmp
     echo "> Getting tmux $VERSION..."
-    wget https://github.com/Sanix-Darker/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
+    wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
     tar xf tmux-${VERSION}.tar.gz
     rm -f tmux-${VERSION}.tar.gz
 
@@ -864,6 +866,7 @@ _install_basics(){
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
+        "xcb-proto"
         "trash-cli" "python3-pynvim" "python3-virtualenv"
 
         # for notifications

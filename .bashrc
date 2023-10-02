@@ -211,7 +211,10 @@ export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir
 # then set it or use the default one
-export PYTHONPATH="$PYTHONPATH:$(which python3)"
+#
+# for python
+export PATH=$PATH:$(which python3.10)
+export PATH=$PATH:$(which python3.11)
 
 # ~/.tmux/plugins
 # export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
