@@ -87,9 +87,40 @@ EXTRACT_REGEX(){
     fi
 }
 
+pvinit(){
+    eval "$(pyenv init --path)"
+
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+}
+pvdel(){
+    pyenv virtualenv-delete $@
+}
+# _pyenv_add 3.11 project
+pvadd(){
+    pyenv virtualenv $@
+}
+# _pyenv_activate laputa-v3
+pvact(){
+    # pyenv activate $@
+    # pyenv local $@
+    source ~/.pyenv/versions/$@/bin/activate
+}
+# pins 3.10
+pvins(){
+    pyenv install $@
+}
+# to list venvs
+pvlist(){
+    pyenv virtualenvs
+}
+
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
-alias vv='virtualenv -p python3.11 env' # yes, i deactivated 3.10 on purposes
+alias v11='virtualenv -p python3.11 env'
+alias v10='virtualenv -p python3.10 env'
+alias v8='virtualenv -p python3.8 env'
+
 alias de='deactivate'
 alias p='python3'
 # the default size installed by default sucks
@@ -474,27 +505,41 @@ _install_nvim_and_utils(){
 }
 
 _install_python_stuffs(){
-    # sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt-get update -y
+    # ok, since deadsnakes is not available on ubuntu20.10 and
+    # it's the distro am on at the moment, i have to use another
+    # way to install python
+    VERSION=3.11.5
 
-    devStack=(
-        "python3.10" "python3.11"
-        "python3-dev" "python3-pip"
+    cd /tmp
+    echo "Installing Python$VERSION..."
+    wget https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tgz
+    tar xvf Python-$VERSION.tgz
+    cd Python-$VERSION
+    ./configure --enable-optimizations --enable-shared --with-ensurepip=install
+    make -j8
+    sudo make altinstall
 
-        "python3-setuptools"
-        "python3-testresources"
+    echo "Installing Pip$VERSION..."
+    curl -sS https://bootstrap.pypa.io/get-pip.py | python$VERSION
 
-        "python3-distutils"
+    echo "Python/Pip $VERSION installed successfully !"
 
-        "python3.11-dev"
-    )
-    for i in "${devStack[@]}"
-    do
-        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt-get install $i -y
-    done
+#     # sudo add-apt-repository ppa:deadsnakes/ppa
+#     sudo apt-get update -y
+#     devStack=(
+#         "python3.10" "python3.11"
+#         "python3-dev" "python3-pip"
+#         "python3-setuptools"
+#         "python3-testresources"
+#         "python3-distutils"
+#         "python3.11-dev"
+#     )
+#     for i in "${devStack[@]}"
+#     do
+#         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
+#         sudo apt-get install $i -y
+#     done
     # to install python3.11 pip version
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 }
 
 # With a given message as input, this function will execute anything
@@ -575,7 +620,7 @@ _install_FZF(){
     # Yes i have my own version for searching on tmux session
     # + history based on the directory
     git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
-    ~/.fzf/install
+    git checkout me && ~/.fzf/install # [me] is my special branch btw
 }
 
 _install_locales_lang(){
@@ -657,7 +702,7 @@ _install_act(){
     sudo mv ./bin/act /usr/local/bin/act
 
     echo "[x] Install gh..."
-    sudo snap install gh
+    _install_gh
 
     # to use gh act
     gh extension install nektos/gh-act
@@ -665,7 +710,7 @@ _install_act(){
 
 _install_dash(){
     echo "[x] install gh..."
-    sudo snap install gh
+    _install_gh
 
     echo "[x] Install dash..."
 
@@ -783,6 +828,13 @@ _install_nerdfonts(){
     fc-cache -f -v
 }
 
+_install_gh(){
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+    sudo apt update -y
+    sudo apt install gh -y
+}
 
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
@@ -1955,6 +2007,8 @@ _boot_usb(){
 # docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
 # then inside, curl host.docker.internal:<port>
 
+# docker permission denied (to fix)
+# sudo chmod 666 /var/run/docker.sock
 
 # For git trace
 # export GIT_TRACE=1
