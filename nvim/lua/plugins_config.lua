@@ -42,6 +42,9 @@ require('which-key').setup()
 -- Waiting for the mailing list
 -- require("sg").setup()
 
+
+require("chatgpt").setup()
+
 -- for treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {

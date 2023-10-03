@@ -237,8 +237,8 @@ _set_nvim(){
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-    echo "[x] nvm use stable..."
-    nvm use stable
+    echo "[x] nvm use 18..."
+    nvm use 18
 
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
@@ -253,7 +253,7 @@ _set_nvim(){
     for i in "${lsp_conf[@]}"
     do
         echo "Installing $i..."
-        npm install -g $i
+        npm install -g $i --user
     done
 
     # pour arduino
@@ -399,8 +399,8 @@ _install_alacritty(){
     echo "[x] cargo install allacrity..."
     cargo install alacritty
 
-    echo "[x] nvm use stable..."
-    nvm use stable
+    echo "[x] nvm use 18..."
+    nvm use 18
     echo "[x] npm install alacritty-themes..."
     # for theming
     npm i -g alacritty-themes
@@ -472,8 +472,8 @@ _install_node_stuffs(){
 
     echo "[x] nvm installing stable version..."
 
-    nvm install stable
-    nvm use stable
+    nvm install 18
+    nvm use 18
     # source $HOME/.bashrc
     # source $HOME/.bash_aliases
     # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
@@ -836,6 +836,15 @@ _install_gh(){
 
     sudo apt update -y
     sudo apt install gh -y
+}
+
+# official cli for spicedb
+_install_zed(){
+    sudo apt update -y && sudo apt install -y curl ca-certificates gpg
+    curl https://apt.fury.io/authzed/gpg.key | sudo apt-key add -
+    echo "deb https://apt.fury.io/authzed/ * *" > /etc/apt/sources.list.d/fury.list
+    # then we install
+    sudo apt update -y && sudo apt install -y zed
 }
 
 _install_basics(){
