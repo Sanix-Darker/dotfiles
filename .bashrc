@@ -190,6 +190,8 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
@@ -209,7 +211,10 @@ export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir
 # then set it or use the default one
-export PYTHONPATH="$PYTHONPATH:$(which python3)"
+#
+# for python
+export PATH=$PATH:$(which python3.10)
+export PATH=$PATH:$(which python3.11)
 
 # ~/.tmux/plugins
 # export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH

@@ -33,7 +33,7 @@ local mason_setup = {
 }
 local masonlspconfig_setup = {
     ensure_installed = lsp_servers,
-    automatic_installation = false,
+    automatic_installation = true,
 }
 -- Disabling just for now
 require('which-key').setup()
@@ -41,6 +41,14 @@ require('which-key').setup()
 -- SourceGraph integration
 -- Waiting for the mailing list
 -- require("sg").setup()
+
+-- for lsp-lines diagnostics clears
+-- so taht if there is multiple elements in the error diag,
+-- i ould still see them all
+require("lsp_lines").setup()
+
+-- that use telescope under the hood
+require("chatgpt").setup()
 
 -- for treesitter
 require'nvim-treesitter.configs'.setup {

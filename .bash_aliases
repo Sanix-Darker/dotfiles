@@ -87,9 +87,40 @@ EXTRACT_REGEX(){
     fi
 }
 
+pvinit(){
+    eval "$(pyenv init --path)"
+
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+}
+pvdel(){
+    pyenv virtualenv-delete $@
+}
+# _pyenv_add 3.11 project
+pvadd(){
+    pyenv virtualenv $@
+}
+# _pyenv_activate laputa-v3
+pvact(){
+    # pyenv activate $@
+    # pyenv local $@
+    source ~/.pyenv/versions/$@/bin/activate
+}
+# pins 3.10
+pvins(){
+    pyenv install $@
+}
+# to list venvs
+pvlist(){
+    pyenv virtualenvs
+}
+
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
-alias vv='virtualenv -p python3.11 env' # yes, i deactivated 3.10 on purposes
+alias v11='virtualenv -p python3.11 env'
+alias v10='virtualenv -p python3.10 env'
+alias v8='virtualenv -p python3.8 env'
+
 alias de='deactivate'
 alias p='python3'
 # the default size installed by default sucks
@@ -206,8 +237,8 @@ _set_nvim(){
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-    echo "[x] nvm use stable..."
-    nvm use stable
+    echo "[x] nvm use 18..."
+    nvm use 18
 
     # to install new stuffs if some of them were missing
     nvim --headless +PlugInstall +qall
@@ -222,7 +253,7 @@ _set_nvim(){
     for i in "${lsp_conf[@]}"
     do
         echo "Installing $i..."
-        npm install -g $i
+        npm install -g $i --user
     done
 
     # pour arduino
@@ -368,8 +399,8 @@ _install_alacritty(){
     echo "[x] cargo install allacrity..."
     cargo install alacritty
 
-    echo "[x] nvm use stable..."
-    nvm use stable
+    echo "[x] nvm use 18..."
+    nvm use 18
     echo "[x] npm install alacritty-themes..."
     # for theming
     npm i -g alacritty-themes
@@ -441,8 +472,8 @@ _install_node_stuffs(){
 
     echo "[x] nvm installing stable version..."
 
-    nvm install stable
-    nvm use stable
+    nvm install 18
+    nvm use 18
     # source $HOME/.bashrc
     # source $HOME/.bash_aliases
     # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
@@ -474,27 +505,42 @@ _install_nvim_and_utils(){
 }
 
 _install_python_stuffs(){
-    # sudo add-apt-repository ppa:deadsnakes/ppa
-    sudo apt-get update -y
+    # ok, since deadsnakes is not available on ubuntu20.10 and
+    # it's the distro am on at the moment, i have to use another
+    # way to install python
+    # VERSION=3.11.5
 
+    # cd /tmp
+    # echo "Installing Python$VERSION..."
+    # wget https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tgz
+    # tar xvf Python-$VERSION.tgz
+    # cd Python-$VERSION
+    # ./configure --enable-optimizations --enable-shared --with-ensurepip=install
+    # make -j8
+    # sudo make altinstall
+
+
+    # echo "Python/Pip $VERSION installed successfully !"
+    sudo add-apt-repository ppa:deadsnakes/ppa
+    sudo apt-get update -y
     devStack=(
         "python3.10" "python3.11"
         "python3-dev" "python3-pip"
-
         "python3-setuptools"
         "python3-testresources"
-
         "python3-distutils"
-
         "python3.11-dev"
+        "python3-sphinx "
     )
     for i in "${devStack[@]}"
     do
         echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
         sudo apt-get install $i -y
     done
-    # to install python3.11 pip version
+
+    echo "Installing Pip..."
     curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
+    # to install python3.11 pip version
 }
 
 # With a given message as input, this function will execute anything
@@ -575,7 +621,7 @@ _install_FZF(){
     # Yes i have my own version for searching on tmux session
     # + history based on the directory
     git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
-    ~/.fzf/install
+    cd ~/.fzf/ && git pull origin me && ~/.fzf/install # [me] is my special branch btw
 }
 
 _install_locales_lang(){
@@ -614,8 +660,9 @@ _install_tmux(){
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
-    # VERSION="3.1c"
-    VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
+    VERSION="3.1c"
+    # VERSION="3.3" # becaue i can
+    # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
     echo "> Installing tmux $VERSION..."
@@ -623,7 +670,7 @@ _install_tmux(){
     sudo apt install libevent-dev -y
     cd /tmp
     echo "> Getting tmux $VERSION..."
-    wget https://github.com/Sanix-Darker/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
+    wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
     tar xf tmux-${VERSION}.tar.gz
     rm -f tmux-${VERSION}.tar.gz
 
@@ -657,7 +704,7 @@ _install_act(){
     sudo mv ./bin/act /usr/local/bin/act
 
     echo "[x] Install gh..."
-    sudo snap install gh
+    _install_gh
 
     # to use gh act
     gh extension install nektos/gh-act
@@ -665,7 +712,7 @@ _install_act(){
 
 _install_dash(){
     echo "[x] install gh..."
-    sudo snap install gh
+    _install_gh
 
     echo "[x] Install dash..."
 
@@ -783,6 +830,22 @@ _install_nerdfonts(){
     fc-cache -f -v
 }
 
+_install_gh(){
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+
+    sudo apt update -y
+    sudo apt install gh -y
+}
+
+# official cli for spicedb
+_install_zed(){
+    sudo apt update -y && sudo apt install -y curl ca-certificates gpg
+    curl https://apt.fury.io/authzed/gpg.key | sudo apt-key add -
+    echo "deb https://apt.fury.io/authzed/ * *" > /etc/apt/sources.list.d/fury.list
+    # then we install
+    sudo apt update -y && sudo apt install -y zed
+}
 
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
@@ -812,6 +875,7 @@ _install_basics(){
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
+        "xcb-proto"
         "trash-cli" "python3-pynvim" "python3-virtualenv"
 
         # for notifications
@@ -945,6 +1009,9 @@ _install_dev_stack(){
     _confirm "Reconfigure locale langs ? " _install_locales_lang
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
+
+    echo "To clean apt stuffs with autoremove..."
+    sudo apt autoremove
     # setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
@@ -1955,6 +2022,8 @@ _boot_usb(){
 # docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
 # then inside, curl host.docker.internal:<port>
 
+# docker permission denied (to fix)
+# sudo chmod 666 /var/run/docker.sock
 
 # For git trace
 # export GIT_TRACE=1

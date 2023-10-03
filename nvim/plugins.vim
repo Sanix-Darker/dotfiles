@@ -395,6 +395,13 @@ Plug 'honza/vim-snippets'
 " For viewing csv files
 " Plug 'chrisbra/csv.vim'
 
+" for tests
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'jackMort/ChatGPT.nvim'
+
+" lsp-lines (for better diagnostic)
+Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
+
 " For vim-auto-save
 " Plug '907th/vim-auto-save'
 

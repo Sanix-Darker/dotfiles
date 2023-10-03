@@ -1,9 +1,10 @@
 -- LSP servers managers
+-- 'ruby_ls'  'phpactor'
 local lsp_servers = {
     'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls', 'phpactor',
+    'eslint', 'jsonls', 'gopls',
     'cssls', 'html', 'bashls', 'cssmodules_ls',
-    'emmet_ls', 'ruby_ls', 'vls', 'arduino_language_server',
+    'emmet_ls', 'vls', 'arduino_language_server',
     'cssls', 'dockerls', 'gradle_ls', 'graphql',
     'jdtls', 'kotlin_language_server', 'marksman',
     'rnix', 'taplo', 'tailwindcss',

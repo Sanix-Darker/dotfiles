@@ -41,6 +41,9 @@ exec "xautolock -time 5 -locker ~/.config/i3/i3lock.sh && systemctl suspend"
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# for dark theme ?
+exec --no-startup-id /usr/libexec/gsd-xsettings
+
 default_border pixel 1
 default_floating_border pixel 1
 

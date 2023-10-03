@@ -18,10 +18,10 @@ key_bindings:
 window:
   opacity: 0.70
 
-font:
-  normal:
-    family: "Hack Nerd Font Mono"
-    style: Regular
+# font:
+#   normal:
+#     family: "Hack Nerd Font Mono"
+#     style: Regular
 
 colors:
   # Default colors
