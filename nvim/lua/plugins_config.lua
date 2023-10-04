@@ -47,8 +47,25 @@ require('which-key').setup()
 -- i ould still see them all
 require("lsp_lines").setup()
 
+-- for symbols
+require("symbols-outline").setup({
+  keymaps = {
+    fold = "<C-space>",
+    unfold = "<space>",
+    fold_all = "W",
+    unfold_all = "E",
+    fold_reset = "R",
+  }
+})
+
+-- sideway loading lsp status
+require("fidget").setup {}
+
+-- or REST client
+-- require("rest-nvim").setup()
+
 -- that use telescope under the hood
-require("chatgpt").setup()
+-- require("chatgpt").setup()
 
 -- for treesitter
 require'nvim-treesitter.configs'.setup {

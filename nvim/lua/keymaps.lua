@@ -116,7 +116,12 @@ map("v", "<Leader>hq",  ":%!xmllint --format - <CR>")
 -- should be change depending on the output type, but for now
 -- as default will be json so jq
 map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR>:set filetype=json<CR><C-w><C-w>")
--- rest-console
+
+-- map("n", "<Leader>jk", "<Plug>RestNvim") -- run the request under the cursor
+-- map("n", "<Leader>jp", "<Plug>RestNvimPreview") -- preview the request cURL command
+-- map("n", "<Leader>jl", "<Plug>RestNvimLast") -- re-run the last request
+-- -- rest-console
+
 
 -- To search for ctags
 map("n", "<Leader>bg", ":Vista finder ctags<CR>")
@@ -376,8 +381,10 @@ map("n", "<leader>pp", ":setlocal paste!<cr>")
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
 -- Jump to the definition
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
+-- gD
 -- Jump to declaration
-map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+-- map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
+map('n', 'gD', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>')
 -- Lists all the implementations for the symbol under the cursor
 map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
 -- Jumps to the definition of the type symbol

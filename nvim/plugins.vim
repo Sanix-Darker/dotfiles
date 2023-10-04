@@ -104,6 +104,13 @@ Plug 'itchyny/vim-cursorword'
 Plug 'ap/vim-css-color'
 " For REST requests inside vim
 Plug 'diepm/vim-rest-console'
+" An alternative ? (boff, not quite impress)
+" Plug 'rest-nvim/rest.nvim'
+
+" For translations
+" Yes this is important for me
+" Plug 'potamides/pantran.nvim'
+
 " For EasyMotion
 Plug 'phaazon/hop.nvim'
 " To fastly start neovim
@@ -226,6 +233,10 @@ Plug 'tpope/vim-surround'
 " Plug 'Shougo/unite.vim'
 " Plug 'm2mdas/phpcomplete-extended'
 
+" Plug 'https://github.com/ojroques/nvim-lspfuzzy could be interesting to
+" explore or the future
+" Plug 'gfanto/fzf-lsp.nvim'
+
 " To manage LSP servers
 " :Mason - opens a graphical status window
 " :MasonInstall <package> ... - installs/reinstalls the provided packages
@@ -258,6 +269,8 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " For Brackets and stuffs
 Plug 'hrsh7th/nvim-insx'
 
+Plug 'simrat39/symbols-outline.nvim'
+
 " Just like org on emacs, to organise your stuffs
 " Plug 'phaazon/mind.nvim'
 
@@ -273,6 +286,16 @@ Plug 'onsails/lspkind.nvim'
 " Should help preview got to references
 " added the commit hash because the lastest release is not working properly
 Plug 'kevinhwang91/nvim-bqf' ", {'commit': '1276701ed0216b94d7919d5c07845dcdf05fbde5'}
+
+" To show LSPs loading in side way
+Plug 'j-hui/fidget.nvim', { 'tag': 'legacy' }
+
+" To show code action in a popup with a lot of details
+" seems too early
+" Plug 'weilbith/nvim-code-action-menu'
+
+" we not use, we just keep it in mind"
+" https://github.com/zbirenbaum/copilot.lua
 
 " For syntax highlighting on a lot of stuffs
 " Plug 'sheerun/vim-polyglot'
@@ -396,8 +419,11 @@ Plug 'honza/vim-snippets'
 " Plug 'chrisbra/csv.vim'
 
 " for tests
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'jackMort/ChatGPT.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
+" Plug 'jackMort/ChatGPT.nvim'
+
+" Just to test stuffs
+Plug 'gsuuon/llm.nvim'
 
 " lsp-lines (for better diagnostic)
 Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'

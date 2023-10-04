@@ -820,7 +820,9 @@ _install_golang_specific_version(){
 _install_nerdfonts(){
     # download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
     # and then run : fc-cache -f -v
-    echo "cd /usr/local/share/fonts/ ..."
+    # ----
+    echo "> sometimes it's '/usr/share/fonts/', so check there if this installation failed."
+    echo "< cd /usr/local/share/fonts/ ..."
     cd /usr/local/share/fonts/
 
     echo "wget HackNerdFontMono-Regular ttf"
@@ -2025,5 +2027,11 @@ _boot_usb(){
 # docker permission denied (to fix)
 # sudo chmod 666 /var/run/docker.sock
 
-# For git trace
+# To add git trace (on any git command)
 # export GIT_TRACE=1
+
+# TO fix Hash sum mismatch error on apt update
+#
+# sudo apt-get clean
+# sudo rm -rf /var/lib/apt/lists/*
+# sudo apt-get update

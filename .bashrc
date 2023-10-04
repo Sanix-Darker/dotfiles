@@ -310,39 +310,6 @@ export EDITOR=nvim
 #     eval "$(ssh-agent)"
 # fi
 
-# export SSH_AUTH_SOCK=$SSH_AUTH_SOCK
-# export SSH_AGENT_PID=$SSH_AGENT_PID
-# # # for i3 purpose
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "Device Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "Coordinate Transformation Matrix" 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled Default" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Enabled Default" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Lock Enabled" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Drag Lock Enabled Default" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Button Mapping Enabled" 1, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Tapping Button Mapping Default" 1, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Natural Scrolling Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Natural Scrolling Enabled Default" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Disable While Typing Enabled" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Disable While Typing Enabled Default" 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Scroll Methods Available" 1, 1, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Scroll Method Enabled" 1, 0, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Scroll Method Enabled Default" 1, 0, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Click Methods Available" 1, 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Click Method Enabled" 1, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Click Method Enabled Default" 1, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Middle Emulation Enabled" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Middle Emulation Enabled Default" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Accel Speed" 0.000000
-# xinput set-prop "Synaptics TM3625-010" "libinput Accel Speed Default" 0.000000
-# xinput set-prop "Synaptics TM3625-010" "libinput Left Handed Enabled" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Left Handed Enabled Default" 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Send Events Modes Available" 1, 1
-# xinput set-prop "Synaptics TM3625-010" "libinput Send Events Mode Enabled" 0, 0
-# xinput set-prop "Synaptics TM3625-010" "libinput Send Events Mode Enabled Default" 0, 0
-# xinput set-prop "Synaptics TM3625-010" "Device Node" "/dev/input/event4"
-# xinput set-prop "Synaptics TM3625-010" "Device Product ID" 2, 7
-# xinput set-prop "Synaptics TM3625-010" "libinput Horizontal Scroll Enabled" 1
+# On any new shell we should select and use node 18
+# This is dirty but i need this to fix my LSP on nvim
+nvm use 18 > /dev/null # in silent
