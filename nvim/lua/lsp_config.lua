@@ -1,15 +1,3 @@
--- LSP servers managers
--- 'ruby_ls'  'phpactor'
-local lsp_servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls',
-    'cssls', 'html', 'bashls', 'cssmodules_ls',
-    'emmet_ls', 'vls', 'arduino_language_server',
-    'cssls', 'dockerls', 'gradle_ls', 'graphql',
-    'jdtls', 'kotlin_language_server', 'marksman',
-    'rnix', 'taplo', 'tailwindcss',
-    'terraformls', 'yamlls', 'zls', 'lemminx'
-}
 local lspconfig_setup = {
     -- ... other configs
     settings = {
@@ -160,6 +148,18 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
     local_capabilities
 )
 
+-- LSP servers managers
+-- 'ruby_ls'  'phpactor'
+local lsp_servers = {
+    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
+    'eslint', 'jsonls', 'gopls',
+    'cssls', 'html', 'bashls', 'cssmodules_ls',
+    'emmet_ls', 'vls', 'arduino_language_server',
+    'cssls', 'dockerls', 'gradle_ls', 'graphql',
+    'jdtls', 'kotlin_language_server', 'marksman',
+    'rnix', 'taplo', 'tailwindcss',
+    'terraformls', 'yamlls', 'zls', 'lemminx'
+}
 -- LSP Servers
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
 for _, lsp in ipairs(lsp_servers) do

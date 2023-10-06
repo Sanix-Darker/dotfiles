@@ -439,6 +439,11 @@ map('n', '<Leader>di', ':lua require\'dap.ui.widgets\'.hover()<CR>')
 map('n', '<Leader>d?', ':lua local widgets=require\'dap.ui.widgets\';widgets.centered_float(widgets.scopes)<CR>')
 -- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
 
+-- for multi line selection
+-- Ctrl+c to quit the mode
+-- Shift+V to select and go else where to do the same stuff
+map('n', '<Space>v', ':call sml#mode_on()<CR>')
+
 -- LeetCode
 -- map('n', '<Leader>lel', ':LeetCodeList<CR>')
 -- map('n', '<Leader>let', ':LeetCodeTest<CR>')

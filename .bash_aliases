@@ -183,6 +183,48 @@ alias s='slides'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+fzf_crontab() {
+  local temp_cron="$(mktemp)"  # Temporary file to hold crontab entries
+  # Get current crontab and write it to temp file
+  crontab -l > "$temp_cron"
+
+  # Use fzf to select the command and the time
+  local selected=$(cat "$temp_cron" | fzf-tmux -m --ansi --preview="echo {}" \
+                    --preview-window=up:70%:wrap --height=40%)
+
+  # Check if any selection is made
+  if [[ -n "$selected" ]]; then
+    # Prompt for action on selected line
+    local actions=("Add" "Delete" "Cancel")
+    local action=$(echo "${actions[@]}" | fzf-tmux --ansi)
+
+    # Perform action based on selection
+    case "$action" in
+      "Add")
+        local new_entry=$(echo "$selected" | fzf-tmux --print-query)
+        # Add the selected entry to temp file
+        echo "$new_entry" >> "$temp_cron"
+        ;;
+      "Delete")
+        # Delete the selected entry from temp file
+        echo "$(grep -vFx "$selected" "$temp_cron")" > "$temp_cron"
+        ;;
+      *)
+        return 0  # Cancel, do nothing
+        ;;
+    esac
+  else
+    return 0  # Cancel, do nothing
+  fi
+
+  # Write modified crontab back
+  crontab "$temp_cron"
+
+  # Cleanup temp file
+  rm "$temp_cron"
+}
+
+
 alias ls_services='systemctl list-units --type=service'
 # for nvim shortcuts
 # alias v='nvim -c "so ~/.config/nvim/init.lua"'

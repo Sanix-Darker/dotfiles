@@ -444,4 +444,9 @@ Plug 'Sanix-Darker/snips.nvim'
 " docker run -p 7777:8080 -v $HOME/.tabby:/data tabbyml/tabby serve --model TabbyML/SantaCoder-1B
 " Plug 'TabbyML/tabby', {'rtp': 'clients/vim'}
 
+" Multi line selection, could be interesting
+" for explaining sutffs on peer programming
+Plug 'Rasukarusan/nvim-select-multi-line'
+
+
 call plug#end()
