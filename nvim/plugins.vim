@@ -81,7 +81,7 @@ Plug 'airblade/vim-gitgutter'
 " Plug 'jparise/vim-graphql'
 
 " For a fancy status Line:
-Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-lualine/lualine.nvim', {'commit': '84ffb80e452d95e2c46fa29a98ea11a240f7843e'}
 " For icons on the statusline
 " Plug 'kyazdani42/nvim-web-devicons'
 
@@ -208,6 +208,7 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'ruanyl/vim-gh-line'
 
 " For snapshot from the code
+" for this to work, you need to install the cli silicon
 Plug 'segeljakt/vim-silicon'
 
 " For gist stuffs

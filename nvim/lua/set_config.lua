@@ -195,6 +195,9 @@ g.git_messenger_max_popup_width = 100
 g.git_messenger_extra_blame_args = ''
 g.git_messenger_floating_win_opts = { ["border"]="single" }
 
+-- to yank multi line selection
+g.git_messenger_extra_blame_args = ''
+g['sml#echo_yank_str'] = 1
 
 -- to choose firefox as the current client for leetcode
 -- g.leetcode_browser = 'firefox'

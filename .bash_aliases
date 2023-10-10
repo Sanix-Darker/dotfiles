@@ -485,8 +485,8 @@ _install_golang_apps(){
 }
 
 _install_nvim(){
-    # VERSION="nightly"
-    VERSION="v0.9.2" # speedy but for LSP code calls... really slow
+    VERSION="nightly"
+    # VERSION="v0.9.2" # speedy but for LSP code calls... really slow
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"

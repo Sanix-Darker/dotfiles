@@ -2,6 +2,7 @@
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
+    signingkey = DC1D2678058E82E9
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -47,6 +48,34 @@
     features = decorations
     light = false
     side-by-side = false
+
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+    tool = nvim
+
+[difftool "nvim"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    file-style = omit
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file syntax
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = master
+[github]
+	user = Sanix-Darker
+[push]
+	autoSetupRemote = true
 
 [alias]
     ; submodules
@@ -482,27 +511,3 @@
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
     ignores = !git ls-files --other --ignored --exclude-standard
-
-
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-
-[delta "interactive"]
-    keep-plus-minus-markers = false
-
-[delta "decorations"]
-    file-style = omit
-    hunk-header-file-style = red
-    hunk-header-line-number-style = "#067a00"
-    hunk-header-style = file syntax
-[commit]
-	gpgsign = true
-[init]
-	defaultBranch = master
-[github]
-	user = Sanix-Darker
-[push]
-	autoSetupRemote = true
