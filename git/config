@@ -62,7 +62,6 @@
 
 [delta "interactive"]
     keep-plus-minus-markers = false
-
 [delta "decorations"]
     file-style = omit
     hunk-header-file-style = red

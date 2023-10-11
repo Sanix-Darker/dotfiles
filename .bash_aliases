@@ -745,8 +745,7 @@ _install_act(){
     # Looks like we need to move the ./bin/act to /usr/local/bin/
     sudo mv ./bin/act /usr/local/bin/act
 
-    echo "[x] Install gh..."
-    _install_gh
+   _confirm ">Install gh ?" _install_gh
 
     # to use gh act
     gh extension install nektos/gh-act
@@ -754,7 +753,7 @@ _install_act(){
 
 _install_dash(){
     echo "[x] install gh..."
-    _install_gh
+   _confirm ">Install gh ?" _install_gh
 
     echo "[x] Install dash..."
 
