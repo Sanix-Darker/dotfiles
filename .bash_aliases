@@ -330,6 +330,10 @@ _set_dot_files(){
     # greenclip configuration
     cpd $DOT_DIR/greenclip.toml ~/.config/greenclip.toml
 
+    # gh-dash config
+    mkdir -p ~/.config/gh-dash
+    cpd $DOT_DIR/gh-dash/config.yml ~/.config/gh-dash/config.yml
+
     # tmux configuration
     cpd $DOT_DIR/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
@@ -359,6 +363,10 @@ _copy_to_dotfiles(){
 
     # greenclip configuration
     cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
+
+    # gh-dash configuration
+    mkdir -p $DOT_DIR/gh-dash
+    cpd ~/.config/gh-dash/config.yml $DOT_DIR/gh-dash/config.yml
 
     # copy tmux configuration too
     cpd ~/.config/tmux/tmux.conf $DOT_DIR/tmux/tmux.conf
