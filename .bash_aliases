@@ -151,14 +151,26 @@ _rd(){
 }
 alias rd=_rd
 
+# i want to run git status as soon as i get inside a git folder
+_git_status_if_git_repo(){
+    # if the .git is present, then run git status
+    if [[ -d ".git" ]]; then
+        git status
+    fi
+}
+# overrided the cd command with the zoxide command line
+# But let's do that only we're sure zoxide is installed properly
+_magic_cd(){
+    #zoxide and git status if it's a .git project
+    z $@ && _git_status_if_git_repo
+}
+$(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='_magic_cd'
+
+# another amazing cd with fzf
 cdd() {
     local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)" || return 1
 	cd "$sel"
 }
-
-# overrided the cd command with the zoxide command line
-# But let's do that only we're sure zoxide is installed properly
-$(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='z'
 
 # Kill a process running on a specific port
 _killport(){
