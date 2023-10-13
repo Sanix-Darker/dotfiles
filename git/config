@@ -364,7 +364,7 @@
 
     ; to get log changes on a specific file ?
     ; git log-for ./server/CHANGELOG.md
-    log-for = !bash -ic 'git-log-commits-for \"$@\"' x
+    log-for-file = !bash -ic 'git-log-commits-for \"$@\"' x
 
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
@@ -419,7 +419,7 @@
     remove-ignore-files = !git clean -Xf
 
     ;get log from a given branch
-    log-from = !git log $1..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    log-from-branch = !git log $1..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
     log-branch-details = !git log -p origin..HEAD --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)

@@ -281,6 +281,7 @@ _gogo(){
     pkill polybar; _start_polybar
     pkill compton; _start_compton
     pkill greenclip; _start_greenclip
+    _ssh_add
 }
 
 # to be honnest i don't need the capslock
