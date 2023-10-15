@@ -239,8 +239,8 @@ fzf_crontab() {
 
 alias ls_services='systemctl list-units --type=service'
 # for nvim shortcuts
-# alias v='nvim -c "so ~/.config/nvim/init.lua"'
-alias v='nvim'
+# alias v='nvim'
+alias v='nvim -c "so ~/.config/nvim/init.lua"'
 alias nv='v'
 # for no user configuration
 alias vclean='vim --clean'
@@ -1736,7 +1736,7 @@ note(){
         # cat the list of note from today
         if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
             ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
-                --preview "${CONTENT_VIEW}" --preview-window "right:100" \
+                --preview "${CONTENT_VIEW}" --preview-window "right:98" \
                 --bind "enter:execute:${ENTER_COMMAND}" \
                 --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
                 --tac; # for the reverse order
