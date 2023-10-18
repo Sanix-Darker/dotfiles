@@ -239,8 +239,8 @@ fzf_crontab() {
 
 alias ls_services='systemctl list-units --type=service'
 # for nvim shortcuts
-# alias v='nvim'
-alias v='nvim -c "so ~/.config/nvim/init.lua"'
+alias v='nvim'
+# alias v='nvim -c "so ~/.config/nvim/init.lua"'
 alias nv='v'
 # for no user configuration
 alias vclean='vim --clean'
@@ -505,8 +505,9 @@ _install_golang_apps(){
 }
 
 _install_nvim(){
-    VERSION="nightly"
-    # VERSION="v0.9.2" # speedy but for LSP code calls... really slow
+    # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
+    # VERSION="nightly"
+    VERSION="v0.9.0" # speedy but for LSP code calls... really slow
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"

@@ -434,6 +434,8 @@ Plug 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
 Plug 'Sanix-Darker/snips.nvim'
 
+" This will shutdown unfocus LSP
+Plug 'hinell/lsp-timeout.nvim'
 " To play on leetCode
 " to install the client we need at first
 "
@@ -448,6 +450,5 @@ Plug 'Sanix-Darker/snips.nvim'
 " Multi line selection, could be interesting
 " for explaining sutffs on peer programming
 Plug 'Rasukarusan/nvim-select-multi-line'
-
 
 call plug#end()
