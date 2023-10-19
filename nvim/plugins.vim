@@ -398,7 +398,7 @@ Plug 'SirVer/ultisnips'
 " Plug 'https://github.com/w0rp/ale'
 
 " For Fugitive for git command directly inside the command section
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " vim plugin for flake8 PEP
 " Plug 'nvie/vim-flake8'
