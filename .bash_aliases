@@ -28,6 +28,23 @@ BPURPLE='\033[1;35m'      # PURPLE
 BCYAN='\033[1;36m'        # CYAN
 BWHITE='\033[1;37m'       # WHITE
 
+# Just some handlers for my given colors
+_echo_green(){
+    echo -ne "$GREEN$@$COLOROFF\n";
+}
+_echo_black(){
+    echo -ne "$BLACK$@$COLOROFF\n";
+}
+_echo_blue(){
+    echo -ne "$BLUE$@$COLOROFF\n";
+}
+_echo_white(){
+    echo -ne "$WHITE$@$COLOROFF\n";
+}
+_echo_red(){
+    echo -ne "$RED$@$COLOROFF\n";
+}
+
 # for all git + fzf commands
 GIT_FZF_DEFAULT_OPTS="
 	$FZF_DEFAULT_OPTS
@@ -1537,6 +1554,28 @@ git-log-commits-for(){
     --bind "enter:execute:${SHOW_COMMIT_COMMAND}"   \
     --preview-window right:90%                      \
     --pointer=">"
+}
+
+# This is to backport a specific commit hash from a branch
+# to another one then try opening the PR
+git_backport(){
+    COMMIT_HASH=$1
+    TARGET_BRANCH=$2
+
+    if [ -z $COMMIT_HASH ]; then
+        _echo_red "COMMIT_HASH can't be empty !"
+        return
+    fi;
+
+    _echo_white "> backport of $COMMIT_HASH to $TARGET_BRANCH..."
+    _echo_black "- git stash..."
+    git stash # we save stuff if we have ongoing stuffs
+
+    # checkput to the target branch
+    # if error, try to fetch it from the origin
+    # if still error, then raise
+    git checkout
+
 }
 
 git_open_pr(){
