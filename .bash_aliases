@@ -959,8 +959,8 @@ _install_basics(){
         "xcb-proto"
         "trash-cli" "python3-pynvim" "python3-virtualenv"
 
-        # for notifications
-        "libnotify-bin" "notify-osd" "xfce4-notifyd"
+        # # for notifications
+        # "libnotify-bin" "notify-osd" "xfce4-notifyd"
     )
     for i in "${devStack[@]}"
     do
@@ -998,9 +998,6 @@ _install_basics(){
 
     # install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
-
-    # path browsing such as exa or zoxide
-    _confirm "Install Path browsing utils ?" _install_path_browsing_utils
 }
 
 _install_youtube_music_cli(){

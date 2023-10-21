@@ -1,8 +1,8 @@
 .DEFAULT_GOAL=go
 
 DEV_CONTAINER_NAME = dk-dev-box
-DEV_CONTAINER = v`docker ps | grep dev-container | head -n1 | cut -d ' ' -f 1`
-
+HOME_SHARED_DIRECTORY_CODE = code
+DEV_CONTAINER = `docker ps | grep ${DEV_CONTAINER_NAME} | head -n1 | cut -d ' ' -f 1`
 
 build-cache: ## build the dev-container
 	docker build --tag ${DEV_CONTAINER_NAME} -f Dockerfile .
@@ -11,7 +11,7 @@ build: ## build the dev-container and skip the cache
 	docker build --tag ${DEV_CONTAINER_NAME} --no-cache -f Dockerfile .
 
 run: ## run the dev-container
-	docker run -v "${HOME}/code:/home/dk/code" --privileged -dt ${DEV_CONTAINER_NAME}
+	docker run -v "${HOME}/${HOME_SHARED_DIRECTORY_CODE}:/home/dk/${HOME_SHARED_DIRECTORY_CODE}" --privileged -dt ${DEV_CONTAINER_NAME}
 
 exec: ## exec inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
