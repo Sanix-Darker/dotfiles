@@ -10,10 +10,10 @@ COPY . /dotfiles/
 COPY .bashrc .bash_aliases /
 
 # some basic installations
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_basics'
-# RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_bash_preexc'
-# RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_python_stuffs'
-# RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_nvim_and_utils'
+RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; _install_basics'
+RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; _install_bash_preexc'
+RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; _install_python_stuffs'
+RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; _install_nvim_and_utils'
 
 RUN echo "\n> $(uname -a)\n"
 
