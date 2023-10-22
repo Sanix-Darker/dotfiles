@@ -38,4 +38,4 @@ go-base: build-base run-base exec-base # build and exec the container base (no d
 help: ## print this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {gsub("\\\\n",sprintf("\n%22c",""), $$2);printf "\033[36m%-20s\033[0m \t\t%s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-.PHONY: help go stop exec run start build-cache build
+.PHONY: help go go-base stop exec exec-base run run-base start build-cache build

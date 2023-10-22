@@ -1,32 +1,32 @@
 #!/bin/bash
 
-#Locales
+# Locales
 # export LANGUAGE=en_GB.UTF-8
 # export LANG=en_GB.UTF-8
 # export LC_ALL=en_GB.UTF-8
 
 # SOME COLORS
 # RESET
-COLOROFF='\033[0m'       # TEXT RESET
+COLOROFF='\033[0m'
 # REGULAR COLORS
-BLACK='\033[0;30m'        # BLACK
-RED='\033[0;31m'          # RED
-GREEN='\033[0;32m'        # GREEN
-YELLOW='\033[0;33m'       # YELLOW
-BLUE='\033[0;34m'         # BLUE
-PURPLE='\033[0;35m'       # PURPLE
-CYAN='\033[0;36m'         # CYAN
-WHITE='\033[0;37m'        # WHITE
+BLACK='\033[0;30m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
 
 # BOLD
-BBLACK='\033[1;30m'       # BLACK
-BRED='\033[1;31m'         # RED
-BGREEN='\033[1;32m'       # GREEN
-BYELLOW='\033[1;33m'      # YELLOw
-BBLUE='\033[1;34m'        # BLUE
-BPURPLE='\033[1;35m'      # PURPLE
-BCYAN='\033[1;36m'        # CYAN
-BWHITE='\033[1;37m'       # WHITE
+BBLACK='\033[1;30m'
+BRED='\033[1;31m'
+BGREEN='\033[1;32m'
+BYELLOW='\033[1;33m'
+BBLUE='\033[1;34m'
+BPURPLE='\033[1;35m'
+BCYAN='\033[1;36m'
+BWHITE='\033[1;37m'
 
 # Just some handlers for my given colors
 _echo_green(){
@@ -40,6 +40,9 @@ _echo_blue(){
 }
 _echo_white(){
     echo -ne "$WHITE$@$COLOROFF\n";
+}
+_echo_background_white(){
+    echo -ne "$BWHITE$@$COLOROFF\n";
 }
 _echo_red(){
     echo -ne "$RED$@$COLOROFF\n";
@@ -567,7 +570,7 @@ _install_ctags_universal(){
     make
     # you may need sudo here depending on the user installing it
     make install
-    ctags --version && [[ $? != 0 ]] && echo -e "\n$RED[+] ctags installation failed !$COLOROFF"
+    ctags --version && [[ $? != 0 ]] && _echo_red "\n[+] ctags installation failed !"
 }
 
 _install_nvim_and_utils(){
@@ -599,7 +602,6 @@ _install_python_stuffs(){
     # make -j8
     # sudo make altinstall
 
-
     # echo "Python/Pip $VERSION installed successfully !"
     sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update -y
@@ -614,14 +616,19 @@ _install_python_stuffs(){
     )
     for i in "${devStack[@]}"
     do
-        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt-get install $i -y
+        _echo_green "\n[-] Installing $i..."
+        sudo apt-get install $i -y > /dev/null && \
+            _echo_black "Installed $i successfully !" || \
+            _echo_red "error installing $i"
     done
 
-    echo "Installing Pip..."
-    curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
-    # to install python3.11 pip version
-}
+    _echo_black ">> Installing Pip..."
+    # To install multiple pip version
+    pipToInstall=("3.8" "3.10" "3.11")
+    for pV in "${pipToInstall[@]}"; do
+        curl -sS https://bootstrap.pypa.io/get-pip.py | python$pV
+    done;
+ }
 
 # With a given message as input, this function will execute anything
 # after the second argument passed
@@ -635,11 +642,11 @@ _confirm(){
     #
     args=("${@}")
     if [[ $NOTINTERACTIVE = "1" ]]; then
-        echo -e "$BLUE[+] ${args[0]} $COLOROFF"
+        _echo_blue "[+] ${args[0]} "
         callback=${args[@]:1}
         $callback
     else
-        echo -e "$BLUE[-] ${args[0]} $COLOROFF"
+        _echo_blue "[-] ${args[0]} "
         read -p "[?] (Y/y): " -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]
         then
@@ -648,9 +655,9 @@ _confirm(){
             callback=${args[@]:1}
             # echo ">>" $callback
             $callback
-            echo -e "$BWHITE-----------------------------------------------------------------$COLOROFF"
-        fi
-    fi
+            _echo_white "----------------------------------------------"
+        fi;
+    fi;
     echo
 }
 
@@ -928,6 +935,13 @@ _install_zed(){
     sudo apt update -y && sudo apt install -y zed
 }
 
+# To install stuffs for notifications
+_install_notifications(){
+    sudo apt-get install libnotify-bin \
+        notify-osd \
+        xfce4-notifyd -y
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -947,7 +961,8 @@ _install_basics(){
         "wget" "gcc" "g++" "make"
 
         "docker" "docker-compose"
-        "git" "hub" "snap" "zeal"
+        "git" "hub" "snap"
+        # "zeal" # not needed as a basic installation, i may change that later
         "silversearcher-ag"
         "autoconf" "automake" "pkg-config"
         "libxml2-utils" "libfuse2" "libncurses-dev"
@@ -957,15 +972,16 @@ _install_basics(){
         "libpq-dev" "entr" "htop" "nvtop"
 
         "xcb-proto"
-        "trash-cli" "python3-pynvim" "python3-virtualenv"
-
-        # for notifications
-        "libnotify-bin" "notify-osd" "xfce4-notifyd"
+        "trash-cli"
+        "python3-pynvim"
+        "python3-virtualenv"
     )
     for i in "${devStack[@]}"
     do
-        echo -e "\n$GREEN[-] Installing $i...$COLOROFF"
-        sudo apt-get install $i -y
+        _echo_green "\n[-] Installing $i..."
+        sudo apt-get install $i -y && \
+            _echo_black "[.]installed $i successfully !" || \
+            _echo_red "[x]error installing $i"
     done
 
     # Install tmux ?
@@ -998,9 +1014,6 @@ _install_basics(){
 
     # install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
-
-    # path browsing such as exa or zoxide
-    _confirm "Install Path browsing utils ?" _install_path_browsing_utils
 }
 
 _install_youtube_music_cli(){
@@ -1562,20 +1575,48 @@ git_backport(){
     COMMIT_HASH=$1
     TARGET_BRANCH=$2
 
-    if [ -z $COMMIT_HASH ]; then
-        _echo_red "COMMIT_HASH can't be empty !"
+    _echo_white "> backport of $COMMIT_HASH to $TARGET_BRANCH..."
+
+    if [ -z $COMMIT_HASH ]; then _echo_red "COMMIT_HASH can't be empty !"
         return
     fi;
 
-    _echo_white "> backport of $COMMIT_HASH to $TARGET_BRANCH..."
-    _echo_black "- git stash..."
+    if [ -z $TARGET_BRANCH ]; then _echo_red "TARGET_BRANCH can't be empty !"
+        return
+    fi;
+
+    _echo_black "-> git stash..."
     git stash # we save stuff if we have ongoing stuffs
 
-    # checkput to the target branch
+    _echo_black "-> git checkout $TARGET_BRANCH..."
+    # Checkput to the target branch
     # if error, try to fetch it from the origin
-    # if still error, then raise
-    git checkout
+    git checkout $TARGET_BRANCH || \
+        git fetch origin $TARGET_BRANCH && \
+        git checkout $TARGET_BRANCH || _echo_red "Unable to checkout to $TARGET_BRANCH"
 
+    BACKPORT_BRANCH="backport-${COMMIT_HASH:0:4}"
+    _echo_black "-> git checkout -b backport-$COMMIT_HASH..."
+    git checkout -b $BACKPORT_BRANCH
+
+    _echo_black "-> git pick $COMMIT_HASH..."
+    git pick $COMMIT_HASH
+
+    WHAT="$(git show $COMMIT_HASH --pretty=format:"%s" --no-patch)"
+    PR_TITLE="f(backport): of '${WHAT:0:10}'"
+    PR_BODY="##WHAT\n\nThis is a backport of '$WHAT'"
+    JSON_PAYLOAD="{\"title\": \"$PR_TITLE\", \"head\": \"$BACKPORT_BRANCH\", \"base\": \"$TARGET_BRANCH\", \"body\": \"$PR_BODY\", \"maintainer_can_modify\": true}"
+
+    _echo_black "-> git pr create..."
+    # Then we create the pr
+    _echo_white "-WHAT: $WHAT"
+    _echo_white "-TITLE: $PR_TITLE"
+    echo "-PAYLOAD: $JSON_PAYLOAD"
+
+    _echo_white "Creating the pr..."
+    echo $JSON_PAYLOAD > /tmp/pr-backport-tmp.json
+
+    EDITOR=nvim gh pr create --recover /tmp/pr-backport-tmp.json
 }
 
 git_open_pr(){
@@ -2100,8 +2141,8 @@ _boot_usb(){
         sudo dd bs=4M if=$iso_path of=$usb_drive status=progress oflag=sync
     }
     _status(){
-        [[ $? == 0 ]] && echo -e "$GREEN< $1 Operation suceeded !$COLOROFF" || \
-            $(echo -e "$RED<[blocking] $1 Operation failed !$COLOROFF" && \
+        [[ $? == 0 ]] && _echo_green "< $1 Operation suceeded !" || \
+            $(_echo_red "<[blocking] $1 Operation failed !" && \
             _confirm ">> Wish to continue anyway ?" echo )
     }
 

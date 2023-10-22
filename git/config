@@ -213,7 +213,8 @@
     ; git clone-sub directory1 https://github.com/author/repo
     clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
     ;clone-gh
-    clone-gh = !git clone git@github.com:\"$@\"
+    clone-gh = !git clone git@github.com:\"$@\" || git clone https://github.com/\"$@\"
+    clone-gl = !git clone git@gitlab.com:\"$@\" || git clone https://gitlab.com/\"$@\"
 
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search
@@ -221,6 +222,10 @@
 
     ; to open the Pull Request related to the current branch
     open-pr=!bash -ic 'git_open_pr \"$@\"'
+
+    ; To backport a given commit or fix
+    ; git backport  <commit-hash> <target-branch>
+    backport = !bash -ic 'git_backport \"$@\"' x
 
     ; To commit an empty commit
     commit-empty = !git commit --allow-empty -m
@@ -468,10 +473,6 @@
 
     ; to pick a specific commit
     pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi --preview \"git show {1} | delta\" --preview-window \"right,60%\" --pointer=\">\" | cut -d ' ' -f1)
-
-    ; Let say i want to backport a commit or a bunch of commit inside a side pull-request at once, this util will hwlp
-    ; me do that in one command line
-    backport = !git log # tmp, will finish it soon
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
