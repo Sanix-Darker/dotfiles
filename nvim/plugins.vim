@@ -172,6 +172,11 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Threesiter
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+" hjkl with Threesiter
+" for selecting stuff smartly
+" Alt+V to toggle it
+Plug 'gsuuon/tshjkl.nvim'
+
 "" For the sticky header
 "" Plug 'wellle/context.vim'
 "" The lua alternative (looks SO SLOOOOOWWWW)
@@ -450,5 +455,6 @@ Plug 'hinell/lsp-timeout.nvim'
 " Multi line selection, could be interesting
 " for explaining sutffs on peer programming
 Plug 'Rasukarusan/nvim-select-multi-line'
+
 
 call plug#end()

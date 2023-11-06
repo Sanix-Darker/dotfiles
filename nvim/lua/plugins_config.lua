@@ -117,6 +117,9 @@ require'treesitter-context'.setup{
   on_attach = nil,
 }
 
+-- setup treesitter but with hjkl
+-- require('gsuuon/tshjkl.nvim').setup{}
+
 -- setup qbf
 require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'})
 
