@@ -154,10 +154,28 @@ if [ -f ~/.bash_work_aliases ]; then
 fi
 
 # To mkdir a directory and cd into it
+# md path
 _md(){
     mkdir $1 && cd $1
 }
 alias md=_md
+
+# Touch but create recursivelly paths if they don't exist already
+# _touchd /not/existing/yet/file1.y ~/.not/existing/file2.x
+_touchd(){
+    for i in ${@}; do
+        dir_path="$(dirname $i)"
+        file_name="$(basename $i)"
+
+        _echo_black "On '$dir_path'"
+        mkdir -p $dir_path
+
+        _echo_black "Creating '$file_name'"
+        touch $dir_path/$file_name
+    done;
+}
+
+alias touchd=_touchd
 
 # To delete the current directory where am i
 _rd(){
@@ -951,6 +969,19 @@ _install_zed(){
     cd /tmp
     wget https://github.com/authzed/zed/releases/download/v0.15.0/zed_0.15.0_linux_amd64.deb
     sudo apt-get install ./zed_0.15.0_linux_amd64.deb -y
+}
+
+_install_kdenlive(){
+    sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+    sudo apt-get update
+
+    # requirement needed to use it
+    _echo_black "> Installing libstdc++6..."
+    sudo apt-get install libstdc++6
+
+    _echo_black "> Downloading the kdenlive appimage..."
+    cd ~/Downloads/
+    wget https://download.kde.org/stable/kdenlive/23.08/linux/kdenlive-23.08.2-x86_64.AppImage
 }
 
 _install_basics(){
