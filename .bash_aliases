@@ -942,6 +942,17 @@ _install_notifications(){
         xfce4-notifyd -y
 }
 
+# to install insomnia (i hate this thing)
+_install_insomnia(){
+    sudo snap install insomnia
+}
+
+_install_zed(){
+    cd /tmp
+    wget https://github.com/authzed/zed/releases/download/v0.15.0/zed_0.15.0_linux_amd64.deb
+    sudo apt-get install ./zed_0.15.0_linux_amd64.deb -y
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -951,14 +962,15 @@ _install_basics(){
         "build-essential"
         "software-properties-common"
 
-        "curl" "tree" "apt-transport-https"
+        "curl" "wget" "tree"
+        "apt-transport-https"
         "lsb-release" "ca-certificates"
 
         "cloc" "compton"
 
         "tmate" "git-lfs" "gh"
         "tar" "zip" "unzip" "curl"
-        "wget" "gcc" "g++" "make"
+        "gcc" "g++" "make"
 
         "docker" "docker-compose"
         "git" "hub" "snap"
@@ -971,10 +983,8 @@ _install_basics(){
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
-        "xcb-proto"
-        "trash-cli"
-        "python3-pynvim"
-        "python3-virtualenv"
+        "xcb-proto" "trash-cli"
+        "python3-pynvim" "python3-virtualenv"
     )
     for i in "${devStack[@]}"
     do
@@ -2177,3 +2187,5 @@ _boot_usb(){
 # sudo apt-get clean
 # sudo rm -rf /var/lib/apt/lists/*
 # sudo apt-get update
+
+alias zed='/usr/bin/zed'
