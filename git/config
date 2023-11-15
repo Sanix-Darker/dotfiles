@@ -224,7 +224,7 @@
     open-pr=!bash -ic 'git_open_pr \"$@\"'
 
     ; To backport a given commit or fix
-    ; git backport  <commit-hash> <target-branch>
+    ; git backport  <commit-hash> (will backport any commit from any branch to the current one)
     backport = !bash -ic 'git_backport \"$@\"' x
 
     ; To commit an empty commit
