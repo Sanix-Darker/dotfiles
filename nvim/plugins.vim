@@ -456,5 +456,7 @@ Plug 'hinell/lsp-timeout.nvim'
 " for explaining sutffs on peer programming
 Plug 'Rasukarusan/nvim-select-multi-line'
 
+" TODO: To be configure for later on
+" https://github.com/OscarCreator/rsync.nvim
 
 call plug#end()

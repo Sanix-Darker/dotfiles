@@ -1614,7 +1614,7 @@ git-log-commits-for(){
 # to another one then try opening the PR
 git_backport(){
     COMMIT_HASH=$1
-    TARGET_BRANCH=$2
+    TARGET_BRANCH="$(git branch --show-current)"
 
     _echo_white "> backport of $COMMIT_HASH to $TARGET_BRANCH..."
 

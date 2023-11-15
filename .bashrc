@@ -281,7 +281,10 @@ _gogo(){
     pkill polybar; _start_polybar
     pkill compton; _start_compton
     pkill greenclip; _start_greenclip
+    # for git certs
     _ssh_add
+    # to start tmux server if not available
+    tmux
 }
 
 # to be honnest i don't need the capslock

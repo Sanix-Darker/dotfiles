@@ -14,6 +14,11 @@ map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
 -- convert rows to columns
 map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 
+-- command mode with the edition like...
+-- and enter in insert mode
+-- map("n", ":", ":<C-f>")
+-- map("v", ":", ":<C-f>")
+
 -- to fold or unfold code :
 map("n", "<space><space>", "za")
 map("v", "<space>", "zf")
