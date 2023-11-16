@@ -693,11 +693,31 @@ _install_mpv(){
     sudo apt install mpv
 }
 
+_install_polybar(){
+    cd /tmp
+    sudo apt update -y
+
+    sudo apt-get install cmake cmake-data libcairo2-dev libxcb1-dev libxcb-ewmh-dev \
+    libxcb-icccm4-dev libxcb-image0-dev libxcb-randr0-dev libxcb-util0-dev \
+    libxcb-xkb-dev pkg-config xcb-proto libxcb-xrm-dev i3-wm \
+    libasound2-dev libmpdclient-dev libiw-dev libcurl4-openssl-dev \
+    libxcb-cursor-dev libxcb-xinerama0-dev libxcb-cursor-dev libpulse-dev \
+    libxcb-composite0-dev xcb libxcb-ewmh2 libuv1.dev python3-xcbgen libjsoncpp-dev -y
+
+    git clone --recursive https://github.com/polybar/polybar && cd polybar
+
+    mkdir build && cd build
+    cmake ..
+    make -j$(nproc)
+    sudo make install
+}
+
 _install_i3(){
     # another alternative
     # after downloading a release here : https://i3wm.org/downloads/
     # follow theses stemsp with meson
-    sudo apt install polybar
+    _install_polybar
+
     # to install i3
     sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
         libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
