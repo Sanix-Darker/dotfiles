@@ -386,7 +386,7 @@ Plug 'honza/vim-snippets'
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Track the engine.
 " Fcedpe
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 

@@ -186,12 +186,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PYENV_ROOT="$HOME/.pyenv"
+
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
 fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
 
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
@@ -205,8 +205,12 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # For clang
-export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
+# export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
+# export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
+# export LD="/usr/bin/ld"
+# export PATH="$PATH:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
+# export PATH="$PATH:/usr/bin/ld"
+
 # We want to help jedi select the
 # good python interpreter depending on the project
 # So we will check first if a virtualenv exist in the current dir
@@ -296,9 +300,10 @@ _gogo(){
 
 alias luamake=/luamake #FIXME : what the fuck is this ? when did i added it ? maybe should remove later
 
-export PATH="$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
+export PATH="$PATH:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
 . "$HOME/.cargo/env"
 
+export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin/yarn"
 # we set the .config/ dir
 export XDG_CONFIG_HOME=$HOME/.config/
 
@@ -317,3 +322,4 @@ export EDITOR=nvim
 # On any new shell we should select and use node 18
 # This is dirty but i need this to fix my LSP on nvim
 nvm use 18 > /dev/null # in silent
+export PATH=$PATH:/usr/local/bin

@@ -544,8 +544,8 @@ _install_golang_apps(){
 
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
-    # VERSION="nightly"
-    VERSION="v0.9.0" # speedy but for LSP code calls... really slow
+    VERSION="nightly"
+    # VERSION="v0.9.0" # speedy but for LSP code calls... really slow
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
@@ -734,7 +734,7 @@ _install_i3(){
     _confirm "Install greenclip for clipboard history, depends on rofi ?" _install_greenclip
 
     # install autolock
-    # sudo apt-get install xautolock -y
+    sudo apt-get install xautolock -y
 }
 
 _install_delta(){
@@ -940,19 +940,27 @@ _install_golang_specific_version(){
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
 }
 
-# to install nerdfonts
 _install_nerdfonts(){
-    # download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
+    # Download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
     # and then run : fc-cache -f -v
     # ----
-    echo "> sometimes it's '/usr/share/fonts/', so check there if this installation failed."
-    echo "< cd /usr/local/share/fonts/ ..."
-    cd /usr/local/share/fonts/
+    echo "Note: Sometimes it's '/usr/share/fonts/', so check there if this installation failed."
+    echo "cd /tmp"
+    cd /tmp
 
-    echo "wget HackNerdFontMono-Regular ttf"
-    sudo wget https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hack/Regular/HackNerdFontMono-Regular.ttf
+    echo ">> wget Hack (don't forget to rename that to Hack since it's what inside alac."
+    sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.0/Hack.zip > /dev/null
 
-    echo ">> installing the ttf..."
+    echo "< cd /usr/local/share/fonts/ ... and mv /tmp/Hack.zip..."
+    cd /usr/local/share/fonts/ && sudo mv /tmp/Hack.zip .
+
+    echo ">> Unzip Hack.."
+    sudo unzip Hack.zip
+
+    echo ">> Copy Hack from /usr/local/share/fonts/ to /usr/share/fonts/..."
+    sudo cp -r /usr/local/share/fonts/ /usr/share/fonts/
+
+    echo ">> Installing the ttf..."
     fc-cache -f -v
 }
 
@@ -1002,6 +1010,13 @@ _install_kdenlive(){
     _echo_black "> Downloading the kdenlive appimage..."
     cd ~/Downloads/
     wget https://download.kde.org/stable/kdenlive/23.08/linux/kdenlive-23.08.2-x86_64.AppImage
+}
+
+
+_install_nvm(){
+	mkdir ~/.nvm
+	sudo apt install curl
+	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 }
 
 _install_basics(){
@@ -1056,7 +1071,7 @@ _install_basics(){
     _confirm "Install tt (For tmux fast jumping) ?" _install_tt
 
     # Install and build Clang
-    _confirm "Install clang ?" _install_clang
+    _confirm "ARE YOU REALLY SURE, you want to Install clang (may broke build-essential on a different os (libc issues))?" _install_clang
 
     # A simple pdf reader from terminal with vim bindings
     _confirm "Install zathura (a pdf reader) ?" _install_zathura
@@ -1969,7 +1984,7 @@ _vremove(){
 # ------
 # for bluetoothctl service
 _b_connect(){
-    bluetoothctl connect
+    bluetoothctl connect $@
 }
 _b_connect_me(){
     _b_connect AC:12:2F:50:D9:56

@@ -244,7 +244,7 @@ exec feh --bg-fill ~/bg2.jpg
 # exec --no-startup-id setxkbmap -option caps:none
 
 # 3 Gps
-# gaps inner 10
+gaps inner 10
 
 # TO set the appropriate refresh rate (working one)
 # exec xrandr --output DP-0.1 --mode 1920x1080 --rate 50
@@ -254,7 +254,6 @@ bindsym $mod+Shift+u move workspace to output up
 bindsym $mod+Shift+d move workspace to output down
 bindsym $mod+Shift+o move workspace to output left
 bindsym $mod+Shift+p move workspace to output right
-
 
 # To keep touchPad as it should be !
 exec xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
