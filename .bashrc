@@ -298,8 +298,6 @@ _gogo(){
 # We refresh tmux configurations
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 
-alias luamake=/luamake #FIXME : what the fuck is this ? when did i added it ? maybe should remove later
-
 export PATH="$PATH:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
 . "$HOME/.cargo/env"
 
