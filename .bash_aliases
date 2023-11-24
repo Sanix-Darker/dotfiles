@@ -544,8 +544,8 @@ _install_golang_apps(){
 
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
-    VERSION="nightly"
-    # VERSION="v0.9.0" # speedy but for LSP code calls... really slow
+    # VERSION="nightly"
+    VERSION="v0.9.4"
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
@@ -718,13 +718,16 @@ _install_i3(){
     # follow theses stemsp with meson
     _install_polybar
 
-    # to install i3
-    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev \
-        libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
-        libxcb-cursor-dev xutils-dev libtool automake autoconf gcc make pkg-config libpam0g-dev libcairo2-dev \
-        libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev \
-        libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev \
-        libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
+    # To install i3 from source (will be compiled)
+    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-shape0-dev -y
+    cd /tmp && wget https://github.com/i3/i3/archive/stable.tar.gz
+    tar xzf stable.tar.gz && rm -rf stable.tar.gz
+    cd i3-stable && mdir build
+    cd build
+    meson --prefix=/usr/local/ ..
+    ninja
+    sudo ninja install
+
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
     sudo apt-get install feh rofi arandr -y
@@ -764,9 +767,11 @@ _install_greenclip(){
     nohup greenclip daemon &
 }
 
+# NOTE: DEPRECATED (I use this on my own branch on fzf directly).
 _install_tt(){
     # a fast switcher for sessions and panel inside tmux
-    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh && sudo cp ./session-wizard.sh /usr/local/bin/t
+    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh && \
+        sudo cp ./session-wizard.sh /usr/local/bin/t
 }
 
 _install_clang(){
@@ -785,9 +790,9 @@ _install_tmux(){
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
-    VERSION="3.1c"
-    # VERSION="3.3" # becaue i can
-    # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
+    # VERSION="3.1c"
+    # VERSION="3.3.a" # becaue i can
+    VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
     echo "> Installing tmux $VERSION..."
@@ -795,7 +800,7 @@ _install_tmux(){
     sudo apt install libevent-dev -y
     cd /tmp
     echo "> Getting tmux $VERSION..."
-    wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
+    wget https://github.com/sanix-darker/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
     tar xf tmux-${VERSION}.tar.gz
     rm -f tmux-${VERSION}.tar.gz
 
@@ -815,7 +820,7 @@ _install_tmux(){
 
     cd $WHERE_I_WAS
 
-    if [ -d "~/.tmux/plugins/tpm" ]; then
+    if [ ! -d "~/.tmux/plugins/tpm" ]; then
         echo "> Installing tpm..."
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi;
@@ -1068,7 +1073,8 @@ _install_basics(){
     # sudo apt-get install scdoc libnotmuch-dev -y
 
     # SetUp and install tt
-    _confirm "Install tt (For tmux fast jumping) ?" _install_tt
+    # NOTE: DEPRECATED
+    # _confirm "Install tt (For tmux fast jumping) ?" _install_tt
 
     # Install and build Clang
     _confirm "ARE YOU REALLY SURE, you want to Install clang (may broke build-essential on a different os (libc issues))?" _install_clang
