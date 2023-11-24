@@ -332,8 +332,9 @@ _set_nvim(){
     echo "[x] nvm use 18..."
     nvm use 18
 
-    # to install new stuffs if some of them were missing
-    nvim --headless +PlugInstall +qall
+    # To install new stuffs if some of them were missing
+    # FIXME: This is not stable, will fix it later
+    # nvim --headless +PlugInstall +qall
 
     # yeah, we removed coc-nvim in favor of LSP
     lsp_conf=(
@@ -344,7 +345,7 @@ _set_nvim(){
     )
     for i in "${lsp_conf[@]}"
     do
-        echo "Installing $i..."
+        echo "Installing LSP for $i..."
         npm install -g $i --user
     done
 
@@ -352,10 +353,7 @@ _set_nvim(){
     # go install github.com/arduino/arduino-language-server@latest
 }
 
-# copy alacritty mpv tmux i3 git config
-# we copy polybar
-# Our rofi theme for search
-# others
+# Copy alacritty mpv tmux i3 git config, polybar and rofi
 CONFIG_PATHS=(
     "autostart"
     "rofi" "polybar"
@@ -564,6 +562,7 @@ _install_nvim(){
     echo "[-] -----------------------------------"
 }
 
+# NOTE: DEPRECATED, use _install_nvm
 _install_node_stuffs(){
     mkdir /home/dk/.nvm
 
@@ -599,7 +598,7 @@ _install_nvim_and_utils(){
 
     # not needed anymore
     # To install CocInstall, we need nodejs
-    _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
+    # _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
 
     # To install ctags( the universal one) for vista plugins
     # _confirm "Install ctags (universal) ?" _install_ctags_universal
@@ -747,9 +746,15 @@ _install_delta(){
 
 _install_FZF(){
     # Yes i have my own version for searching on tmux session
-    # + history based on the directory
+    # + history based on the directory and some other cools stuffs
     git clone --depth 1 https://github.com/Sanix-Darker/fzf.git ~/.fzf && \
-    cd ~/.fzf/ && git pull origin me && ~/.fzf/install # [me] is my special branch btw
+    cd ~/.fzf/
+    git fetch origin me && git checkout me
+
+    _echo_green "Installing fzf ~/.fzf/install: "
+    ~/.fzf/install # [me] is my special branch btw (with my custom bindings over there).
+    # go back to the previous dir
+    cd -
 }
 
 _install_locales_lang(){
@@ -881,14 +886,14 @@ _install_docker(){
 }
 
 _install_rust(){
-    echo "> installing rustc and cargo..."
+    echo "> Installing rustc and cargo..."
 
     sudo apt update -y && sudo apt upgrade -y
     sudo apt install -y curl gcc make build-essential
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-    # to check the rust version installed
+    # To check the rust version installed
     rustc --version
 }
 
@@ -953,7 +958,7 @@ _install_nerdfonts(){
     echo "cd /tmp"
     cd /tmp
 
-    echo ">> wget Hack (don't forget to rename that to Hack since it's what inside alac."
+    echo ">> wget Hack ( don't forget to rename that to Hack since it's what inside alac."
     sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.0/Hack.zip > /dev/null
 
     echo "< cd /usr/local/share/fonts/ ... and mv /tmp/Hack.zip..."
@@ -1022,9 +1027,24 @@ _install_nvm(){
 	mkdir ~/.nvm
 	sudo apt install curl
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+    _echo_green "nvm install node bins"
+    nvm install node
+
+    _echo_green "nvm install node v16"
+    nvm install 16
+
+    _echo_green "nvm install node v8"
+    nvm install 18
+}
+
+_set_cat_bg(){
+    cp ~/dotfiles/bg.jpg ~/bg2.jpg
 }
 
 _install_basics(){
+    _confirm "Set up the cat background to ~/ ?" _set_cat_bg
+
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
 
@@ -1068,6 +1088,12 @@ _install_basics(){
     # Install tmux ?
     _confirm "Install tmux ?" _install_tmux
 
+    # Install nvm for node stuffs
+    _confirm "Install nvm (node, npm, ...)?" _install_nvm
+
+    # Install rustc and cargo + some random stuffs
+    _confirm "Install rust stuffs ?" _install_rust
+
     # Install aerc (email client)
     # TODO config
     # sudo apt-get install scdoc libnotmuch-dev -y
@@ -1083,7 +1109,7 @@ _install_basics(){
     _confirm "Install zathura (a pdf reader) ?" _install_zathura
 
     # Install and build Cling
-    _confirm "Install cling (C REPL) ?" _install_cling
+    # _confirm "Install cling (C REPL) ?" _install_cling
 
     # Install act
     _confirm "Install act (github actions locally) ?" _install_act
@@ -1096,6 +1122,9 @@ _install_basics(){
 
     # install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
+
+    # un cleaning to propre apres les basics installs
+    _confirm "To clean apt stuffs with autoremove..." sudo apt autoremove -y
 }
 
 _install_youtube_music_cli(){
@@ -1186,8 +1215,6 @@ _install_dev_stack(){
 
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
 
-    echo "To clean apt stuffs with autoremove..."
-    sudo apt autoremove
     # setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10) stuffs ?" _install_python_stuffs
