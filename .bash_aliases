@@ -137,9 +137,9 @@ pvlist(){
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
-alias v11='virtualenv -p python3.11 env'
-alias v10='virtualenv -p python3.10 env'
-alias v8='virtualenv -p python3.8 env'
+alias v11='python3.11 -m venv env'
+alias v10='python3.10 -m venv env'
+alias v8='python3.8 -m venv env'
 
 alias de='deactivate'
 alias p='python3'
@@ -630,6 +630,11 @@ _install_python_stuffs(){
         "python3-distutils"
         "python3.11-dev"
         "python3-sphinx "
+
+        # for venv stuffs (Important)
+        "python3.8-venv"
+        "python3.10-venv"
+        "python3.11-venv"
     )
     for i in "${devStack[@]}"
     do
@@ -965,10 +970,10 @@ _install_nerdfonts(){
     cd /usr/local/share/fonts/ && sudo mv /tmp/Hack.zip .
 
     echo ">> Unzip Hack.."
-    sudo unzip Hack.zip
+    sudo unzip Hack.zip && sudo mkdir Hack && sudo cp HackNerdFont* ./Hack/
 
-    echo ">> Copy Hack from /usr/local/share/fonts/ to /usr/share/fonts/..."
-    sudo cp -r /usr/local/share/fonts/ /usr/share/fonts/
+    echo ">> Copy Hack from /usr/local/share/fonts/Hack to /usr/share/fonts/..."
+    sudo cp -r ./Hack /usr/share/fonts/
 
     echo ">> Installing the ttf..."
     fc-cache -f -v
@@ -1040,6 +1045,20 @@ _install_nvm(){
 
 _set_cat_bg(){
     cp ~/dotfiles/bg.jpg ~/bg2.jpg
+}
+
+_fix_ssh_key(){
+    chmod 600 /home/dk/.ssh/id_ed25519
+}
+
+_generate_gpg_keys(){
+    GPG_KEY=$(gpg --list-secret-keys --keyid-format LONG | awk '/^sec/ { getline; print $1 }')
+    if [ -z $GPG_KEY ]; then
+        echo "Not seeing a key for $GPG_KEY."
+        gpg --full-generate-key
+    fi;
+    echo "Generated public key for $GPG_KEY:"
+    gpg --armor --export $GPG_KEY
 }
 
 _install_basics(){
