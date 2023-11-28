@@ -481,7 +481,11 @@ _install_vagrant(){
 
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-    sudo apt-get update -y && sudo apt-get install vagrant -y
+
+    cd /tmp
+    wget https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
+    sudo apt install ./vagrant_2.2.19_x86_64.deb -y
+    vagrant --version
 }
 
 _install_alacritty(){
@@ -1992,12 +1996,14 @@ jira_exec_cli(){
 # ---------------------------------------
 _vup(){
     vmm=$1
+    mkdir -p ~/vagrant/shared/dk/$1
     cd $HOME/vagrant/vms/$vmm
     vagrant up
     cd -
 }
 _vdown(){
     vmm=$1
+    mkdir -p ~/vagrant/shared/dk/$1
     cd $HOME/vagrant/vms/$vmm
     vagrant halt
     cd -
