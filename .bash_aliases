@@ -1111,6 +1111,8 @@ _install_basics(){
 
         "xcb-proto" "trash-cli"
         "python3-pynvim" "python3-virtualenv"
+
+        "xclip" # for clipboard
     )
     for i in "${devStack[@]}"
     do
