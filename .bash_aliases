@@ -395,6 +395,9 @@ _set_dot_files(){
 }
 
 _copy_to_dotfiles(){
+    # copy my bash-working stuff to ~/ssh
+    cpd ~/.bash_work_aliases ~/ACTUALC/ssh/
+
     # nvim stuffs
     # We prevent copying plugins git based repositories too.
     cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
@@ -1055,6 +1058,7 @@ _fix_ssh_key(){
     chmod 600 /home/dk/.ssh/id_ed25519
 }
 
+# for git
 _generate_gpg_keys(){
     GPG_KEY=$(gpg --list-secret-keys --keyid-format LONG | awk '/^sec/ { getline; print $1 }')
     if [ -z $GPG_KEY ]; then
@@ -1063,6 +1067,14 @@ _generate_gpg_keys(){
     fi;
     echo "Generated public key for $GPG_KEY:"
     gpg --armor --export $GPG_KEY
+}
+
+_install_slack(){
+    sudo snap install slack
+}
+
+_install_thunderbird(){
+    sudo snap install slack
 }
 
 _install_basics(){
