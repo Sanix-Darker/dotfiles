@@ -1106,6 +1106,7 @@ _install_basics(){
         "libxml2-utils" "libfuse2" "libncurses-dev"
         "libldap2-dev" "libsasl2-dev"
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
+        "libjpeg-dev" "libpam0g-dev"
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
