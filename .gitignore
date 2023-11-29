@@ -2,6 +2,7 @@
 */*__pycache__
 tmux/plugins/
 *env
+*.bak
 *.pyc
 **/.vagrant
 alacritty/theme/.github
