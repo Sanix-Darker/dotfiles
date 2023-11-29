@@ -201,6 +201,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/go/src
 export PATH=$PATH:/usr/local/groovy/bin
 export GOPATH=$HOME/go
+export GO111MODULE=on
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -300,6 +301,7 @@ _gogo(){
 
 # ---
 export PATH="$PATH:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin"
+. "$HOME/.cargo/env"
 # export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin/yarn"
 # ---
 
@@ -323,4 +325,3 @@ export EDITOR=nvim
 # On any new shell we should select and use node 18
 # This is dirty but i need this to fix my LSP on nvim
 # nvm use 18 > /dev/null # in silent
-. "$HOME/.cargo/env"

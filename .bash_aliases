@@ -550,7 +550,7 @@ _install_golang_apps(){
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
     # VERSION="nightly"
-    VERSION="v0.9.4"
+    VERSION="v0.9.0"
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
@@ -1120,6 +1120,7 @@ _install_basics(){
         "libxml2-utils" "libfuse2" "libncurses-dev"
         "libldap2-dev" "libsasl2-dev"
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
+        "libbz2-dev"
         "libjpeg-dev" "libpam0g-dev"
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
@@ -1137,6 +1138,9 @@ _install_basics(){
             _echo_red "[x]error installing $i"
     done
 
+    # Install cargo's cat (bat)
+    _confirm "Install bat (cat for cargo) ?" cargo install bat
+
     # Install tmux ?
     _confirm "Install tmux ?" _install_tmux
 
@@ -1146,6 +1150,9 @@ _install_basics(){
     # Install rustc and cargo + some random stuffs
     _confirm "Install rust stuffs ?" _install_rust
 
+    _confirm "Install golang ?" _install_golang
+
+    _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
     # Install aerc (email client)
     # TODO config
     # sudo apt-get install scdoc libnotmuch-dev -y
