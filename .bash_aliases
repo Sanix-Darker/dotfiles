@@ -723,11 +723,23 @@ _install_polybar(){
     sudo make install
 }
 
+_install_i3_lock(){
+    cd /tmp
+    git clone https://github.com/Raymo111/i3lock-color.git
+    cd i3lock-color
+    chmod +x ./install-i3lock-color.sh
+    ./install-i3lock-color.sh
+}
+
+_install_i3_navigation(){
+    sudo apt-get install feh rofi arandr -y
+}
+
 _install_i3(){
     # another alternative
     # after downloading a release here : https://i3wm.org/downloads/
     # follow theses stemsp with meson
-    _install_polybar
+    _confirm "Install polybar ?" _install_polybar
 
     # To install i3 from source (will be compiled)
     sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-shape0-dev -y
@@ -739,12 +751,14 @@ _install_i3(){
     ninja
     sudo ninja install
 
+    # Install i3 lock.
+    _confirm "Install i3-lock ?" _install_i3_lock
+
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
-    sudo apt-get install feh rofi arandr -y
-    git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh
+    _confirm "Install rofi/feh/arandr ?" _install_i3_navigation
 
-    # install greenclip for clipboard history
+    # Install greenclip for clipboard history
     _confirm "Install greenclip for clipboard history, depends on rofi ?" _install_greenclip
 
     # install autolock
