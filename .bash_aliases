@@ -1092,7 +1092,7 @@ _install_thunderbird(){
 }
 
 _install_basics(){
-    _confirm "Set up the cat background to ~/ ?" _set_cat_bg
+    _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
 
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -1143,6 +1143,9 @@ _install_basics(){
 
     # Install tmux ?
     _confirm "Install tmux ?" _install_tmux
+
+    # Install notifications
+    _confirm "Install notification (alert...)" _install_notifications
 
     # Install nvm for node stuffs
     _confirm "Install nvm (node, npm, ...)?" _install_nvm
@@ -1271,16 +1274,17 @@ _install_dev_stack(){
     # For a weird perl warning error on locales UTF-8
     # Should be on top
     _confirm "Reconfigure locale langs ? " _install_locales_lang
-
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
 
     # setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
-    _confirm "Install python(.10) stuffs ?" _install_python_stuffs
+    _confirm "Install python(.10/.11) stuffs ?" _install_python_stuffs
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
     _confirm "Install alacritty terminal (ui) ?" _install_alacritty
+    _confirm "Install slack (company messaging app)" _install_slack
+    _confirm "Install thunderbird (email app)" _install_thunderbird
     _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
 }
 
