@@ -1915,15 +1915,16 @@ psaux(){
 
 # to install teleport shel
 _install_tsh(){
-    # download teleport gpg KEY
-    sudo curl https://deb.releases.teleport.dev/teleport-pubkey.asc \ -o /usr/share/keyrings/teleport-archive-keyring.asc
+    # # download teleport gpg KEY
+    # sudo curl https://deb.releases.teleport.dev/teleport-pubkey.asc \ -o /usr/share/keyrings/teleport-archive-keyring.asc
 
-    # add teleport to repository for apt
-    echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] https://deb.releases.teleport.dev/ stable main" | sudo tee /etc/apt/sources.list.d/teleport.list > /dev/null
+    # # add teleport to repository for apt
+    # echo "deb [signed-by=/usr/share/keyrings/teleport-archive-keyring.asc] https://deb.releases.teleport.dev/ stable main" | sudo tee /etc/apt/sources.list.d/teleport.list > /dev/null
 
-    # apt update and install :
-    sudo apt update -y
-    sudo apt-get install teleport -y
+    # # apt update and install :
+    # sudo apt update -y
+    # sudo apt-get install teleport -y
+    curl https://goteleport.com/static/install.sh | bash -s 14.2.0
 
     echo "Installed tsh version $(tsh version)"
 }
