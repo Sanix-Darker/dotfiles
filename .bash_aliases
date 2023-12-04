@@ -2354,3 +2354,8 @@ _boot_usb(){
 # sudo apt-get update
 
 alias zed='/usr/bin/zed'
+
+# For some weird reason, i need to run arandr with the python3.8 version for it to work
+# some error related to my python3.11 installation, no time to investigate more, will check
+# later.
+alias arandr='/usr/bin/python3.8 $(which arandr)'
