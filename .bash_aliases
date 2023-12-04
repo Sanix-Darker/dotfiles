@@ -1091,6 +1091,16 @@ _install_thunderbird(){
     sudo snap install slack
 }
 
+_install_mkcert(){
+    sudo apt-get install wget libnss3-tools -y
+    cd /tmp
+    wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
+    sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
+    sudo chmod +x /usr/bin/mkcert
+    mkcert --version
+    cd -
+}
+
 _install_basics(){
     _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
 

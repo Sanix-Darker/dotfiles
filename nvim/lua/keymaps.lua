@@ -19,6 +19,9 @@ map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 -- map("n", ":", ":<C-f>")
 -- map("v", ":", ":<C-f>")
 
+-- execute using bash and get the output on the next line below what i just
+map("v", "<Leader>xx", ":w !bash<CR>")
+
 -- to fold or unfold code :
 map("n", "<space><space>", "za")
 map("v", "<space>", "zf")
