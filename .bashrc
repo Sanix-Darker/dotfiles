@@ -238,9 +238,6 @@ $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && eval "$(zoxide init bash)"
 # For fuck pypi package so that my command never fail
 # $(command -v thefuck > /dev/null) && [[ $? == 0 ]] && eval "$(thefuck --alias)"
 
-# We first check if this repository exist before source it
-[[ -d "$HOME/.config/broot/launcher/bash/" ]] && source $HOME/.config/broot/launcher/bash/br
-
 # compton for opacity on terminal
 # $(command -v compton > /dev/null) && [[ $? == 0 ]] && nohup compton -f > /dev/null &
 
