@@ -370,6 +370,7 @@ CONFIG_PATHS=(
     "rofi" "polybar"
     "git" "i3"
     "mpv" "alacritty"
+    "gh-dash" "tmux"
 )
 
 # Assuming we already have the dotfiles directory
@@ -392,9 +393,6 @@ _set_dot_files(){
     # gh-dash config
     mkdir -p ~/.config/gh-dash
     cpd $DOT_DIR/gh-dash/config.yml ~/.config/gh-dash/config.yml
-
-    # tmux configuration
-    cpd $DOT_DIR/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
     for path in "${CONFIG_PATHS[@]}"; do
         echo "Copy of '$DOT_DIR/$path' in ~/.config/..."
@@ -430,9 +428,6 @@ _copy_to_dotfiles(){
     mkdir -p $DOT_DIR/gh-dash
     cpd ~/.config/gh-dash/config.yml $DOT_DIR/gh-dash/config.yml
 
-    # copy tmux configuration too
-    cpd ~/.config/tmux/tmux.conf $DOT_DIR/tmux/tmux.conf
-
     # we copy directories that needs to be copied
     for path in "${CONFIG_PATHS[@]}"; do
         echo "Copy of '~/.config/$path' in $DOT_DIR/..."
@@ -457,19 +452,17 @@ _push_dot_files(){
 }
 
 _pull_dot_files(){
-    if [[ ! -d $DOT_DIR ]]
-    then
+    if [[ ! -d $DOT_DIR ]]; then
         git clone https://github.com/Sanix-Darker/dotfiles
     else
-        cd $DOT_DIR
-        git pull
+        cd $DOT_DIR && git pull
     fi
 }
 
 _source_dev_stack(){
     sudo add-apt-repository ppa:regolith-linux/release \
-        apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" &&\
-        apt-get update -y
+    apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" &&\
+    apt-get update -y
 }
 
 
@@ -517,6 +510,7 @@ _install_alacritty(){
 
     echo "[x] nvm use 18..."
     nvm use 18
+
     echo "[x] npm install alacritty-themes..."
     # for theming
     npm i -g alacritty-themes
@@ -549,7 +543,7 @@ _install_path_browsing_utils(){
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
 
     # putting this in comment for now
-    _install_ranger
+    _confirm "Install ranger ?" _install_ranger
 }
 
 
@@ -580,7 +574,7 @@ _install_nvim(){
     echo "[-] -----------------------------------"
 }
 
-# NOTE: DEPRECATED, use _install_nvm
+# NOTE : DEPRECATED, use _install_nvm
 _install_node_stuffs(){
     mkdir /home/dk/.nvm
 
@@ -614,7 +608,7 @@ _install_nvim_and_utils(){
     # For neovim we get the latests nightly version
     _confirm "Install the latest nvim nightly release ?" _install_nvim
 
-    # not needed anymore
+    # not needed anymore (thanks to LSP).
     # To install CocInstall, we need nodejs
     # _confirm "Install the nodejs, npm and nvm ? " _install_node_stuffs
 
@@ -662,7 +656,7 @@ _install_python_stuffs(){
             _echo_red "error installing $i"
     done
 
-    _echo_black ">> Installing Pip..."
+    _echo_black ">> Installing Pip(s) versions..."
     # To install multiple pip version
     pipToInstall=("3.8" "3.10" "3.11")
     for pV in "${pipToInstall[@]}"; do
@@ -695,7 +689,7 @@ _confirm(){
             callback=${args[@]:1}
             # echo ">>" $callback
             $callback
-            _echo_white "----------------------------------------------"
+            _echo_white "-------------------------------------------"
         fi;
     fi;
     echo
@@ -705,14 +699,14 @@ _install_mpv(){
     sudo apt update -y
 
     # To install the youtube/mpv
-    echo "> Installing yt-dlp_linux..."
+    _echo_blue "> Installing yt-dlp_linux..."
     cd /tmp
     # let's fix yt-dlp and mpv versions
     wget https://github.com/yt-dlp/yt-dlp/releases/download/2023.07.06/yt-dlp_linux
     chmod +x ./yt-dlp_linux && mv ./yt-dlp_linux /usr/bin/yt-dlp
 
-    echo "> Installing mpv..."
-    sudo apt install mpv
+    _echo_blue "> Installing mpv..."
+    sudo apt install mpv -y
 }
 
 _install_polybar(){
@@ -812,8 +806,9 @@ _install_greenclip(){
 # NOTE: DEPRECATED (I use this on my own branch on fzf directly).
 _install_tt(){
     # a fast switcher for sessions and panel inside tmux
-    cd ~ && curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh && \
-        sudo cp ./session-wizard.sh /usr/local/bin/t
+    cd ~
+    curl https://raw.githubusercontent.com/27medkamal/tmux-session-wizard/master/session-wizard.sh
+    sudo cp ./session-wizard.sh /usr/local/bin/t
 }
 
 _install_clang(){
@@ -832,28 +827,28 @@ _install_tmux(){
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
-    VERSION="3.1c" # i need something fast ABEC
+    VERSION="3.1c" # i need something fast ABEK
     # VERSION="3.3.a" # becaue i can
     # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
-    echo "> Installing tmux $VERSION..."
+    _echo_blue "> Installing tmux $VERSION..."
     # A requirement for the compilation of tmux
     sudo apt install libevent-dev -y
     cd /tmp
-    echo "> Getting tmux $VERSION..."
+    _echo_blue "> Getting tmux $VERSION..."
     wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
     tar xf tmux-${VERSION}.tar.gz
     rm -f tmux-${VERSION}.tar.gz
 
-    echo "> Compile tmux $VERSION..."
+    _echo_blue "> Compile tmux $VERSION..."
     cd tmux-${VERSION}
     bash ./autogen.sh
     ./configure
     make
     sudo make install
 
-    echo "> Set to appropriate path v$VERSION..."
+    _echo_blue "> Set to appropriate path v$VERSION..."
     cd -
     sudo mv tmux-${VERSION} /usr/bin/tmux
 
@@ -863,7 +858,7 @@ _install_tmux(){
     cd $WHERE_I_WAS
 
     if [ ! -d "~/.tmux/plugins/tpm" ]; then
-        echo "> Installing tpm..."
+        _echo_blue "> Installing tpm..."
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi;
 }
@@ -882,10 +877,10 @@ _install_act(){
 }
 
 _install_dash(){
-    echo "[x] install gh..."
+    _echo_blue "[x] install gh..."
    _confirm ">Install gh ?" _install_gh
 
-    echo "[x] Install dash..."
+    _echo_blue "[x] Install dash..."
 
     gh extension remove dlvhdr/gh-dash
     gh extension install dlvhdr/gh-dash
@@ -909,21 +904,20 @@ _install_docker(){
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-    sudo apt-get update -y
-    apt-cache policy docker-ce
+    sudo apt-get update -y && sudo apt-cache policy docker-ce
 
-    sudo apt install docker-ce
+    sudo apt install docker-ce -y
     sudo systemctl status docker
 
-    echo "Now making in run without sudo, please check for the instructions"
-    echo "> sudo usermod -aG docker ${USER}"
-    echo "> su - ${USER}"
-    echo "> groups"
-    echo "> sudo usermod -aG docker username"
+    _echo_green ":::READ THIS LAZY BOY::: Now to make in run without sudo, please check for the instructions"
+    _echo_red "> sudo usermod -aG docker ${USER}"
+    _echo_red "> su - ${USER}"
+    _echo_red "> groups"
+    _echo_red "> sudo usermod -aG docker username"
 }
 
 _install_rust(){
-    echo "> Installing rustc and cargo..."
+    _echo_blue "> Installing rustc and cargo..."
 
     sudo apt update -y && sudo apt upgrade -y
     sudo apt install -y curl gcc make build-essential
@@ -935,7 +929,8 @@ _install_rust(){
 }
 
 _install_ruby(){
-    VERSION="3.2.2"
+    VERSION="3.2.2" # boff, looks like this does the job
+
     sudo apt update -y
     sudo apt install libssl-dev \
         libreadline-dev zlib1g-dev autoconf \
@@ -943,14 +938,14 @@ _install_ruby(){
         libreadline-dev libncurses5-dev libffi-dev \
         libgdbm-dev
 
-    echo "> Going to install ruby v$VERSION"
-    echo "> Downloading the ruby tar file..."
+    _echo_blue "> Going to install ruby v$VERSION"
+    _echo_blue "> Downloading the ruby tar file..."
     cd /tmp
     wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-$VERSION.tar.gz
     tar -xzvf ruby-$VERSION.tar.gz
     cd ruby-$VERSION
 
-    echo "> make installing..."
+    _echo_blue "> make installing..."
     ./configure
     make
     sudo make install
@@ -959,12 +954,12 @@ _install_ruby(){
 }
 
 _install_golang(){
-    echo "> installing golang..."
+    _echo_blue "> Installing golang..."
 
     sudo apt update -y && sudo apt upgrade -y
-    sudo apt install golang-go -y
+    sudo apt install golang-go -y # it's install 1.13
 
-    # to check the golang version installed
+    # To check the golang version installed
     go version
 }
 
@@ -974,14 +969,14 @@ _install_golang_specific_version(){
         return
     fi;
 
-    echo "> installing golang version '$GOLANG_VERSION_TO_INSTALL'"
+    _echo_blue "> Installing golang version '$GOLANG_VERSION_TO_INSTALL'"
 
     cd /tmp/
     wget https://golang.org/dl/go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz
     sudo mkdir /usr/local/go$GOLANG_VERSION_TO_INSTALL
     sudo tar -xf go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz -C /usr/local/go$GOLANG_VERSION_TO_INSTALL
 
-    echo "> available now on /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go"
+    _echo_blue "> Available now on /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go"
     /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go version
 
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
@@ -991,29 +986,30 @@ _install_nerdfonts(){
     # Download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
     # and then run : fc-cache -f -v
     # ----
-    echo "Note: Sometimes it's '/usr/share/fonts/', so check there if this installation failed."
-    echo "cd /tmp"
+    _echo_blue "Note: Sometimes it's '/usr/share/fonts/', so check there if this installation failed."
+    _echo_black "cd /tmp"
     cd /tmp
 
-    echo ">> wget Hack ( don't forget to rename that to Hack since it's what inside alac."
+    _echo_blue ">> wget Hack ( don't forget to rename that to Hack since it's what inside alac."
     sudo wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.0/Hack.zip > /dev/null
 
-    echo "< cd /usr/local/share/fonts/ ... and mv /tmp/Hack.zip..."
+    _echo_blue "< cd /usr/local/share/fonts/ ... and mv /tmp/Hack.zip..."
     cd /usr/local/share/fonts/ && sudo mv /tmp/Hack.zip .
 
-    echo ">> Unzip Hack.."
+    _echo_blue ">> Unzip Hack.."
     sudo unzip Hack.zip && sudo mkdir Hack && sudo cp HackNerdFont* ./Hack/
 
-    echo ">> Copy Hack from /usr/local/share/fonts/Hack to /usr/share/fonts/..."
+    _echo_blue ">> Copy Hack from /usr/local/share/fonts/Hack to /usr/share/fonts/..."
     sudo cp -r ./Hack /usr/share/fonts/
 
-    echo ">> Installing the ttf..."
+    _echo_blue ">> Installing the ttf..."
     fc-cache -f -v
 }
 
 _install_gh(){
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
+        sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
     sudo apt update -y
     sudo apt install gh -y
@@ -1062,16 +1058,17 @@ _install_kdenlive(){
 
 _install_nvm(){
 	mkdir ~/.nvm
-	sudo apt install curl
+
+	sudo apt install curl -y
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-    _echo_green "nvm install node bins"
+    _echo_green "> nvm install node bins"
     nvm install node
 
-    _echo_green "nvm install node v16"
+    _echo_green "> nvm install node v16"
     nvm install 16
 
-    _echo_green "nvm install node v8"
+    _echo_green "> nvm install node v8"
     nvm install 18
 }
 
@@ -1087,10 +1084,10 @@ _fix_ssh_key(){
 _generate_gpg_keys(){
     GPG_KEY=$(gpg --list-secret-keys --keyid-format LONG | awk '/^sec/ { getline; print $1 }')
     if [ -z $GPG_KEY ]; then
-        echo "Not seeing a key for $GPG_KEY."
+        _echo_black "Not seeing a key for $GPG_KEY."
         gpg --full-generate-key
     fi;
-    echo "Generated public key for $GPG_KEY:"
+    _echo_black "Generated public key for $GPG_KEY:"
     gpg --armor --export $GPG_KEY
 }
 
@@ -1206,10 +1203,14 @@ _install_basics(){
     # install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
 
+    # nordvpn ?
+    _confirm "Install nordvpn cli ?" _install_nordvpn
+
     # un cleaning to propre apres les basics installs
     _confirm "To clean apt stuffs with autoremove..." sudo apt autoremove -y
 }
 
+# This does not work at all, why i even created it ?
 _install_youtube_music_cli(){
     # some required bindings
     sudo apt update -y && sudo apt install youtube-dl libmpv1 libmpv-dev gcc-multilib -y
@@ -1266,7 +1267,8 @@ _install_extras_stuffs(){
 
 _install_bash_preexc(){
     # Pull down our file from GitHub and write it to your home directory as a hidden file.
-    curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o ~/.bash-preexec.sh
+    curl https://raw.githubusercontent.com/rcaloras/bash-preexec/master/bash-preexec.sh -o \
+        ~/.bash-preexec.sh
 }
 
 # to install a repl for C
@@ -1455,8 +1457,7 @@ _git_clone_sub(){
 }
 
 _git_squash(){
-
-    read -p "You're about to squash all the commits from this branch ? (Y/y) " -n 1 -r
+    read -p "> You're about to squash all commits from this branch ? (Y/y) " -n 1 -r
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
@@ -1465,7 +1466,7 @@ _git_squash(){
         # We rebase from the amount of commit
         git rebase -i HEAD~$COMMIT_COUNT
     else
-        echo "Squash stopped"
+        _echo_red "< Squash stopped"
     fi
 
 }
@@ -1478,10 +1479,10 @@ _git_coworker(){
     current_dir=$(basename $PWD)
     target="git@github.com:$author/$current_dir"
 
-    echo -e "> author: $BWHITE $author $COLOROFF"
-    echo -e "> branch: $BWHITE $branch $COLOROFF"
-    echo -e "> repo-name: $BWHITE $current_dir $COLOROFF"
-    echo -e "> target-repo: $BWHITE $target $COLOROFF"
+    _echo_black "> author: $BWHITE $author $COLOROFF"
+    _echo_black "> branch: $BWHITE $branch $COLOROFF"
+    _echo_black "> repo-name: $BWHITE $current_dir $COLOROFF"
+    _echo_black "> target-repo: $BWHITE $target $COLOROFF"
 
     read -p "Those informations are good ? (Y/y): " -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]
@@ -1642,7 +1643,6 @@ fuzzy_stash_search()
     done
 }
 
-
 git_checkout_tree(){
     branch=$@
     repo_path=$(git rev-parse --show-toplevel)
@@ -1651,8 +1651,8 @@ git_checkout_tree(){
     # because we could be in a subdirectory while running this command
     root_path="$(dirname $repo_path)"
 
-    echo "> repo: $repo_name: "
-    echo "> root-path: $root_path: "
+    _echo_blue "> repo: $repo_name: "
+    _echo_blue "> root-path: $root_path: "
 
     # Yes, we can checkout multiple branch at the same time
     for bb in "${@}";do
@@ -1661,9 +1661,9 @@ git_checkout_tree(){
         new_path="$root_path/$repo_name-$bb_formated"
 
         if [ -d $new_path ]; then
-            echo "> worktree $repo_name-$bb_formated already exist..."
+            _echo_green "> worktree $repo_name-$bb_formated already exist..."
         else
-            echo "> creating worktree ../$repo_name-$bb_formated"
+            _echo_white "> creating worktree ../$repo_name-$bb_formated"
 
             # We fetch from this env
             # if not set we get from remote origin
@@ -1675,11 +1675,11 @@ git_checkout_tree(){
 
             _command="git tree-add $new_path $bb"
 
-            echo $_command
+            _echo_white $_command
             eval $_command
         fi;
 
-        echo "> Now you can cd to $new_path... "
+        _echo_white "> Now you can cd to $new_path... "
     done;
 }
 
@@ -1709,8 +1709,7 @@ alias to='ta other'
 alias tkill='tmux kill-server'
 
 # open telegram as tgg
-alias tgg='nohup /home/dk/Downloads/tsetup.3.4.8/Telegram/Telegram &'
-alias com='pkill compton; compton -f & > /dev/null;'
+alias tgg='nohup ~/Downloads/tsetup.3.4.8/Telegram/Telegram &'
 
 # To control the brightness with xrandr contrast
 _xrandr(){
@@ -1722,7 +1721,6 @@ _xrandr(){
     fi
 }
 alias docker_ps="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"
-alias untar="tar -xf"
 
 m() {
   python3 -c "from math import *; print($*)"
@@ -1752,8 +1750,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
-# show changes for a given file on a specific point int the history
-git-log-commits-for(){
+# show changes for a given file on a specific point in the history
+git_log_commits_for(){
     SHOW_COMMIT_COMMAND='git show {1} -- '$@' | delta'
     git log --pretty=format:"%h" -- $@ | fzf        \
     --reverse --print-query ${GIT_FZF_DEFAULT_OPTS} \
@@ -1848,7 +1846,6 @@ git_last_commit_link(){
     echo $built_link/commits/$(git last-commit-hash)
 }
 
-
 git_open_link(){
     # $1 can be 'origin' or 'dev' depending on the source
     remote_link=$(git remote get-url $1)
@@ -1887,7 +1884,6 @@ git_compare_online(){
 }
 
 alias less="less -r"
-alias pypy3="./pypy3.9-v7.3.9-linux64/bin/pypy3.9"
 
 _stopWatch(){
     # while true; do printf '%s\r' "$(date +%H:%M:%S:%N)"; done
@@ -2036,9 +2032,6 @@ _ddf(){
 # to record my terminal when am writing something
 alias rec='asciinema rec'
 
-# an alias for rustc
-alias r=rustc
-
 # replace all numbers from a given pipe
 alias _hide_number="sed 's/[0-9]/*/g'"
 
@@ -2144,7 +2137,7 @@ _clean_virtual_ram(){
 # hash change by a single bit
 # _inf git status
 _inf(){
-    echo "Executing '$@' until the output change or you quit:"
+    echo "-> Executing '$@' until the output change or you quit:"
     # we source our alias first
     PREVIOUS_HASH=""
     while true; do
@@ -2208,6 +2201,7 @@ docker_postgres_run(){
             -e POSTGRES_DB=$POSTGRES_DB \
             -d postgres:$IMAGE_TAG
 }
+
 docker_postgres_exec(){
     POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
     POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
@@ -2274,6 +2268,7 @@ git(){
   fi
 }
 
+# To get the os version and more infos
 _version(){
     lsb_release -a
 }

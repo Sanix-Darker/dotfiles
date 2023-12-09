@@ -369,7 +369,7 @@
 
     ; to get log changes on a specific file ?
     ; git log-for ./server/CHANGELOG.md
-    log-for-file = !bash -ic 'git-log-commits-for \"$@\"' x
+    log-for-file = !bash -ic 'git_log_commits_for \"$@\"' x
 
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
