@@ -235,6 +235,7 @@ alias gf=$HOME/gf.sh
 
 # My custom build of scrcpy
 alias scrcpy='/usr/local/bin/scrcpy -m1024'
+
 # slides for running powepoint on my terminal.
 alias s='slides'
 
@@ -284,8 +285,8 @@ fzf_crontab() {
   rm "$temp_cron"
 }
 
-
 alias ls_services='systemctl list-units --type=service'
+
 # for nvim shortcuts
 alias v='nvim'
 # alias v='nvim -c "so ~/.config/nvim/init.lua"'
