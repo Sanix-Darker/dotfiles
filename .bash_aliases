@@ -174,7 +174,6 @@ _touchd(){
         touch $dir_path/$file_name
     done;
 }
-
 alias touchd=_touchd
 
 # To delete the current directory where am i
@@ -189,7 +188,8 @@ _rd(){
 }
 alias rd=_rd
 
-# i want to run git status as soon as i get inside a git folder
+# I want to run git status as soon as i get inside a git folder
+# (love this btw)
 _git_status_if_git_repo(){
     # if the .git is present, then run git status
     if [[ -d ".git" ]]; then
@@ -222,10 +222,20 @@ _lsport(){
 }
 alias lsport=_lsport
 
-alias gf=$HOME/ACTUALC/github/git-search/gf.sh
+# git search on any history of a repository
+# s or search
+# gf s 'function name or any word you have in mind'
+# # To open the file at that line :
+# # o or open
+# gf o 'commit_id:file_name:line'
+#
+# wget https://gist.github.com/Sanix-Darker/e571c1fdc2d0a5ecdb9959fecaa3416a -o ~/gf.sh
+# chmod +x ~/gf.sh
+alias gf=$HOME/gf.sh
 
 # My custom build of scrcpy
 alias scrcpy='/usr/local/bin/scrcpy -m1024'
+# slides for running powepoint on my terminal.
 alias s='slides'
 
 # alias python='python3'
@@ -1296,6 +1306,9 @@ _install_dev_stack(){
     _confirm "Install slack (company messaging app)" _install_slack
     _confirm "Install thunderbird (email app)" _install_thunderbird
     _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
+
+    # need this step to have stuff loaded.
+    _confirm "Set Dotfiles accross the .config ?" _set_dot_files
 }
 
 _install_help(){
@@ -1305,10 +1318,10 @@ _install_help(){
 _help(){
    curl -s -L cheat.sh/$@ | less -R
 }
+# h docker
 alias h='_help'
 alias a='aria2c'
 # Alias definitions.
-alias postman='~/Postman/Postman &'
 alias clean_docker_images='docker rmi $(docker images -f "dangling=true" -q)'
 alias clean_docker_images_all='docker image prune --all'
 alias clean_docker_container='docker rm -f $(docker ps -a -q)'
