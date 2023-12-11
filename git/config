@@ -212,6 +212,9 @@
     ; Or from a specific branch
     ; git clone-sub directory1 https://github.com/author/repo
     clone-sub = !bash -i -c '_git_clone_sub "$@"' -s
+
+    ;To clone a github/gitlab repo
+    ;git clone sanix-darker/sanix-darker
     ;clone-gh
     clone-gh = !git clone git@github.com:\"$@\" || git clone https://github.com/\"$@\"
     clone-gl = !git clone git@gitlab.com:\"$@\" || git clone https://gitlab.com/\"$@\"

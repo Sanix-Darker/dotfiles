@@ -1091,12 +1091,42 @@ _generate_gpg_keys(){
     gpg --armor --export $GPG_KEY
 }
 
+_install_firefox(){
+    _echo_red "Go there : https://www.mozilla.org/en-US/firefox/new/ and download the .deb"
+
+    _confirm "Did you downloaded it ? the installation will take it from your ~/Downloads dir" echo "Good."
+
+    cd ~/Downloads/ && tar xvf firefox-*.tar.bz2
+
+    # Yes am going to put it there.
+    sudo mkdir /opt/firefox/
+    sudo cp -r ./firefox /opt/firefox/
+    # just in case, we delete the existing one that may be present
+    sudo rm -rf /usr/bin/firefox
+    # we create the symbolic link to that opt bin
+    sudo ln -s /opt/firefox/firefox/firefox /usr/bin/firefox
+}
+
 _install_slack(){
-    sudo snap install slack
+    _echo_red "Go there : https://slack.com/intl/en-in/downloads/linux and download the .deb"
+
+    _confirm "Did you downloaded it ? the installation will take it from your ~/Downloads dir" echo "Good."
+    sudo apt install ~/Downloads/slack-desktop-*-amd64.deb
 }
 
 _install_thunderbird(){
-    sudo snap install slack
+    sudo add-apt-repository ppa:mozillateam/thunderbird-next
+    sudo apt update -y
+    sudo apt install thunderbird -y
+}
+
+_install_telegram(){
+    _echo_red "Go there : https://telegram.org/dl/desktop/linux and download the linux version"
+
+    _confirm "Did you downloaded it ? the installation will take it from your ~/Downloads dir" echo "Good."
+    cd ~/Downloads/
+    tar -xf ./tsetup.*.tar.xz
+    cd ./Telegram && ./Telegram &
 }
 
 _install_mkcert(){
@@ -2254,11 +2284,19 @@ _yv(){
 }
 alias yv='_yv'
 
+# NOTE: a git wrapper for some custom sub command
+# this can be glitchy and messy, since this function can call itself recursivelly
+# if we don't pay attention enought on what we're doing.
 git(){
   # if [[ "$1" == "log" && "$@" != *"--help"* ]]; then
   #   shift 1
   #   command git log-line "$@"
-  if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
+
+  # for cloning stuff in a "lazy way".
+  if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
+    shift 1
+    command git clone-gh "$@" || git clone-gl "$@"
+  elif [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
     shift 1 # to remove the first argument passed
     command git branch-sorted "$@"
   elif [[ "$1" == "restore" || "$1" == "add" || "$1" == "update" || "$1" == "pull" ]]; then
