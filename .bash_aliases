@@ -2342,6 +2342,16 @@ _version(){
 # alias gr="git restore"
 # alias grs="git restore --staged"
 
+# Hide/Show what am typing ?
+_hide(){
+    _echo_red "?> Now everything typed will be hide (_show to show againg)."
+    stty -echo
+}
+_show(){
+    _echo_green "?> Now everything typed will be shown to screen (_hide to hide)."
+    stty echo
+}
+
 # for the ssh-add error on ssh-agent
 _ssh_add(){
     eval "$(ssh-agent)"
