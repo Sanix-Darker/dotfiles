@@ -160,12 +160,14 @@ preexec() {
 
     # If it's only one argument, i want to check if it's actually a directory
     # or something i actually want to execute.
-    if [ "$#" == "1" ]; then
-        # I don't care if it fails later on
-        # this will help me to navigade directories without the need of 'cd <this>'
-        # i will just do <this>.
-        cd $@ >> /dev/null 2>&1 || true;
-    fi;
+    # Now i need to comment because this is a fucking DUMB idea and mess up all
+    # my embed aliases shortcuts.
+    # if [ "$#" == "1" ]; then
+    #     # I don't care if it fails later on
+    #     # this will help me to navigade directories without the need of 'cd <this>'
+    #     # i will just do <this>.
+    #     cd $@ >> /dev/null 2>&1 || true;
+    # fi;
 }
 precmd() {
     second_to_print=$(( SECONDS - command_timer_start ))
