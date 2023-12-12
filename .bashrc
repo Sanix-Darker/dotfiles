@@ -157,6 +157,15 @@ preexec() {
     # so that i can have the same aborescense inside a ~/.cmd_history/path/to/repo/.cmd_history
     # for example
     _handle_cmd_history $@
+
+    # If it's only one argument, i want to check if it's actually a directory
+    # or something i actually want to execute.
+    if [ "$#" == "1" ]; then
+        # I don't care if it fails later on
+        # this will help me to navigade directories without the need of 'cd <this>'
+        # i will just do <this>.
+        cd $@ >> /dev/null 2>&1 || true;
+    fi;
 }
 precmd() {
     second_to_print=$(( SECONDS - command_timer_start ))
