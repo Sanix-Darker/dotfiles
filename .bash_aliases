@@ -137,6 +137,7 @@ pvlist(){
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
+alias v12='python3.12 -m venv env'
 alias v11='python3.11 -m venv env'
 alias v10='python3.10 -m venv env'
 alias v8='python3.8 -m venv env'
@@ -635,30 +636,34 @@ _install_python_stuffs(){
     sudo add-apt-repository ppa:deadsnakes/ppa
     sudo apt-get update -y
     devStack=(
-        "python3.10" "python3.11"
+        "python3.10" "python3.11" "python3.12"
         "python3-dev" "python3-pip"
         "python3-setuptools"
         "python3-testresources"
         "python3-distutils"
+        "python3.8-dev"
+        "python3.10-dev"
         "python3.11-dev"
+        "python3.12-dev"
         "python3-sphinx "
 
         # for venv stuffs (Important)
         "python3.8-venv"
         "python3.10-venv"
         "python3.11-venv"
+        "python3.12-venv"
     )
     for i in "${devStack[@]}"
     do
         _echo_green "\n[-] Installing $i..."
-        sudo apt-get install $i -y > /dev/null && \
+        sudo apt-get install $i -y && \
             _echo_black "Installed $i successfully !" || \
             _echo_red "error installing $i"
     done
 
     _echo_black ">> Installing Pip(s) versions..."
     # To install multiple pip version
-    pipToInstall=("3.8" "3.10" "3.11")
+    pipToInstall=("3.8" "3.10" "3.11" "3.12")
     for pV in "${pipToInstall[@]}"; do
         curl -sS https://bootstrap.pypa.io/get-pip.py | python$pV
     done;
