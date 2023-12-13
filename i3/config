@@ -45,7 +45,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id /usr/libexec/gsd-xsettings
 
 default_border pixel 1
-default_floating_border pixel 1
+default_floating_border pixel 2
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -244,7 +244,7 @@ exec feh --bg-fill ~/bg2.jpg
 # exec --no-startup-id setxkbmap -option caps:none
 
 # 3 Gps
-# gaps inner 10
+gaps inner 10
 
 # TO set the appropriate refresh rate (working one)
 # exec xrandr --output DP-0.1 --mode 1920x1080 --rate 50
