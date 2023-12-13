@@ -5,11 +5,9 @@
 # - git
 # - docker (if you're going to proceed with docker installations)
 
-_check_requirements(){
-    requirements=(
-        "make" "git"
-        "docker"
-    )
+_start(){
+    requirements=("make" "git" "docker")
+    echo "> Checking for requirements ($requirements)..."
     for req in "${requirements[@]}"
     do
         command -v $req > /dev/null
@@ -18,16 +16,12 @@ _check_requirements(){
             exit 1
         fi
     done
-}
-
-_quick(){
-    _check_requirements
-
-    echo ">> Cloning the repository..."
+    echo ">> You have all requirements."
+    echo ">> Cloning the dotfiles repository..."
     git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 
-    echo ">> Installing..."
+    echo ">> SetUp 'Base' DevStack from docker..."
     make
 }
 
-_quick
+_start

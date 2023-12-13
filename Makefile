@@ -1,4 +1,4 @@
-.DEFAULT_GOAL=go
+.DEFAULT_GOAL=go-base
 
 DEV_CONTAINER_NAME = dk-dev-box
 HOME = /home/dk
