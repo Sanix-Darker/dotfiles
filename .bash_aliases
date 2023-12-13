@@ -560,12 +560,20 @@ _install_nvim(){
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
+    cd /tmp
+    rm -rf ./nvim-linux64*
+    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim-linux64.tar.gz
+    tar -xzvf ./nvim-linux64.tar.gz
+    # we delete existing stuffs
+    sudo rm -rf /usr/local/bin/nvim
+    sudo rm -rf /usr/local/lib/nvim
+    sudo rm -rf /usr/local/share/nvim
+    # we move dirs
+    sudo mv ./nvim-linux64/bin/* /usr/local/bin/
+    sudo mv ./nvim-linux64/lib/* /usr/local/lib/
+    sudo mv ./nvim-linux64/share/nvim /usr/local/share/
 
-    sudo wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim.appimage
-    sudo chmod +x ./nvim.appimage
-    sudo mv ./nvim.appimage /usr/local/bin/nvim
-
-    # since installing from source is for better performances
+    # Since installing from source is for better performances
     # cd /tmp
     # git clone https://github.com/neovim/neovim
     # cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -832,8 +840,8 @@ _install_tmux(){
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
-    VERSION="3.1c" # i need something fast ABEK
-    # VERSION="3.3.a" # becaue i can
+    # VERSION="3.1c" # i need something fast ABEK
+    VERSION="3.3" # because i can
     # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
@@ -862,7 +870,7 @@ _install_tmux(){
 
     cd $WHERE_I_WAS
 
-    if [ ! -d "~/.tmux/plugins/tpm" ]; then
+    if [ -d "~/.tmux/plugins/tpm" ]; then
         _echo_blue "> Installing tpm..."
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi;
@@ -1339,6 +1347,7 @@ _install_dev_stack(){
     _confirm "Install python(.10/.11) stuffs ?" _install_python_stuffs
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
     _confirm "Install i3 stuffs (heavy | ui | rofi) ?" _install_i3
+    _confirm "Install path browsing utils ?"  _install_path_browsing_utils
     _confirm "Install vagrant stuffs (heavy) ?" _install_vagrant
     _confirm "Install alacritty terminal (ui) ?" _install_alacritty
     _confirm "Install slack (company messaging app)" _install_slack

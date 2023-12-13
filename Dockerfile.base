@@ -1,23 +1,37 @@
 # The lite and based version.
 FROM ubuntu:20.04
 
+# NOTE: we set the shell to bash,
+# because it's simpler for next commands
+SHELL ["/bin/bash", "-c"]
+
 RUN apt-get update &&\
     apt-get install -y\
     apt-utils \
     bash sudo fuse libfuse2 \
     software-properties-common
 
-COPY . /dotfiles/
-COPY .bashrc .bash_aliases /
+WORKDIR /dotfiles
+
+# Then copy those to their right places
+COPY . .
 
 # Some basic installs & setups (split like this to benefit the cache.):
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_basics'
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_bash_preexc'
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_python_stuffs'
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _install_nvim_and_utils'
-RUN /bin/bash -c 'source /.bashrc; source /.bash_aliases; yes | _set_dot_files'
+RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_basics
+RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_bash_preexc
+RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_python_stuffs
+RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_nvim_and_utils
+RUN CONFIG_PATHS=( "git" "tmux" ); for path in "${CONFIG_PATHS[@]}"; do cp -r ./$path/ /.config/; done;
+
+# Clean evevery residuals of apt
+RUN apt-get clean &&\
+    apt-get autoclean &&\
+    apt-get autoremove -y &&\
+    rm -rf /var/lib/apt/* /var/lib/dpkg/* /var/lib/cache/* /var/lib/log/* &&\
+    rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
 
 RUN echo "\n> $(uname -a)\n"
+RUN cd $HOME
 
 EXPOSE 2000-9999
 
