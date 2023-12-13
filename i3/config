@@ -244,7 +244,7 @@ exec feh --bg-fill ~/bg2.jpg
 # exec --no-startup-id setxkbmap -option caps:none
 
 # 3 Gps
-gaps inner 10
+gaps inner 5
 
 # TO set the appropriate refresh rate (working one)
 # exec xrandr --output DP-0.1 --mode 1920x1080 --rate 50
