@@ -11,10 +11,12 @@ _G.__luacache_config = {
 
 vim.cmd('source ~/.config/nvim/config.vim')
 
--- to speed up the start
+-- To speed up the start(cache)
 require('impatient')
 -- all set configurations
 require('set_config')
+-- the list of available plugins
+require('plugins')
 -- to import plugins configurations
 require('plugins_config')
 -- for my keymaps

@@ -1749,6 +1749,7 @@ alias pdf='_pdf'
 # alias t='tmux'
 alias tn='tmux new -s'
 alias ta='tmux attach-session -t'
+alias tls='tmux ls'
 alias to='ta other'
 alias tkill='tmux kill-server'
 

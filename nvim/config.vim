@@ -1,6 +1,5 @@
 set runtimepath^=~/.config/nvim/ runtimepath+=~/.config/nvim/after
 let &packpath=&runtimepath
-source ~/.config/nvim/plugins.vim
 
 " jk -> Esc to speed Up switching
 " THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
@@ -40,38 +39,11 @@ function NERDTreeToggleAndRefresh()
     endif
 endfunction
 " Always show NERDTree on opening a new buffer
-" autocmd BufEnter * NERDTreeMirror
-" autocmd BufEnter * NERDTreeFind
-
-" vimScript
-" -- On dailies, for random choice on given buffer with names
-function! StringInLine(line_number, search_string)
-  let line_text = getline(a:line_number)
-  let match_position = match(line_text, a:search_string)
-  return match_position >= 0
-endfunction
-
-function! Raffle()
-    let total_lines = line('$')
-    let random_line = (RandLine() % total_lines) + 1
-    let line_text = getline(random_line)
-
-    if StringInLine(random_line, '>> ')
-        :call Raffle()
-    else
-        let line_text = '>> ' . line_text
-        call setline(random_line, line_text)
-    endif
-endfunction
-
-function! RandLine()
-  return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
-endfunction
-" -- run it with -> :call Raffle()
-"  by d4rk3r
+" au BufEnter * NERDTreeMirror
+" au BufEnter * NERDTreeFind
 
 " Close Vim if NERDTree is the last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " --------------------- NERDTREE stuff
 
 " For the synthax
@@ -133,7 +105,7 @@ fun! CleanExtraSpaces()
     call setpos('.', save_cursor)
     call setreg('/', old_query)
 endfun
-autocmd BufWritePre * :call CleanExtraSpaces()
+au BufWritePre * :call CleanExtraSpaces()
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -183,8 +155,7 @@ function! CmdLine(str)
 endfunction
 
 " set thosse elements depending on the filetype am inside
-autocmd FileType yaml set cursorcolumn
-autocmd FileType yml set cursorcolumn
+au FileType yaml,yml set cursorcolumn
 
 " To add the proper PEP8 indentation
 au BufNewFile,BufRead *.py
@@ -208,15 +179,10 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " To refresh for i3 after the edition of its config file
-autocmd bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
-
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-set statusline+=%{NearestMethodOrFunction()}
+au bufwritepost ~/.config/i3/config :silent !i3-msg restart; notify-send "Reloaded i3 :)"
 
 " To format the C code
-autocmd FileType c ClangFormatAutoEnable
+au FileType c ClangFormatAutoEnable
 " Clang-Formating
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
@@ -224,15 +190,10 @@ let g:clang_format#style_options = {
             \ "AlwaysBreakTemplateDeclarations" : "true",
             \ "Standard" : "C++11"}
 " map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+au FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+au FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-
-" By default vista.vim never run if you don't call it explicitly.
-" If you want to show the nearest function in your statusline automatically,
-" you can add the following line to your vimrc
-" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+au FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
 " >> for transparent background
 function! AdaptColorscheme()
@@ -245,7 +206,7 @@ function! AdaptColorscheme()
     highlight VertSplit ctermbg=none
     highlight SignColumn ctermbg=none
 endfunction
-autocmd ColorScheme * call AdaptColorscheme()
+au ColorScheme * call AdaptColorscheme()
 
 highlight Normal guibg=NONE ctermbg=NONE
 highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
@@ -255,15 +216,15 @@ highlight clear LineNr
 highlight clear SignColumn
 highlight clear StatusLine
 
-autocmd InsertEnter * set nocursorline
-autocmd InsertLeave,VimEnter,BufEnter * set cursorline
+au InsertEnter * set nocursorline
+au InsertLeave,VimEnter,BufEnter * set cursorline
 " Default Colors for CursorLine
 highlight CursorLine ctermbg=236 ctermfg=None
 
 " For whichKey to be compatible with my colorscheme
-autocmd ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
+au ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
 " Minimap highlight
-" autocmd ColorScheme * highlight minimapRange ctermbg=236 ctermfg=2 guibg=236 guifg=#0089D9
+" au ColorScheme * highlight minimapRange ctermbg=236 ctermfg=2 guibg=236 guifg=#0089D9
 
 "" extra settings, uncomment them if necessary :)
 "set cursorline

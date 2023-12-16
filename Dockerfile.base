@@ -21,7 +21,6 @@ RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_b
 RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_bash_preexc
 RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_python_stuffs
 RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_nvim_and_utils
-RUN CONFIG_PATHS=( "git" "tmux" ); for path in "${CONFIG_PATHS[@]}"; do cp -r ./$path/ /.config/; done;
 
 # Clean evevery residuals of apt
 RUN apt-get clean &&\
@@ -29,6 +28,18 @@ RUN apt-get clean &&\
     apt-get autoremove -y &&\
     rm -rf /var/lib/apt/* /var/lib/dpkg/* /var/lib/cache/* /var/lib/log/* &&\
     rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/*
+
+## with dk user now
+ENV USER=dk
+RUN CONFIG_PATHS=( "git" "nvim" "tmux" ); for path in "${CONFIG_PATHS[@]}"; do cp -r ./$path/ /.config/; done;
+
+RUN useradd -ms /bin/bash $USER
+RUN passwd -d $USER
+RUN usermod -aG sudo $USER
+
+RUN cp /dotfiles/.bashrc /dotfiles/.bash_aliases $HOME
+RUN source $HOME/.bashrc
+USER $USER
 
 RUN echo "\n> $(uname -a)\n"
 RUN cd $HOME
