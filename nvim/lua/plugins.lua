@@ -304,7 +304,7 @@ use('preservim/nerdtree')
     --" To show LSPs loading in side way
     use {
         'j-hui/fidget.nvim',
-        tag = 'legacy'
+        -- tag = 'legacy'
     }
 
     --In the above example, Packer.nvim is configured to include `nvim-tree.lua` plugin with the tag `v0.5.1`.
@@ -328,7 +328,11 @@ use('preservim/nerdtree')
     --" Plug 'davidhalter/jedi-vim'
     --" For python IDE tools inside vim
     --" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-    --" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    --" Add the following line to your packer configuration
+    use {
+        'glacambre/firenvim',
+        run = function() vim.fn['firenvim#install'](0) end
+    }
     --" To view images in neovim
     --" Plug 'm00qek/baleia.nvim'
     --" Plug 'princejoogie/chafa.nvim'
@@ -406,7 +410,8 @@ use('preservim/nerdtree')
     --" Plug '907th/vim-auto-save'
     use('Sanix-Darker/snips.nvim')
     --" This will shutdown unfocus LSP
-    use('hinell/lsp-timeout.nvim')
+    -- THIS IS WAY MORE AGRESSIVE LMAO, tej it for now MDR
+    -- use('hinell/lsp-timeout.nvim')
     --" Multi line selection, could be interesting
     --" for explaining sutffs on peer programming
     use("Rasukarusan/nvim-select-multi-line")

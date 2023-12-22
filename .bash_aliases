@@ -993,6 +993,9 @@ _install_golang_specific_version(){
     /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go version
 
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
+
+    # we get back to our previous dir
+    cd -
 }
 
 _install_nerdfonts(){
