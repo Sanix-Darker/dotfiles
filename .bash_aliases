@@ -62,6 +62,17 @@ GIT_FZF_DEFAULT_OPTS="
 	$GIT_FZF_DEFAULT_OPTS
 "
 
+# _sleep 10
+_sleep(){
+    seconds=$1
+    start="$(($(date +%s) + $seconds))"
+    while [ "$start" -ge `date +%s` ]; do
+        time="$(( $start - `date +%s` ))"
+        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        sleep 1
+    done
+}
+
 alias tmux='tmux -f ~/.config/tmux/tmux.conf -2'
 
 # some more ls aliases
@@ -525,6 +536,28 @@ _install_alacritty(){
     # cd alacritty
     # cargo build --release
     # sudo cp ./target/release/alacritty $(which alacritty)
+}
+
+# faster linker than ld
+_install_mold(){
+    cd /tmp
+
+    if [ ! -d mold ]; then
+        git clone rui314/mold.git
+    fi;
+
+    cd mold && mkdir -p build && cd ./build
+
+    git checkout v2.4.0
+    sudo ../install-build-deps.sh && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ ..
+    cmake --build . -j $(nproc) && sudo cmake --build . --target install
+}
+
+_cargo_update(){
+    cargo install cargo-update
+    cargo install-update -a
+
+    cargo --version
 }
 
 _install_ranger(){
@@ -1237,9 +1270,15 @@ _install_basics(){
     # Install rustc and cargo + some random stuffs
     _confirm "Install rust stuffs ?" _install_rust
 
+    # Install golang
     _confirm "Install golang ?" _install_golang
 
+    # set nerd-fonts
     _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
+
+    # needed for gcc linker
+    _confirm "Install mold (ld faster version)" _install_mold
+
     # Install aerc (email client)
     # TODO config
     # sudo apt-get install scdoc libnotmuch-dev -y
@@ -1959,17 +1998,6 @@ _stopWatch(){
     while true; do
         time="$(($(date +%s) - $start))"
         printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
-    done
-}
-
-# _sleep 10
-_sleep(){
-    seconds=$1
-    start="$(($(date +%s) + $seconds))"
-    while [ "$start" -ge `date +%s` ]; do
-        time="$(( $start - `date +%s` ))"
-        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
-        sleep 1
     done
 }
 
