@@ -347,7 +347,7 @@ DOT_DIR="$HOME/dotfiles"
 _set_nvim(){
     # copy nvim configs
     mkdir ~/.config/nvim/
-    cpd $DOT_DIR/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} ~/.config/nvim/
+    cpd $DOT_DIR/nvim/{lua,init.lua,config.vim,autoload} ~/.config/nvim/
 
     _confirm "Install nvm (you kinda need it for LSPs...)?" _install_nvm
     _confirm "Make nvm use 20... ?" nvm use 20
@@ -422,7 +422,7 @@ _copy_to_dotfiles(){
 
     # nvim stuffs
     # We prevent copying plugins git based repositories too.
-    cpd ~/.config/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} $DOT_DIR/nvim/
+    cpd ~/.config/nvim/{lua,init.lua,config.vim,autoload} $DOT_DIR/nvim/
 
     # for my bash stuffs
     cpd ~/{.bashrc,.bash_aliases} $DOT_DIR/
