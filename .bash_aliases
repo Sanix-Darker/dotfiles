@@ -712,6 +712,20 @@ _install_python_stuffs(){
     done;
  }
 
+# small custom spinners i made
+_start_spinner(){
+    _spinner(){
+        echo -n "> loading."
+        while true; do echo -n "."; sleep 1; done;
+    }
+    _spinner &
+    _SPINNER_PID=$!
+}
+_stop_spinner(){
+    # Kill the _spinner process using its PID
+    kill $_SPINNER_PID
+}
+
 # With a given message as input, this function will execute anything
 # after the second argument passed
 # Ex : _confirm "Message" echo "test"
@@ -2519,20 +2533,7 @@ _(){
     }"
     echo $PAYLOAD
 
-    _start_spinner(){
-        _spinner(){
-            echo -n "> loading."
-            while true; do echo -n "."; sleep 1; done;
-        }
-        _spinner &
-        _SPINNER_PID=$!
-    }
-    _stop_spinner(){
-        # Kill the _spinner process using its PID
-        kill $_SPINNER_PID
-    }
-
-    _start_spinner # we start the spinner
+    _start_spinner # We start the spinner
 
     curl -LSs --max-time 30 \
     https://api.openai.com/v1/chat/completions \
