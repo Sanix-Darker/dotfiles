@@ -334,4 +334,4 @@ export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
 
 # On any new shell we should select and use node 18
 # This is dirty but i need this to fix my LSP on nvim
-# nvm use 18 > /dev/null # in silent
+# nvm use 20 > /dev/null # in silent

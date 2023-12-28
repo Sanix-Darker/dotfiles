@@ -25,7 +25,7 @@ BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BBLUE='\033[1;34m'
 BPURPLE='\033[1;35m'
-BCYAN='\033[1;36m'
+BCYAN='\033[ 1;36m'
 BWHITE='\033[1;37m'
 
 # Just some handlers for my given colors
@@ -73,7 +73,8 @@ alias lss='ls'
 alias sl='ls'
 alias lsc='ls'
 alias ld='ls -d */'
-alias cb='xclip -selection clipboard'
+alias cb='xclip -selection clipboard' # copy to clipboard
+alias co='xclip -o -selection clipboard' # get clipboard content
 alias n='nordvpn connect'
 alias mkdir='mkdir -p'
 # This will create a directory if it doesn't exist
@@ -333,16 +334,12 @@ alias services='systemctl list-units --type=service'
 DOT_DIR="$HOME/dotfiles"
 
 _set_nvim(){
-    # vim stuffs
+    # copy nvim configs
     mkdir ~/.config/nvim/
     cpd $DOT_DIR/nvim/{lua,init.lua,config.vim,plugins.vim,autoload} ~/.config/nvim/
 
-    # for neovim
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-    echo "[x] nvm use 18..."
-    nvm use 18
+    _confirm "Install nvm (you kinda need it for LSPs...)?" _install_nvm
+    _confirm "Make nvm use 20... ?" nvm use 20
 
     # To install new stuffs if some of them were missing
     # FIXME: This is not stable, will fix it later
@@ -371,14 +368,12 @@ CONFIG_PATHS=(
     "rofi" "polybar"
     "git" "i3"
     "mpv" "alacritty"
-    "gh-dash" "tmux"
+    "gh-dash"
 )
 
 # Assuming we already have the dotfiles directory
 # on our workspace
 _set_dot_files(){
-    _set_nvim
-
     # for my bash stuffs
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
@@ -391,6 +386,9 @@ _set_dot_files(){
     # greenclip configuration
     cpd $DOT_DIR/greenclip.toml ~/.config/greenclip.toml
 
+    # tmux config
+    cpd $DOT_DIR/tmux/tmux.conf ~/.config/tmux/tmux.conf
+
     # gh-dash config
     mkdir -p ~/.config/gh-dash
     cpd $DOT_DIR/gh-dash/config.yml ~/.config/gh-dash/config.yml
@@ -399,6 +397,9 @@ _set_dot_files(){
         echo "Copy of '$DOT_DIR/$path' in ~/.config/..."
         cpd $DOT_DIR/$path/ ~/.config/
     done
+
+    # set up nvim or not as a conditional
+    _confirm "Set up nvim (you need a good node/npm (nvm) available) ?" _set_nvim
 
     # we return on our previus directory
     cd -
@@ -424,6 +425,9 @@ _copy_to_dotfiles(){
 
     # greenclip configuration
     cpd ~/.config/greenclip.toml $DOT_DIR/greenclip.toml
+
+    # tmux config
+    cpd ~/.config/tmux/tmux.conf $DOT_DIR/tmux/tmux.conf
 
     # gh-dash configuration
     mkdir -p $DOT_DIR/gh-dash
@@ -509,8 +513,7 @@ _install_alacritty(){
     echo "[x] cargo install allacrity..."
     cargo install alacritty
 
-    echo "[x] nvm use 18..."
-    nvm use 18
+    _confirm"[x] nvm use 20..." nvm use 20
 
     echo "[x] npm install alacritty-themes..."
     # for theming
@@ -593,8 +596,7 @@ _install_node_stuffs(){
 
     echo "[x] nvm installing stable version..."
 
-    nvm install 18
-    nvm use 18
+    nvm install 20 && nvm use 20
     # source $HOME/.bashrc
     # source $HOME/.bash_aliases
     # $(command -v nvm > /dev/null) && [[ $? == 0 ]] && nvm install stable
@@ -929,6 +931,11 @@ _install_docker(){
     _echo_red "> sudo usermod -aG docker username"
 }
 
+_install_glow(){
+    # markdown previewer
+    go install github.com/charmbracelet/glow@latest
+}
+
 _install_rust(){
     _echo_blue "> Installing rustc and cargo..."
 
@@ -1189,7 +1196,7 @@ _install_basics(){
         "tar" "zip" "unzip" "curl"
         "gcc" "g++" "make"
 
-        "docker" "docker-compose"
+        # "docker" "docker-compose" (done from _install_docker)
         "git" "hub" "snap"
         # "zeal" # not needed as a basic installation, i may change that later
         "silversearcher-ag"
@@ -2452,6 +2459,43 @@ _boot_usb(){
 # sudo apt-get update
 
 alias zed='/usr/bin/zed'
+
+# OpenAi bash util.
+# How to use: _ give me this and that.
+_(){
+    PROMPT="$@"
+
+    # Ensure that OPENAI_API_KEY is set
+    if [ -z "$OPENAI_API_KEY" ]; then
+        echo "> No $OPENAI_API_KEY env var found."
+        return
+    fi
+
+    # No more 200 characters sent
+    if [ ${#PROMPT} -gt 200 ]; then
+        echo "> No more than 200 characters please."
+        return
+    fi
+    # Let's track my prompts
+    echo $PROMPT >> /tmp/gpt-input
+
+    PAYLOAD="{ \
+        \"model\": \"gpt-3.5-turbo\", \
+        \"temperature\": 0.7, \
+        \"messages\": [{\"role\": \"user\", \"content\": \"$PROMPT\"}] \
+    }"
+
+    curl -LSs \
+    https://api.openai.com/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -d "$PAYLOAD" \
+    | jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
+    > /tmp/gpt-output
+
+    # Doing this to reuse the content
+    cat /tmp/gpt-output | glow --pager
+}
 
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
 # some error related to my python3.11 installation, no time to investigate more, will check
