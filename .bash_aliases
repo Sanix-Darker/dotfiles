@@ -1047,15 +1047,24 @@ _install_notifications(){
         xfce4-notifyd -y
 }
 
-# to install insomnia (i hate this thing)
+# To install insomnia (i hate this thing)
 _install_insomnia(){
     sudo snap install insomnia
+}
+
+# To install protoc for compiling proto-buf .proto files
+_install_protoc(){
+    sudo apt update -y
+    sudo apt install protobuf-compiler -y
+
+    protoc --version
 }
 
 _install_zed(){
     cd /tmp
     wget https://github.com/authzed/zed/releases/download/v0.15.0/zed_0.15.0_linux_amd64.deb
     sudo apt-get install ./zed_0.15.0_linux_amd64.deb -y
+    cd -
 }
 
 _install_kdenlive(){
@@ -1115,12 +1124,16 @@ _install_firefox(){
     cd ~/Downloads/ && tar xvf firefox-*.tar.bz2
 
     # Yes am going to put it there.
-    sudo mkdir /opt/firefox/
+    sudo mkdir -p /opt/firefox/
     sudo cp -r ./firefox /opt/firefox/
     # just in case, we delete the existing one that may be present
     sudo rm -rf /usr/bin/firefox
     # we create the symbolic link to that opt bin
     sudo ln -s /opt/firefox/firefox/firefox /usr/bin/firefox
+
+    # we clean
+    rm -rf firefox-*.tar.bz2 firefox
+    cd -
 }
 
 _install_slack(){

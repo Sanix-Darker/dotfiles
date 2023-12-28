@@ -217,7 +217,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 # For clang
 # export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
-# export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # export LD="/usr/bin/ld"
 # export PATH="$PATH:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
 # export PATH="$PATH:/usr/bin/ld"
@@ -320,6 +320,9 @@ export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
 export TMUX_POPUP_WIDTH=80%
 export EDITOR=nvim
 
+# to make <Python.h> available
+export CPATH=/usr/include/python3.11:$CPATH
+export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
 # export PATH="/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.nvm/versions/node/v18.18.2/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v21.2.0/bin:/home/dk/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/go/src:/usr/local/groovy/bin:/home/dk/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.nvm/versions/node/v18.6.0/bin://home/dk/.fzf/bin:/usr/local/go/src/src:/home/dk/.nvm/versions/node/v18.18.2/bin/yarn:"
 
 # for gpg keys and everything ... ssh-add
