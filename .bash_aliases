@@ -2519,14 +2519,22 @@ _(){
     }"
     echo $PAYLOAD
 
-    _spinner(){
-        echo -n "> loading."
-        while true; do echo -n "."; sleep 1; done;
+    _start_spinner(){
+        _spinner(){
+            echo -n "> loading."
+            while true; do echo -n "."; sleep 1; done;
+        }
+        _spinner &
+        _SPINNER_PID=$!
     }
-    _spinner & 1> /dev/null
-    SPINNER_PID=$!
+    _stop_spinner(){
+        # Kill the _spinner process using its PID
+        kill $_SPINNER_PID
+    }
 
-    curl -LSs --max-time 15 \
+    _start_spinner # we start the spinner
+
+    curl -LSs --max-time 30 \
     https://api.openai.com/v1/chat/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -2534,21 +2542,20 @@ _(){
     | jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
     > /tmp/gpt-output
 
-    # Kill the _spinner process using its PID
-    kill $SPINNER_PID 1> /dev/null
+    _stop_spinner # we stop the spinner
 
     # Doing this to reuse the content
     cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
 }
 # What if i have a function in my clipboard
 # i want to prefix with a context ?
-_c(){
-    PROMPT="$@ $(co)" # co here will paste the clipboard content.
-    _ $(echo -n $PROMPT) # then prompt that...
+# Ex: __ write tests for
+__(){
+    _ $(echo -n "$@ $(co)") # co aliased as : "alias co='xclip -o -selection clipboard'"
 }
 # Print the last gpt-response on a pager way
 # takes no argument
-__(){
+_c(){
     cat /tmp/gpt-output | glow --pager
 }
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
