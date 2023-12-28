@@ -2491,7 +2491,7 @@ alias zed='/usr/bin/zed'
 # OpenAi bash util.
 # How to use: _ give me this and that.
 _(){
-    PROMPT="$@"
+    PROMPT=$@
 
     # Ensure that OPENAI_API_KEY is set
     if [ -z "$OPENAI_API_KEY" ]; then
@@ -2510,10 +2510,23 @@ _(){
     PAYLOAD="{ \
         \"model\": \"gpt-3.5-turbo\", \
         \"temperature\": 0.7, \
-        \"messages\": [{\"role\": \"user\", \"content\": \"$PROMPT\"}] \
+        \"messages\": [
+            {
+                \"role\": \"user\",
+                \"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"
+            }
+        ] \
     }"
+    echo $PAYLOAD
 
-    curl -LSs \
+    _spinner(){
+        echo -n "> loading."
+        while true; do echo -n "."; sleep 1; done;
+    }
+    _spinner & 1> /dev/null
+    SPINNER_PID=$!
+
+    curl -LSs --max-time 15 \
     https://api.openai.com/v1/chat/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -2521,10 +2534,23 @@ _(){
     | jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
     > /tmp/gpt-output
 
+    # Kill the _spinner process using its PID
+    kill $SPINNER_PID 1> /dev/null
+
     # Doing this to reuse the content
+    cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
+}
+# What if i have a function in my clipboard
+# i want to prefix with a context ?
+_c(){
+    PROMPT="$@ $(co)" # co here will paste the clipboard content.
+    _ $(echo -n $PROMPT) # then prompt that...
+}
+# Print the last gpt-response on a pager way
+# takes no argument
+__(){
     cat /tmp/gpt-output | glow --pager
 }
-
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
 # some error related to my python3.11 installation, no time to investigate more, will check
 # later.
