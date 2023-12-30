@@ -1,6 +1,3 @@
-dynamic_title = true
-theme = "github_dark_default"
-
 [[colors.indexed_colors]]
 color = "0xd18616"
 index = 16

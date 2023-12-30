@@ -49,11 +49,12 @@
     light = false
     side-by-side = false
 
-
 [merge]
     conflictstyle = diff3
 
 [diff]
+    # looks great but i kinda still prefer delta (https://difftastic.wilfred.me.uk/git.html)
+    # external = difft --display inline --context 1
     colorMoved = default
     tool = nvim
 
@@ -67,6 +68,7 @@
     hunk-header-file-style = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file syntax
+
 [commit]
 	gpgsign = true
 [init]

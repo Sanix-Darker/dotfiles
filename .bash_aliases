@@ -540,6 +540,7 @@ _install_alacritty(){
 
 # faster linker than ld
 _install_mold(){
+    # /usr/bin/ld was binded to : lrwxrwxrwx 19 root  4 déc.  11:57 /usr/bin/ld -> x86_64-linux-gnu-ld
     cd /tmp
 
     if [ ! -d mold ]; then
@@ -1045,6 +1046,7 @@ _install_golang_specific_version(){
 
     _echo_blue "> Available now on /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go"
     /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go version
+    sudo ln -s /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go /usr/bin/go$GOLANG_VERSION_TO_INSTALL
 
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
 
@@ -1110,6 +1112,9 @@ _install_insomnia(){
 _install_protoc(){
     sudo apt update -y
     sudo apt install protobuf-compiler -y
+
+    # The protoc-gen-go plugin is needed
+    go install github.com/golang/protobuf/protoc-gen-go@latest
 
     protoc --version
 }
@@ -2514,7 +2519,7 @@ _(){
     fi
 
     # No more 200 characters sent
-    if [ ${#PROMPT} -gt 200 ]; then
+    if [ ${#PROMPT} -gt 350 ]; then
         echo "> No more than 200 characters please."
         return
     fi
@@ -2535,7 +2540,7 @@ _(){
 
     _start_spinner # We start the spinner
 
-    curl -LSs --max-time 30 \
+    curl -LSs --max-time 40 \
     https://api.openai.com/v1/chat/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -2559,6 +2564,35 @@ __(){
 _c(){
     cat /tmp/gpt-output | glow --pager
 }
+
+# Basically send me a specific message on TG
+# let's say i have a command i runned
+# and am afk, i want to know from my phone if
+# the command succeed or not.
+#
+# Ex:  _notify_me_on_tg git push succeed
+#
+# This is extremly cool because it can be integrated in
+# CI/CD... let's say i want to get notify if all checks
+# on my gh actions went well or bad ? but from telegram
+# after leaving my day job computer...
+# So many use cases...
+_notify_me_on_tg(){
+
+    MESSAGE=$@
+    if [ -z $TG_BOT_TOKEN ]; then
+        _echo_red "Please set the TG_BOT_TOKEN env var"
+    fi
+
+    if [ -z $TG_USER_ID ]; then
+        _echo_red "Please set the TG_USER_ID env var"
+    fi
+
+    curl -LSs -X POST \
+        "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" \
+         -d "chat_id=$TG_USER_ID&text=$(echo "$MESSAGE" | sed 's/"/\\"/g')"
+}
+
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
 # some error related to my python3.11 installation, no time to investigate more, will check
 # later.
