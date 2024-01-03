@@ -141,7 +141,7 @@ use('preservim/nerdtree')
     -- use 'liuchengxu/vista.vim'
     -- use 'lukas-reineke/indent-blankline.nvim'
     -- The magical local history
-    -- use 'simnalamburt/vim-mundo'
+    use 'simnalamburt/vim-mundo'
     -- For popup all over the place
     use 'voldikss/vim-floaterm'
     -- For formatting the code
@@ -184,9 +184,6 @@ use('preservim/nerdtree')
     -- For highlights
     -- use 'LiadOz/nvim-dap-repl-highlights'
 
-    -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-
     -- hjkl with Treesitter
     -- for selecting stuff smartly
     -- Alt+V to toggle it
@@ -194,6 +191,9 @@ use('preservim/nerdtree')
 
     -- For the sticky header
     -- use 'wellle/context.vim'
+
+    -- Treesitter
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     -- The lua alternative (looks SO SLOOOOOWWWW)
     use 'nvim-treesitter/nvim-treesitter-context'
 
@@ -368,7 +368,6 @@ use('preservim/nerdtree')
     --" Plug 'https://github.com/junegunn/vim-github-dashboard.git'
     --" Track the engine.
     --" Fcedpe
-    --" Plug 'SirVer/ultisnips'
     --" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
     --" Copy paste history
     --" Plug 'vim-scripts/YankRing.vim'
@@ -409,6 +408,14 @@ use('preservim/nerdtree')
     --" For vim-auto-save
     --" Plug '907th/vim-auto-save'
     use('Sanix-Darker/snips.nvim')
+
+    -- snippets
+    use('SirVer/ultisnips')
+    use('dcampos/nvim-snippy')
+
+    -- for rust dev
+    use('simrat39/rust-tools.nvim')
+
     --" This will shutdown unfocus LSP
     -- THIS IS WAY MORE AGRESSIVE LMAO, tej it for now MDR
     -- use('hinell/lsp-timeout.nvim')

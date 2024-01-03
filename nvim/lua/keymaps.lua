@@ -11,7 +11,7 @@ end
 map("v", "<Leader>cs", ':s/\\v([a-z]+)([A-Z])/\\1_\\l\\2/g<CR>', {noremap = true})
 map("v", "<Leader>sc", ':s/\\v_(\\w)/\\u\\1/g<CR>', {noremap = true})
 
--- convert rows to columns
+-- convert rows to columns( to convert columns in row it's just J )
 map("v", "<Leader>J", ':s/ /\\r/g|+&&|\'[-;1,g/^/\'\'+m.|-j/g<CR>')
 
 -- command mode with the edition like...
@@ -26,9 +26,9 @@ map("v", "<Leader>xx", ":w !bash<CR>")
 map("n", "<space><space>", "za")
 map("v", "<space>", "zf")
 
--- to saved Obsession session
+-- To saved Obsession session
 map("n", "<Leader>ss", ":Obsession<cr>")
--- to reload a saved session for the current directory
+-- To reload a saved session for the current directory
 map("n", "ss", ":source Session.vim<cr>")
 
 -- Toggle linter
@@ -40,11 +40,11 @@ map("n", "tn", ":tabnew<CR>")
 map("n", "to", ":tabonly<CR>")
 map("n", "tc", ":tabclose<CR>")
 map("n", "tm", ":tabmove<CR>")
+--map("n", "<Leader>gt", ":tabprevious<CR>") -- to get back to the last visited  tab
+map("n", "<Leader>gt", ":exe \"tabn \".g:lasttab<CR>") -- this is bettert
 -- Opens a new tab with the current buffer's path
 -- Super useful when editing files in the same directory
 map("n", "te", ":tabedit <C-r>=expand(\"%:p:h\")<cr>/")
--- tl To toggle to the last table where i was !
-map("n", "tl", ":exe \"tabn \".g:lasttab<CR>")
 
 -- for spliting screen
 map("n", ";b", ":split<cr>")
@@ -70,7 +70,6 @@ map("n", "<Leader>i", "i<C-r>=")
 
 -- github actions status
 map("n", "<Leader>gh", ":GhActions<CR>")
-
 
 -- To indent multiple time in visual mode
 map("v", "<", "<gv")

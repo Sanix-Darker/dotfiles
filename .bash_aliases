@@ -47,6 +47,9 @@ _echo_background_white(){
 _echo_red(){
     echo -ne "$RED$@$COLOROFF\n";
 }
+_echo_yellow(){
+    echo -ne "$YELLOW$@$COLOROFF\n";
+}
 
 # for all git + fzf commands
 GIT_FZF_DEFAULT_OPTS="
@@ -255,6 +258,15 @@ alias s='slides'
 # alias python='python3'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
+
+# Toast alert message to notify on some events...
+#
+# To install :
+#     sudo apt-get install libnotify-bin \
+#         notify-osd \
+#         xfce4-notifyd -y
+#
+# Ex: alert "Hello there, am dk"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 fzf_crontab() {
@@ -2507,6 +2519,8 @@ _boot_usb(){
 
 alias zed='/usr/bin/zed'
 
+
+
 # OpenAi bash util.
 # How to use: _ give me this and that.
 _(){
@@ -2519,8 +2533,8 @@ _(){
     fi
 
     # No more 200 characters sent
-    if [ ${#PROMPT} -gt 350 ]; then
-        echo "> No more than 200 characters please."
+    if [ ${#PROMPT} -gt 450 ]; then
+        echo "> No more than 450 characters please."
         return
     fi
     # Let's track my prompts
@@ -2570,14 +2584,14 @@ _c(){
 # and am afk, i want to know from my phone if
 # the command succeed or not.
 #
-# Ex:  _notify_me_on_tg git push succeed
+# Ex:  _alert_tg git push succeed
 #
 # This is extremly cool because it can be integrated in
 # CI/CD... let's say i want to get notify if all checks
 # on my gh actions went well or bad ? but from telegram
 # after leaving my day job computer...
 # So many use cases...
-_notify_me_on_tg(){
+_alert_tg(){
 
     MESSAGE=$@
     if [ -z $TG_BOT_TOKEN ]; then

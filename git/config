@@ -134,10 +134,12 @@
     ; to list all available pull requests
     pr-list = !gh pr list
     pr-list-all = !gh pr list --state all
-
+    pr-approve = !bash -ic '_confirm \"Sure you want to approve PR-\"$@\" ??\" gh pr review --approve \"$@\" && git pr-list' x
+    pr-close = !bash -ic '_confirm \"Sure you want to close PR-\"$@\" ??\" gh pr close \"$@\" && git pr-list' x
+    pr-squash-merge = !bash -ic '_confirm \"Sure you want to squash-merge PR-\"$@\" ??\" gh pr merge --squash --auto \"$@\" && git pr-list' x
     ; to list all available pull requests
     ; Ex: git pr-view 23
-    pr-view = !gh pr view
+    pr-view = !bash -ic 'gh pr view \"$@\" && git pr-list' x
     ; to edit a PR alreadly available
     pr-edit = !EDITOR=nvim gh pr edit
 
