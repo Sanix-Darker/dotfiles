@@ -151,6 +151,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- LSP servers managers
 -- 'ruby_ls'  'phpactor'
 local lsp_servers = {
+    --'htmx-lsp',
     'clangd', 'rust_analyzer', 'pyright', 'tsserver',
     'eslint', 'jsonls', 'gopls',
     'cssls', 'html', 'bashls', 'cssmodules_ls',

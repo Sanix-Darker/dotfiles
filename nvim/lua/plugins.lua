@@ -407,43 +407,47 @@ use('preservim/nerdtree')
     use('https://git.sr.ht/~whynothugo/lsp_lines.nvim')
     --" For vim-auto-save
     --" Plug '907th/vim-auto-save'
-    use('Sanix-Darker/snips.nvim')
 
     -- snippets
-    use('SirVer/ultisnips')
-    use('dcampos/nvim-snippy')
+    use 'SirVer/ultisnips'
+    use 'dcampos/nvim-snippy'
 
     -- for rust dev
-    use('simrat39/rust-tools.nvim')
+    use 'simrat39/rust-tools.nvim'
 
     --" This will shutdown unfocus LSP
     -- THIS IS WAY MORE AGRESSIVE LMAO, tej it for now MDR
     -- use('hinell/lsp-timeout.nvim')
     --" Multi line selection, could be interesting
     --" for explaining sutffs on peer programming
-    use("Rasukarusan/nvim-select-multi-line")
+    use "Rasukarusan/nvim-select-multi-line"
     --" For Fugitive for git command directly inside the command section
-    use('tpope/vim-fugitive')
+    use 'tpope/vim-fugitive'
     --" Snippets are separated from the engine.
     --" Add this if you want them:
-    use('honza/vim-snippets')
+    use 'honza/vim-snippets'
     --" TODO: To be configure for later on
     --" https://github.com/OscarCreator/rsync.nvim
     --" For easy aligning...
     --" :EasyAlign *= | to align around each occurence
     --" of '=', 2= to align for the second occurence
-    use('junegunn/vim-easy-align')
+    use 'junegunn/vim-easy-align'
     --" For sections in the codebase
-    use('mfussenegger/nvim-ts-hint-textobject')
+    use 'mfussenegger/nvim-ts-hint-textobject'
+    -- snips plugin to save code using snips.sh
+    use 'Sanix-Darker/snips.nvim'
     --" For color
     --" Plug 'navarasu/onedark.nvim'
-    use('Sanix-Darker/onedark.vim')
+    use 'Sanix-Darker/onedark.vim'
     --" Telescope (SHIT i need this to use octo,
     --" will remove when the support of fzf will be available)
     --" Plug 'nvim-telescope/telescope.nvim'
     --" For code review using octo
-    use('pwntester/octo.nvim')
-    use('nvim-tree/nvim-web-devicons')
+    use 'pwntester/octo.nvim'
+    use 'nvim-tree/nvim-web-devicons'
+
+    -- strongify my go lsp with go.nvim
+    use 'ray-x/go.nvim'
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

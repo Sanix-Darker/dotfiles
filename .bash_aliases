@@ -556,7 +556,7 @@ _install_mold(){
     cd /tmp
 
     if [ ! -d mold ]; then
-        git clone rui314/mold.git
+        git clone https://github.com/rui314/mold.git
     fi;
 
     cd mold && mkdir -p build && cd ./build
@@ -2390,10 +2390,10 @@ git(){
   #   command git log-line "$@"
 
   # for cloning stuff in a "lazy way".
-  if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
-    shift 1
-    command git clone-gh "$@" || git clone-gl "$@"
-  elif [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
+  # if [[ "$1" == "clone" && "$@" != *"--help"* ]]; then
+  #   shift 1
+  #   command git clone-gh "$@" || git clone-gl "$@"
+  if [[ "$1" == "branch" && "$@" != *"--help"* ]]; then
     shift 1 # to remove the first argument passed
     command git branch-sorted "$@"
   elif [[ "$1" == "restore" || "$1" == "add" || "$1" == "update" || "$1" == "pull" ]]; then

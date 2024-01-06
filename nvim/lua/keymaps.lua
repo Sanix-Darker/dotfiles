@@ -343,12 +343,11 @@ map("n", "<leader><", ":bprevious<cr>")
 -- $ and 0 are hard to access, so this is to select
 -- to the last element in the line or the first
 -- move around mode
-map("n", "L", "$")
-map("n", "H", "^")
--- visual mode selection
-map("n", "vL", "v$h", {silent = true})
-map("n", "vH", "v^w", {silent = true})
-
+-- map("n", "L", "$")
+-- map("n", "H", "^")
+-- -- visual mode selection
+-- map("n", "vL", "v$h", {silent = true})
+-- map("n", "vH", "v^w", {silent = true})
 
 -- nvim spectre
 map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
