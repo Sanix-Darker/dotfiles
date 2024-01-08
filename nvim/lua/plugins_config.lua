@@ -456,7 +456,7 @@ require('snips').setup({
 --   },
 -- })
 
--- require('gitsigns').setup()
+require('gitsigns').setup()
 -- require("scrollbar.handlers.gitsigns").setup()
 -- like for the minimap
 -- require("scrollbar").setup({
@@ -601,8 +601,6 @@ require('snips').setup({
 --         ale = false, -- Requires ALE
 --     },
 -- })
-
--- require('snips.nvim')
 
 -- for the neoscroll
 require('neoscroll').setup(neoscroll_setup)

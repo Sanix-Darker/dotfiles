@@ -104,7 +104,11 @@ return packer.startup(function(use)
     -- ? Show mappings help
     use 'rhysd/git-messenger.vim'
     -- For the gitbutter (live git diff on changes)
-    use 'airblade/vim-gitgutter'
+    -- use 'airblade/vim-gitgutter'
+
+    -- For git signs
+    use 'lewis6991/gitsigns.nvim'
+
     -- syntax highlight for graphql
     -- use 'jparise/vim-graphql'
     -- For a fancy status Line

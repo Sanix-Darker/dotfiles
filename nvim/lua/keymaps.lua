@@ -132,8 +132,6 @@ map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR>:set f
 
 -- To search for ctags
 map("n", "<Leader>bg", ":Vista finder ctags<CR>")
--- To undo a git hunk change
-map("n", "ZX", ":GitGutterUndoHunk<CR>", { noremap = true })
 -- To format the code
 map("v", "fv", ":Neoformat<CR>")
 -- for clang formating
@@ -227,9 +225,18 @@ map("n", "cp", ":let @\" = expand(\"%\")<cr>")
 map("n", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
 map("v", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
 
+-- prev & nex chunks updates
+map("n", "]c", ":Gitsigns next_hunk<CR>")
+map("n", "[c", ":Gitsigns prev_hunk<CR>")
+-- stage and unstage changes
+map("n", "<Leader>as", ":Gitsigns stage_hunk<CR>")
+map("n", "<Leader>sa", ":Gitsigns undo_stage_hunk<CR>")
+-- To undo a git hunk change
+map("n", "ZX", ":Gitsigns reset_hunk<CR>", { noremap = true })
 -- To get +/- on changes inside a file from a project
-map("n", "<Leader>HH", ":GitGutterFold<CR>:GitGutterLineHighlightsToggle<CR>", { noremap = true })
-map("n", "<C-Space>", ":GitGutterPreviewHunk<CR>", { noremap = true })
+map("n", "<Leader>HH", ":Gitsigns toggle_linehl<CR>:Gitsigns toggle_deleted<CR>", { noremap = true })
+map("n", "<C-Space>", ":Gitsigns preview_hunk<CR>", { noremap = true })
+
 -- since the lsp can help me do that
 -- map("n", "<Leader>hn", ":GitGutterNextHunk<CR>", { noremap = true })
 -- map("n", "<Leader>hp", ":GitGutterPrevHunk<CR>", { noremap = true })
