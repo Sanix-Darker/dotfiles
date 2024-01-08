@@ -40,13 +40,16 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	use("wbthomason/packer.nvim") -- Have packer manage itself
+	use "wbthomason/packer.nvim" -- Have packer manage itself
 
+    -- for big files (this will disable a lot of stuff when a file is huge to
+    -- be open in a buffer)
+    use "LunarVim/bigfile.nvim"
 
---" For timing check of the loading time
---" Plug 'dstein64/vim-startuptime'
---" On-demand loading
-use('preservim/nerdtree')
+    --" For timing check of the loading time
+    --" Plug 'dstein64/vim-startuptime'
+    --" On-demand loading
+    use 'preservim/nerdtree'
 
     -- for status of files changes/tracked... by git
     use 'Xuyuanp/nerdtree-git-plugin'
