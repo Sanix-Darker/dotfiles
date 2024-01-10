@@ -1203,7 +1203,7 @@ _install_firefox(){
     sudo ln -s /opt/firefox/firefox/firefox /usr/bin/firefox
 
     # we clean
-    rm -rf firefox-*.tar.bz2 firefox
+    # rm -rf firefox-*.tar.bz2 firefox
     cd -
 }
 

@@ -443,13 +443,16 @@ return packer.startup(function(use)
     use 'mfussenegger/nvim-ts-hint-textobject'
     -- snips plugin to save code using snips.sh
     use 'Sanix-Darker/snips.nvim'
-    --" For color
-    --" Plug 'navarasu/onedark.nvim'
+
+    -- For color
+    -- use 'navarasu/onedark.nvim'
+    -- use 'joshdick/onedark.vim'
+    -- use 'folke/tokyonight.nvim'
     use 'Sanix-Darker/onedark.vim'
-    --" Telescope (SHIT i need this to use octo,
-    --" will remove when the support of fzf will be available)
-    --" Plug 'nvim-telescope/telescope.nvim'
-    --" For code review using octo
+    -- Telescope (SHIT i need this to use octo,
+    -- will remove when the support of fzf will be available)
+    -- Plug 'nvim-telescope/telescope.nvim'
+    -- For code review using octo
     use 'pwntester/octo.nvim'
     use 'nvim-tree/nvim-web-devicons'
 
