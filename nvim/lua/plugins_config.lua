@@ -457,6 +457,16 @@ require('snips').setup({
 -- })
 
 require('gitsigns').setup()
+require("scrollbar.handlers.gitsigns").setup()
+require("scrollbar").setup({
+    handle = {
+        text = " ",
+        color = nil,
+        color_nr = 239, -- cterm
+        highlight = "CursorColumn",
+        hide_if_all_visible = true, -- Hides handle if all lines are visible
+    },
+})
 
 -- for the neoscroll
 require('neoscroll').setup(neoscroll_setup)

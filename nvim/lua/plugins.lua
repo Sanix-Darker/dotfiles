@@ -112,7 +112,10 @@ return packer.startup(function(use)
     -- syntax highlight for graphql
     -- use 'jparise/vim-graphql'
     -- For a fancy status Line
-    use {'nvim-lualine/lualine.nvim', commit = '84ffb80e452d95e2c46fa29a98ea11a240f7843e'}
+    use {
+        'nvim-lualine/lualine.nvim',
+        -- commit = '84ffb80e452d95e2c46fa29a98ea11a240f7843e'
+    }
     -- For icons on the statusline
     -- use 'kyazdani42/nvim-web-devicons'
     -- To handle case insensitive with :S a.k.a sed
@@ -226,7 +229,7 @@ return packer.startup(function(use)
     -- you should install code-minimap first:
     -- cargo install --locked code-minimap
     -- use {'wfxr/minimap.vim', run = ':!cargo install --locked code-minimap'}
-    -- use 'petertriho/nvim-scrollbar'
+    use 'petertriho/nvim-scrollbar'
 
     -- Just for the gitsigns
     -- use 'lewis6991/gitsigns.nvim'
@@ -453,7 +456,7 @@ return packer.startup(function(use)
     -- will remove when the support of fzf will be available)
     -- Plug 'nvim-telescope/telescope.nvim'
     -- For code review using octo
-    use 'pwntester/octo.nvim'
+    -- use 'pwntester/octo.nvim'
     use 'nvim-tree/nvim-web-devicons'
 
     -- strongify my go lsp with go.nvim

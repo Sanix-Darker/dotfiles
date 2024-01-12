@@ -11,8 +11,6 @@ _G.__luacache_config = {
 
 vim.cmd('source ~/.config/nvim/config.vim')
 
-vim.cmd[[colorscheme onedark]]
-
 -- To speed up the start(cache)
 require('impatient')
 -- all set configurations
