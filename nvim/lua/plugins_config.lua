@@ -46,16 +46,6 @@ require('which-key').setup()
 -- so taht if there is multiple elements in the error diag,
 -- i ould still see them all
 require("lsp_lines").setup()
--- due to lsp_line already available:
-vim.diagnostic.config({
-  virtual_text = false,
-})
-vim.keymap.set(
-  "",
-  "<Leader>o",
-  require("lsp_lines").toggle,
-  { desc = "Toggle lsp_lines" }
-)
 
 -- for symbols
 require("symbols-outline").setup({

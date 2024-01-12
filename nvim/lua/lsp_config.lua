@@ -269,3 +269,14 @@ require('vim.lsp.protocol').CompletionItemKind = {
     'ﬦ', -- Operator
     '', -- TypeParameter
 }
+
+-- NOTE: due to lsp_line already available as a plugin:
+vim.diagnostic.config({
+  virtual_text = false,
+})
+vim.keymap.set(
+  "",
+  "<Leader>o",
+  require("lsp_lines").toggle,
+  { desc = "Toggle lsp_lines" }
+)
