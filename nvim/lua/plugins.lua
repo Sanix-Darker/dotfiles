@@ -247,6 +247,9 @@ return packer.startup(function(use)
     -- use 'mattn/webapi-vim'
     -- use 'mattn/vim-gist'
 
+    -- more context on hover
+    -- use 'lewis6991/hover.nvim'
+
     -- For surrounding quotes
     -- cs'> or ds'
     -- csw"
@@ -297,7 +300,9 @@ return packer.startup(function(use)
     -- Just like org on emacs, to organize your stuffs
     use 'phaazon/mind.nvim'
     -- To toggle and untoggle the LSP diagnostic
-    use 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+    -- removed in favor of the lsp_lines toggle one <Leader>o to activate
+    -- and deactivate.
+    -- use 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
     -- For snippets
     use 'rafamadriz/friendly-snippets'
     -- lspkind for autocompletion stuff
@@ -414,7 +419,9 @@ return packer.startup(function(use)
     --" Plug 'jackMort/ChatGPT.nvim'
     use('gsuuon/llm.nvim')
     --" lsp-lines (for better diagnostic)
-    use('https://git.sr.ht/~whynothugo/lsp_lines.nvim')
+    use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
+    -- looks like this one does not work anymore ?
+    -- use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
     --" For vim-auto-save
     --" Plug '907th/vim-auto-save'
 

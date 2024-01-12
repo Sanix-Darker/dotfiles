@@ -182,7 +182,7 @@ lspconfig.lua_ls.setup(lspconfig_setup)
 require('luasnip.loaders.from_vscode').lazy_load()
 
 -- We enable/init the toggle lsp pluggin to enable quickly the lsp diagnosttic messatges
-require('toggle_lsp_diagnostics').init()
+-- require('toggle_lsp_diagnostics').init()
 
 -- keybindings to go to definition/declaration
 vim.api.nvim_create_autocmd('LspAttach', {

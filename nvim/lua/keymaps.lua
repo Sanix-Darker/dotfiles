@@ -467,6 +467,6 @@ map('n', '<Space>v', ':call sml#mode_on()<CR>')
 
 -- I need something quick for llm
 -- we disable the diagnostic first
-map('n', '<Leader>o', ':ToggleDiagOff<CR>')
-map('n', '<Leader>O', ':ToggleDiagOn<CR>')
+-- map('n', '<Leader>o', ':ToggleDiagOff<CR>')
+-- map('n', '<Leader>O', ':ToggleDiagOn<CR>')
 map('v', '<Leader>lm', ':Llm<CR>')
