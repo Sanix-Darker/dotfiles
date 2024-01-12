@@ -328,6 +328,7 @@ _lf(){
     trash-list | sort -r | cat | grep $(pwd)
 }
 alias lf='_lf'
+
 # to put inside the trash
 alias rf='trash-put'
 
@@ -1239,6 +1240,11 @@ _install_mkcert(){
     cd -
 }
 
+_install_lf(){
+    CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
+}
+alias ranger='/home/dk/go/bin/lf'
+
 _install_basics(){
     _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
 
@@ -1303,6 +1309,9 @@ _install_basics(){
 
     # Install golang
     _confirm "Install golang ?" _install_golang
+
+    # Install lf (ranger) like a file manager
+    _confirm "Install lf (like ranger) as a file manager ?" _install_lf
 
     # set nerd-fonts
     _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
