@@ -346,7 +346,7 @@ require("trouble").setup{}
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'tokyonight',
     component_separators = { left = '', right = '|'},
     section_separators = { left = '', right = ''},
     -- for the fancy arrow :

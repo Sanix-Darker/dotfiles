@@ -4,10 +4,7 @@ let &packpath=&runtimepath
 " jk -> Esc to speed Up switching
 " THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
 inoremap jk <ESC>
-try
-	colorscheme onedark
-catch
-endtry
+colorscheme tokyonight
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
@@ -94,6 +91,10 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore bower_components --ignore __pyc
 " \shift-up:preview-top,shift-down:preview-bottom,
 " \alt-up:half-page-up,alt-down:half-page-down'
 let $FZF_DEFAULT_OPTS="--bind \"ctrl-d:preview-down,ctrl-u:preview-up\""
+let $BAT_THEME='base16-256'
+let $COLORTERM="truecolor"
+set termguicolors
+
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 

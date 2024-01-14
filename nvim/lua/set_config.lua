@@ -142,7 +142,7 @@ g.fzf_layout = { window = { width = 0.9, height = 0.9}}
 
 -- For simplyfolding
 g.SimpylFold_docstring_preview=1
-
+g.airline_theme='tokyonight'
 
 -- Vista stuffs
 -- How each level is indented and what to prepend.

@@ -457,8 +457,8 @@ return packer.startup(function(use)
     -- For color
     -- use 'navarasu/onedark.nvim'
     -- use 'joshdick/onedark.vim'
-    -- use 'folke/tokyonight.nvim'
-    use 'Sanix-Darker/onedark.vim'
+    use 'folke/tokyonight.nvim'
+    -- use 'Sanix-Darker/onedark.vim'
     -- Telescope (SHIT i need this to use octo,
     -- will remove when the support of fzf will be available)
     -- Plug 'nvim-telescope/telescope.nvim'
