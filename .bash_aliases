@@ -726,14 +726,18 @@ _install_python_stuffs(){
     done;
  }
 
-# small custom spinners i made
+# Small custom spinner
+# Usage:
+#   _start_spinner
+#   your_command_that_may_takes_long
+#   _stop_spinner
 _start_spinner(){
     _spinner(){
-        echo -n "> loading."
-        while true; do echo -n "."; sleep 1; done;
+        echo -n "> loading" && \
+            while true; do echo -n "."; sleep 1; done;
     }
     _spinner &
-    _SPINNER_PID=$!
+    _SPINNER_PID=$! #<-- ici, we save the PID of the spinner process
 }
 _stop_spinner(){
     # Kill the _spinner process using its PID
@@ -2527,8 +2531,6 @@ _boot_usb(){
 # sudo apt-get update
 
 alias zed='/usr/bin/zed'
-
-
 
 # OpenAi bash util.
 # How to use: _ give me this and that.
