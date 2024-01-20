@@ -204,6 +204,10 @@
     ; Ex: git issue-view 23
     issue-view = !gh issue view
 
+    ; to fetch origin and checkout quickly
+    ; git get origin branch-name
+    get = !bash -i -c '_get "$@"' -s
+
     ; to view an Issue
     issue-comment = !EDITOR=nvim gh issue comment -e
 

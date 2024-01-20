@@ -575,7 +575,7 @@ _cargo_update(){
 }
 
 _install_ranger(){
-    pip3 install ranger
+    env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf
 }
 
 _install_path_browsing_utils(){
@@ -1499,6 +1499,7 @@ alias clean_nodemodules='_clean_nodemodules'
 alias cat='bat -p'
 
 # To fastly jump in a remote branch
+# Usage: get origin branch-name
 _get(){
     if [ -d ".git" ]; then
         if [ -n "$1" ]; then
@@ -1506,11 +1507,11 @@ _get(){
             # We try to stash our changes if there where some...
             git stash
             # We fetch/checkout the target branch
-            git fetch origin $1
-            git checkout $1
+            git fetch $1 $2
+            git checkout $2
         else
             # No argument passed
-            echo "Usage: get feat/test-stuff"
+            echo "Usage: get origin feat/test-stuff"
         fi
     else
         echo "[x] Oups, not a .git directory !"
@@ -1614,7 +1615,6 @@ _git_squash(){
     else
         _echo_red "< Squash stopped"
     fi
-
 }
 
 _git_coworker(){
@@ -1867,7 +1867,7 @@ _xrandr(){
         xrandr --output $2 --brightness $3
     fi
 }
-alias docker_ps="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"
+alias ds="docker ps --format 'table {{.RunningFor}}\t{{.Status}}\t{{.Names}}'"
 
 m() {
   python3 -c "from math import *; print($*)"
@@ -2554,12 +2554,16 @@ _(){
         \"temperature\": 0.7, \
         \"messages\": [
             {
+                \"role\": \"system\",
+                \"content\": \"You're a software engineer, that give solusion as source code if possible, no need for comments in the code; no need to explain something.\"
+            },
+            {
                 \"role\": \"user\",
                 \"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"
             }
         ] \
     }"
-    echo $PAYLOAD
+    # echo $PAYLOAD
 
     _start_spinner # We start the spinner
 
@@ -2601,7 +2605,6 @@ _c(){
 # after leaving my day job computer...
 # So many use cases...
 _alert_tg(){
-
     MESSAGE=$@
     if [ -z $TG_BOT_TOKEN ]; then
         _echo_red "Please set the TG_BOT_TOKEN env var"
