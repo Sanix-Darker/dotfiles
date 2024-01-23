@@ -392,7 +392,7 @@ CONFIG_PATHS=(
     "rofi" "polybar"
     "git" "i3"
     "mpv" "alacritty"
-    "gh-dash"
+    "gh-dash" "lf"
 )
 
 # Assuming we already have the dotfiles directory
@@ -725,6 +725,35 @@ _install_python_stuffs(){
         curl -sS https://bootstrap.pypa.io/get-pip.py | python$pV
     done;
  }
+
+# Usage
+# random_str=$(_random_string 10)
+_random_string(){
+  local length=$1
+  [ -z "$length" ] && length=10
+  tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
+}
+
+# Usage
+# _log_group docker logs -f x,docker logs -f y
+_tail_group(){
+    local commands="$1"
+    local STREAM_PIDS = ""
+
+    # Split the commands using comma as delimiter
+    IFS=',' read -ra cmds <<< "$commands"
+
+    # Start each command in the background and save the PID
+    for cmd in "${cmds[@]}"; do
+        $cmd &
+        STREAM_PIDS="$STREAM_PIDS/proc/$!/fd/1,"
+    done
+
+    # Tail the output of each process in a single command
+    echo $STREAM_PIDS
+
+    tail -f "{$STREAM_PIDS}"
+}
 
 # Small custom spinner
 # Usage:
