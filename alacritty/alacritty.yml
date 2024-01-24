@@ -55,5 +55,5 @@ colors:
     - { index: 16, color: '0xd18616' }
     - { index: 17, color: '0xffa198' }
 
-theme: github_dark_default
-dynamic_title: true
+# theme: github_dark_default
+# dynamic_title: true
