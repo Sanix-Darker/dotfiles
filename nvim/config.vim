@@ -4,6 +4,8 @@ let &packpath=&runtimepath
 " jk -> Esc to speed Up switching
 " THIS IS A FREAKING SORCERY I NEEDED TO DO TO HAVE CURSORLINE UP
 inoremap jk <ESC>
+" colorscheme onedark
+"colorscheme github_dark_default
 colorscheme tokyonight
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

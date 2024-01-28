@@ -811,7 +811,7 @@ _install_mpv(){
     _echo_blue "> Installing yt-dlp_linux..."
     cd /tmp
     # let's fix yt-dlp and mpv versions
-    wget https://github.com/yt-dlp/yt-dlp/releases/download/2023.07.06/yt-dlp_linux
+    wget https://github.com/yt-dlp/yt-dlp/releases/download/2023.12.30/yt-dlp_linux
     chmod +x ./yt-dlp_linux && mv ./yt-dlp_linux /usr/bin/yt-dlp
 
     _echo_blue "> Installing mpv..."
