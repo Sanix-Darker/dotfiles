@@ -219,8 +219,8 @@ highlight clear LineNr
 highlight clear SignColumn
 highlight clear StatusLine
 
-au InsertEnter * set nocursorline
 au InsertLeave,VimEnter,BufEnter * set cursorline
+au InsertLeave,VimEnter,BufEnter * set nocursorcolumn
 " Default Colors for CursorLine
 highlight CursorLine ctermbg=236 ctermfg=None
 
@@ -232,5 +232,4 @@ au ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE cter
 "" extra settings, uncomment them if necessary :)
 "set cursorline
 "set noshowmode
-"set nocursorline
 " >> trasparent end

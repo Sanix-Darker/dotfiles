@@ -1280,6 +1280,42 @@ _install_lf(){
 }
 alias ranger='/home/dk/go/bin/lf'
 
+_install_arduino_cli(){
+    cd /tmp
+    wget https://github.com/arduino/arduino-cli/releases/download/v0.35.2/arduino-cli_0.35.2_Linux_64bit.tar.gz
+    tar -xzf ./arduino-cli_0.35.2_Linux_64bit.tar.gz
+    sudo cp ./arduino-cli /usr/bin/arduino-cli
+    sudo chmod +x /usr/bin/arduino-cli
+    sudo chown -R $USER /usr/bin/arduino-cli
+
+    # update indexes
+    arduino-cli core update-index
+    # install common cores
+    arduino-cli core install esp32:esp32 arduino:esp32 arduino:avr
+
+    # to list all board fqn
+    # arduino-cli board listall
+
+    # then depending on the board
+    # compile with :
+    # arduino-cli compile --fqbn esp32:esp32:esp32cam tcha
+
+    # now you can list all connected board with
+    # arduino-cli board list
+
+    # and upload the code with
+    # arduino-cli upload -p /dev/ttyUSB0 --fqbn esp32:esp32 my_sketch
+    cd -
+}
+
+_new_arduino_sketch(){
+    # python side for serial
+    v11 && ee
+    pip uninstall serial; pip install pyserial
+
+    arduino-cli sketch new test.ino
+}
+
 _install_basics(){
     _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
 
@@ -2417,7 +2453,9 @@ docker_postgres_exec(){
 
 # alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
 
-# for the snap version
+# to watch youtube video
+# on mpv just after copying the
+# video link in my clipboard.
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"

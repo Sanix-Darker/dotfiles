@@ -471,6 +471,9 @@ return packer.startup(function(use)
     -- strongify my go lsp with go.nvim
     use 'ray-x/go.nvim'
 
+    -- for arduino
+    use 'sudar/vim-arduino-syntax'
+
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
