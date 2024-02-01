@@ -1072,11 +1072,35 @@ _install_ruby(){
 _install_golang(){
     _echo_blue "> Installing golang..."
 
-    sudo apt update -y && sudo apt upgrade -y
-    sudo apt install golang-go -y # it's install 1.13
+    #sudo apt update -y && sudo apt upgrade -y
+    #sudo apt install golang-go -y # it's install 1.13
+
+    # force installation of go1.21
+    local VERSION="1.21.0"
+    cd /tmp
+
+    sudo apt-get update -y
+    wget https://go.dev/dl/go$VERSION.linux-amd64.tar.gz
+    sudo tar -xvf go$VERSION.linux-amd64.tar.gz
+    sudo mv go /usr/local
+    source ~/.bashrc
 
     # To check the golang version installed
     go version
+
+    cd -
+}
+
+_install_arduino_language_server(){
+    cd /tmp
+
+    git clone https://github.com/arduino/arduino-language-server
+    go build
+    sudo cp ./arduino-language-server /usr/bin/arduino-language-server
+    sudo chmod +x /usr/bin/arduino-language-server
+
+    arduino-language-server version
+    cd -
 }
 
 _install_golang_specific_version(){
@@ -1280,6 +1304,10 @@ _install_lf(){
 }
 alias ranger='/home/dk/go/bin/lf'
 
+_install_picocom(){
+    sudo apt-get -y install picocom
+}
+
 _install_arduino_cli(){
     cd /tmp
     wget https://github.com/arduino/arduino-cli/releases/download/v0.35.2/arduino-cli_0.35.2_Linux_64bit.tar.gz
@@ -1287,6 +1315,9 @@ _install_arduino_cli(){
     sudo cp ./arduino-cli /usr/bin/arduino-cli
     sudo chmod +x /usr/bin/arduino-cli
     sudo chown -R $USER /usr/bin/arduino-cli
+
+    # install picocom
+    _install_picocom
 
     # update indexes
     arduino-cli core update-index

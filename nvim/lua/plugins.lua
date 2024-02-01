@@ -330,8 +330,6 @@ return packer.startup(function(use)
     --" Plug 'weilbith/nvim-code-action-menu'
     --" we not use, we just keep it in mind"
     --" https://github.com/zbirenbaum/copilot.lua
-    --" For syntax highlighting on a lot of stuffs
-    --" Plug 'sheerun/vim-polyglot'
     --" For jumping fast on code am writing
     --" Plug 'ggandor/leap.nvim'
     --" A framework for some plugin to be working (gh.nvim) for example
@@ -473,7 +471,11 @@ return packer.startup(function(use)
 
     -- for arduino
     use 'sudar/vim-arduino-syntax'
+    use 'stevearc/vim-arduino'
+    use 'glebzlat/Arduino.nvim'
 
+    --" For syntax highlighting on a lot of stuffs
+    use 'sheerun/vim-polyglot'
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
