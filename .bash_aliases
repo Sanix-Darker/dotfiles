@@ -1094,7 +1094,7 @@ _install_golang(){
 _install_arduino_language_server(){
     cd /tmp
 
-    git clone https://github.com/arduino/arduino-language-server
+    git clone https://github.com/arduino/arduino-language-server && cd ./arduino-language-server
     go build
     sudo cp ./arduino-language-server /usr/bin/arduino-language-server
     sudo chmod +x /usr/bin/arduino-language-server
