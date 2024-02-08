@@ -47,9 +47,11 @@ return packer.startup(function(use)
     use "LunarVim/bigfile.nvim"
 
     --" For timing check of the loading time
-    --" Plug 'dstein64/vim-startuptime'
+    -- use 'dstein64/vim-startuptime'
     --" On-demand loading
     use 'preservim/nerdtree'
+    -- Better to use the nvim alternative ?
+    --- use 'nvim-tree/nvim-tree.lua'
 
     -- for status of files changes/tracked... by git
     use 'Xuyuanp/nerdtree-git-plugin'
@@ -112,10 +114,7 @@ return packer.startup(function(use)
     -- syntax highlight for graphql
     -- use 'jparise/vim-graphql'
     -- For a fancy status Line
-    use {
-        'nvim-lualine/lualine.nvim',
-        -- commit = '84ffb80e452d95e2c46fa29a98ea11a240f7843e'
-    }
+    use 'nvim-lualine/lualine.nvim'
     -- For icons on the statusline
     -- use 'kyazdani42/nvim-web-devicons'
     -- To handle case insensitive with :S a.k.a sed
@@ -140,7 +139,7 @@ return packer.startup(function(use)
     -- Yes, this is important for me
     -- use 'potamides/pantran.nvim'
     -- For EasyMotion
-    use 'phaazon/hop.nvim'
+    use 'smoka7/hop.nvim'
     -- To fastly start neovim
     use 'lewis6991/impatient.nvim'
     -- get structure of the code classes and functions

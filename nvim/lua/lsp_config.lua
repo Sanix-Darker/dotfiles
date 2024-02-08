@@ -232,12 +232,12 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 
 -- check : https://github.com/arduino/arduino-language-server
 lspconfig.arduino_language_server.setup {
-  -- cmd = {
-  --   "arduino-language-server",
-  --   "-fqbn", "arduino:avr:uno",
-  --   "-cli", "arduino-cli",
-  --   "-clangd", "clangd"
-  -- }
+  cmd = {
+    "arduino-language-server",
+    "-fqbn", "esp32:esp32:nodemcu-32s",
+    "-cli", "arduino-cli",
+    "-clangd", "clangd"
+  }
 }
 
 require('vim.lsp.protocol').CompletionItemKind = {

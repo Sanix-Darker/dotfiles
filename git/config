@@ -120,6 +120,10 @@
 
     base = !git checkout
 
+    ; because am lazy and i asume it
+    merge-take-theirs = !git merge --strategy-option=theirs
+    merge-take-ours = !git merge --strategy-option=ours
+
     ; To use pr
     ; pr auth login to authenticate it !
     ; You can use ssh or https, but; it's better to use ssh one
@@ -132,6 +136,7 @@
     ; git pr-to dev-branch
     pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
     ; to list all available pull requests
+    ; TODO: add fzf to it.
     pr-list = !gh pr list
     pr-list-all = !gh pr list --state all
     pr-approve = !bash -ic '_confirm \"Sure you want to approve PR-\"$@\" ??\" gh pr review --approve \"$@\" && git pr-list' x
