@@ -2135,8 +2135,14 @@ git_compare_online(){
 
 # Function to list pull requests in a table format
 git_list_pull_requests() {
-    gh pr list --json number,baseRefName,headRefName,title --jq \
-        '.[] | ["#\(.number)", .baseRefName, "<- \(.headRefName)", "\"\(.title | .[:45])\""] | @tsv' | \
+    gh pr list --json number,baseRefName,headRefName,title --jq '
+        .[] |
+        [
+            "#\(.number)",
+            .baseRefName,
+            "<- \(.headRefName)",
+            "\"\(.title | .[:45])\""
+        ] | @tsv' | \
     column -s $'\t' -t
 }
 
@@ -2146,14 +2152,17 @@ git_select_pull_request() {
         fzf --ansi \
             --header="Select Pull Request" \
             --preview "git pr-view {1} | bat --language markdown --color=always" \
-            --preview-window=top:50 | awk '{print $1, $4, $5}')
-    pr_id=$(echo "$pr_selected" | awk '{print $1}')
-    pr_branch_name=$(echo "$pr_selected" | awk '{print $2}')
-    pr_target_branch_name=$(gh pr view $pr_id --json headRefName)
+            --preview-window=top:50 | awk '{print $1, $2, $4}')
+    pr_id=$(echo "$pr_selected" | awk '{print $1}' | sed 's/#//')
+    pr_target_branch_name=$(echo "$pr_selected" | awk '{print $2}')
+    pr_branch_name=$(echo "$pr_selected" | awk '{print $3}')
 
-    if [ -n "$pr_id" ]; then
-        git_pr_actions_menu "$pr_id" "$pr_branch_name" "$pr_target_branch_name"
-    fi
+    echo $pr_branch_name
+    echo $pr_target_branch_name
+    echo $pr_id
+    # if [ -n "$pr_id" ]; then
+    #     git_pr_actions_menu "$pr_id" "$pr_branch_name" "$pr_target_branch_name"
+    # fi
 }
 
 # Function to display actions menu for selected pull request
@@ -2161,7 +2170,11 @@ git_pr_actions_menu() {
     pr_id=$1
     pr_branch_name=$2
     actions=("Approve PR" "Merge PR" "Squash Merge PR" "Show Changes From PR" "Close PR" "Cancel")
-    selected_action=$(printf '%s\n' "${actions[@]}" | fzf --ansi --header="Select Action for PR #$pr_id")
+    selected_action=$(printf '%s\n' "${actions[@]}" | \
+        fzf --ansi \
+        --header="Select Action for PR #$pr_id" \
+        --preview "gh pr checks $pr_id" \
+        --preview-window=top:50)
     case $selected_action in
         "Approve PR")
             gh pr review --approve "$pr_id"
