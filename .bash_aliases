@@ -2135,13 +2135,14 @@ git_compare_online(){
 
 # Function to list pull requests in a table format
 git_list_pull_requests() {
-    gh pr list --json number,baseRefName,headRefName,title --jq '
+    gh pr list --json number,baseRefName,headRefName,title,reviews --jq '
         .[] |
         [
             "#\(.number)",
             .baseRefName,
             "<- \(.headRefName)",
-            "\"\(.title | .[:45])\""
+            "\"\(.title | .[:50])\"",
+            (.reviews | if length == 0 then "NO REVIEW" else .[0].state end)
         ] | @tsv' | \
     column -s $'\t' -t
 }
@@ -2157,23 +2158,20 @@ git_select_pull_request() {
     pr_target_branch_name=$(echo "$pr_selected" | awk '{print $2}')
     pr_branch_name=$(echo "$pr_selected" | awk '{print $3}')
 
-    echo $pr_branch_name
-    echo $pr_target_branch_name
-    echo $pr_id
-    # if [ -n "$pr_id" ]; then
-    #     git_pr_actions_menu "$pr_id" "$pr_branch_name" "$pr_target_branch_name"
-    # fi
+    if [ -n "$pr_id" ]; then
+        git_pr_actions_menu "$pr_id" "$pr_branch_name" "$pr_target_branch_name"
+    fi
 }
 
 # Function to display actions menu for selected pull request
 git_pr_actions_menu() {
     pr_id=$1
     pr_branch_name=$2
-    actions=("Approve PR" "Merge PR" "Squash Merge PR" "Show Changes From PR" "Close PR" "Cancel")
+    actions=("Approve PR" "Merge PR" "Squash Merge PR" "Show Changes From PR" "Approve and Squash MergePR" "Close PR")
     selected_action=$(printf '%s\n' "${actions[@]}" | \
         fzf --ansi \
         --header="Select Action for PR #$pr_id" \
-        --preview "gh pr checks $pr_id" \
+        --preview "gh pr checks $pr_id | column -s $'\t' -t" \
         --preview-window=top:50)
     case $selected_action in
         "Approve PR")
@@ -2196,16 +2194,17 @@ git_pr_actions_menu() {
             git stash pop
             git_select_pull_request
             ;;
+        "Approve and Squash MergePR")
+            gh pr review --approve "$pr_id"
+            gh pr merge --squash --auto "$pr_id"
+            git_select_pull_request
+            ;;
         "Close PR")
             gh pr close "$pr_id"
             git_select_pull_request
             ;;
-        "Cancel")
-            echo "Action canceled"
-            git_select_pull_request
-            ;;
         *)
-            echo "Invalid selection"
+            git_select_pull_request
             ;;
     esac
 }
