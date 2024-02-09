@@ -152,6 +152,7 @@ pvlist(){
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
+alias ee_install_debuglibs="pip install ipdb debugpy"
 alias v12='python3.12 -m venv env'
 alias v11='python3.11 -m venv env'
 alias v10='python3.10 -m venv env'
@@ -2563,6 +2564,11 @@ _ssh_add(){
     ssh-add
 }
 alias tmux-jump='~/.config/tmux/plugins/tmux-jump/scripts/tmux-jump.sh'
+
+# for translation, use translate-shell
+# :fr "your phrase" (will translate the phrase in French)
+# NOTE: yes, you can do the same with english, just use :en
+alias trans='docker run -it soimort/translate-shell -shell'
 
 # fancy parting parrot
 alias parrot='curl parrot.live'

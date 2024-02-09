@@ -179,20 +179,19 @@ return packer.startup(function(use)
     -- use 'leafgarland/typescript-vim'
     -- use 'maxmellon/vim-jsx-pretty'
     -- For debugging, we add dap
-    -- use 'mfussenegger/nvim-dap'
-    -- use 'Pocco81/DAPInstall.nvim'
-    -- use 'mfussenegger/nvim-dap-python'
+    use 'mfussenegger/nvim-dap'
+    use 'Pocco81/DAPInstall.nvim'
+    use 'mfussenegger/nvim-dap-python'
     -- go install github.com/go-delve/delve/cmd/dlv@latest (debugger)
-    -- use 'leoluz/nvim-dap-go'
-    -- use 'rcarriga/nvim-dap-ui'
+    use 'leoluz/nvim-dap-go'
+    use 'rcarriga/nvim-dap-ui'
     -- for signature during debugging
-    --
-
     -- use 'folke/neodev.nvim'
-    -- use 'theHamsta/nvim-dap-virtual-text'
+    use 'theHamsta/nvim-dap-virtual-text'
     -- For highlights
-    -- use 'LiadOz/nvim-dap-repl-highlights'
+    use 'LiadOz/nvim-dap-repl-highlights'
 
+    use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
     -- for selecting stuff smartly
     -- Alt+V to toggle it

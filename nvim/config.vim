@@ -45,11 +45,6 @@ endfunction
 au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " --------------------- NERDTREE stuff
 
-" For the synthax
-let b:ale_linters = ['flake8']
-" Some fixers...
-let b:ale_fixers = ['eslint']
-let b:ale_fix_on_save = 1
 " ------ for silicon and screenshot from the source code
 " Generate an image of the current buffer and write it to /path/to/output.png
 " :Silicon /path/to/output.png

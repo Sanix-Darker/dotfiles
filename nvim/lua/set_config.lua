@@ -1,10 +1,16 @@
+local set = vim.opt
+local b = vim.b
+local api = vim.api
+local g = vim.g
+local cmd = vim.cmd
+local keyset = vim.keymap.set
+
 -- Enable filetype plugins
-vim.api.nvim_command('filetype plugin indent on')
+api.nvim_command('filetype plugin indent on')
 -- Enable syntax highlighting
-vim.api.nvim_command('syntax enable on')
+api.nvim_command('syntax enable on')
 
 -- set
-local set = vim.opt
 set.completeopt = {'menu', 'menuone', 'noselect'}
 -- Set to auto read when a file is changed from the outside
 set.autoread = true
@@ -115,8 +121,13 @@ set.foldlevel = 99
 -- equal distribution on splitted window
 set.equalalways = true
 
+-- for the b vars
+-- the ale vars
+b.ale_linters = {'flake8'}
+b.ale_fixers = {'eslint'}
+b.ale_fix_on_save = 1
+
 -- g var
-local g = vim.g
 -- mapleader for extra commands combinations
 g.mapleader = ','
 
@@ -179,10 +190,10 @@ g.gitgutter_sign_removed_first_line = '^'
 g.gitgutter_sign_modified_removed = 'w'
 
 -- Git Messegen colorscheme
-vim.cmd([[hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=None ctermfg=255 ctermbg=None]])
-vim.cmd([[hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111]])
-vim.cmd([[hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229]])
-vim.cmd([[hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210]])
+cmd([[hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=None ctermfg=255 ctermbg=None]])
+cmd([[hi gitmessengerHeader term=None guifg=#88b8f6 ctermfg=111]])
+cmd([[hi gitmessengerHash term=None guifg=#f0eaaa ctermfg=229]])
+cmd([[hi gitmessengerHistory term=None guifg=#fd8489 ctermfg=210]])
 -- For whichkey to have empty background
 -- vim.cmd([[hi WhichKeyFloat cterm=None guibg=None ctermbg=None ctermfg=None]])
 
@@ -199,6 +210,35 @@ g.git_messenger_floating_win_opts = { ["border"]="single" }
 g.git_messenger_extra_blame_args = ''
 g['sml#echo_yank_str'] = 1
 
+-- silicon vars
+
+------ for silicon and screenshot from the source code
+-- Generate an image of the current buffer and write it to /path/to/output.png
+-- :Silicon /path/to/output.png
+-- Generate an image of the current buffer and write it to /path/to/output.png and clipboard.
+-- :Silicon /path/to/output.png --to-clipboard
+-- Generate an image of the current buffer and write it to /path/to/<filename>.png
+-- :Silicon /path/to/
+-- Generate an image of the current visual line selection and write it to /path/to/output.png
+-- :'<,'>Silicon /path/to/output.png
+-- Generate an image of the current buffer, with the current visual line selection highlighted.
+-- :'<,'>Silicon! /path/to/output.png
+-- g.silicon = {
+--     theme              = "Dracula",
+--     font               = 'Hack',
+--     background         = '#FFFFFF',
+-- }
+-- g.silicon["shadow-color"] = '#555555'
+-- g.silicon["line-pad"] = 2
+-- g.silicon["pad-horiz"] = 80
+-- g.silicon["pad-vert"] = 80
+-- g.silicon["shadow-blur-radius"] = 0
+-- g.silicon["shadow-offset-x"] = 0
+-- g.silicon["shadow-offset-y"] = 0
+-- g.silicon["line-number"] = true
+-- g.silicon["round-corner"] = true
+-- g.silicon["window-controls"] = true
+
 -- to choose firefox as the current client for leetcode
 -- g.leetcode_browser = 'firefox'
 -- g.leetcode_solution_filetype = 'python3'
@@ -212,10 +252,17 @@ g['sml#echo_yank_str'] = 1
 
 -- hop config
 -- place this in one of your configuration file(s)
---
 local hop = require('hop')
 local directions = require('hop.hint').HintDirection
-vim.keymap.set('', 'f', function() hop.hint_char1( { direction = directions.AFTER_CURSOR, current_line_only = true }) end, {remap=true})
-vim.keymap.set('', 'F', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true }) end, {remap=true})
-vim.keymap.set('', 't', function() hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }) end, {remap=true})
-vim.keymap.set('', 'T', function() hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }) end, {remap=true})
+keyset('', 'f', function() hop.hint_char1(
+    { direction = directions.AFTER_CURSOR, current_line_only = true }
+) end, {remap=true})
+keyset('', 'F', function() hop.hint_char1(
+    { direction = directions.BEFORE_CURSOR, current_line_only = true }
+) end, {remap=true})
+keyset('', 't', function() hop.hint_char1(
+    { direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 }
+) end, {remap=true})
+keyset('', 'T', function() hop.hint_char1(
+    { direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 }
+) end, {remap=true})
