@@ -2133,8 +2133,66 @@ git_compare_online(){
     fi;
 }
 
-alias less="less -r"
+# Function to list pull requests in a table format
+git_list_pull_requests() {
+    gh pr list --json number,baseRefName,headRefName,title --jq \
+        '.[] | ["#\(.number)", .baseRefName, "<- \(.headRefName)", "\"\(.title | .[:45])\""] | @tsv' | \
+    column -s $'\t' -t
+}
 
+# Function to list pull requests and select one
+git_select_pull_request() {
+    pr_selected=$(git_list_pull_requests | \
+        fzf --ansi \
+            --header="Select Pull Request" \
+            --preview "git pr-view {1} | bat --language markdown --color=always" \
+            --preview-window=top:50 | awk '{print $1, $4, $5}')
+    pr_id=$(echo "$pr_selected" | awk '{print $1}')
+    pr_branch_name=$(echo "$pr_selected" | awk '{print $2}')
+    pr_target_branch_name=$(gh pr view $pr_id --json headRefName)
+
+    if [ -n "$pr_id" ]; then
+        git_pr_actions_menu "$pr_id" "$pr_branch_name" "$pr_target_branch_name"
+    fi
+}
+
+# Function to display actions menu for selected pull request
+git_pr_actions_menu() {
+    pr_id=$1
+    pr_branch_name=$2
+    actions=("Approve PR" "Merge PR" "Squash Merge PR" "Show Changes From PR" "Close PR" "Cancel")
+    selected_action=$(printf '%s\n' "${actions[@]}" | fzf --ansi --header="Select Action for PR #$pr_id")
+    case $selected_action in
+        "Approve PR")
+            gh pr review --approve "$pr_id"
+            ;;
+        "Merge PR")
+            gh pr merge --auto
+            ;;
+        "Squash Merge PR")
+            gh pr merge --squash --auto "$pr_id"
+            ;;
+        "Show Changes From PR")
+            git stash && \
+            git checkout "$pr_branch_name" && \
+            git-fuzzy-log-branch && \
+            git checkout - && \
+            git stash pop
+            ;;
+        "Close PR")
+            gh pr close "$pr_id"
+            ;;
+        "Cancel")
+            echo "Action canceled"
+            return
+            ;;
+        *)
+            echo "Invalid selection"
+            ;;
+    esac
+}
+
+alias less="less -r"
 _stopWatch(){
     # while true; do printf '%s\r' "$(date +%H:%M:%S:%N)"; done
     start=$(date +%s)
