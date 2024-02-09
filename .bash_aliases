@@ -2165,12 +2165,15 @@ git_pr_actions_menu() {
     case $selected_action in
         "Approve PR")
             gh pr review --approve "$pr_id"
+            git_select_pull_request
             ;;
         "Merge PR")
             gh pr merge --auto
+            git_select_pull_request
             ;;
         "Squash Merge PR")
             gh pr merge --squash --auto "$pr_id"
+            git_select_pull_request
             ;;
         "Show Changes From PR")
             git stash && \
@@ -2178,13 +2181,15 @@ git_pr_actions_menu() {
             git-fuzzy-log-branch && \
             git checkout - && \
             git stash pop
+            git_select_pull_request
             ;;
         "Close PR")
             gh pr close "$pr_id"
+            git_select_pull_request
             ;;
         "Cancel")
             echo "Action canceled"
-            return
+            git_select_pull_request
             ;;
         *)
             echo "Invalid selection"
