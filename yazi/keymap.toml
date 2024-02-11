@@ -1,0 +1,14 @@
+[manager]
+
+prepend_keymap = [
+	{ on = [ "K" ], exec = "arrow -50%", desc = "Move cursor up 5 lines" },
+	{ on = [ "J" ], exec = "arrow 50%",  desc = "Move cursor down 5 lines" },
+	{ on = [ "<C-u>" ], exec = "arrow -50%",  desc = "Move cursor down 15 lines" },
+	{ on = [ "<C-d>" ], exec = "arrow 50%", desc = "Move cursor up 15 lines" },
+	{ on = [ "<C-a>" ], exec = "select_all --state=none",            desc = "Toggle select all files" },
+	{ on = [ "T", "1" ], exec = "tab_close 0", desc = "close tab 1" },
+	{ on = [ "T", "2" ], exec = "tab_close 1", desc = "close tab 2" },
+	{ on = [ "T", "3" ], exec = "tab_close 2", desc = "close tab 3" },
+	{ on = [ "T", "4" ], exec = "tab_close 3", desc = "close tab 4" },
+	{ on = [ "<C-s>" ], exec = 'shell "$SHELL" --block --confirm', desc = "Open shell here" },
+]
