@@ -393,7 +393,7 @@ CONFIG_PATHS=(
     "rofi" "polybar"
     "git" "i3"
     "mpv" "alacritty"
-    "gh-dash" "lf"
+    "gh-dash" "yazi"
 )
 
 # Assuming we already have the dotfiles directory
@@ -1300,10 +1300,18 @@ _install_mkcert(){
     cd -
 }
 
+_install_yazi(){
+    # rust toolchain installation
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    # then install yazi-fm
+    cargo install --locked yazi-fm
+}
+alias ranger='yazi'
+
 _install_lf(){
     CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 }
-alias ranger='/home/dk/go/bin/lf'
+#alias ranger='/home/dk/go/bin/lf'
 
 _install_picocom(){
     sudo apt-get -y install picocom
@@ -1348,12 +1356,24 @@ _new_arduino_sketch(){
     arduino-cli sketch new test.ino
 }
 
-_install_basics(){
-    _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
-
-    sudo add-apt-repository ppa:git-core/ppa -y
+_install_vimiv(){
+    # to install another image viewer
+    sudo add-apt-repository ppa:enjoy-digitalguy/vimiv
     sudo apt-get update -y
+    sudo apt-get install vimiv -y
+}
 
+_install_nsxiv(){
+    # an image preview for windows managers
+    cd /tmp
+    git clone https://github.com/nsxiv/nsxiv.git && cd nsxiv
+    make && sudo make install
+
+    nsxiv --version
+    cd -
+}
+
+_install_raw_basics(){
     # sudo apt-get install type
     devStack=(
         "build-essential"
@@ -1369,6 +1389,8 @@ _install_basics(){
         "tar" "zip" "unzip" "curl"
         "gcc" "g++" "make"
 
+        "mcomix" "unrar"
+
         # "docker" "docker-compose" (done from _install_docker)
         "git" "hub" "snap"
         # "zeal" # not needed as a basic installation, i may change that later
@@ -1379,6 +1401,9 @@ _install_basics(){
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
         "libbz2-dev"
         "libjpeg-dev" "libpam0g-dev"
+        "libx11-dev" "libimlib2-dev" "libxft-dev"
+        "libexif-dev"
+
         "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
@@ -1394,6 +1419,16 @@ _install_basics(){
             _echo_black "[.]installed $i successfully !" || \
             _echo_red "[x]error installing $i"
     done
+}
+
+_install_basics(){
+    _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
+
+    sudo add-apt-repository ppa:git-core/ppa -y
+    sudo apt-get update -y
+
+    # some apt utils
+    _confirm "Install raw basics apt packages ?" _install_raw_basics
 
     # Install cargo's cat (bat)
     _confirm "Install bat (cat for cargo) ?" cargo install bat
@@ -1414,7 +1449,7 @@ _install_basics(){
     _confirm "Install golang ?" _install_golang
 
     # Install lf (ranger) like a file manager
-    _confirm "Install lf (like ranger) as a file manager ?" _install_lf
+    _confirm "Install yazi (like ranger) as a file manager ?" _install_yazi
 
     # set nerd-fonts
     _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
@@ -2366,47 +2401,57 @@ jira_exec_cli(){
 
 # vagrant stuffs
 # ---------------------------------------
-_vup(){
+# _vgup ubu
+_vgup(){
     vmm=$1
     mkdir -p ~/vagrant/shared/dk/$1
     cd $HOME/vagrant/vms/$vmm
     vagrant up
     cd -
 }
-_vdown(){
+# _vgdown ubu
+_vgdown(){
     vmm=$1
     mkdir -p ~/vagrant/shared/dk/$1
     cd $HOME/vagrant/vms/$vmm
     vagrant halt
     cd -
 }
-_vlistvmsconfs(){
+# _vglistvmsconfs
+_vglistvmsconfs(){
     echo "> available vms :"
     ls -al $HOME/vagrant/vms
 }
-_vlistbox(){
+# _vglistbox
+_vglistbox(){
     vagrant box list
 }
-_vlistvms(){
+# _vglistvms
+_vglistvms(){
     VBoxManage list vms
 }
-_vssh(){
+# _vgssh ubu
+_vgssh(){
     vmm=$1
     cd $HOME/vagrant/vms/$vmm
     vagrant ssh
     cd -
 }
-_vdestroy(){
+# _vgdestroy ubu
+_vgdestroy(){
     vagrant destroy -f $@
 }
-_vdestroyvm(){
+# _vgdestroyvm ubu
+_vgdestroyvm(){
     _vdown $@
     VBoxManage unregistervm $@ --delete
 }
-_vstatus(){
+# _vgstatus
+_vgstatus(){
     vagrant global-status
 }
-_vremove(){
+# _vgremove ubu
+_vgremove(){
     vmm=$1
     vagrant box remove $vmm
 }
