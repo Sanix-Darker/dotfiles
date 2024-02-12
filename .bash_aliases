@@ -1241,7 +1241,7 @@ _fix_ssh_key(){
     chmod 600 /home/dk/.ssh/id_ed25519
 }
 
-# for git
+# for git, generate or get
 _generate_gpg_keys(){
     GPG_KEY=$(gpg --list-secret-keys --keyid-format LONG | awk '/^sec/ { getline; print $1 }')
     if [ -z $GPG_KEY ]; then

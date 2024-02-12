@@ -538,3 +538,5 @@
 ; while resolving them on a rebase for example
 [rerere]
 	enabled = true
+[column]
+	ui = auto
