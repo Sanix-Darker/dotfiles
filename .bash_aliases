@@ -496,6 +496,10 @@ _source_dev_stack(){
 }
 
 
+_set_gnome_dark_theme(){
+    echo -ne "[Settings]\n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/settings.ini
+}
+
 _install_android_studio(){
     sudo add-apt-repository ppa:maarten-fonville/android-studio -y
     sudo apt-get update -y

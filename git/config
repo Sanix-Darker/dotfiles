@@ -533,3 +533,8 @@
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
     ignores = !git ls-files --other --ignored --exclude-standard
+
+; This allow all conflicts to not been repeated over and over
+; while resolving them on a rebase for example
+[rerere]
+	enabled = true
