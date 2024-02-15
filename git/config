@@ -20,6 +20,8 @@
     clean = grep -v NOCOMMIT
 
 [core]
+    ; fsmonitor = true
+    ; untrackedcache = true
     pager = delta
     editor = nvim
     excludesfile = ~/.config/git/.gitignore_global
@@ -87,6 +89,9 @@
     ; If the project is already clone, we just need to update submodules
     ; git submodule update --init --recursive
     ; a good gist tutorial for that : https://gist.github.com/gitaarik/8735255
+    fza = "!git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 git add"
+    gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
+    root = rev-parse --show-toplevel
 
     ; hide already tracked files from the git status/diff...
     hide = update-index --skip-worktree
@@ -142,11 +147,6 @@
     pr-view = !gh pr view
     pr-review = !bash -ic 'git_select_pull_request'
 
-    pr-approve = !bash -ic '_confirm \"Sure you want to approve PR-\"$@\" ??\" gh pr review --approve \"$@\" && git pr-list' x
-    pr-close = !bash -ic '_confirm \"Sure you want to close PR-\"$@\" ??\" gh pr close \"$@\" && git pr-list' x
-    pr-merge = !bash -ic '_confirm \"Sure you want to merge PR-\"$@\" ??\" gh pr merge --squash --auto \"$@\" && git pr-list' x
-    pr-squash-merge = !bash -ic '_confirm \"Sure you want to squash-merge PR-\"$@\" ??\" gh pr merge --squash --auto \"$@\" && git pr-list' x
-
     ; to list all available pull requests
     ; Ex: git pr-view 23
     ; to edit a PR alreadly available
@@ -185,7 +185,7 @@
     release-to = !EDITOR=nvim gh release create --target
 
     ; to get the branch from which were made the release
-    get-branch-tag = !git branch -a --contains tags/\"$1\"
+    get-branch-tag = !git branch -a --contains tags \"$1\"
 
     ; to list commits from the current branch
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
@@ -538,5 +538,10 @@
 ; while resolving them on a rebase for example
 [rerere]
 	enabled = true
-[column]
-	ui = auto
+
+;[column]
+;	ui = auto
+
+; to cron job update the repo
+; [maintenance]
+;     repo = /home/dk/ACTUALC/toucantoco/laputa

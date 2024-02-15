@@ -210,6 +210,8 @@ alias rd=_rd
 _git_status_if_git_repo(){
     # if the .git is present, then run git status
     if [[ -d ".git" ]]; then
+        # interesting to get up to date cron job to update the repo
+        # git maintenance start # <-- comment this after
         git status
     fi
 }
@@ -1374,6 +1376,17 @@ _install_nsxiv(){
     make && sudo make install
 
     nsxiv --version
+    cd -
+}
+
+_install_grpcurl(){
+    cd /tmp
+
+    curl -LO "https://github.com/fullstorydev/grpcurl/releases/download/v1.8.9/grpcurl_1.8.9_linux_x86_64.tar.gz"
+    tar xzf grpcurl_1.8.9_linux_x86_64.tar.gz
+    sudo mv grpcurl /usr/local/bin/
+
+    grpcurl --version
     cd -
 }
 
