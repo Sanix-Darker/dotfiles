@@ -1390,11 +1390,21 @@ _install_grpcurl(){
     cd -
 }
 
+_install_balena_etcher(){
+    # to run : sudo balena-etcher --no-sandbox
+    cd /tmp
+    wget https://github.com/balena-io/etcher/releases/download/v1.19.5/balena-etcher_1.19.5_amd64.deb
+    mv ./balena-etcher_1.19.5_amd64.deb ./balena-etcher.deb
+    sudo apt-get install ./balena-etcher.deb -y
+    cd -
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
         "build-essential"
         "software-properties-common"
+        "net-tools"
 
         "curl" "wget" "tree"
         "apt-transport-https"
