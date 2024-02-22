@@ -205,6 +205,7 @@ return packer.startup(function(use)
     -- The lua alternative (looks SO SLOOOOOWWWW)
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'windwp/nvim-ts-autotag'
 
     -- For the smooth scroll
     use 'karb94/neoscroll.nvim'

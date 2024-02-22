@@ -115,15 +115,20 @@ require'nvim-treesitter.configs'.setup {
         return vim.api.nvim_buf_line_count(bufnr) > 10000
     end,
   },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "vI",
-        node_incremental = "vI",
-        scope_incremental = false,
-        node_decremental = "<bs>",
-      },
+  -- enable indentation
+  indent = { enable = true },
+  autotag = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "vI",
+      node_incremental = "vI",
+      scope_incremental = false,
+      node_decremental = "<bs>",
     },
+  },
 }
 
 -- setup context nvim
