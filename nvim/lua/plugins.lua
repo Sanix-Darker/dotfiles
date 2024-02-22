@@ -195,7 +195,7 @@ return packer.startup(function(use)
     -- hjkl with Treesitter
     -- for selecting stuff smartly
     -- Alt+V to toggle it
-    use 'gsuuon/tshjkl.nvim'
+    -- use 'gsuuon/tshjkl.nvim'
 
     -- For the sticky header
     -- use 'wellle/context.vim'
@@ -204,6 +204,7 @@ return packer.startup(function(use)
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     -- The lua alternative (looks SO SLOOOOOWWWW)
     use 'nvim-treesitter/nvim-treesitter-context'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
 
     -- For the smooth scroll
     use 'karb94/neoscroll.nvim'

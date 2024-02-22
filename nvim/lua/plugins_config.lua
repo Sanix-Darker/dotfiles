@@ -70,6 +70,13 @@ require("fidget").setup {}
 -- for treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
+      "typescript",
+      "tsx",
+      "prisma",
+      "markdown",
+      "markdown_inline",
+      "svelte",
+      "gitignore",
       "c",
       "lua",
       "vim",
@@ -108,6 +115,15 @@ require'nvim-treesitter.configs'.setup {
         return vim.api.nvim_buf_line_count(bufnr) > 10000
     end,
   },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "vI",
+        node_incremental = "vI",
+        scope_incremental = false,
+        node_decremental = "<bs>",
+      },
+    },
 }
 
 -- setup context nvim
@@ -122,13 +138,6 @@ require'treesitter-context'.setup{
   separator = nil,
   zindex = 20,
   on_attach = nil,
-}
-
--- setup treesitter but with hjkl
-require('tshjkl').setup{
-    keymaps = {
-      toggle = '<Leader>N',
-    },
 }
 
 -- setup qbf
