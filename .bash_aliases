@@ -1077,24 +1077,22 @@ _install_ruby(){
 }
 
 _install_golang(){
-    _echo_blue "> Installing golang..."
 
     #sudo apt update -y && sudo apt upgrade -y
     #sudo apt install golang-go -y # it's install 1.13
 
     # force installation of go1.21
-    local VERSION="1.21.0"
-    cd /tmp
-
+    local VERSION="1.22.0"
+    _echo_blue "> Installing golang v${VERSION}..."
+    cd /tmp || exit
     sudo apt-get update -y
-    wget https://go.dev/dl/go$VERSION.linux-amd64.tar.gz
-    sudo tar -xvf go$VERSION.linux-amd64.tar.gz
-    sudo mv go /usr/local
+    wget "https://golang.org/dl/go${VERSION}.linux-amd64.tar.gz"
+    sudo rm -rf /usr/local/go
+    sudo tar -C /usr/local -xzf "go${VERSION}.linux-amd64.tar.gz"
     source ~/.bashrc
 
     # To check the golang version installed
     go version
-
     cd -
 }
 
@@ -2215,7 +2213,7 @@ git_select_pull_request() {
         fzf --ansi \
             --header="Select Pull Request" \
             --preview "git pr-view {1} | bat --language markdown --color=always" \
-            --preview-window=top:50 | awk '{print $1, $2, $4}')
+            --preview-window=top:40 | awk '{print $1, $2, $4}')
     pr_id=$(echo "$pr_selected" | awk '{print $1}' | sed 's/#//')
     pr_target_branch_name=$(echo "$pr_selected" | awk '{print $2}')
     pr_branch_name=$(echo "$pr_selected" | awk '{print $3}')
@@ -2234,7 +2232,7 @@ git_pr_actions_menu() {
         fzf --ansi \
         --header="Select Action for PR #$pr_id" \
         --preview "gh pr checks $pr_id | column -s $'\t' -t" \
-        --preview-window=top:50)
+        --preview-window=top:30)
     case $selected_action in
         "Approve PR")
             gh pr review --approve "$pr_id"

@@ -255,6 +255,11 @@ return packer.startup(function(use)
     -- csw"
     -- S' (in visual selection)
     use 'tpope/vim-surround'
+    -- same loggic but much more interesing
+    -- like :
+    -- cin) -- change inside next parentheses
+    -- v2i" -- visual select inside the upper quote in case of nested quotes
+    use 'wellle/targets.vim'
     -- For multicursor (need more mappings)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
     -- For PHP
