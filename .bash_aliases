@@ -2786,38 +2786,30 @@ alias zed='/usr/bin/zed'
 # OpenAi bash util.
 # How to use: _ give me this and that.
 _(){
-    PROMPT=$@
+    # Combine all arguments into a single string
+    PROMPT="$@"
 
     # Ensure that OPENAI_API_KEY is set
     if [ -z "$OPENAI_API_KEY" ]; then
-        echo "> No $OPENAI_API_KEY env var found."
+        echo "> No \$OPENAI_API_KEY env var found."
         return
     fi
 
-    # No more 200 characters sent
+    # No more than 450 characters sent
     if [ ${#PROMPT} -gt 450 ]; then
         echo "> No more than 450 characters please."
         return
     fi
+
     # Let's track my prompts
-    echo $PROMPT >> /tmp/gpt-input
+    echo "$PROMPT" >> /tmp/gpt-input
 
-    PAYLOAD="{ \
-        \"model\": \"gpt-3.5-turbo\", \
-        \"temperature\": 0.7, \
-        \"messages\": [
-            {
-                \"role\": \"system\",
-                \"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"
-            },
-            {
-                \"role\": \"user\",
-                \"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"
-            }
-        ] \
-    }"
-    _start_spinner # We start the spinner
+    # Prepare JSON payload
+    PAYLOAD="{\"model\": \"gpt-3.5-turbo\",\"temperature\": 0.7,\"messages\": [ {\"role\": \"system\",\"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"}, {\"role\": \"user\",\"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"} ] }"
 
+    _start_spinner # Start the spinner
+
+    # Call OpenAI API
     curl -LSs --max-time 40 \
     https://api.openai.com/v1/chat/completions \
     -H "Content-Type: application/json" \
@@ -2826,9 +2818,9 @@ _(){
     | jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
     > /tmp/gpt-output
 
-    _stop_spinner # we stop the spinner
+    _stop_spinner # Stop the spinner
 
-    # Doing this to reuse the content
+    # Reusing the content
     cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
 }
 # What if i have a function in my clipboard
