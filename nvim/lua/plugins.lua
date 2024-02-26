@@ -479,6 +479,9 @@ return packer.startup(function(use)
     use 'stevearc/vim-arduino'
     use 'glebzlat/Arduino.nvim'
 
+    -- hightlight unicode characters
+    -- :TrollStop to replace all unicodes by valid characters
+    use 'vim-utils/vim-troll-stopper'
     --" For syntax highlighting on a lot of stuffs
     use 'sheerun/vim-polyglot'
 	if PACKER_BOOTSTRAP then

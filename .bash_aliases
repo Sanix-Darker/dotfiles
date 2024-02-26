@@ -2808,7 +2808,7 @@ _(){
         \"messages\": [
             {
                 \"role\": \"system\",
-                \"content\": \"You're a software engineer, that give solusion as source code if possible, no need for comments in the code; no need to explain something.\"
+                \"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"
             },
             {
                 \"role\": \"user\",
@@ -2816,8 +2816,6 @@ _(){
             }
         ] \
     }"
-    # echo $PAYLOAD
-
     _start_spinner # We start the spinner
 
     curl -LSs --max-time 40 \
