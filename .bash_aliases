@@ -1402,7 +1402,7 @@ _install_raw_basics(){
     devStack=(
         "build-essential"
         "software-properties-common"
-        "net-tools"
+        "net-tools" "gnupg-agent"
 
         "curl" "wget" "tree" "jq"
         "apt-transport-https"
