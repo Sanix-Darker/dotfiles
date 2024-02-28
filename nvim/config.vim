@@ -90,7 +90,6 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore bower_components --ignore __pyc
 let $FZF_DEFAULT_OPTS="--bind \"ctrl-d:preview-down,ctrl-u:preview-up\""
 let $BAT_THEME='base16-256'
 let $COLORTERM="truecolor"
-set termguicolors
 
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -154,7 +153,6 @@ endfunction
 
 " set thosse elements depending on the filetype am inside
 au FileType yaml,yml set cursorcolumn
-
 " To add the proper PEP8 indentation
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -164,13 +162,13 @@ au BufNewFile,BufRead *.py
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
-
 " To activate the rest plugin if we're inside a rest file
 au BufNewFile,BufRead *.rest set ft=rest
 
 " We want everything fold depending on the synthax when we jump into it
 set foldmethod=manual
 set foldnestmax=1
+set termguicolors
 
 " Flagging Unnecessary Whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
@@ -223,8 +221,4 @@ highlight CursorLine ctermbg=236 ctermfg=None
 au ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE ctermfg=NONE
 " Minimap highlight
 " au ColorScheme * highlight minimapRange ctermbg=236 ctermfg=2 guibg=236 guifg=#0089D9
-
-"" extra settings, uncomment them if necessary :)
-"set cursorline
-"set noshowmode
 " >> trasparent end

@@ -1404,7 +1404,7 @@ _install_raw_basics(){
         "software-properties-common"
         "net-tools"
 
-        "curl" "wget" "tree"
+        "curl" "wget" "tree" "jq"
         "apt-transport-https"
         "lsb-release" "ca-certificates"
 

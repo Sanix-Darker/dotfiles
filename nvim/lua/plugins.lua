@@ -40,7 +40,7 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
-	use "wbthomason/packer.nvim" -- Have packer manage itself
+    use "wbthomason/packer.nvim" -- Have packer manage itself
 
     -- for big files (this will disable a lot of stuff when a file is huge to
     -- be open in a buffer)

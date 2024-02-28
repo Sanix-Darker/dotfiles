@@ -2,7 +2,8 @@
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
-    signingkey = 71F212ED303E2DC919438BE4925112BFCE05A8B8
+	# signingkey = 71F212ED303E2DC919438BE4925112BFCE05A8B8
+	signingkey = 99D6D38459517A926C6270F7E74B822C8F2C7EDB
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

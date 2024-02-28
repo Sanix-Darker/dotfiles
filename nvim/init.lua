@@ -1,3 +1,5 @@
+-- the list of available plugins
+require('plugins')
 _G.__luacache_config = {
     chunks = {
         enable = true,
@@ -15,8 +17,6 @@ vim.cmd('source ~/.config/nvim/config.vim')
 require('impatient')
 -- all set configurations
 require('set_config')
--- the list of available plugins
-require('plugins')
 -- to import plugins configurations
 require('plugins_config')
 -- for my keymaps
