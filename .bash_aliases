@@ -946,7 +946,7 @@ _install_tmux(){
     sudo apt-get install bison flex -y
 
     # VERSION="3.1c" # i need something fast ABEK
-    VERSION="3.3" # because i can
+    VERSION="3.4" # because i can
     # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     WHERE_I_WAS=$PWD
 
@@ -954,17 +954,17 @@ _install_tmux(){
     # A requirement for the compilation of tmux
     sudo apt install libevent-dev -y
     cd /tmp
-    _echo_blue "> Getting tmux $VERSION..."
-    wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
-    tar xf tmux-${VERSION}.tar.gz
-    rm -f tmux-${VERSION}.tar.gz
+
+    # getting tmux only if it's not yet downloaded
+    if [ ! -f "tmux-${VERSION}.tar.gz" ]; then
+        _echo_blue "> Getting tmux $VERSION..."
+        wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
+        tar xf tmux-${VERSION}.tar.gz #&& rm -f tmux-${VERSION}.tar.gz
+    fi;
 
     _echo_blue "> Compile tmux $VERSION..."
     cd tmux-${VERSION}
-    bash ./autogen.sh
-    ./configure
-    make
-    sudo make install
+    bash ./autogen.sh && ./configure && make && sudo make install
 
     _echo_blue "> Set to appropriate path v$VERSION..."
     cd -

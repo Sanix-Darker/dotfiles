@@ -1,4 +1,5 @@
-; A sick config i should inspire my self too : https://github.com/kbd/setup/blob/e23b3e8e2363284c3c766c0be2211f46c745354a/HOME/.config/git/config#L110
+; A sick config i should inspire my self too :
+; https://github.com/kbd/setup/blob/e23b3e8e2363284c3c766c0be2211f46c745354a/HOME/.config/git/config#L110
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
