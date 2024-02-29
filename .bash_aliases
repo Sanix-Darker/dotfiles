@@ -1415,6 +1415,7 @@ _install_raw_basics(){
         "gcc" "g++" "make"
 
         "mcomix" "unrar"
+        "pulseaudio" "blueman" # audio and bluetooth
 
         # "docker" "docker-compose" (done from _install_docker)
         "git" "hub" "snap"
