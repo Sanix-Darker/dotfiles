@@ -18,10 +18,10 @@ key_bindings:
 window:
   opacity: 0.7
 
-# font:
-#   normal:
-#     family: "Hack"
-#     style: Regular
+font:
+  normal:
+    family: "Hack"
+    style: Regular
 
 colors:
   # Default colors
