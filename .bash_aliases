@@ -2884,3 +2884,77 @@ _alert_tg(){
 # some error related to my python3.11 installation, no time to investigate more, will check
 # later.
 alias arandr='/usr/bin/python3.8 $(which arandr)'
+
+_smart_syncer(){
+    local dotfiles_dir="$HOME/dotfiles"
+    local config_dir="$HOME/.config"
+    local threshold=70
+    local difference
+
+    # Initialize some variables
+    local largest_difference=0
+    local largest_difference_path=""
+    local latest_modified_dotfiles=$(stat -c %Y "$dotfiles_dir")
+
+    local CONFIG_PATH_TO_SYNC=(
+        "$HOME/.config/autostart"
+        "$HOME/.config/nvim"
+        "$HOME/.config/rofi" "$HOME/.config/polybar"
+        "$HOME/.config/git" "$HOME/.config/i3"
+        "$HOME/.config/mpv" "$HOME/.config/alacritty"
+        "$HOME/.config/gh-dash" "$HOME/.config/yazi"
+        "$HOME/.bash_aliases" "$HOME/.bashrc"
+    )
+    for path in "${CONFIG_PATH_TO_SYNC[@]}"; do
+        latest_modified_config=$(find "$path" -maxdepth 1 -type f -printf '%T@ %p\n' | sort -n | tail -1 | awk '{print int($1)}')
+
+        difference=$(( (latest_modified_config - latest_modified_dotfiles) / 60 ))  # Convert seconds to hours
+
+        if [ "$difference" -gt "$largest_difference" ]; then
+            _echo_white "$path :: diff->$difference \c"
+            _echo_red "<<<<<<"
+            largest_difference=$difference
+            largest_difference_path="$path"
+        else
+            _echo_black "$path :: diff->$difference"
+        fi
+    done
+
+    # Calculate the ratio percentage
+    local total_diff=$((largest_difference + 1))  # surtout pour eviter des trucs chelous genre 3/0 mdr
+    local ratio=$((100 * largest_difference / total_diff))
+
+    _echo_black "ratio: $ratio"
+    _echo_black "total_diff: $total_diff"
+    _echo_black "difference: $difference"
+    _echo_black "largest_difference: $largest_difference"
+    _echo_black "largest_difference_path: $largest_difference_path"
+    _echo_black "latest_modified_config: $latest_modified_config"
+    _echo_black "latest_modified_dotfiles: $latest_modified_dotfiles"
+    # If ratio percentage is above the threshold, run _push_dot_files
+    if [ "$ratio" -gt "$threshold" ]; then
+        _confirm "Too much diff with ~/.config and dotfiles, auto sync+push ?" _push_dot_files
+    else
+        _echo_white "No need for a ~/.config sync"
+    fi
+}
+# check for the latest sync then trigger an automatic sync
+_auto_smart_syncer(){
+    # just to log the timestamp of the latest time this autosync got called
+    local last_config_auto_sync="$HOME/.last_config_auto_sync"
+
+    if [ -f "$last_config_auto_sync" ]; then
+        last_execution_time=$(cat "$last_config_auto_sync")
+        current_time=$(date +%s)
+        time_difference=$((current_time - last_execution_time))
+
+        if [ "$time_difference" -ge 36000 ]; then # 10h en principe
+            _smart_syncer
+            echo "$current_time" > "$last_config_auto_sync"
+        fi
+    else
+        _smart_syncer
+        echo "$(date +%s)" > "$last_config_auto_sync"
+    fi
+}
+_auto_smart_syncer
