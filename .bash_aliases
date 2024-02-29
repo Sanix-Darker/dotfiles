@@ -1397,6 +1397,14 @@ _install_balena_etcher(){
     cd -
 }
 
+_install_drivers(){
+    sudo add-apt-repository ppa:graphics-drivers/ppa
+    sudo apt update -y
+    sudo apt upgrade -y
+    sudo ubuntu-drivers autoinstall
+    _confirm "reboot (recommended) ? " sudo reboot
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
@@ -1619,6 +1627,8 @@ _install_dev_stack(){
     _confirm "Install slack (company messaging app)" _install_slack
     _confirm "Install thunderbird (email app)" _install_thunderbird
     _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
+
+    _confirm "Install mpv player and ytb ?" _install_mpv
 
     # need this step to have stuff loaded.
     _confirm "Set Dotfiles accross the .config ?" _set_dot_files
