@@ -1,10 +1,8 @@
-[[colors.indexed_colors]]
-color = "0xd18616"
-index = 16
-
-[[colors.indexed_colors]]
-color = "0xffa198"
-index = 17
+[colors]
+indexed_colors = [
+  { color = "0xd18616", index = 16 },
+  { color = "0xffa198", index = 17 }
+]
 
 [colors.bright]
 black = "0x6e7681"
