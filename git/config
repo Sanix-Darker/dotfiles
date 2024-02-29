@@ -127,6 +127,7 @@
     base = !git checkout
 
     ; because am lazy and i asume it
+    ; git merge --allow-unrelated-histories -X theirs origin/master
     merge-take-theirs = !git merge --strategy-option=theirs
     merge-take-ours = !git merge --strategy-option=ours
 

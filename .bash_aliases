@@ -152,7 +152,12 @@ pvlist(){
 
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
-alias ee_install_debuglibs="pip install ipdb debugpy"
+# to fix distlib
+# pip install --upgrade --force-reinstall distlib
+# to fix package
+# No module named 'packaging.metadata'
+# pip install --upgrade setuptools wheel && pip install --upgrade packaging
+alias ee_install_debuglibs="pip install -U poetry ipdb debugpy"
 alias v12='python3.12 -m venv env'
 alias v11='python3.11 -m venv env'
 alias v10='python3.10 -m venv env'
@@ -160,6 +165,8 @@ alias v8='python3.8 -m venv env'
 
 alias de='deactivate'
 alias p='python3'
+# alias python='python3.11'
+# alias python3='python3.11'
 # the default size installed by default sucks
 alias size='du -sh'
 
@@ -975,7 +982,7 @@ _install_tmux(){
 
     cd $WHERE_I_WAS
 
-    if [ -d "~/.tmux/plugins/tpm" ]; then
+    if [ ! -d "~/.tmux/plugins/tpm" ]; then
         _echo_blue "> Installing tpm..."
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi;
