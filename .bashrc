@@ -234,6 +234,8 @@ export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # for python
 export PATH=$PATH:$(which python3.10)
 export PATH=$PATH:$(which python3.11)
+# for firefox
+export PATH=$PATH:$(which firefox)
 
 # ~/.tmux/plugins
 # export PATH=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin:$PATH

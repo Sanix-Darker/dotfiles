@@ -1035,10 +1035,9 @@ _install_docker(){
     sudo systemctl status docker
 
     _echo_green ":::READ THIS LAZY BOY::: Now to make in run without sudo, please check for the instructions"
+    _echo_red "> sudo groupadd docker"
     _echo_red "> sudo usermod -aG docker ${USER}"
-    _echo_red "> su - ${USER}"
-    _echo_red "> groups"
-    _echo_red "> sudo usermod -aG docker username"
+    _echo_red "> newgrp docker"
 }
 
 _install_glow(){
