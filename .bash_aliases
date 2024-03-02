@@ -1038,6 +1038,10 @@ _install_docker(){
     _echo_red "> sudo groupadd docker"
     _echo_red "> sudo usermod -aG docker ${USER}"
     _echo_red "> newgrp docker"
+    _echo_red "> docker ps (does it works ?) if not, continue with the list below"
+    _echo_red "> ls -l /var/run/docker.sock"
+    _echo_red "> sudo chmod 666 /var/run/docker.sock"
+    _echo_red "> sudo systemctl restart docker"
 }
 
 _install_glow(){
@@ -2653,7 +2657,11 @@ docker_postgres_exec(){
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"
-    yt-dlp -o - "$link" | mpv -
+    # Check if the content is a YouTube link
+    if [[ $link =~ ^https?://(www\.)?youtube\.com/watch\?v=.* ]]; then
+        yt-dlp -o - "$link" | mpv -
+        return
+    fi
 }
 alias yv='_yv'
 
