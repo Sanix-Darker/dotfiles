@@ -50,13 +50,75 @@ _echo_red(){
 _echo_yellow(){
     echo -ne "$YELLOW$@$COLOROFF\n";
 }
-
 _lower_case(){
-    awk '{print tolower($0)}'
+    echo "$@" | tr '[:upper:]' '[:lower:]'
+}
+_upper_case(){
+    echo "$@" | tr '[:lower:]' '[:upper:]'
 }
 
-_upper_case(){
-    awk '{print toupper($0)}'
+# Generate random string input
+# random_str=$(_random_string 10)
+_generate_random_string(){
+  local length=$1
+  [ -z "$length" ] && length=10
+  tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
+}
+
+# Small custom spinner
+# Usage:
+#   _start_spinner
+#   your_command_that_may_takes_long
+#   _stop_spinner
+_start_spinner(){
+    _spinner(){
+        echo -n "> loading" && \
+            while true; do echo -n "."; sleep 1; done;
+    }
+    _spinner &
+    _SPINNER_PID=$! #<-- ici, we save the PID of the spinner process
+}
+_stop_spinner(){
+    # Kill the _spinner process using its PID
+    kill $_SPINNER_PID
+}
+
+# To check either something is installed or not
+# Ex: _installed neofetch
+# OR : $ _installed neofetch && echo "Installed" || echo "Nope"
+_installed(){
+    $(command -v $@ > /dev/null) && [[ $? == 0 ]] && return 0 || return 1
+}
+
+# With a given message as input, this function will execute anything
+# after the second argument passed
+# Ex : _confirm "Message" echo "test"
+_confirm(){
+    # We need a bypass param to run all installations without handling
+    # anykind of confirmation, that's the reason of $NOTINTERACTIVE
+    # variables. For example :
+    #
+    # NOTINTERACTIVE=1 _install_basics
+    #
+    args=("${@}")
+    if [[ $NOTINTERACTIVE = "1" ]]; then
+        _echo_blue "[+] ${args[0]} "
+        callback=${args[@]:1}
+        $callback
+    else
+        _echo_blue "[-] ${args[0]} "
+        read -p "[?] (Y/y): " -n 1 -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            # clear
+            # echo -e "$BLUE[+] ${args[0]} $COLOROFF"
+            callback=${args[@]:1}
+            # echo ">>" $callback
+            $callback
+            _echo_white "-------------------------------------------"
+        fi;
+    fi;
+    echo
 }
 
 # for all git + fzf commands
@@ -170,7 +232,6 @@ alias v12='python3.12 -m venv env'
 alias v11='python3.11 -m venv env'
 alias v10='python3.10 -m venv env'
 alias v8='python3.8 -m venv env'
-
 alias de='deactivate'
 alias p='python3'
 # alias python='python3.11'
@@ -255,6 +316,27 @@ _lsport(){
     sudo ss -lptn "sport = :$1"
 }
 alias lsport=_lsport
+
+_search_isos(){
+    local selected_link=$(cat <<EOF | fzf
+https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.5.0-amd64-DVD-1.iso
+http://ftp.pasteur.fr/mirrors/CentOS/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everything-2009.iso
+http://ftp.pasteur.fr/mirrors/CentOS/7.9.2009/isos/x86_64/CentOS-7-x86_64-Minimal-2207-02.iso
+https://distro.ibiblio.org/damnsmall/current/dsl-4.4.10-syslinux.iso
+https://arch.mirror.winslow.cloud/iso/2024.03.01/archlinux-2024.03.01-x86_64.iso
+https://download.fedoraproject.org/pub/fedora/linux/releases/39/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-39-1.5.iso
+https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-installer-amd64.iso
+https://cdimage.ubuntu.com/kubuntu/releases/22.04.4/release/kubuntu-22.04.4-desktop-amd64.iso
+EOF
+)
+
+    if [ -n "$selected_link" ]; then
+        cd ~/Downloads/
+        local filename=$(basename $selected_link)
+        _confirm "Download $filename ?" wget $selected_link
+        cd -
+    fi
+}
 
 # git search on any history of a repository
 # s or search
@@ -527,23 +609,32 @@ _install_android_studio(){
         android-tools-fastboot
 }
 
-_install_vagrant(){
-    sudo apt-get update -y
-    # install virtualbox
+_install_virtualbox(){
+    cd /tmp
+
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-
     sudo apt-get install virtualbox-6.1 -y
     wget https://download.virtualbox.org/virtualbox/6.1.8/Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
     sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.8.vbox-extpack
 
+    cd -
+}
+
+_install_vagrant(){
+    cd /tmp
+    sudo apt-get update -y
+    # install virtualbox
+    _confirm "Install Virtualbox ?" _install_virtualbox
+
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 
-    cd /tmp
     wget https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
     sudo apt install ./vagrant_2.2.19_x86_64.deb -y
     vagrant --version
+
+    cd -
 }
 
 _install_alacritty(){
@@ -747,84 +838,6 @@ _install_python_stuffs(){
         curl -sS https://bootstrap.pypa.io/get-pip.py | python$pV
     done;
  }
-
-# Usage
-# random_str=$(_random_string 10)
-_random_string(){
-  local length=$1
-  [ -z "$length" ] && length=10
-  tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
-}
-
-# Usage
-# _log_group docker logs -f x,docker logs -f y
-_tail_group(){
-    local commands="$1"
-    local STREAM_PIDS = ""
-
-    # Split the commands using comma as delimiter
-    IFS=',' read -ra cmds <<< "$commands"
-
-    # Start each command in the background and save the PID
-    for cmd in "${cmds[@]}"; do
-        $cmd &
-        STREAM_PIDS="$STREAM_PIDS/proc/$!/fd/1,"
-    done
-
-    # Tail the output of each process in a single command
-    echo $STREAM_PIDS
-
-    tail -f "{$STREAM_PIDS}"
-}
-
-# Small custom spinner
-# Usage:
-#   _start_spinner
-#   your_command_that_may_takes_long
-#   _stop_spinner
-_start_spinner(){
-    _spinner(){
-        echo -n "> loading" && \
-            while true; do echo -n "."; sleep 1; done;
-    }
-    _spinner &
-    _SPINNER_PID=$! #<-- ici, we save the PID of the spinner process
-}
-_stop_spinner(){
-    # Kill the _spinner process using its PID
-    kill $_SPINNER_PID
-}
-
-# With a given message as input, this function will execute anything
-# after the second argument passed
-# Ex : _confirm "Message" echo "test"
-_confirm(){
-    # We need a bypass param to run all installations without handling
-    # anykind of confirmation, that's the reason of $NOTINTERACTIVE
-    # variables. For example :
-    #
-    # NOTINTERACTIVE=1 _install_basics
-    #
-    args=("${@}")
-    if [[ $NOTINTERACTIVE = "1" ]]; then
-        _echo_blue "[+] ${args[0]} "
-        callback=${args[@]:1}
-        $callback
-    else
-        _echo_blue "[-] ${args[0]} "
-        read -p "[?] (Y/y): " -n 1 -r
-        if [[ $REPLY =~ ^[Yy]$ ]]
-        then
-            # clear
-            # echo -e "$BLUE[+] ${args[0]} $COLOROFF"
-            callback=${args[@]:1}
-            # echo ">>" $callback
-            $callback
-            _echo_white "-------------------------------------------"
-        fi;
-    fi;
-    echo
-}
 
 _install_mpv(){
     sudo apt update -y
@@ -1423,6 +1436,21 @@ _install_drivers(){
     _confirm "reboot (recommended) ? " sudo reboot
 }
 
+_install_youtube_dl(){
+    cd /tmp
+
+    sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
+    sudo chmod a+rx /usr/local/bin/youtube-dl
+
+    cd -
+}
+
+_install_woeusb(){
+    sudo add-apt-repository ppa:tomtomtom/woeusb -y
+    sudo apt update -y
+    sudo apt install woeusb woeusb-frontend-wxgtk -y
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
@@ -1433,6 +1461,7 @@ _install_raw_basics(){
         "curl" "wget" "tree" "jq"
         "apt-transport-https"
         "lsb-release" "ca-certificates"
+        "neofetch"
 
         "cloc" "compton"
 
@@ -1441,7 +1470,7 @@ _install_raw_basics(){
         "gcc" "g++" "make"
 
         "mcomix" "unrar"
-        "pulseaudio" "blueman" # audio and bluetooth
+        "pavucontrol" "pulseaudio" "blueman" # audio and bluetooth
 
         # "docker" "docker-compose" (done from _install_docker)
         "git" "hub" "snap"
