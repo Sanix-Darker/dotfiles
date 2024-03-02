@@ -51,6 +51,14 @@ _echo_yellow(){
     echo -ne "$YELLOW$@$COLOROFF\n";
 }
 
+_lower_case(){
+    awk '{print tolower($0)}'
+}
+
+_upper_case(){
+    awk '{print toupper($0)}'
+}
+
 # for all git + fzf commands
 GIT_FZF_DEFAULT_OPTS="
 	$FZF_DEFAULT_OPTS
@@ -2578,9 +2586,13 @@ openpdf(){
     zathura $1;
 }
 
-# _perf_website https://google.com
-_perf_website(){
-    cd $HOME/ACTUALC/github/performance-website
+# _build_perf_stats https://google.com
+_build_perf_stats(){
+    local perfCollectionDir="$HOME/ACTUALC/github/performance-website"
+    if [ ! -d "$perfCollectionDir" ]; then
+        _echo_black "Creating the dir : $perfCollectionDir"
+        mkdir -p $perfCollectionDir
+    fi;
     npx unlighthouse --site $1
 }
 
@@ -2621,39 +2633,10 @@ docker_postgres_exec(){
         --dbname=$POSTGRES_DB
 }
 
-## For my work on the datasetservice and the cli
-## queries am going to make to the service
-#_graphql_curl(){
-#    # $2 should be the host but if it's empty
-#    # then there is a default value
-#    if [ -z "$2" ]; then HOST="http://localhost:5003"; else HOST=$2; fi;
-#    # and easy removal for new lines
-#    PAYLOAD=$(echo $1 | tr -d '\n' | tr '"' '\"')
-#    QUERY_PAYLOAD='{ "query": "'"$PAYLOAD"'" }'
-
-#    echo "> HOST: $HOST"
-#    echo "> PAYLOAD: $PAYLOAD"
-#    echo ''"$QUERY_PAYLOAD"''
-
-#    curl -Ls -X POST \
-#    -H "Content-Type: application/json" \
-#    -H "X-Tenant-Id: tenant-1" \
-#    -H "X-Workspace-Id: workspace-1" \
-#    -H "Authorization: Bearer this-is-my-maggical-token" \
-#    -d ''"$QUERY_PAYLOAD"'' $HOST/graphql/
-#}
-## Example of a query:
-## gqc "{ contries { name } }"
-##
-## or by specifying the host
-## gqc "{ contries { name } }" https://apihere.com/graphql
-#alias gq='_graphql_curl'
-
-# alias swagger='sudo docker run --rm -it  --user $(id -u):$(id -g) -v $HOME:$HOME -w $PWD ghcr.io/go-swagger/go-swagger'
-
-# to watch youtube video
+# To watch youtube video
 # on mpv just after copying the
 # video link in my clipboard.
+# NOTE: This is used by i3... don't modify it too much darker
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"
@@ -2964,4 +2947,51 @@ _auto_smart_syncer(){
         echo "$(date +%s)" > "$last_config_auto_sync"
     fi
 }
-_auto_smart_syncer
+_auto_smart_syncer # on each new terminal session opened, i don't want a messy infinite loop to handle this
+
+# Function to categorize the copied content
+categorize_content() {
+    local content="$@"
+    if [[ $content =~ ^http.* ]]; then
+        domain=$(echo "$content" | sed 's/www\.//g; s/\(\.com\|\.fr\)//g' | awk -F[/:] '{print $4}' | _upper_case)
+        echo "$domain: $content"
+        return
+    fi
+    echo "$content"
+}
+
+# Function to check if content already exists in greenclip history
+check_existing_content() {
+    local content="$@"
+    local history=$(greenclip print)
+
+    # Check if content already exists in history
+    if echo "$history" | grep -qF "$content"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# READ THIS EACH TIME YOU GET HERE :
+# This is the dumbest idea i ever had
+# why should i want to update the clipboard entries ?
+# it's making things much more complicated at serializing/deserializing
+# for all my processes that need to have access on it
+#
+# for the sake of remember myself how dumb i am, i will leave this as commented
+# remember darker... you're an IDIOT.
+# greenclip_refresh_categorize() {
+#     local copied_content=$(greenclip print)
+#     local categorized_content
+
+#     IFS=$'\n' read -r -d '' -a copied_content_lines < <(greenclip print && printf '\0')
+#     for line in "${copied_content_lines[@]}"; do
+#         if [ -n "$line" ]; then
+#             categorized_content=$(categorize_content "$line")
+#             if ! check_existing_content "$categorized_content"; then
+#                 echo "$categorized_content" >> ~/
+#             fi
+#         fi
+#     done
+# }
