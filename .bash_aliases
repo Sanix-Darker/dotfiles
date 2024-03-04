@@ -192,34 +192,6 @@ EXTRACT_REGEX(){
     fi
 }
 
-pvinit(){
-    eval "$(pyenv init --path)"
-
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-}
-pvdel(){
-    pyenv virtualenv-delete $@
-}
-# _pyenv_add 3.11 project
-pvadd(){
-    pyenv virtualenv $@
-}
-# _pyenv_activate laputa-v3
-pvact(){
-    # pyenv activate $@
-    # pyenv local $@
-    source ~/.pyenv/versions/$@/bin/activate
-}
-# pins 3.10
-pvins(){
-    pyenv install $@
-}
-# to list venvs
-pvlist(){
-    pyenv virtualenvs
-}
-
 # some virtualenv python stuffs
 alias ee='source *env*/bin/activate'
 # to fix distlib
@@ -318,6 +290,10 @@ _lsport(){
 alias lsport=_lsport
 
 _search_isos(){
+    # you can obtain more iso here :
+    # - http://iso.linuxquestions.org/
+    # - https://www.linuxlookup.com/linux_iso
+
     local selected_link=$(cat <<EOF | fzf
 https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.5.0-amd64-DVD-1.iso
 http://ftp.pasteur.fr/mirrors/CentOS/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everything-2009.iso
@@ -333,7 +309,7 @@ EOF
     if [ -n "$selected_link" ]; then
         cd ~/Downloads/
         local filename=$(basename $selected_link)
-        _confirm "Download $filename ?" wget $selected_link
+        _confirm "> Download $filename ?" wget $selected_link
         cd -
     fi
 }
