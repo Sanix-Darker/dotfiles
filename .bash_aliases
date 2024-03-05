@@ -65,6 +65,13 @@ _generate_random_string(){
   tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
 }
 
+# NOTE: a small function to print what it's about to execute... could be great
+# to show the user, what's going on
+_xx(){
+    _echo_background_white "\n>> $@"
+    $@
+}
+
 # Small custom spinner
 # Usage:
 #   _start_spinner
@@ -266,12 +273,13 @@ _git_status_if_git_repo(){
 # overrided the cd command with the zoxide command line
 # But let's do that only we're sure zoxide is installed properly
 _magic_cd(){
-    #zoxide and git status if it's a .git project
-    z $@ && _git_status_if_git_repo
+    # zoxide and git status if it's a .git project
+    # added a fallback in case of errors
+    z $@ && _git_status_if_git_repo || cd
 }
 $(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='_magic_cd'
 
-# another amazing cd with fzf
+# Another amazing cd with fzf
 cdd() {
     local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)" || return 1
 	cd "$sel"
@@ -1041,6 +1049,16 @@ _install_docker(){
     _echo_red "> sudo systemctl restart docker"
 }
 
+_install_docker_compose(){
+    _xx cd /tmp
+    _xx sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    _xx sudo chmod +x /usr/local/bin/docker-compose
+    _xx sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+    _xx docker-compose --version
+    _xx cd -
+}
+
 _install_glow(){
     # markdown previewer
     go install github.com/charmbracelet/glow@latest
@@ -1223,6 +1241,17 @@ _install_kdenlive(){
     wget https://download.kde.org/stable/kdenlive/23.08/linux/kdenlive-23.08.2-x86_64.AppImage
 }
 
+_install_lazydocker(){
+    go install github.com/jesseduffield/lazydocker@latest
+}
+
+_install_lazygit(){
+    go install github.com/jesseduffield/lazygit@latest
+}
+
+_install_yarn(){
+    npm install -g yarn
+}
 
 _install_nvm(){
 	mkdir ~/.nvm
@@ -1230,14 +1259,11 @@ _install_nvm(){
 	sudo apt install curl -y
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-    _echo_green "> nvm install node bins"
-    nvm install node
+    _echo_green "> nvm install node bins" && nvm install node
+    _echo_green "> nvm install node v16" && nvm install 16
+    _echo_green "> nvm install node v8" && nvm install 18
 
-    _echo_green "> nvm install node v16"
-    nvm install 16
-
-    _echo_green "> nvm install node v8"
-    nvm install 18
+    _confirm "Install Yarn with npm ?" _install_yarn
 }
 
 _set_cat_bg(){
@@ -1478,6 +1504,11 @@ _install_raw_basics(){
     done
 }
 
+# a dumb forwarding.... needed
+_install_cargo(){
+    _install_rust "$@"
+}
+
 _install_basics(){
     _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
 
@@ -1502,7 +1533,6 @@ _install_basics(){
     # Install rustc and cargo + some random stuffs
     _confirm "Install rust stuffs ?" _install_rust
 
-    # Install golang
     _confirm "Install golang ?" _install_golang
 
     # Install lf (ranger) like a file manager
@@ -1513,6 +1543,15 @@ _install_basics(){
 
     # needed for gcc linker
     _confirm "Install mold (ld faster version)" _install_mold
+
+    _confirm "Install Docker ?" _install_docker
+    _confirm "Install DockerCompose ?" _install_docker_compose
+
+    # To manage or most importantly see what's going on on my running containers
+    _confirm "Install lazyDocker ?" _install_lazydocker
+    # Git UI not absolutelly required...
+    _confirm "Install lazyGit ?" _install_lazygit
+
 
     # Install aerc (email client)
     # TODO config
@@ -1529,7 +1568,7 @@ _install_basics(){
     _confirm "Install zathura (a pdf reader) ?" _install_zathura
 
     # Install and build Cling
-    # _confirm "Install cling (C REPL) ?" _install_cling
+    _confirm "Install cling (C REPL) ?" _install_cling
 
     # Install act
     _confirm "Install act (github actions locally) ?" _install_act
