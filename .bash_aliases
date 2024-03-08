@@ -72,6 +72,14 @@ _xx(){
     $@
 }
 
+# This will just execute your command in the /tmp directory
+# that's all
+_xm(){
+    cd /tmp;
+    _xx $@;
+    cd -;
+}
+
 # Small custom spinner
 # Usage:
 #   _start_spinner
@@ -1239,6 +1247,8 @@ _install_kdenlive(){
     _echo_black "> Downloading the kdenlive appimage..."
     cd ~/Downloads/
     wget https://download.kde.org/stable/kdenlive/23.08/linux/kdenlive-23.08.2-x86_64.AppImage
+    chmod +x ./kdenlive-23.08.2-x86_64.AppImage
+    cd -
 }
 
 _install_lazydocker(){
@@ -1447,10 +1457,17 @@ _install_youtube_dl(){
     cd -
 }
 
+# to boot devices
 _install_woeusb(){
     sudo add-apt-repository ppa:tomtomtom/woeusb -y
     sudo apt update -y
     sudo apt install woeusb woeusb-frontend-wxgtk -y
+}
+
+_install_peek(){
+    sudo add-apt-repository ppa:peek-developers/stable
+    sudo apt update -y
+    sudo apt install peek -y
 }
 
 _install_raw_basics(){
@@ -2684,11 +2701,18 @@ docker_postgres_exec(){
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"
+    alert "Trying opening $link..."
+    echo "> link: $link"
     # Check if the content is a YouTube link
     if [[ $link =~ ^https?://(www\.)?youtube\.com/watch\?v=.* ]]; then
-        yt-dlp -o - "$link" | mpv -
-        return
+        yt-dlp -o - "$link" | mpv -;
+        error_output=$(command 2>&1 >/dev/null) [ -n "$error_output" ] \
+        && echo $error_output && \
+        alert "< Error occured : $error_output"
+    else
+        alert "> Not a youtube link !"
     fi
+
 }
 alias yv='_yv'
 
@@ -2993,6 +3017,17 @@ _auto_smart_syncer(){
 }
 _auto_smart_syncer # on each new terminal session opened, i don't want a messy infinite loop to handle this
 
+
+tmux_extract_layout(){
+    tmux list-windows -F "#{window_layout}" > $@_tmux_window_layout
+    tmux list-panes -a -F "#{pane_current_command}" > $@_tmux_commands
+}
+
+tmux_run_layout(){
+    tmux new-window -d
+    tmux select-layout -t $(tmux display-message -p "#{window_id}") `cat "$@_tmux_window_layout"`
+    paste -d '\n' `cat "$@_tmux_commands"`
+}
 # Function to categorize the copied content
 categorize_content() {
     local content="$@"
