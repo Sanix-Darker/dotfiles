@@ -1527,41 +1527,29 @@ _install_basics(){
 
     # some apt utils
     _confirm "Install raw basics apt packages ?" _install_raw_basics
-
     # Install cargo's cat (bat)
     _confirm "Install bat (cat for cargo) ?" cargo install bat
-
     # Install tmux ?
     _confirm "Install tmux ?" _install_tmux
-
     # Install notifications
     _confirm "Install notification (alert...)" _install_notifications
-
     # Install nvm for node stuffs
     _confirm "Install nvm (node, npm, ...)?" _install_nvm
-
     # Install rustc and cargo + some random stuffs
     _confirm "Install rust stuffs ?" _install_rust
-
     _confirm "Install golang ?" _install_golang
-
     # Install lf (ranger) like a file manager
     _confirm "Install yazi (like ranger) as a file manager ?" _install_yazi
-
     # set nerd-fonts
     _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
-
     # needed for gcc linker
     _confirm "Install mold (ld faster version)" _install_mold
-
     _confirm "Install Docker ?" _install_docker
     _confirm "Install DockerCompose ?" _install_docker_compose
-
     # To manage or most importantly see what's going on on my running containers
     _confirm "Install lazyDocker ?" _install_lazydocker
     # Git UI not absolutelly required...
     _confirm "Install lazyGit ?" _install_lazygit
-
 
     # Install aerc (email client)
     # TODO config
@@ -1570,31 +1558,22 @@ _install_basics(){
     # SetUp and install tt
     # NOTE: DEPRECATED
     # _confirm "Install tt (For tmux fast jumping) ?" _install_tt
-
     # Install and build Clang
     _confirm "ARE YOU REALLY SURE, you want to Install clang (may broke build-essential on a different os (libc issues))?" _install_clang
-
     # A simple pdf reader from terminal with vim bindings
     _confirm "Install zathura (a pdf reader) ?" _install_zathura
-
     # Install and build Cling
     _confirm "Install cling (C REPL) ?" _install_cling
-
     # Install act
     _confirm "Install act (github actions locally) ?" _install_act
-
     # Install dash (git pr and issues from my terminal)
     _confirm "Install dash ?" _install_dash
-
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
-
-    # install delta, a amzing tool for diff
+    # Install delta, a amzing tool for diff
     _confirm "Install delta for diff highlighting ?" _install_delta
-
     # nordvpn ?
     _confirm "Install nordvpn cli ?" _install_nordvpn
-
     # un cleaning to propre apres les basics installs
     _confirm "To clean apt stuffs with autoremove..." sudo apt autoremove -y
 }
