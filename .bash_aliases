@@ -144,9 +144,27 @@ _confirm(){
             # echo ">>" $callback
             $callback
             _echo_white "-------------------------------------------"
+            return 0
+        else
+            return 1
         fi;
     fi;
     echo
+}
+
+# This util add a simple precheck of something
+# that may be already installed
+#
+# Usage:
+# _confirm_install_again lynx && install...
+#
+# or
+#
+# _confirm_install_again lynx && \
+#   sudo apt install lynx -y || \
+#   echo "Not installing..." && return 1
+_confirm_install_again(){
+    _installed $@ && _confirm ">> $@ Already Installed, do you want to reinstall ?" echo
 }
 
 # for all git + fzf commands
@@ -360,9 +378,6 @@ alias scrcpy='/usr/local/bin/scrcpy -m1024'
 # slides for running powepoint on my terminal.
 alias s='slides'
 
-# alias python='python3'
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
 
 # Toast alert message to notify on some events...
 #
@@ -371,49 +386,8 @@ alias s='slides'
 #         notify-osd \
 #         xfce4-notifyd -y
 #
-# Ex: alert "Hello there, am dk"
+# Usage: alert "Hello there, am dk"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-fzf_crontab() {
-  local temp_cron="$(mktemp)"  # Temporary file to hold crontab entries
-  # Get current crontab and write it to temp file
-  crontab -l > "$temp_cron"
-
-  # Use fzf to select the command and the time
-  local selected=$(cat "$temp_cron" | fzf-tmux -m --ansi --preview="echo {}" \
-                    --preview-window=up:70%:wrap --height=40%)
-
-  # Check if any selection is made
-  if [[ -n "$selected" ]]; then
-    # Prompt for action on selected line
-    local actions=("Add" "Delete" "Cancel")
-    local action=$(echo "${actions[@]}" | fzf-tmux --ansi)
-
-    # Perform action based on selection
-    case "$action" in
-      "Add")
-        local new_entry=$(echo "$selected" | fzf-tmux --print-query)
-        # Add the selected entry to temp file
-        echo "$new_entry" >> "$temp_cron"
-        ;;
-      "Delete")
-        # Delete the selected entry from temp file
-        echo "$(grep -vFx "$selected" "$temp_cron")" > "$temp_cron"
-        ;;
-      *)
-        return 0  # Cancel, do nothing
-        ;;
-    esac
-  else
-    return 0  # Cancel, do nothing
-  fi
-
-  # Write modified crontab back
-  crontab "$temp_cron"
-
-  # Cleanup temp file
-  rm "$temp_cron"
-}
 
 alias ls_services='systemctl list-units --type=service'
 
@@ -593,11 +567,10 @@ _set_gnome_dark_theme(){
 _install_android_studio(){
     sudo add-apt-repository ppa:maarten-fonville/android-studio -y
     sudo apt-get update -y
-
     sudo apt-get install openjdk-11-jdk \
         android-studio \
         android-tools-adb \
-        android-tools-fastboot
+        android-tools-fastboot -y
 }
 
 _install_virtualbox(){
@@ -613,9 +586,11 @@ _install_virtualbox(){
 }
 
 _install_vagrant(){
+    _confirm_install_again vagrant || return 0
+
     cd /tmp
     sudo apt-get update -y
-    # install virtualbox
+    # Install virtualbox
     _confirm "Install Virtualbox ?" _install_virtualbox
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
@@ -627,14 +602,15 @@ _install_vagrant(){
 }
 
 _install_alacritty(){
+    _confirm_install_again alacritty || return 0
+
     sudo apt-get update -y
 
     curl https://sh.rustup.rs -sSf | sh
     # we install alacritty as our terminal
     sudo apt-get install cmake pkg-config \
         libfreetype6-dev libfontconfig1-dev \
-        libxcb-xfixes0-dev libxkbcommon-dev \
-        python3 -y
+        libxcb-xfixes0-dev libxkbcommon-dev -y
 
     echo "[x] cargo install allacrity..."
     cargo install alacritty
@@ -672,12 +648,7 @@ _install_mold(){
 _cargo_update(){
     cargo install cargo-update
     cargo install-update -a
-
     cargo --version
-}
-
-_install_ranger(){
-    env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf
 }
 
 _install_path_browsing_utils(){
@@ -692,29 +663,21 @@ _install_path_browsing_utils(){
     sudo unzip exa-linux-x86_64-0.8.0.zip
     sudo mv exa-linux-x86_64 /usr/local/bin/exa
     sudo rm -rf exa*.zip
-
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
-
     # putting this in comment for now
-    _confirm "Install ranger ?" _install_ranger
-}
-
-
-_install_golang_apps(){
-    # a cli reader for markdowns files
-    go install github.com/charmbracelet/glow@latest
+    _confirm "Install yazi(file browser on terminal) ?" _install_yazi
 }
 
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
     # VERSION="nightly"
-    VERSION="v0.9.0"
+    local version="v0.9.0"
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
     cd /tmp
     rm -rf ./nvim-linux64*
-    wget https://github.com/neovim/neovim/releases/download/$VERSION/nvim-linux64.tar.gz
+    wget https://github.com/neovim/neovim/releases/download/$version/nvim-linux64.tar.gz
     tar -xzvf ./nvim-linux64.tar.gz
     # we delete existing stuffs
     sudo rm -rf /usr/local/bin/nvim
@@ -882,7 +845,11 @@ _install_i3(){
     _confirm "Install polybar ?" _install_polybar
 
     # To install i3 from source (will be compiled)
-    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev libxcb-shape0-dev -y
+    sudo apt-get install libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+        libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
+        libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev \
+        libxkbcommon-dev libxkbcommon-x11-dev libxcb-shape0-dev \
+        ninja-build meson -y
     cd /tmp && wget https://github.com/i3/i3/archive/stable.tar.gz
     tar xzf stable.tar.gz && rm -rf stable.tar.gz
     cd i3-stable && mdir build
@@ -1065,11 +1032,14 @@ _install_docker_compose(){
 }
 
 _install_glow(){
+    _confirm_install_again glow || return 0
     # markdown previewer
     go install github.com/charmbracelet/glow@latest
 }
 
 _install_rust(){
+    _confirm_install_again rustc || return 0
+
     _echo_blue "> Installing rustc and cargo..."
 
     sudo apt update -y && sudo apt upgrade -y
@@ -1081,7 +1051,18 @@ _install_rust(){
     rustc --version
 }
 
+_install_java(){
+    sudo apt update -y
+    sudo apt install default-jre default-jdk -y
+
+    java -version
+
+    # sudo update-alternatives --config java
+}
+
 _install_ruby(){
+    _confirm_install_again ruby || return 0
+
     local version="3.2.2" # boff, looks like this does the job
 
     sudo apt update -y
@@ -1105,6 +1086,7 @@ _install_ruby(){
 }
 
 _install_golang(){
+    _confirm_install_again go || return 0
     #sudo apt update -y && sudo apt upgrade -y
     #sudo apt install golang-go -y # it's install 1.13
 
@@ -1184,22 +1166,26 @@ _install_nerdfonts(){
 }
 
 _install_gh(){
+    _confirm_install_again gh || return 0
+
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/githubcli-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | \
         sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
     sudo apt update -y
     sudo apt install gh -y
+
+    gh version
 }
 
 # official cli for spicedb
-_install_zed(){
-    sudo apt update -y && sudo apt install -y curl ca-certificates gpg
-    curl https://apt.fury.io/authzed/gpg.key | sudo apt-key add -
-    echo "deb https://apt.fury.io/authzed/ * *" > /etc/apt/sources.list.d/fury.list
-    # then we install
-    sudo apt update -y && sudo apt install -y zed
-}
+# _install_zed(){
+#     sudo apt update -y && sudo apt install -y curl ca-certificates gpg
+#     curl https://apt.fury.io/authzed/gpg.key | sudo apt-key add -
+#     echo "deb https://apt.fury.io/authzed/ * *" > /etc/apt/sources.list.d/fury.list
+#     # then we install
+#     sudo apt update -y && sudo apt install -y zed
+# }
 
 # To install stuffs for notifications
 _install_notifications(){
@@ -1225,10 +1211,14 @@ _install_protoc(){
 }
 
 _install_zed(){
+    _confirm_install_again zed || return 0
+
     cd /tmp
     wget https://github.com/authzed/zed/releases/download/v0.15.0/zed_0.15.0_linux_amd64.deb
     sudo apt-get install ./zed_0.15.0_linux_amd64.deb -y
     cd -
+
+    zed version
 }
 
 _install_kdenlive(){
@@ -1247,14 +1237,17 @@ _install_kdenlive(){
 }
 
 _install_lazydocker(){
+    _confirm_install_again lazydocker || return 0
     go install github.com/jesseduffield/lazydocker@latest
 }
 
 _install_lazygit(){
+    _confirm_install_again lazygit || return 0
     go install github.com/jesseduffield/lazygit@latest
 }
 
 _install_yarn(){
+    _confirm_install_again yarn || return 0
     npm install -g yarn
 }
 
@@ -1276,7 +1269,7 @@ _set_cat_bg(){
 }
 
 _fix_ssh_key(){
-    chmod 600 /home/dk/.ssh/id_ed25519
+    chmod 600 $HOME/.ssh/id_ed25519
 }
 
 # for git, generate or get
@@ -1333,27 +1326,33 @@ _install_telegram(){
 }
 
 _install_mkcert(){
+    _confirm_install_again mkcert || return 0
+
     sudo apt-get install wget libnss3-tools -y
+
     cd /tmp
     wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
     sudo mv mkcert-v1.4.3-linux-amd64 /usr/bin/mkcert
     sudo chmod +x /usr/bin/mkcert
-    mkcert --version
     cd -
+
+    mkcert --version
 }
 
 _install_yazi(){
+    _confirm_install_again yazi || return 0
+
     # rust toolchain installation
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     # then install yazi-fm
     cargo install --locked yazi-fm
+
+    yazi --version
 }
 alias ranger='yazi'
-_install_lf(){
-    CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
-}
 
 _install_picocom(){
+    _confirm_install_again picocom || return 0
     sudo apt-get -y install picocom
 }
 
@@ -1405,6 +1404,8 @@ _install_vimiv(){
 
 _install_nsxiv(){
     # an image preview for windows managers
+    _confirm_install_again nsxiv || return 0
+
     cd /tmp
     git clone https://github.com/nsxiv/nsxiv.git && cd nsxiv
     make && sudo make install
@@ -1414,14 +1415,15 @@ _install_nsxiv(){
 }
 
 _install_grpcurl(){
-    cd /tmp
+    _confirm_install_again grpcurl || return 0
 
+    cd /tmp
     curl -LO "https://github.com/fullstorydev/grpcurl/releases/download/v1.8.9/grpcurl_1.8.9_linux_x86_64.tar.gz"
     tar xzf grpcurl_1.8.9_linux_x86_64.tar.gz
     sudo mv grpcurl /usr/local/bin/
+    cd -
 
     grpcurl --version
-    cd -
 }
 
 _install_balena_etcher(){
@@ -1538,7 +1540,7 @@ _install_basics(){
     # Install rustc and cargo + some random stuffs
     _confirm "Install rust stuffs ?" _install_rust
     _confirm "Install golang ?" _install_golang
-    # Install lf (ranger) like a file manager
+    # Install yazi(ranger) like a file manager
     _confirm "Install yazi (like ranger) as a file manager ?" _install_yazi
     # set nerd-fonts
     _confirm "Install nerd-fonts (Hack) ?" _install_nerdfonts
@@ -2362,7 +2364,8 @@ _install_tsh(){
     # # apt update and install :
     # sudo apt update -y
     # sudo apt-get install teleport -y
-    curl https://goteleport.com/static/install.sh | bash -s 14.2.0
+    _confirm_install_again tsh && \
+    curl https://goteleport.com/static/install.sh | bash -s 14.2.0 && \
     echo "Installed tsh version $(tsh version)"
 }
 
@@ -2578,7 +2581,8 @@ _inf(){
 }
 
 _install_lynx(){
-    sudo apt update -y
+    _confirm_install_again lynx && \
+    sudo apt update -y && \
     sudo apt install lynx -y
 }
 # A formater for html
@@ -2931,4 +2935,48 @@ tmux_run_layout(){
 #             fi
 #         fi
 #     done
+# }
+
+# TODO: finish this for my apk dev journey
+# _android_stuffs(){
+#   # Function to compile an Android app using adb
+#   compile_android_app() {
+#       local project_path=$1
+#       local output_apk_path=$2
+
+#       cd $project_path
+#       ./gradlew assembleDebug
+
+#       adb install -r $(find $project_path -name "*.apk" | grep "debug")
+#       adb shell am start -n <package_name>/<activity_name>
+#   }
+
+#   # Call the function with the project path and output APK path
+#   compile_android_app "/path/to/your/project" "/path/to/output.apk"
+
+# Make sure to replace  <package_name>  and  <activity_name>  with the
+# actual package name and main activity name of your Android app. You can
+# run this script in a terminal to compile and install the app on a
+# connected device or emulator.
+
+# You can start an AVD emulator using adb in the command line with the
+# following bash script:
+
+#   #!/bin/bash
+
+#   # Start the AVD emulator
+#   emulator -avd your_avd_name &
+
+#   # Wait for the emulator to fully boot
+#   adb wait-for-device
+
+#   # Install the APK on the emulator
+#   adb install path_to_your_apk.apk
+
+#   # Start the main activity of the APK
+#   adb shell am start -n your_package_name/your_activity_name
+
+# Make sure to replace  your_avd_name ,  path_to_your_apk.apk ,
+# your_package_name , and  your_activity_name  with the appropriate values
+# for your setup.
 # }
