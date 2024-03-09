@@ -7,26 +7,26 @@
 
 # SOME COLORS
 # RESET
-COLOROFF='\033[0m'
+export COLOROFF='\033[0m'
 # REGULAR COLORS
-BLACK='\033[0;30m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-WHITE='\033[0;37m'
+export BLACK='\033[0;30m'
+export RED='\033[0;31m'
+export GREEN='\033[0;32m'
+export YELLOW='\033[0;33m'
+export BLUE='\033[0;34m'
+export PURPLE='\033[0;35m'
+export CYAN='\033[0;36m'
+export WHITE='\033[0;37m'
 
 # BOLD
-BBLACK='\033[1;30m'
-BRED='\033[1;31m'
-BGREEN='\033[1;32m'
-BYELLOW='\033[1;33m'
-BBLUE='\033[1;34m'
-BPURPLE='\033[1;35m'
-BCYAN='\033[ 1;36m'
-BWHITE='\033[1;37m'
+export BBLACK='\033[1;30m'
+export BRED='\033[1;31m'
+export BGREEN='\033[1;32m'
+export BYELLOW='\033[1;33m'
+export BBLUE='\033[1;34m'
+export BPURPLE='\033[1;35m'
+export BCYAN='\033[ 1;36m'
+export BWHITE='\033[1;37m'
 
 # Just some handlers for my given colors
 _echo_green(){
@@ -56,6 +56,17 @@ _lower_case(){
 _upper_case(){
     echo "$@" | tr '[:lower:]' '[:upper:]'
 }
+
+## dotfiles directory management
+export DOT_DIR="$HOME/dotfiles"
+# Copy alacritty mpv tmux i3 git config, polybar and rofi
+export CONFIG_PATHS=(
+    "autostart"
+    "rofi" "polybar"
+    "git" "i3"
+    "mpv" "alacritty"
+    "gh-dash" "yazi"
+)
 
 # Generate random string input
 # random_str=$(_random_string 10)
@@ -137,7 +148,7 @@ _confirm(){
 }
 
 # for all git + fzf commands
-GIT_FZF_DEFAULT_OPTS="
+export GIT_FZF_DEFAULT_OPTS="
 	$FZF_DEFAULT_OPTS
 	--ansi
 	--reverse
@@ -430,14 +441,12 @@ _rfr(){
     find . -name ''$1'' -type d -prune -exec trash-put '{}' +
 }
 alias rfr='_rfr'
-
 # To delete from trash
 alias rrf='trash-rm'
 # to empty the trans
 alias rrff='trash-empty'
 # to restore an item
 alias rr='trash-restore'
-
 alias hs='http-server -o'
 alias i='ipython3'
 # To refresh stuff with source on bash alialses and bashrc itself
@@ -445,9 +454,6 @@ alias so='source ~/.bashrc'
 
 # To list running services
 alias services='systemctl list-units --type=service'
-
-## dotfiles management
-DOT_DIR="$HOME/dotfiles"
 
 _set_nvim(){
     # copy nvim configs
@@ -478,14 +484,6 @@ _set_nvim(){
     # go install github.com/arduino/arduino-language-server@latest
 }
 
-# Copy alacritty mpv tmux i3 git config, polybar and rofi
-CONFIG_PATHS=(
-    "autostart"
-    "rofi" "polybar"
-    "git" "i3"
-    "mpv" "alacritty"
-    "gh-dash" "yazi"
-)
 
 # Assuming we already have the dotfiles directory
 # on our workspace
@@ -586,7 +584,6 @@ _source_dev_stack(){
     apt-get update -y
 }
 
-
 _set_gnome_dark_theme(){
     echo -ne "[Settings]\n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/settings.ini
 }
@@ -618,10 +615,8 @@ _install_vagrant(){
     sudo apt-get update -y
     # install virtualbox
     _confirm "Install Virtualbox ?" _install_virtualbox
-
     # Install vagrant and it's stuff
     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-
     wget https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
     sudo apt install ./vagrant_2.2.19_x86_64.deb -y
     vagrant --version
@@ -896,11 +891,9 @@ _install_i3(){
 
     # Install i3 lock.
     _confirm "Install i3-lock ?" _install_i3_lock
-
     # For image manipulation and rofi for the fast search windows
     # arandr is for managing the xrandr for monitors
     _confirm "Install rofi/feh/arandr ?" _install_i3_navigation
-
     # Install greenclip for clipboard history
     _confirm "Install greenclip for clipboard history, depends on rofi ?" _install_greenclip
 
@@ -966,34 +959,34 @@ _install_tmux(){
     sudo apt-get install bison flex -y
 
     # VERSION="3.1c" # i need something fast ABEK
-    VERSION="3.4" # because i can
+    local version="3.4" # because i can
     # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
-    WHERE_I_WAS=$PWD
+    local where_i_was=$PWD
 
-    _echo_blue "> Installing tmux $VERSION..."
+    _echo_blue "> Installing tmux $version..."
     # A requirement for the compilation of tmux
     sudo apt install libevent-dev -y
     cd /tmp
 
     # getting tmux only if it's not yet downloaded
-    if [ ! -f "tmux-${VERSION}.tar.gz" ]; then
-        _echo_blue "> Getting tmux $VERSION..."
-        wget https://github.com/tmux/tmux/archive/refs/tags/${VERSION}.tar.gz -O "tmux-${VERSION}.tar.gz"
-        tar xf tmux-${VERSION}.tar.gz #&& rm -f tmux-${VERSION}.tar.gz
+    if [ ! -f "tmux-${version}.tar.gz" ]; then
+        _echo_blue "> Getting tmux $version..."
+        wget https://github.com/tmux/tmux/archive/refs/tags/${version}.tar.gz -O "tmux-${version}.tar.gz"
+        tar xf tmux-${version}.tar.gz #&& rm -f tmux-${VERSION}.tar.gz
     fi;
 
-    _echo_blue "> Compile tmux $VERSION..."
-    cd tmux-${VERSION}
+    _echo_blue "> Compile tmux $version..."
+    cd tmux-${version}
     bash ./autogen.sh && ./configure && make && sudo make install
 
-    _echo_blue "> Set to appropriate path v$VERSION..."
+    _echo_blue "> Set to appropriate path v$version..."
     cd -
-    sudo mv tmux-${VERSION} /usr/bin/tmux
+    sudo mv tmux-${version} /usr/bin/tmux
 
     # to be sure we deleted all processes related to the old version
     sudo killall -9 tmux
 
-    cd $WHERE_I_WAS
+    cd $where_i_was
 
     if [ ! -d "~/.tmux/plugins/tpm" ]; then
         _echo_blue "> Installing tpm..."
@@ -1025,11 +1018,13 @@ _install_dash(){
 }
 
 _install_yq(){
-    VERSION=v4.2.0
-    BINARY=yq_linux_amd64
+    local version=v4.2.0
+    local binary=yq_linux_amd64
 
-    wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |\
-        tar xz && sudo mv ${BINARY} /usr/bin/yq
+    cd /tmp
+    wget https://github.com/mikefarah/yq/releases/download/${version}/${binary}.tar.gz -O - |\
+        tar xz && sudo mv ${binary} /usr/bin/yq
+    cd -
 }
 
 _install_zathura(){
@@ -1085,43 +1080,40 @@ _install_rust(){
 }
 
 _install_ruby(){
-    VERSION="3.2.2" # boff, looks like this does the job
+    local version="3.2.2" # boff, looks like this does the job
 
     sudo apt update -y
     sudo apt install libssl-dev \
         libreadline-dev zlib1g-dev autoconf \
         bison build-essential libyaml-dev \
         libreadline-dev libncurses5-dev libffi-dev \
-        libgdbm-dev
+        libgdbm-dev -y
 
-    _echo_blue "> Going to install ruby v$VERSION"
+    _echo_blue "> Going to install ruby v$version"
     _echo_blue "> Downloading the ruby tar file..."
     cd /tmp
-    wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-$VERSION.tar.gz
-    tar -xzvf ruby-$VERSION.tar.gz
-    cd ruby-$VERSION
+    wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-$version.tar.gz
+    tar -xzvf ruby-$version.tar.gz
+    cd ruby-$version
 
     _echo_blue "> make installing..."
-    ./configure
-    make
-    sudo make install
+    ./configure && make && sudo make install
 
     ruby --version
 }
 
 _install_golang(){
-
     #sudo apt update -y && sudo apt upgrade -y
     #sudo apt install golang-go -y # it's install 1.13
 
     # force installation of go1.21
-    local VERSION="1.22.0"
-    _echo_blue "> Installing golang v${VERSION}..."
+    local version="1.22.0"
+    _echo_blue "> Installing golang v${version}..."
     cd /tmp || exit
     sudo apt-get update -y
-    wget "https://golang.org/dl/go${VERSION}.linux-amd64.tar.gz"
+    wget "https://golang.org/dl/go${version}.linux-amd64.tar.gz"
     sudo rm -rf /usr/local/go
-    sudo tar -C /usr/local -xzf "go${VERSION}.linux-amd64.tar.gz"
+    sudo tar -C /usr/local -xzf "go${version}.linux-amd64.tar.gz"
     source ~/.bashrc
 
     # To check the golang version installed
@@ -1149,7 +1141,7 @@ _install_golang_specific_version(){
 
     _echo_blue "> Installing golang version '$GOLANG_VERSION_TO_INSTALL'"
 
-    cd /tmp/
+    cd /tmp
     wget https://golang.org/dl/go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz
     sudo mkdir /usr/local/go$GOLANG_VERSION_TO_INSTALL
     sudo tar -xf go$GOLANG_VERSION_TO_INSTALL.linux-amd64.tar.gz -C /usr/local/go$GOLANG_VERSION_TO_INSTALL
@@ -1159,7 +1151,6 @@ _install_golang_specific_version(){
     sudo ln -s /usr/local/go$GOLANG_VERSION_TO_INSTALL/go/bin/go /usr/bin/go$GOLANG_VERSION_TO_INSTALL
 
     # echo "export PATH=$$PATH:/usr/local.go/bin" > ~/.bashrc
-
     # we get back to our previous dir
     cd -
 }
@@ -1186,6 +1177,8 @@ _install_nerdfonts(){
 
     _echo_blue ">> Installing the ttf..."
     fc-cache -f -v
+
+    cd -
 }
 
 _install_gh(){
@@ -1310,7 +1303,7 @@ _install_firefox(){
     # we create the symbolic link to that opt bin
     sudo ln -s /opt/firefox/firefox/firefox /usr/bin/firefox
 
-    # we clean
+    # We clean
     # rm -rf firefox-*.tar.bz2 firefox
     cd -
 }
@@ -1354,11 +1347,9 @@ _install_yazi(){
     cargo install --locked yazi-fm
 }
 alias ranger='yazi'
-
 _install_lf(){
     CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 }
-#alias ranger='/home/dk/go/bin/lf'
 
 _install_picocom(){
     sudo apt-get -y install picocom
