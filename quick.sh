@@ -3,10 +3,9 @@
 # Requirements:
 # - make
 # - git
-# - docker (if you're going to proceed with docker installations)
 
 _start(){
-    requirements=("make" "git" "docker")
+    requirements=("make" "git")
     echo "> Checking for requirements ($requirements)..."
     for req in "${requirements[@]}"
     do
@@ -20,7 +19,7 @@ _start(){
     echo ">> Cloning the dotfiles repository..."
     git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 
-    echo ">> SetUp 'Base' DevStack from docker..."
+    echo ">> SetUp 'Base' DevStack ..."
     make
 }
 

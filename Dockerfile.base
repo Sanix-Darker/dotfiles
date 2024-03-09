@@ -17,9 +17,8 @@ WORKDIR /dotfiles
 COPY . .
 
 # Some basic installs & setups (split like this to benefit the cache.):
-RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_basics
+RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_raw_basics
 RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_bash_preexc
-RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_python_stuffs
 RUN source /dotfiles/.bashrc; source /dotfiles/.bash_aliases && yes | _install_nvim_and_utils
 
 # Clean evevery residuals of apt
