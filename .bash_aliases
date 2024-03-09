@@ -1521,6 +1521,20 @@ _install_cargo(){
     _install_rust "$@"
 }
 
+# a duckduckgo command line to search items
+_install_ddgr(){
+    _confirm_install_again ddgr || return 0
+    sudo apt update -y
+    sudo apt install ddgr -y
+}
+# Install obs on command line
+_install_obs(){
+    _confirm_install_again obs || return 0
+    sudo apt update -y
+    sudo add-apt-repository ppa:obsproject/obs-studio
+    sudo apt install obs-studio -y
+}
+
 _install_basics(){
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
@@ -1552,6 +1566,9 @@ _install_basics(){
     _confirm "Install lazyDocker ?" _install_lazydocker
     # Git UI not absolutelly required...
     _confirm "Install lazyGit ?" _install_lazygit
+
+    # Install ddgr
+    _confirm "Install ddgr (to search with duckduckgo on command line) ?" _install_ddgr
 
     # Install aerc (email client)
     # TODO config
