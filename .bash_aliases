@@ -1633,6 +1633,7 @@ _install_FZF_POPUP(){
     #   bind -m vi-insert -x '"\C-f": __tmux_search__'
     # fi
 }
+alias fzfp='$HOME/fzfp'
 
 _install_batcat(){
     git clone https://github.com/sharkdp/bat
@@ -2082,10 +2083,40 @@ git_checkout_tree(){
 # To restore to the newer version:
 #  sudo apt-clone restore-new-distro path-to/apt-clone-state-ubuntu.tar.gz $(lsb_release -sc)
 
-# to host anything
-alias tb="nc termbin.com 9999"
+# AES-256 encrypt/decrypt
 
-# to see pdf on the terminal
+_install_mcrypt(){
+    sudo apt-get update -y
+    sudo apt-get install mcrypt -y
+}
+
+# plaintext="Hello, World!"
+# _aes_encrypt "$plaintext"
+# _aes_encrypt "$encrypted"
+export AES_KEY_EN_DE="0123456789ABCDEF0123456789ABCDEF"
+_aes_encrypt() {
+    local to_encrypt="/tmp/to_encrypt"
+
+    echo "$@" > $to_encrypt
+    openssl aes-256-cbc -a -salt -pbkdf2 -in $to_encrypt -out $to_encrypt.enc -pass env:AES_KEY_EN_DE
+    cat $to_encrypt.enc
+}
+_aes_decrypt() {
+    local to_decrypt="/tmp/to_decrypt"
+    touch $to_decrypt.dec
+
+    echo "$@" > $to_decrypt
+    openssl aes-256-cbc -d -a -pbkdf2 -in $to_decrypt -out $to_decrypt.dec -pass env:AES_KEY_EN_DE
+    cat $to_decrypt.dec
+}
+
+# to host anything
+# Usage : cat index.html | tb
+alias tb="nc termbin.com 9999"
+# Get the clipboard content at termbin
+alias tbc="co | tb"
+
+# To see pdf on the terminal
 _pdf(){
     pdftotext -layout "$1" - | less
 }
@@ -2098,9 +2129,6 @@ alias ta='tmux attach-session -t'
 alias tls='tmux ls'
 alias to='ta other'
 alias tkill='tmux kill-server'
-
-# open telegram as tgg
-alias tgg='nohup ~/Downloads/tsetup.3.4.8/Telegram/Telegram &'
 
 # To control the brightness with xrandr contrast
 _xrandr(){
@@ -2124,24 +2152,11 @@ _loc(){
     find . -name *.$@ | sed 's/.*/"&"/' | xargs  wc -l
 }
 alias loc=_loc
+
 alias ipinfo="curl ipinfo.io"
-
-_nan(){
-    TIME=3600
-
-    sudo bash <<EOF
-    echo "Going to sleep in $TIME seconds..."
-    sleep $TIME && systemctl suspend
-EOF
-}
-
 alias sp=speedtest
 
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
-# show changes for a given file on a specific point in the history
+# Show changes for a given file on a specific point in the history
 git_log_commits_for(){
     SHOW_COMMIT_COMMAND='git show {1} -- '$@' | delta'
     git log --pretty=format:"%h" -- $@ | fzf        \
@@ -2362,11 +2377,6 @@ _stopWatch(){
 
 alias stopwatch=_stopWatch
 
-_get_date(){
-    while true; do echo "$(date -u +"%H:%M:%S")"; sleep 1; done;
-}
-alias get_date=_get_date
-
 _uptime(){
     uptime -p | awk '{split($0,a,", "); print a[1]}'
 }
@@ -2400,7 +2410,6 @@ _install_tsh(){
     # sudo apt update -y
     # sudo apt-get install teleport -y
     curl https://goteleport.com/static/install.sh | bash -s 14.2.0
-
     echo "Installed tsh version $(tsh version)"
 }
 
@@ -2448,49 +2457,64 @@ _set_mouse(){
 # $ note topic # will seach for notes on this topic
 # $ note # will list for you all notes taken globally
 note(){
-    NOTES_DIR=$HOME/notes/
-    CONTENT_VIEW="cat $NOTES_DIR/{1}-notes.md"
-    TODAY_NOTE_FILE="$NOTES_DIR/$(date '+%Y-%m-%d')-notes.md"
-	ENTER_COMMAND="nvim $NOTES_DIR/{1}-notes.md"
+    local notes_dir=$HOME/notes/
+    local content_view="cat $notes_dir/{1}-notes.md"
+    local today_note_file="$notes_dir/$(date '+%Y-%m-%d')-notes.md"
+	enter_command="nvim $notes_dir/{1}-notes.md"
 
     # We create the notes directory if it doesn't exist
-    if [ ! -d "$NOTES_DIR" ]; then mkdir -p $NOTES_DIR; fi;
+    if [ ! -d "$notes_dir" ]; then mkdir -p $notes_dir; fi;
 
     # We browse context (topic) elements if only one argument is passed
-    if [ "$#" = "1" ]; then ls $NOTES_DIR | ag $1 $NOTES_DIR; fi;
+    if [ "$#" = "1" ]; then ls $notes_dir | ag $1 $notes_dir; fi;
 
     # We browse the content of notes if no arguments are passed
     if [ -z $1 ]; then
         # if fzf is installed, use it as a live browser, otherwise,
         # cat the list of note from today
-        if [! command -v fzf &> /dev/null ]; then cat $TODAY_NOTE_FILE; else
-            ls $NOTES_DIR | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
-                --preview "${CONTENT_VIEW}" --preview-window "right:98" \
-                --bind "enter:execute:${ENTER_COMMAND}" \
+        if [! command -v fzf &> /dev/null ]; then cat $today_note_file; else
+            ls $notes_dir | sed 's/-notes.md//g' | fzf --header "NOTES LIST" \
+                --preview "${content_view}" --preview-window "right:98" \
+                --bind "enter:execute:${enter_command}" \
                 --bind "ctrl-d:preview-down,ctrl-u:preview-up" \
                 --tac; # for the reverse order
         fi
     else
-        CONTENT_MESSAGE="${@:2}"
+        local content_message="${@:2}"
         # We only save a > 3 note
-        if [ ${#CONTENT_MESSAGE} -ge 3 ]; then
-            echo -e "- **$(date '+%H:%M:%S')** > [$1] $CONTENT_MESSAGE \n" >> $TODAY_NOTE_FILE;
+        if [ ${#content_message} -ge 3 ]; then
+            echo -e "- **$(date '+%H:%M:%S')** > [$1] $content_message \n" >> $today_note_file;
         fi;
     fi
 }
 
+# Scrap an entire website using only wget
+#
+# Usage:
+# _scrap s4nixd https://www.sanixdk.xyz
+# Requirements: "wget"
+_scrap(){
+    cd /tmp
+    mkdir -p "$1" && cd "$1"
+    wget --recursive --page-requisites \
+        --convert-links \
+        --limit-rate=2k \
+        "$2"
+    cd -
+}
+
+# Get the size of ny dd
 _ddf(){
-    # storage of my nvme0n1p2
-    df -h | grep /dev/nvme0n1p2
+    df -h $HOME
 }
 
 # to record my terminal when am writing something
 alias rec='asciinema rec'
 
 # replace all numbers from a given pipe
-alias _hide_number="sed 's/[0-9]/*/g'"
+alias _hide_numbers="sed 's/[0-9]/*/g'"
 
-# Don't blame me, sometiome am found myself hitting gti instead of git
+# Don't blame me, sometimes am found myself hitting gti instead of git
 alias gti="git"
 
 # jira stuffs:
@@ -2562,29 +2586,12 @@ _vgremove(){
     vagrant box remove $vmm
 }
 
-# ------
-# for bluetoothctl service
-_b_connect(){
-    bluetoothctl connect $@
-}
-_b_connect_me(){
-    _b_connect AC:12:2F:50:D9:56
-}
-_b_scan(){
-    bluetoothctl scan on
-}
-# SoundCoreLite
-# # bluetoothctl connect 56:E1:6D:80:B4:27
-# YST
-# # bluetoothctl connect AC:12:2F:50:D9:56
-
-
-#tail grep on a file
+# Tail grep on a file
 # _tail_grep /tmp.file "item this"
 _tail_grep(){
     tail -Fn+0 $1 | grep $2
 }
-# some principle but everything except the item
+# same principle but everything except the item
 _tail_no_grep(){
     tail -Fn+0 $1 | grep -v $2
 }
@@ -2617,6 +2624,10 @@ _inf(){
     done;
 }
 
+_install_lynx(){
+    sudo apt update -y
+    sudo apt install lynx -y
+}
 # A formater for html
 alias llx='lynx -stdin'
 
@@ -2631,9 +2642,7 @@ _pydoc(){
     zeal-cli Python_3 | fzf --height=50% --preview='zeal-cli --lynx-dump=true Python_3 { }' | xargs -d '\n' zeal-cli Python_3
 }
 
-alias fzfp='$HOME/fzfp'
-
-# to open a pdf with vim bindings.
+# To open a pdf with vim bindings.
 openpdf(){
     zathura $1;
 }
@@ -2646,43 +2655,6 @@ _build_perf_stats(){
         mkdir -p $perfCollectionDir
     fi;
     npx unlighthouse --site $1
-}
-
-# DOCKER COMMAND UTILS
-# postgres
-docker_postgres_run(){
-    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
-    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
-    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
-    IMAGE_TAG="$(IS_ENV_SET $IMAGE_TAG "latest")"
-    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
-    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
-
-    [[ "$(docker ps -a | grep $POSTGRES_NAME | wc -l)" -ne "0" ]] && \
-        echo "<< Available as container, will start it !" && \
-            docker start $POSTGRES_NAME ||
-        echo ">> Not available as containers, will pull or either run it" && \
-            docker run \
-            --name $POSTGRES_NAME \
-            -p $POSTGRES_PORT:5432 \
-            -e POSTGRES_USER=$POSTGRES_USER \
-            -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
-            -e POSTGRES_DB=$POSTGRES_DB \
-            -d postgres:$IMAGE_TAG
-}
-
-docker_postgres_exec(){
-    POSTGRES_USER="$(IS_ENV_SET $POSTGRES_USER "user")"
-    POSTGRES_PASSWORD="$(IS_ENV_SET $POSTGRES_PASSWORD "pwd")"
-    POSTGRES_DB="$(IS_ENV_SET $POSTGRES_DB "db")"
-    POSTGRES_PORT="$(IS_ENV_SET $POSTGRES_PORT 5455)"
-    POSTGRES_NAME="$(IS_ENV_SET $POSTGRES_NAME "postgres_db")"
-
-    docker exec \
-        -ti $POSTGRES_NAME psql \
-        --username=$POSTGRES_USER \
-        --port=$POSTGRES_PORT \
-        --dbname=$POSTGRES_DB
 }
 
 # To watch youtube video
@@ -2724,6 +2696,8 @@ git(){
     command git branch-sorted "$@"
   elif [[ "$1" == "restore" || "$1" == "add" || "$1" == "update" || "$1" == "pull" ]]; then
     command git "$@" && git status
+  elif [[ "$1" == "diff" ]]; then
+    git status && command git "$@"
   else
     command git "$@"
   fi
@@ -2733,32 +2707,6 @@ git(){
 _version(){
     lsb_release -a
 }
-
-# # some coul git aliases to go fast
-# I don't know why i cannot stand those for now
-# alias ga='git add'
-# alias gap='git add -p'
-# alias gm='git commit'
-# alias gmn='git commit --no-verify'
-# alias gam='git commit -am'
-# alias gae='git amend'
-# alias gamn='git amend-no-edit'
-# alias gamnn='git amend-no-edit-no-verify'
-# alias gs='git status'
-# alias gd='git diff'
-# alias gds='git diff --staged'
-# alias gp='git push'
-# alias gpf='git push --force'
-# alias gl='git pull'
-# alias gu='git update'
-# alias gcb='git checkout -b'
-# alias gl='git log-branch'
-# alias gss="git stat"
-# # alias gcc="git checkout"
-# alias gsq="git squash"
-# alias gb="git branch"
-# alias gr="git restore"
-# alias grs="git restore --staged"
 
 # Hide/Show what am typing ?
 _hide(){
@@ -2832,23 +2780,12 @@ _boot_usb(){
     _status "boot"
 }
 
-# docker command to access external running host
-# docker run --add-host host.docker.internal:host-gateway --rm -ti container bash
-# then inside, curl host.docker.internal:<port>
-
-# docker permission denied (to fix)
-# sudo chmod 666 /var/run/docker.sock
-
-# To add git trace (on any git command)
-# export GIT_TRACE=1
-
 # TO fix Hash sum mismatch error on apt update
-#
 # sudo apt-get clean
 # sudo rm -rf /var/lib/apt/lists/*
 # sudo apt-get update
 
-alias zed='/usr/bin/zed'
+# alias zed='/usr/bin/zed'
 
 # OpenAi bash util.
 # How to use: _ give me this and that.
@@ -2915,7 +2852,7 @@ _c(){
 # after leaving my day job computer...
 # So many use cases...
 _alert_tg(){
-    MESSAGE=$@
+    local message=$@
     if [ -z $TG_BOT_TOKEN ]; then
         _echo_red "Please set the TG_BOT_TOKEN env var"
     fi
@@ -2926,7 +2863,7 @@ _alert_tg(){
 
     curl -LSs -X POST \
         "https://api.telegram.org/bot$TG_BOT_TOKEN/sendMessage" \
-         -d "chat_id=$TG_USER_ID&text=$(echo "$MESSAGE" | sed 's/"/\\"/g')"
+         -d "chat_id=$TG_USER_ID&text=$(echo "$message" | sed 's/"/\\"/g')"
 }
 
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
@@ -3019,31 +2956,8 @@ tmux_run_layout(){
     tmux select-layout -t $(tmux display-message -p "#{window_id}") `cat "$@_tmux_window_layout"`
     paste -d '\n' `cat "$@_tmux_commands"`
 }
-# Function to categorize the copied content
-categorize_content() {
-    local content="$@"
-    if [[ $content =~ ^http.* ]]; then
-        domain=$(echo "$content" | sed 's/www\.//g; s/\(\.com\|\.fr\)//g' | awk -F[/:] '{print $4}' | _upper_case)
-        echo "$domain: $content"
-        return
-    fi
-    echo "$content"
-}
 
-# Function to check if content already exists in greenclip history
-check_existing_content() {
-    local content="$@"
-    local history=$(greenclip print)
-
-    # Check if content already exists in history
-    if echo "$history" | grep -qF "$content"; then
-        return 0
-    else
-        return 1
-    fi
-}
-
-# READ THIS EACH TIME YOU GET HERE :
+# NOTE TO MYSELF: READ THIS EACH TIME YOU GET HERE DUMB ASS:
 # This is the dumbest idea i ever had
 # why should i want to update the clipboard entries ?
 # it's making things much more complicated at serializing/deserializing
