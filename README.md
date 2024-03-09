@@ -35,11 +35,15 @@ or :
 ```bash
 # Clone and go inside the directory
 $ git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
+# Under docker
 $ make
+# No docker
+$ cp ~/.bashrc ~/.bashrc_bk   # put the current bashrc into backup
+$ cp .bashrc .bash_aliases ~/ # copy all bash scripts and aliases to $HOME
+$ _set_dot_files && _install_dev_stack
 
 # This will build the docker image, run it and exec into it !
 # you can then get out and make start/stop to get it run
-
 ## OR quickly :
 $ curl -Ls https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/quick.sh | bash
 ```
