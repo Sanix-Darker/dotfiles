@@ -1522,11 +1522,11 @@ _install_cargo(){
 }
 
 _install_basics(){
-    _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
-
     sudo add-apt-repository ppa:git-core/ppa -y
     sudo apt-get update -y
 
+    # my fun bg
+    _confirm "Set up the 'cat image background' to ~/ ?" _set_cat_bg
     # some apt utils
     _confirm "Install raw basics apt packages ?" _install_raw_basics
     # Install cargo's cat (bat)
@@ -1667,10 +1667,13 @@ _install_dev_stack(){
 
     # For a weird perl warning error on locales UTF-8
     # Should be on top
+    _confirm "Install rust (can be a requirement) for the next steps..." _install_rust
+    _confirm "Install nvm (can be a requirement) for the next steps..." _install_nvm
+
     _confirm "Reconfigure locale langs ? " _install_locales_lang
     _confirm "Install Basics utils (git, docker...) stuffs ?" _install_basics
 
-    # setup the preExc bash command for some usefull stuff just like telling the time
+    # Setup the preExc bash command for some usefull stuff just like telling the time
     _confirm "Install bash prexec/postexec scripts ?" _install_bash_preexc
     _confirm "Install python(.10/.11) stuffs ?" _install_python_stuffs
     _confirm "Install Nvim stuffs ?" _install_nvim_and_utils
@@ -1681,7 +1684,6 @@ _install_dev_stack(){
     _confirm "Install slack (company messaging app)" _install_slack
     _confirm "Install thunderbird (email app)" _install_thunderbird
     _confirm "Install extras stuffs (slides, aria2c) ?" _install_extras_stuffs
-
     _confirm "Install mpv player and ytb ?" _install_mpv
 
     # need this step to have stuff loaded.
