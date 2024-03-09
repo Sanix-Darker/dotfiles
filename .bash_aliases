@@ -91,6 +91,8 @@ _xm(){
     cd -;
 }
 
+alias cat='bat -p'
+
 # Small custom spinner
 # Usage:
 #   _start_spinner
@@ -1741,8 +1743,6 @@ _clean_nodemodules(){
 }
 alias clean_nodemodules='_clean_nodemodules'
 
-alias cat='bat -p'
-
 # To fastly jump in a remote branch
 # Usage: get origin branch-name
 _get(){
@@ -1763,32 +1763,6 @@ _get(){
     fi
 }
 
-# To get back to your stuffs (branch and changes)
-_back(){
-    if [ -d ".git" ]; then
-        # To revert local changes that have been made
-        git restore --staged .
-        git restore .
-        # To get back on previous branch
-    	git checkout -
-        # We try to get our precedents changes back...
-        git stash pop
-    else
-        echo "[x] Oups, not a .git directory !"
-    fi
-}
-
-# To have in the terminal
-# only the command you executed got reload
-# and cleared instead of multilines
-_only(){
-    watch -n 0.5 "$1"
-}
-
-# _f() (
-#   [ "$?" != 0 ] && fuck;
-# )
-# alias f="_f"
 alias x='xdg-open .'
 
 # _git_search "function name"
