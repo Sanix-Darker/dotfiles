@@ -9,21 +9,22 @@ and allows me to get my dev stack ready in less than 5mins with a single command
 
 Not features, but most likely, what's inside :
 
-- alacritty ( My GPU terminal configuration )
-- lf ( My file browser conf on terminal just like ranger)
-- polybar ( My OS status bar, small infos )
-- i3 ( My WM conf )
-- nvim ( My PDE conf )
-- rofi (for jumping on any running/available app)
+- alacritty (GPU terminal's conf)
+- yazi (File browser conf on terminal just like ranger)
+- polybar (Status bar's app config)
+- i3 (WM conf)
+- mpv (Video player for my local files or youtube)
+- gh-dash (github dashboard for quick overview on my PR/issues (day-job or side-projects))
+- nvim (My PDE conf for coding )
+- rofi (app/windows/workspace switcher conf)
 - tmux (my multiplexer terminal)
-- vagrant (for my vms on term)
+- vagrant (for my vms on term[ubuntu, macOs, window...])
 - Some interesting aliases/functions inside `.bash_aliases` to install/run/use
     my devs stuffs really quickly and interactivelly
 
 ### REQUIREMENTS
 
 - docker (If you're planing to run it with docker)
-or :
 - make
 - git
 
@@ -38,8 +39,8 @@ $ git clone https://github.com/Sanix-Darker/dotfiles && cd dotfiles
 # Under docker
 $ make
 # No docker
-$ cp ~/.bashrc ~/.bashrc_bk   # put the current bashrc into backup
-$ cp .bashrc .bash_aliases ~/ # copy all bash scripts and aliases to $HOME
+$ cp $HOME/.bashrc ~/.bashrc_bk   # put the current bashrc into backup
+$ cp .bashrc .bash_aliases $HOME/ # copy all bash scripts and aliases to $HOME
 $ _set_dot_files && _install_dev_stack
 
 # This will build the docker image, run it and exec into it !
