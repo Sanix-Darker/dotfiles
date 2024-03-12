@@ -3030,3 +3030,8 @@ tmux_run_layout(){
 # your_package_name , and  your_activity_name  with the appropriate values
 # for your setup.
 # }
+
+_connect_space_one(){
+    _xm nohup bluetoothctl scan on
+    _xm _inf bluetoothctl connect E8:EE:CC:A1:0D:8A
+}
