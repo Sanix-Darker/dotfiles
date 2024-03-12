@@ -152,14 +152,12 @@ _confirm(){
     echo
 }
 
-# This util add a simple precheck of something
-# that may be already installed
+# This util add a simple pre-check on command/elf
+# that may be already installed or not
 #
 # Usage:
-# _confirm_install_again lynx && install...
-#
+# _confirm_install_again lynx || return 0
 # or
-#
 # _confirm_install_again lynx && \
 #   sudo apt install lynx -y || \
 #   echo "Not installing..." && return 1
