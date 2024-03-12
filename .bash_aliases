@@ -2640,11 +2640,10 @@ _build_perf_stats(){
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"
-    alert "Trying opening $link..."
-    echo "> link: $link"
     # Check if the content is a YouTube link
     if [[ $link =~ ^https?://(www\.)?youtube\.com/watch\?v=.* ]]; then
-        yt-dlp -o - "$link" | mpv -;
+        alert "Loading video : $link..."
+        nohup bash -c 'yt-dlp -o - "'$link'" | mpv --keep-open -' &
         error_output=$(command 2>&1 >/dev/null) [ -n "$error_output" ] \
         && echo $error_output && \
         alert "< Error occured : $error_output"
@@ -2763,9 +2762,15 @@ _boot_usb(){
 
 # alias zed='/usr/bin/zed'
 
-# OpenAi bash util.
-# How to use: _ give me this and that.
+# Search something using duckduckgo command line
+# Usage: _ ask this in duckduckgo
 _(){
+    ddgr "$@"
+}
+
+# OpenAi bash util for query.
+# How to use: _ give me this and that.
+__(){
     # Combine all arguments into a single string
     PROMPT="$@"
 
@@ -2803,12 +2808,7 @@ _(){
     # Reusing the content
     cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
 }
-# What if i have a function in my clipboard
-# i want to prefix with a context ?
-# Ex: __ write tests for
-__(){
-    _ $(echo -n "$@ $(co)") # co aliased as : "alias co='xclip -o -selection clipboard'"
-}
+
 # Print the last gpt-response on a pager way
 # takes no argument
 _c(){

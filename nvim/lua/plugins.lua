@@ -231,9 +231,6 @@ return packer.startup(function(use)
     -- use {'wfxr/minimap.vim', run = ':!cargo install --locked code-minimap'}
     use 'petertriho/nvim-scrollbar'
 
-    -- Just for the gitsigns
-    -- use 'lewis6991/gitsigns.nvim'
-
     -- For camelcase to snakecase and the reverse
     -- use 'nicwest/vim-camelsnek'
 
@@ -468,7 +465,7 @@ return packer.startup(function(use)
     -- will remove when the support of fzf will be available)
     -- Plug 'nvim-telescope/telescope.nvim'
     -- For code review using octo
-    -- use 'pwntester/octo.nvim'
+    use 'pwntester/octo.nvim'
     use 'nvim-tree/nvim-web-devicons'
 
     -- strongify my go lsp with go.nvim
