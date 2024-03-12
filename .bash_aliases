@@ -389,8 +389,6 @@ alias s='slides'
 # Usage: alert "Hello there, am dk"
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias ls_services='systemctl list-units --type=service'
-
 # for nvim shortcuts
 alias v='nvim'
 # alias v='nvim -c "so ~/.config/nvim/init.lua"'
@@ -574,6 +572,9 @@ _install_android_studio(){
 }
 
 _install_virtualbox(){
+
+    _confirm_install_again virtualbox || return 0
+
     cd /tmp
 
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
@@ -631,6 +632,9 @@ _install_alacritty(){
 
 # faster linker than ld
 _install_mold(){
+
+    _confirm_install_again mold || return 0
+
     # /usr/bin/ld was binded to : lrwxrwxrwx 19 root  4 déc.  11:57 /usr/bin/ld -> x86_64-linux-gnu-ld
     cd /tmp
 
@@ -700,6 +704,8 @@ _install_nvim(){
 
 # NOTE : DEPRECATED, use _install_nvm
 _install_node_stuffs(){
+    _confirm_install_again nvm || return 0
+
     mkdir /home/dk/.nvm
 
     sudo apt-get update -y
@@ -792,8 +798,13 @@ _install_python_stuffs(){
  }
 
 _install_mpv(){
+    _confirm_install_again mpv || return 0
     sudo apt update -y
 
+    _echo_blue "> Installing mpv..."
+    sudo apt install mpv -y
+
+    _confirm_install_again yt-dlp || return 0
     # To install the youtube/mpv
     _echo_blue "> Installing yt-dlp_linux..."
     cd /tmp
@@ -801,13 +812,12 @@ _install_mpv(){
     wget https://github.com/yt-dlp/yt-dlp/releases/download/2023.12.30/yt-dlp_linux
     sudo chmod +x ./yt-dlp_linux && sudo mv ./yt-dlp_linux /usr/bin/yt-dlp
 
-    _echo_blue "> Installing mpv..."
-    sudo apt install mpv -y
-
     cd -
 }
 
 _install_polybar(){
+    _confirm_install_again polybar || return 0
+
     cd /tmp
     sudo apt update -y
 
@@ -871,6 +881,8 @@ _install_i3(){
 }
 
 _install_delta(){
+    _confirm_install_again delta || return 0
+
     sudo wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
     sudo apt-get install ./git-delta_0.12.1_amd64.deb -y
 }
@@ -895,6 +907,8 @@ _install_locales_lang(){
 }
 
 _install_greenclip(){
+    _confirm_install_again greenclip || return 0
+
     wget https://github.com/erebe/greenclip/releases/download/v4.2/greenclip
     sudo mv ./greenclip /usr/local/bin/
     # we add rights for rofi to run it
@@ -919,8 +933,8 @@ _install_clang(){
     cmake -DLLVM_ENABLE_PROJECTS=clang -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release  ../llvm
     make -j$(nproc)
 
-    # install clang-format too
-    sudo apt-get install clang-format
+    # Install clang-format too
+    sudo apt-get install clang-format -y
 }
 
 _install_tmux(){
@@ -987,6 +1001,8 @@ _install_dash(){
 }
 
 _install_yq(){
+    _confirm_install_again yq || return 0
+
     local version=v4.2.0
     local binary=yq_linux_amd64
 
@@ -997,11 +1013,15 @@ _install_yq(){
 }
 
 _install_zathura(){
+    _confirm_install_again zathura || return 0
+
     sudo apt-get update -y
     sudo apt-get install zathura -y
 }
 
 _install_docker(){
+    _confirm_install_again docker || return 0
+
     sudo apt install apt-transport-https ca-certificates curl software-properties-common
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -1022,6 +1042,8 @@ _install_docker(){
 }
 
 _install_docker_compose(){
+    _confirm_install_again docker-compose || return 0
+
     _xx cd /tmp
     _xx sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     _xx sudo chmod +x /usr/local/bin/docker-compose
@@ -1052,6 +1074,8 @@ _install_rust(){
 }
 
 _install_java(){
+    _confirm_install_again java || return 0
+
     sudo apt update -y
     sudo apt install default-jre default-jdk -y
 
@@ -1196,11 +1220,15 @@ _install_notifications(){
 
 # To install insomnia (i hate this thing)
 _install_insomnia(){
+    _confirm_install_again insomnia || return 0
+
     sudo snap install insomnia
 }
 
 # To install protoc for compiling proto-buf .proto files
 _install_protoc(){
+    _confirm_install_again protoc || return 0
+
     sudo apt update -y
     sudo apt install protobuf-compiler -y
 
@@ -1252,6 +1280,8 @@ _install_yarn(){
 }
 
 _install_nvm(){
+    _confirm_install_again nvm || return 0
+
 	mkdir ~/.nvm
 
 	sudo apt install curl -y
@@ -1304,6 +1334,8 @@ _install_firefox(){
 }
 
 _install_slack(){
+    _confirm_install_again slack || return 0
+
     _echo_red "Go there : https://slack.com/intl/en-in/downloads/linux and download the .deb"
 
     _confirm "Did you downloaded it ? the installation will take it from your ~/Downloads dir" echo "Good."
@@ -1311,6 +1343,8 @@ _install_slack(){
 }
 
 _install_thunderbird(){
+    _confirm_install_again thunderbird || return 0
+
     sudo add-apt-repository ppa:mozillateam/thunderbird-next
     sudo apt update -y
     sudo apt install thunderbird -y
@@ -1353,7 +1387,7 @@ alias ranger='yazi'
 
 _install_picocom(){
     _confirm_install_again picocom || return 0
-    sudo apt-get -y install picocom
+    sudo apt-get install picocom -y
 }
 
 _install_arduino_cli(){
@@ -1365,7 +1399,7 @@ _install_arduino_cli(){
     sudo chown -R $USER /usr/bin/arduino-cli
 
     # install picocom
-    _install_picocom
+    _confirm "Install picocom to comunicate with COM(USBs) ?" _install_picocom
 
     # update indexes
     arduino-cli core update-index
@@ -1454,12 +1488,17 @@ _install_youtube_dl(){
 
 # to boot devices
 _install_woeusb(){
+    _confirm_install_again woeusb || return 0
+
     sudo add-apt-repository ppa:tomtomtom/woeusb -y
     sudo apt update -y
     sudo apt install woeusb woeusb-frontend-wxgtk -y
 }
 
 _install_peek(){
+
+    _confirm_install_again peek || return 0
+
     sudo add-apt-repository ppa:peek-developers/stable
     sudo apt update -y
     sudo apt install peek -y
@@ -1597,19 +1636,6 @@ _install_basics(){
     _confirm "To clean apt stuffs with autoremove..." sudo apt autoremove -y
 }
 
-# This does not work at all, why i even created it ?
-_install_youtube_music_cli(){
-    # some required bindings
-    sudo apt update -y && sudo apt install youtube-dl libmpv1 libmpv-dev gcc-multilib -y
-
-    # rust install
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-    # cloning and install from source
-    cd $HOME && git clone git@github.com:sudipghimire533/ytui-music
-    cd ytui-music && cargo build --all --release
-}
-
 _install_FZF_POPUP(){
     # to have fzf popup inside tmux
     cd $HOME
@@ -1668,6 +1694,7 @@ _install_cling(){
 }
 
 _install_nordvpn(){
+    _confirm_install_again nordvpn || return 0
     sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 }
 
@@ -2060,6 +2087,9 @@ git_checkout_tree(){
 # AES-256 encrypt/decrypt
 
 _install_mcrypt(){
+
+    _confirm_install_again mcrypt || return 0
+
     sudo apt-get update -y
     sudo apt-get install mcrypt -y
 }
@@ -2383,8 +2413,9 @@ _install_tsh(){
     # # apt update and install :
     # sudo apt update -y
     # sudo apt-get install teleport -y
-    _confirm_install_again tsh && \
-    curl https://goteleport.com/static/install.sh | bash -s 14.2.0 && \
+
+    _confirm_install_again tsh || return 0
+    curl https://goteleport.com/static/install.sh | bash -s 14.2.0
     echo "Installed tsh version $(tsh version)"
 }
 
@@ -2600,8 +2631,10 @@ _inf(){
 }
 
 _install_lynx(){
-    _confirm_install_again lynx && \
-    sudo apt update -y && \
+
+    _confirm_install_again lynx || return 0
+
+    sudo apt update -y
     sudo apt install lynx -y
 }
 # A formater for html
