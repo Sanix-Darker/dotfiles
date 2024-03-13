@@ -3032,6 +3032,6 @@ tmux_run_layout(){
 # }
 
 _connect_space_one(){
-    _xm nohup bluetoothctl scan on
+    _xm nohup bluetoothctl scan on &
     _xm _inf bluetoothctl connect E8:EE:CC:A1:0D:8A
 }

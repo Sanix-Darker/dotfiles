@@ -127,22 +127,23 @@ convertAndPrintSeconds() {
 }
 
 _handle_cmd_history(){
-    CMD_HISTORY_FILE=$PWD/.cmd_history
-    LATEST_LINES_TO_SHOW=30
+    local count_lines_history
+    local cmd_history_file=$PWD/.cmd_history
+    local latest_lines_to_show=30
 
     # we should write inside the directory only if
-    # we're not the not root or as a super user
+    # we're not the root or as a super user
     if [[ "$(stat -c '%U' .)" != "root" || "$(whoami)" == "root" ]]; then
-        if [ -f $CMD_HISTORY_FILE ]; then
-            echo $@ >> $CMD_HISTORY_FILE
+        if [ -f $cmd_history_file ]; then
+            echo $@ >> $cmd_history_file
 
-            COUNT_LINES_HISTORY=$(wc -l $CMD_HISTORY_FILE | sed -e "s/[^0-9]*//g")
-            if [ "$COUNT_LINES_HISTORY" -gt "$LATEST_LINES_TO_SHOW" ]; then
-                tail -n $LATEST_LINES_TO_SHOW $CMD_HISTORY_FILE | uniq > "$CMD_HISTORY_FILE.tmp"
-                mv "$CMD_HISTORY_FILE.tmp" $CMD_HISTORY_FILE
+            count_lines_history=$(wc -l $cmd_history_file | sed -e "s/[^0-9]*//g")
+            if [ "$count_lines_history" -gt "$latest_lines_to_show" ]; then
+                tail -n $latest_lines_to_show $cmd_history_file | uniq > "$cmd_history_file.tmp"
+                mv "$cmd_history_file.tmp" $cmd_history_file
             fi;
         else
-            echo $@ > $CMD_HISTORY_FILE
+            echo $@ > $cmd_history_file
         fi;
     fi;
 }
