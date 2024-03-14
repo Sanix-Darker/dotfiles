@@ -118,6 +118,16 @@ _installed(){
     $(command -v $@ > /dev/null) && [[ $? == 0 ]] && return 0 || return 1
 }
 
+# IMPORTANT : Overrided the cd command with the zoxide command line
+# But let's do that only we're sure zoxide is installed properly
+_magic_cd(){
+    # zoxide and git status if it's a .git project
+    # added a fallback in case of errors
+    z $@ || cd $@
+    _git_status_if_git_repo
+}
+_installed zoxide && [[ $? == 0 ]] && alias cd='_magic_cd'
+
 # With a given message as input, this function will execute anything
 # after the second argument passed
 # Ex : _confirm "Message" echo "test"
@@ -307,14 +317,6 @@ _git_status_if_git_repo(){
         git status
     fi
 }
-# overrided the cd command with the zoxide command line
-# But let's do that only we're sure zoxide is installed properly
-_magic_cd(){
-    # zoxide and git status if it's a .git project
-    # added a fallback in case of errors
-    z $@ && _git_status_if_git_repo || cd
-}
-$(command -v zoxide > /dev/null) && [[ $? == 0 ]] && alias cd='_magic_cd'
 
 # Another amazing cd with fzf
 cdd() {
