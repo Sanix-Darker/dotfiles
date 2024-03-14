@@ -2671,6 +2671,12 @@ _build_perf_stats(){
 _yv(){
     # not passing as param... flemme
     link="$(xsel -b)"
+
+    if [[ $link = *"https://youtu.be"* ]]; then
+        # convert a youtu.be to youtube.com watch link
+        link="https://youtube.com/watch?v="$(echo $link | sed 's/https:\/\/youtu.be\///g')
+    fi;
+
     # Check if the content is a YouTube link
     if [[ $link =~ ^https?://(www\.)?youtube\.com/watch\?v=.* ]]; then
         alert "Loading video : $link..."
