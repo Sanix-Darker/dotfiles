@@ -376,8 +376,8 @@ alias gf=$HOME/gf.sh
 alias scrcpy='/usr/local/bin/scrcpy -m1024'
 
 # slides for running powepoint on my terminal.
+# https://github.com/maaslalani/slides
 alias s='slides'
-
 
 # Toast alert message to notify on some events...
 #
