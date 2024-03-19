@@ -23,7 +23,7 @@
 [core]
     ; fsmonitor = true
     ; untrackedcache = true
-    # pager = delta
+    pager = delta
     editor = nvim
     excludesfile = ~/.config/git/.gitignore_global
 
@@ -42,15 +42,15 @@
 ; To show the diﬀerence between the version speciﬁed by the hash ada9b57 and the latest commit on the branch
 ; my_branchname for only the relative directory called my_changed_directory/ you can do this:
 ; >> git diff ada9b57 my_branchname my_changed_directory/
-; [interactive]
-;     diffFilter = delta --color-only --features=interactive
+[interactive]
+    diffFilter = delta --color-only --features=interactive
 
-; [delta]
-;     navigate = true
-;     line-numbers = true
-;     features = decorations
-;     light = false
-;     side-by-side = false
+[delta]
+    navigate = true
+    line-numbers = true
+    features = decorations
+    light = false
+    side-by-side = false
 
 [merge]
     conflictstyle = diff3
@@ -64,13 +64,13 @@
 [difftool "nvim"]
     cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 
-; [delta "interactive"]
-;     keep-plus-minus-markers = false
-; [delta "decorations"]
-;     file-style = omit
-;     hunk-header-file-style = red
-;     hunk-header-line-number-style = "#067a00"
-;     hunk-header-style = file syntax
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "decorations"]
+    file-style = omit
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file syntax
 
 [commit]
 	gpgsign = true
@@ -127,7 +127,7 @@
     base = !git checkout
 
     ; because am lazy and i asume it
-    ; git merge --allow-unrelated-histories -X theirs origin/master
+    ;
     merge-take-theirs = !git merge --strategy-option=theirs
     merge-take-ours = !git merge --strategy-option=ours
 
