@@ -391,6 +391,11 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # for nvim shortcuts
 alias v='nvim'
+# vf file element de recherhe
+_vf(){
+    nvim -c ':Lines '${@:2}'' $1
+}
+alias vf='_vf'
 # alias v='nvim -c "so ~/.config/nvim/init.lua"'
 alias nv='v'
 # for no user configuration
@@ -2811,7 +2816,7 @@ _(){
 # How to use: _ give me this and that.
 __(){
     # Combine all arguments into a single string
-    PROMPT="$@"
+    local PROMPT="$@"
 
     # Ensure that OPENAI_API_KEY is set
     if [ -z "$OPENAI_API_KEY" ]; then
@@ -2829,7 +2834,9 @@ __(){
     echo "$PROMPT" >> /tmp/gpt-input
 
     # Prepare JSON payload
-    PAYLOAD="{\"model\": \"gpt-3.5-turbo\",\"temperature\": 0.7,\"messages\": [ {\"role\": \"system\",\"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"}, {\"role\": \"user\",\"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"} ] }"
+    local PAYLOAD="{\"model\": \"gpt-3.5-turbo\",\"temperature\": 0.7,\"messages\": [ {\"role\": \"system\",\"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"}, {\"role\": \"user\",\"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"} ] }"
+
+    echo $PAYLOAD
 
     _start_spinner # Start the spinner
 
