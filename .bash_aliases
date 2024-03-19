@@ -393,7 +393,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias v='nvim'
 # vf file element de recherhe
 _vf(){
-    nvim -c ':Lines '${@:2}'' $1
+    local to_search="${@:2}"
+    nvim -c ":Lines $to_search" $1
 }
 alias vf='_vf'
 # alias v='nvim -c "so ~/.config/nvim/init.lua"'
