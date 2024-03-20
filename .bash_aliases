@@ -172,7 +172,9 @@ _confirm(){
 #   sudo apt install lynx -y || \
 #   echo "Not installing..." && return 1
 _confirm_install_again(){
-    _installed $@ && _confirm ">> $@ Already Installed, do you want to reinstall ?" echo
+    _installed $@ && \
+    _confirm ">> $@ Already Installed, do you want to reinstall ?" echo || \
+    echo "proceed..."
 }
 
 # for all git + fzf commands
@@ -391,14 +393,13 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # for nvim shortcuts
 alias v='nvim'
-# vf file element de recherhe
+# Lines search for a given file
+# vf file.txt function this or that
 _vf(){
     local to_search="${@:2}"
     nvim -c ":Lines $to_search" $1
 }
 alias vf='_vf'
-# alias v='nvim -c "so ~/.config/nvim/init.lua"'
-alias nv='v'
 # for no user configuration
 alias vclean='vim --clean'
 alias nvclean='v --clean'
@@ -1502,12 +1503,16 @@ _install_woeusb(){
 }
 
 _install_peek(){
-
     _confirm_install_again peek || return 0
-
     sudo add-apt-repository ppa:peek-developers/stable
     sudo apt update -y
     sudo apt install peek -y
+}
+
+_install_chromium(){
+    _confirm_install_again chromium-browser || return 0
+    sudo apt update -y
+    sudo apt install chromium-browser -y
 }
 
 _install_raw_basics(){
