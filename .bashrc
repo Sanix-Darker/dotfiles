@@ -314,8 +314,7 @@ _gogo(){
 # $(command -v tmux > /dev/null) && [[ $? == 0 ]] && tmux source ~/.tmux.conf > /dev/null
 
 # ---
-export PATH="$PATH:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++"
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 # export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin/yarn"
 # ---
 
@@ -330,7 +329,7 @@ export EDITOR=nvim
 # to make <Python.h> available
 export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
-# export PATH="/home/dk/.local/bin:/home/dk/.bun/bin:/home/dk/.nvm/versions/node/v18.18.2/bin:/home/dk/.pyenv/bin:/home/dk/.nvm/versions/node/v21.2.0/bin:/home/dk/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/dk/.fzf/bin:/usr/local/go/bin:/home/dk/bin:/home/dk/go/src:/usr/local/groovy/bin:/home/dk/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:/home/dk/.config/lsp/lua-language-server/bin:/home/dk/.nvm/versions/node/v18.6.0/bin://home/dk/.fzf/bin:/usr/local/go/src/src:/home/dk/.nvm/versions/node/v18.18.2/bin/yarn:"
+export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/$HOME/.fzf/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++"
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...
