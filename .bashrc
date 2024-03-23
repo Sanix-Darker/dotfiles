@@ -218,7 +218,6 @@ export GO111MODULE=on
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH=$PATH:/opt/firefox/firefox
 export ARDUINO_LIBS=$HOME/Arduino/libraries
 # For clang
 # export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
