@@ -191,6 +191,9 @@ au FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
 au FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 
+" to copy current path in clipboard"
+nnoremap cp :let @+ = expand('%')<CR>
+
 " >> for transparent background
 function! AdaptColorscheme()
     highlight clear CursorLine
