@@ -1335,6 +1335,34 @@ _install_firefox(){
     # we create the symbolic link to that opt bin
     sudo ln -s /opt/firefox/firefox/firefox /usr/bin/firefox
 
+    # NOTE: ok, SOMETIMES, linux seems to be DUMB
+    # because am using this binary instead of the snap one
+    # i need to FORCE xdg-open to call it whenever it wants to
+    # open a new link from other applications
+    #
+    # This is to ensure that xdg-open does get lost :
+    local firefox_desktop="$HOME/.loca/share/applications/firefox.desktop"
+    # let's run this only if the file is missing...
+    if [ ! -f "$firefox_desktop" ]; then
+        _echo_info "> Writing firefox.desktop configuration..."
+    cat <<EOF > $firefox_desktop
+[Desktop Entry]
+Name=Firefox
+Comment=Web Browser
+GenericName=Web Browser
+Exec=firefox %u
+Terminal=false
+Type=Application
+Icon=firefox
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
+StartupNotify=true
+EOF
+        _echo_info "> Using xdg-settings, setting firefox.desktop as default browser..."
+        # Then set it explicitly:
+        xdg-settings set default-web-browser firefox.desktop
+    fi;
+
     # We clean
     # rm -rf firefox-*.tar.bz2 firefox
     cd -
@@ -3051,6 +3079,19 @@ tmux_run_layout(){
 # your_package_name , and  your_activity_name  with the appropriate values
 # for your setup.
 # }
+
+# This util helps me to evaluated all the tests files updated, created
+# on the current branch using git and then run them before i create a
+# pull request.
+_pytest_changed(){
+    local tmp_tests_list="/tmp/pytest_tests"
+
+    git diff --stat $(git merge-base HEAD origin) -- tests/ | \
+        grep 'tests' | awk '{print $1}' | \
+        xargs -I{} sh -c 'test -e "{}" && echo "{}"' > $tmp_tests_list && \
+    _echo_info ">> pytest will execute these tests :" && \
+    cat $tmp_tests_list && xargs -a $tmp_tests_list pytest -s -vv --disable-pytest-warnings
+}
 
 _connect_space_one(){
     _xm nohup bluetoothctl scan on &
