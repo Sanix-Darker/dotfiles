@@ -3088,8 +3088,8 @@ _pytest_changed(){
 
     git diff --stat $(git merge-base HEAD origin) -- tests/ | \
         grep 'tests' | awk '{print $1}' | \
-        xargs -I{} sh -c 'test -e "{}" && echo "{}"' > $tmp_tests_list && \
-    _echo_info ">> pytest will execute these tests :" && \
+        xargs -I{} sh -c 'test -e "{}" && echo "{}"' > $tmp_tests_list
+    _echo_info ">> pytest will execute these tests :"
     cat $tmp_tests_list && xargs -a $tmp_tests_list pytest -s -vv --disable-pytest-warnings
 }
 
