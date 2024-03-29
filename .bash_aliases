@@ -3080,16 +3080,16 @@ tmux_run_layout(){
 # for your setup.
 # }
 
-# This util helps me to evaluated all the tests files updated, created
-# on the current branch using git and then run them before i create a
-# pull request.
+# This util helps me to evaluated all the tests's files
+# updated/created on my branch,
+# using git and then run them automatically.
 _pytest_changed(){
     local tmp_tests_list="/tmp/pytest_tests"
 
     git diff --stat $(git merge-base HEAD origin) -- tests/ | \
         grep 'tests' | awk '{print $1}' | \
         xargs -I{} sh -c 'test -e "{}" && echo "{}"' > $tmp_tests_list
-    _echo_info ">> pytest will execute these tests :"
+    echo -ne ">> pytest will execute these tests :"
     cat $tmp_tests_list && xargs -a $tmp_tests_list pytest -s -vv --disable-pytest-warnings
 }
 
