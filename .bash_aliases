@@ -91,8 +91,6 @@ _xm(){
     cd -;
 }
 
-alias cat='bat -p'
-
 # Small custom spinner
 # Usage:
 #   _start_spinner
@@ -127,6 +125,9 @@ _magic_cd(){
     _git_status_if_git_repo
 }
 _installed zoxide && [[ $? == 0 ]] && alias cd='_magic_cd'
+
+# Either i use bat for cat or the secured paramas for cat -vET
+ _installed bat && [[ $? == 0 ]] && alias cat='bat -p' || alias cat='cat -vET'
 
 # With a given message as input, this function will execute anything
 # after the second argument passed
