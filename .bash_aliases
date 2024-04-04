@@ -2859,7 +2859,7 @@ _(){
 # How to use: _ give me this and that.
 __(){
     # Combine all arguments into a single string
-    local PROMPT="$@"
+    local PROMPT="$(echo -ne $@ | tr -d '\n')"
 
     # Ensure that OPENAI_API_KEY is set
     if [ -z "$OPENAI_API_KEY" ]; then
@@ -2877,20 +2877,34 @@ __(){
     echo "$PROMPT" >> /tmp/gpt-input
 
     # Prepare JSON payload
-    local PAYLOAD="{\"model\": \"gpt-3.5-turbo\",\"temperature\": 0.7,\"messages\": [ {\"role\": \"system\",\"content\": \"You're a software engineer, that give solution as source code if possible, no need for comments in code.\"}, {\"role\": \"user\",\"content\": \"$(echo "$PROMPT" | sed 's/"/\\"/g')\"} ] }"
+    local PAYLOAD='{
+    "model": "'"$OPENAI_API_MODEL"'",
+    "temperature": 0.8,
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a software engineer, give solution as source code if possible, no comments in code."
+        },
+        {
+            "role": "user",
+            "content": "'"$PROMPT"'"
+        }
+    ]
+}'
 
-    echo $PAYLOAD
+    # echo "$PAYLOAD"
 
     _start_spinner # Start the spinner
 
     # Call OpenAI API
-    curl -LSs --max-time 40 \
+    local CURL_RESULT=$(curl -LSs --max-time 40 \
     https://api.openai.com/v1/chat/completions \
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -d "$PAYLOAD" \
-    | jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
-    > /tmp/gpt-output
+    -d "$PAYLOAD") && \
+    jq -r '.choices[0].message.content | sub("^\""; "") | sub("\"$"; "")' \
+    <<< $CURL_RESULT > /tmp/gpt-output || \
+    jq . <<< $CURL_RESULT
 
     _stop_spinner # Stop the spinner
 
