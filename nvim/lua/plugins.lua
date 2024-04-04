@@ -124,6 +124,7 @@ return packer.startup(function(use)
     use 'nvim-pack/nvim-spectre'
     -- To list diagnostic and warning
     use 'folke/trouble.nvim'
+    use 'dlvhdr/gh-addressed.nvim'
     -- For dev-icons
     -- use 'ryanoasis/vim-devicons'
     -- For highlight all occurrences
@@ -179,6 +180,8 @@ return packer.startup(function(use)
     -- use 'leafgarland/typescript-vim'
     -- use 'maxmellon/vim-jsx-pretty'
     -- For debugging, we add dap
+    -- frustating, but need to include this one :
+    use 'nvim-neotest/nvim-nio'
     use 'mfussenegger/nvim-dap'
     use 'Pocco81/DAPInstall.nvim'
     use 'mfussenegger/nvim-dap-python'

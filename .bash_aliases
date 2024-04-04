@@ -1544,6 +1544,11 @@ _install_chromium(){
     sudo apt install chromium-browser -y
 }
 
+_install_dedoc(){
+    _confirm_install_again dedoc || return 0
+    cargo install dedoc
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
@@ -1593,6 +1598,8 @@ _install_raw_basics(){
             _echo_black "[.]installed $i successfully !" || \
             _echo_red "[x]error installing $i"
     done
+
+    _confirm "Install dedoc (devDocs) ?" _install_dedoc
 }
 
 # a dumb forwarding.... needed
@@ -1844,6 +1851,7 @@ _git_search(){
 }
 
 # __git_open_code commit:file:line
+# should come after a git seach
 _git_open_code(){
     # getting your current branch
     branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -3098,3 +3106,18 @@ _connect_space_one(){
     _xm nohup bluetoothctl scan on &
     _xm _inf bluetoothctl connect E8:EE:CC:A1:0D:8A
 }
+
+## man aliases for dedoc:
+# extemly usefull for searching in the API-ref
+# requirements :
+#   $ cargo install dedoc
+#   $ dedoc fetch
+#   $ dedoc download <lang>
+_dedoc(){
+   dedoc -c ss "$@" -o 2 | cat -l md
+}
+alias manpy310='_dedoc python~3.10 '
+alias manpy312='_dedoc python~3.10 '
+alias manpy='_dedoc python~3.11 '
+alias manrs='_dedoc rust '
+alias mango='_dedoc go '

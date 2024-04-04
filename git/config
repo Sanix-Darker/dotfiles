@@ -116,18 +116,17 @@
     ; to set the nofilter commit inside the attributes of a repo
     ; just to be sure to ignore all lignes from with that word
     ; PS : make sure that file  exist first !!!
+    ; so i just have to add in a comment 'nocommit' to not see those changes
     nocommit = !echo "$@ filter=nocommit " >> ./.git/info/attributes
     ; to open the commit with an editor to see what changed
     commit = commit -e
 
-    ; we can commit a specific file with a direct message in one line
+    ; We can commit a specific file with a direct message in one line
     ; git commit ./test -m "this is a test file"
     ; works with a single file or multiple files
-
     base = !git checkout
 
     ; because am lazy and i asume it
-    ;
     merge-take-theirs = !git merge --strategy-option=theirs
     merge-take-ours = !git merge --strategy-option=ours
 
@@ -189,13 +188,11 @@
     ; to get the branch from which were made the release
     get-branch-tag = !git branch -a --contains tags \"$1\"
 
-    ; to list commits from the current branch
+    ; To list commits from the current branch
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
     commit-list = !git cherry -v origin
-
     ; git reset --hard
     clear = !git reset --hard
-
     ; this will clean everything and on force mode
     clean-force = !git clean -f -d
 
@@ -286,6 +283,7 @@
     patch-get = !git am < $@
 
     ; to get remote coworker's code
+    ; git pull-coworker xxx:yyy
     pull-coworker = !bash -c 'source $HOME/.bash_aliases && _git_coworker "$1"' -s
 
     ; git fork-set-upstream <git-repo-link>
