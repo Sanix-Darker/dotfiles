@@ -950,7 +950,7 @@ _install_tmux(){
     sudo apt-get install bison flex -y
 
     # VERSION="3.1c" # i need something fast ABEK
-    local version="3.4" # because i can
+    local version="3.3a" # because i can
     # VERSION="master-0.0.1" # for my custom fork just to get all tmux updates so far
     local where_i_was=$PWD
 
