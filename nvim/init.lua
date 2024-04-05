@@ -1,5 +1,3 @@
--- the list of available plugins
-require('plugins')
 _G.__luacache_config = {
     chunks = {
         enable = true,
@@ -13,6 +11,8 @@ _G.__luacache_config = {
 
 vim.cmd('source ~/.config/nvim/config.vim')
 
+-- the list of available plugins
+require('plugins')
 -- To speed up the start(cache)
 require('impatient')
 -- all set configurations

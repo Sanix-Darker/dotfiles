@@ -225,3 +225,26 @@ au ColorScheme * highlight WhichKeyFloat cterm=NONE guibg=NONE ctermbg=NONE cter
 " Minimap highlight
 " au ColorScheme * highlight minimapRange ctermbg=236 ctermfg=2 guibg=236 guifg=#0089D9
 " >> trasparent end
+
+" To automatically not open two buffers for the same edit in the current session:
+function! OpenExistingTab(filename)
+    let filename = expand(a:filename)
+    " Iterate through each tab
+    for i in range(1, tabpagenr('$'))
+        " Iterate through each buffer in the tab
+        for bufnr in tabpagebuflist(i)
+            " Check if the buffer's file matches the given filename
+            if bufname(bufnr) ==# filename
+                " Switch to the tab containing the buffer
+                execute "tabnext " . i
+                " Go to the window containing the buffer
+                execute "buffer " . bufnr
+                return
+            endif
+        endfor
+    endfor
+    " If the file is not found in any tabs, open it in a new tab
+    execute "tabedit " . filename
+endfunction
+
+command! -nargs=1 OpenExistingTab call OpenExistingTab(<f-args>)
