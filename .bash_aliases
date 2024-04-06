@@ -121,7 +121,7 @@ _installed(){
 _magic_cd(){
     # zoxide and git status if it's a .git project
     # added a fallback in case of errors
-    z $@ || cd $@
+    zoxide $@ || cd $@
     _git_status_if_git_repo
 }
 _installed zoxide && [[ $? == 0 ]] && alias cd='_magic_cd'
