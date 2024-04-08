@@ -121,9 +121,11 @@ _installed(){
 _magic_cd(){
     # zoxide and git status if it's a .git project
     # added a fallback in case of errors
-    zoxide $@ || cd $@
+    z $@ || cd $@
     _git_status_if_git_repo
 }
+# the default one should be kept too
+alias __cd='cd'
 _installed zoxide && [[ $? == 0 ]] && alias cd='_magic_cd'
 
 # Either i use bat for cat or the secured paramas for cat -vET
@@ -539,7 +541,7 @@ _copy_to_dotfiles(){
 _push_dot_files(){
     _copy_to_dotfiles
 
-    cd $DOT_DIR
+    __cd $DOT_DIR
     # git stash && git pull --prune && git stash pop
     git diff && git add -A && git commit -m "feat: updates for $(date)"
 
@@ -549,14 +551,14 @@ _push_dot_files(){
     _confirm "[>] Push those changes on github ?" git push
 
     # we return on our previus directory
-    cd -
+    __cd -
 }
 
 _pull_dot_files(){
     if [[ ! -d $DOT_DIR ]]; then
         git clone https://github.com/Sanix-Darker/dotfiles
     else
-        cd $DOT_DIR && git pull
+        __cd $DOT_DIR && git pull
     fi
 }
 
