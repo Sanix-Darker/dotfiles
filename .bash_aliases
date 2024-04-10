@@ -397,10 +397,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # for nvim shortcuts
 alias v='nvim'
 # Lines search for a given file
-# vf file.txt function this or that
+# vf <item> file-path
 _vf(){
     local to_search="${@:2}"
-    nvim -c ":Lines $to_search" $1
+    nvim -c ":Lines $1" $to_search
 }
 alias vf='_vf'
 # for no user configuration
