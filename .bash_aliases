@@ -500,7 +500,7 @@ _set_dot_files(){
     _confirm "Set up nvim (you need a good node/npm (nvm) available) ?" _set_nvim
 
     # we return on our previus directory
-    cd -
+    _magic_cd -
 }
 
 _copy_to_dotfiles(){
