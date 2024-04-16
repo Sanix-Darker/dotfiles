@@ -124,8 +124,6 @@ _magic_cd(){
     z $@ || cd $@
     _git_status_if_git_repo
 }
-# the default one should be kept too
-alias __cd='cd'
 _installed zoxide && [[ $? == 0 ]] && alias cd='_magic_cd'
 
 # Either i use bat for cat or the secured paramas for cat -vET
@@ -541,7 +539,7 @@ _copy_to_dotfiles(){
 _push_dot_files(){
     _copy_to_dotfiles
 
-    __cd $DOT_DIR
+    _magic_cd $DOT_DIR
     # git stash && git pull --prune && git stash pop
     git diff && git add -A && git commit -m "feat: updates for $(date)"
 
@@ -551,14 +549,14 @@ _push_dot_files(){
     _confirm "[>] Push those changes on github ?" git push
 
     # we return on our previus directory
-    __cd -
+    _magic_cd -
 }
 
 _pull_dot_files(){
     if [[ ! -d $DOT_DIR ]]; then
         git clone https://github.com/Sanix-Darker/dotfiles
     else
-        __cd $DOT_DIR && git pull
+        _magic_cd $DOT_DIR && git pull
     fi
 }
 
@@ -3138,9 +3136,33 @@ alias manpy='_dedoc python~3.11 '
 alias manrs='_dedoc rust '
 alias mango='_dedoc go '
 
+# Usage:
+#   mpvfzf
+#
+# Requirements: mpv, fzf
 mpvfzf(){
-    ls -alh *.webm | \
-        fzf -m | \
-        awk '{for (i=7; i<=NF; i++) printf "%s ", $i; print ""}' | \
-        while read -r file; do mpv $file; done
+    echo "Collecting videos from this path..."
+
+    local to_watch="$(find . -type f \( \
+        -iname "*.webm*" -o \
+        -iname "*.mp4" -o \
+        -iname "*.mkv" -o \
+        -iname "*.avi" -o \
+        -iname "*.mov" -o \
+        -iname "*.mp3" -o \
+        -iname "*.flac" -o \
+        -iname "*.wav" \) \
+        -exec file --mime-type {} + | \
+        awk -F: '$2 ~ /^ *video\/|^ *audio\// {print $1}' |\
+        fzf -m)"
+
+    # this just to remove spaces at the end.
+    local trimmed_string="${to_watch%"${to_watch##*[![:space:]]}"}"
+
+    if [ -f "$trimmed_string" ]; then
+        echo "Opening '$trimmed_string' with mpv..."
+        mpv "$trimmed_string" & > /dev/null;
+    else
+        echo "Error opening '$trimmed_string'"
+    fi;
 }
