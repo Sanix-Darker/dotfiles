@@ -3137,3 +3137,10 @@ alias manpy312='_dedoc python~3.10 '
 alias manpy='_dedoc python~3.11 '
 alias manrs='_dedoc rust '
 alias mango='_dedoc go '
+
+mpvfzf(){
+    ls -alh *.webm | \
+        fzf -m | \
+        awk '{for (i=7; i<=NF; i++) printf "%s ", $i; print ""}' | \
+        while read -r file; do mpv $file; done
+}
