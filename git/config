@@ -195,6 +195,8 @@
     clear = !git reset --hard
     ; this will clean everything and on force mode
     clean-force = !git clean -f -d
+    ; to delete all untracked files
+    clear-untracted = !git clean -xdf
 
     ; to list all vailable issues
     issue-list = !gh issue list

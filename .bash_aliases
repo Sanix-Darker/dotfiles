@@ -70,7 +70,7 @@ export CONFIG_PATHS=(
 
 # Generate random string input
 # random_str=$(_random_string 10)
-_generate_random_string(){
+_random_string(){
   local length=$1
   [ -z "$length" ] && length=10
   tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
