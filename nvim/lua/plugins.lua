@@ -76,8 +76,9 @@ return packer.startup(function(use)
     -- Plugin outside ~/.vim/plugged with post-update hook
     -- needed to add this because neoclip depends on it
     use {'ibhagwan/fzf-lua', branch = 'main'}
-    use {'Sanix-Darker/fzf', branch = 'me', run = function() vim.fn['fzf#install']() end}
-    use 'junegunn/fzf.vim'
+    use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
+    use {'Sanix-Darker/fzf.vim', branch = 'f/git_files_branch'}
+    -- use 'junegunn/fzf.vim'
     -- For FZF preview
     use 'yuki-yano/fzf-preview.vim'
     -- For code folding
