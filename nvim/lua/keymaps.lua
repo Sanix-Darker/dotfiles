@@ -219,7 +219,8 @@ map("n", "<Leader>x", "\"xp")
 map("n", "<Leader><space>", ":GitMessenger<CR>")
 
 -- to copy the current path of a file in the clipboard(the empty registry)
-map("n", "cp", ":let @\" = expand(\"%\")<cr>")
+map("n", "cpf", ":let @+=@%<cr>")
+map("n", "cp", ":let @+=expand('%:p:h') . '/' . expand('%:t')<CR>")
 
 -- to access the clipboard history
 map("n", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")

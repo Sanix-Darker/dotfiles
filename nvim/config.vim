@@ -185,14 +185,12 @@ let g:clang_format#style_options = {
             \ "AllowShortIfStatementsOnASingleLine" : "true",
             \ "AlwaysBreakTemplateDeclarations" : "true",
             \ "Standard" : "C++11"}
+
 " map to <Leader>cf in C++ code
 au FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
 au FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
 au FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-
-" to copy current path in clipboard"
-nnoremap cp :let @+ = expand('%')<CR>
 
 " >> for transparent background
 function! AdaptColorscheme()

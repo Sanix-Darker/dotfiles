@@ -75,9 +75,9 @@ return packer.startup(function(use)
     use {'nsf/gocode', run = 'vim'}
     -- Plugin outside ~/.vim/plugged with post-update hook
     -- needed to add this because neoclip depends on it
-    use {'ibhagwan/fzf-lua', branch = 'main'}
+    -- use {'ibhagwan/fzf-lua', branch = 'main'}
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
-    use {'Sanix-Darker/fzf.vim', branch = 'f/git_files_branch'}
+    use 'junegunn/fzf.vim'
     -- use 'junegunn/fzf.vim'
     -- For FZF preview
     use 'yuki-yano/fzf-preview.vim'
@@ -421,7 +421,7 @@ return packer.startup(function(use)
     --" for testing purposes
     --" Plug 'nvim-telescope/telescope.nvim'
     --" Plug 'jackMort/ChatGPT.nvim'
-    use('gsuuon/llm.nvim')
+    -- use('gsuuon/llm.nvim')
     --" lsp-lines (for better diagnostic)
     use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
     -- looks like this one does not work anymore ?
