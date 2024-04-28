@@ -152,7 +152,7 @@ require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-ha
 require('gh-actions').setup()
 
 -- for search and replace on all a directory (text, not necessary a var/func..)
-require('spectre').setup()
+-- require('spectre').setup()
 
 -- for diag listing
 require("trouble").setup{}

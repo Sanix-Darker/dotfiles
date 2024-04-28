@@ -219,12 +219,11 @@ map("n", "<Leader>x", "\"xp")
 map("n", "<Leader><space>", ":GitMessenger<CR>")
 
 -- to copy the current path of a file in the clipboard(the empty registry)
-map("n", "cpf", ":let @+=@%<cr>")
 map("n", "cp", ":let @+=expand('%:p:h') . '/' . expand('%:t')<CR>")
 
 -- to access the clipboard history
-map("n", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
-map("v", "<Leader>cc", ":lua require('neoclip.fzf')()<CR>")
+map("n", "<Leader>cc", ":reg <CR>")
+map("v", "<Leader>cc", ":reg <CR>")
 
 -- prev & nex chunks updates
 map("n", "]c", ":Gitsigns next_hunk<CR>")
@@ -357,19 +356,25 @@ map("n", "<leader><", ":bprevious<cr>")
 -- map("n", "vL", "v$h", {silent = true})
 -- map("n", "vH", "v^w", {silent = true})
 
--- nvim spectre
-map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
-    desc = "Open Spectre"
-})
-map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-    desc = "Search current word"
-})
-map('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-    desc = "Search current word"
-})
-map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-    desc = "Search on current file"
-})
+-- search and replace like an old school
+-- then (to replace everywhere) [this works also for custom commands on the
+-- quickfix]
+-- :cdo %s/item/this/gc
+map('v', '<leader>ss', ':vimgrep /@*/ `find . -type f` CR :copen CR')
+
+-- nvim aaaa
+-- map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
+--     desc = "Open Spectre"
+-- })
+-- map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+--     desc = "Search current word"
+-- })
+-- map('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+--     desc = "Search current word"
+-- })
+-- map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+--     desc = "Search on current file"
+-- })
 
 -- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 -- => Editing mappings
@@ -420,8 +425,6 @@ map('n','<leader>=', '<cmd>lua vim.lsp.buf.format()<CR>')
 -- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 -- Displays a function's signature information
 map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
--- Renames all references to the symbol under the cursor
-map('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
 -- Selects a code action available at the current cursor position
 -- map('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
 map('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
