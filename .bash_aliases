@@ -175,7 +175,7 @@ _confirm(){
 _confirm_install_again(){
     _installed $@ && \
     _confirm ">> $@ Already Installed, do you want to reinstall ?" echo || \
-    echo "proceed..."
+    echo "Not found, proceed installation..."
 }
 
 # for all git + fzf commands
@@ -376,7 +376,8 @@ EOF
 alias gf=$HOME/gf.sh
 
 # My custom build of scrcpy
-alias scrcpy='/usr/local/bin/scrcpy -m1024'
+# alias scrcpy='/usr/local/bin/scrcpy -m1024'
+# unalias # to unset an alias.
 
 # slides for running powepoint on my terminal.
 # https://github.com/maaslalani/slides
@@ -1548,7 +1549,12 @@ _install_dedoc(){
     _confirm_install_again dedoc || return 0
     cargo install dedoc
 }
+_install_scrcpy(){
+    _confirm_install_again scrcpy || return 0
 
+    sudo apt-get update -y
+    sudo apt-get -y install scrcpy -y
+}
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
