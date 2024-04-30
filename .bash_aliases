@@ -206,6 +206,8 @@ _sleep(){
 alias tmux='tmux -f ~/.config/tmux/tmux.conf -2'
 
 # some more ls aliases
+# cargo install eza
+# alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls='exa'
 alias ll='ls -alF'
 alias la='ls -A'
@@ -270,10 +272,6 @@ alias size='du -sh'
 
 # the lock command
 alias lo='gnome-screensaver-command -l'
-
-if [ -f ~/.bash_work_aliases ]; then
-    . ~/.bash_work_aliases
-fi
 
 # To mkdir a directory and cd into it
 # md path
@@ -395,6 +393,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # for nvim shortcuts
 alias v='nvim'
+alias vim='nvim'
 # Lines search for a given file
 # vf <item> file-path
 _vf(){
@@ -907,6 +906,11 @@ _install_FZF(){
     ~/.fzf/install # [me] is my special branch btw (with my custom bindings over there).
     # go back to the previous dir
     cd -
+}
+
+_install_fzf_git(){
+    cd ~ && wget https://raw.githubusercontent.com/junegunn/fzf-git.sh/main/fzf-git.sh
+    chmod +x ~/fzf-git.sh && cd -
 }
 
 _install_locales_lang(){
@@ -1549,12 +1553,14 @@ _install_dedoc(){
     _confirm_install_again dedoc || return 0
     cargo install dedoc
 }
+
 _install_scrcpy(){
     _confirm_install_again scrcpy || return 0
 
     sudo apt-get update -y
     sudo apt-get -y install scrcpy -y
 }
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
@@ -3120,6 +3126,7 @@ _pytest_changed(){
         xargs -I{} sh -c 'test -e "{}" && echo "{}"' > $tmp_tests_list
     echo -ne ">> pytest will execute these tests :"
     cat $tmp_tests_list && xargs -a $tmp_tests_list pytest -s -vv --disable-pytest-warnings
+    echo "" > $tmp_tests_list
 }
 
 _connect_space_one(){
@@ -3137,10 +3144,12 @@ _dedoc(){
    dedoc -c ss "$@" -o 2 | cat -l md
 }
 alias manpy310='_dedoc python~3.10 '
-alias manpy312='_dedoc python~3.10 '
 alias manpy='_dedoc python~3.11 '
 alias manrs='_dedoc rust '
 alias mango='_dedoc go '
+alias manjs='_dedoc node '
+alias manphp='_dedoc php '
+alias manlaravel='_dedoc laravel~10 '
 
 # Usage:
 #   mpvfzf
@@ -3172,3 +3181,7 @@ mpvfzf(){
         echo "Error opening '$trimmed_string'"
     fi;
 }
+
+# For bat/cat theming
+# $ bat --list-themes | fzf --preview="bat --theme={} --color=always ./Makefile"
+export BAT_THEME=Dracula
