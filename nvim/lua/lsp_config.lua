@@ -169,6 +169,14 @@ for _, lsp in ipairs(lsp_servers) do
     capabilities = local_capabilities,
   }
 end
+-- custom for phpactor
+lspconfig['phpactor'].setup {
+    init_options = {
+        ["language_server_phpstan.enabled"] = false,
+        ["language_server_psalm.enabled"] = false,
+    },
+    capabilities = local_capabilities,
+}
 
 lspconfig.lua_ls.setup(lspconfig_setup)
 -- require "lsp_signature".setup({

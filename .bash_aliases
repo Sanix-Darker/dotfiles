@@ -1071,6 +1071,40 @@ _install_glow(){
     # markdown previewer
     go install github.com/charmbracelet/glow@latest
 }
+_install_php(){
+    _confirm_install_again php || return 0
+
+    sudo apt-get update -y
+    sudo apt-get install php php-curl php-xml curl -y
+}
+
+_install_composer(){
+    _install_php
+
+    _confirm_install_again composer || return 0
+
+    cd /tmp
+    # download php  composer
+    curl -sS https://getcomposer.org/installer -o composer-setup.php
+    # install it
+    sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    cd -
+}
+_install_php_actor(){
+    cd ~
+    git clone https://github.com/phpactor/phpactor.git && cd phpactor
+
+    composer install
+    cd /usr/local/bin && sudo ln -s ~/phpactor/bin/phpactor phpactor
+    cd -
+}
+composer-create-project(){
+    local project_name=$1
+    # Either the given project name, either the default
+    [ -z "$project_name" ] && project_name="laravel-api"
+    echo "Creating laravel project '$project_name'..."
+    composer create-project --prefer-dist laravel/laravel $project_name
+}
 
 _install_rust(){
     _confirm_install_again rustc || return 0

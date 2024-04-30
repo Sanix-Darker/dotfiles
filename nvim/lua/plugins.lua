@@ -264,13 +264,17 @@ return packer.startup(function(use)
     -- For multicursor (need more mappings)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
     -- For PHP
-    -- use 'tobyS/pdv'                        " Auto generating PHP docblocks
-    -- use {'phpactor/phpactor', run = 'composer install', for = 'php'} " PHP introspection and refactor tools
-    -- use 'phpactor/ncm2-phpactor'           " Phpactor integration for ncm2 (autocomplete)
-    -- use 'stephpy/vim-php-cs-fixer'         " Coding standards fixer
+    use 'tobyS/pdv'                        -- Auto generating PHP docblocks
+    use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
+    use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
+    use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
     -- For PHP autocompletion
-    -- use 'Shougo/vimproc.vim', {'do' : 'make'}
-    -- use 'Shougo/unite.vim'
+    use {'Shougo/vimproc.vim', run = 'make'}
+    use 'Shougo/unite.vim'
+    -- For Laravel
+    use 'tpope/vim-dotenv'
+    use 'nvimtools/none-ls.nvim'
+    use 'adalessa/laravel.nvim'
     -- use 'm2mdas/phpcomplete-extended'
     -- use 'https://github.com/ojroques/nvim-lspfuzzy could be interesting to explore or the future
     -- use 'gfanto/fzf-lsp.nvim'
