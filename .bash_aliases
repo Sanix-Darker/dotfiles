@@ -1090,6 +1090,13 @@ _install_composer(){
     sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     cd -
 }
+
+# rtorrent 'magnet link'
+_install_rtorrent(){
+    _confirm_install_again rtorrent || return 0
+    sudo apt install rtorrent -y
+}
+
 _install_php_actor(){
     cd ~
     git clone https://github.com/phpactor/phpactor.git && cd phpactor
