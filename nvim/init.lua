@@ -11,11 +11,11 @@ _G.__luacache_config = {
 
 vim.cmd('source ~/.config/nvim/config.vim')
 
--- the list of available plugins
+-- The list of available plugins
 require('plugins')
 -- To speed up the start(cache)
 require('impatient')
--- all set configurations
+-- All set configurations
 require('set_config')
 -- to import plugins configurations
 require('plugins_config')

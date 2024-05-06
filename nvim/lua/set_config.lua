@@ -114,8 +114,8 @@ set.updatetime = 1
 set.switchbuf = 'useopen,usetab,newtab'
 set.stal = 2
 -- Enable folding
-set.foldmethod = 'manual'
-set.foldlevel = 99
+set.foldmethod = 'indent'
+set.foldlevel = 0
 -- For spell checking
 -- set.spell = true
 -- equal distribution on splitted window
