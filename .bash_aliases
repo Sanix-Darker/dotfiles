@@ -1602,6 +1602,17 @@ _install_scrcpy(){
     sudo apt-get -y install scrcpy -y
 }
 
+_install_nvidia_container_toolkit(){
+
+    _confirm_install_again nvidia-container-toolkit || return 0
+
+    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |     sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+    sudo apt-get update
+    sudo apt-get install -y nvidia-container-toolkit
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
