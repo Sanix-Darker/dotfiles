@@ -1611,6 +1611,10 @@ _install_nvidia_container_toolkit(){
     sudo apt-get install -y nvidia-container-toolkit
     sudo systemctl daemon-reload
     sudo systemctl restart docker
+    # for nvidia to be connected and working well with docker.
+    # nvidia-smi --query-compute-apps=pid --format=csv,noheader | xargs -n1 kill -9
+    # sudo modprobe -r nvidia_uvm && sudo modprobe nvidia_uvm
+    # nvidia-smi --query-compute-apps=pid --format=csv,noheader | xargs -n1 kill -9
 }
 
 _install_raw_basics(){
@@ -3237,3 +3241,4 @@ mpvfzf(){
 # For bat/cat theming
 # $ bat --list-themes | fzf --preview="bat --theme={} --color=always ./Makefile"
 export BAT_THEME=Dracula
+alias llm-ls='/home/dk/ACTUALC/github/llm-ls/target/release/llm-ls'

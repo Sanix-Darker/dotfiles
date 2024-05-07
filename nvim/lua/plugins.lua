@@ -426,6 +426,28 @@ return packer.startup(function(use)
     --" Plug 'nvim-telescope/telescope.nvim'
     --" Plug 'jackMort/ChatGPT.nvim'
     -- use('gsuuon/llm.nvim')
+    -- use {
+    --   'huggingface/llm.nvim',
+    --   config = function()
+    --     require('llm').setup({
+    --         {
+    --           api_token = "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",
+    --           tokens_to_clear = { "<|endoftext|>" },
+    --           fim = {
+    --             enabled = true,
+    --             prefix = "<fim_prefix>",
+    --             middle = "<fim_middle>",
+    --             suffix = "<fim_suffix>",
+    --           },
+    --           model = "bigcode/starcoder",
+    --           context_window = 8192,
+    --           tokenizer = {
+    --             repository = "bigcode/starcoder",
+    --           }
+    --         }
+    --     })
+    --   end
+    -- }
     --" lsp-lines (for better diagnostic)
     use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
     -- looks like this one does not work anymore ?
