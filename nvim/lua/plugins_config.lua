@@ -436,7 +436,7 @@ require("mason-lspconfig").setup(masonlspconfig_setup)
 -- })
 
 -- for autoclosing brackets
--- require('insx.preset.standard').setup()
+require('insx.preset.standard').setup()
 
 -- require("nvim-tree").setup(
 --     {

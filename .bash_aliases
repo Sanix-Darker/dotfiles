@@ -2579,16 +2579,24 @@ _set_mouse(){
 # $ note topic # will seach for notes on this topic
 # $ note # will list for you all notes taken globally
 note(){
+    local code_editor="nvim"
     local notes_dir=$HOME/notes/
     local content_view="cat $notes_dir/{1}-notes.md"
     local today_note_file="$notes_dir/$(date '+%Y-%m-%d')-notes.md"
-	enter_command="nvim $notes_dir/{1}-notes.md"
+	local enter_command="$code_editor $notes_dir/{1}-notes.md"
+
+    function _grep_filter(){
+        cat $notes_dir* | grep "$@"
+    }
+    function _ag_filter(){
+        ag "$@" $notes_dir
+    }
 
     # We create the notes directory if it doesn't exist
     if [ ! -d "$notes_dir" ]; then mkdir -p $notes_dir; fi;
 
     # We browse context (topic) elements if only one argument is passed
-    if [ "$#" = "1" ]; then ls $notes_dir | ag $1 $notes_dir; fi;
+    if [ "$#" = "1" ]; then ls $notes_dir | _ag_filter $1 ; fi;
 
     # We browse the content of notes if no arguments are passed
     if [ -z $1 ]; then
@@ -3237,6 +3245,40 @@ mpvfzf(){
         echo "Error opening '$trimmed_string'"
     fi;
 }
+
+
+# Example usage:
+# _thread_bash "command1" "command2" "command3"
+# _thread_bash(){
+#     # Declare an array to store the PIDs
+#     pids=()
+
+#     # Run each command in the background and save its PID
+#     for cmd in "$@"; do
+#         cd /tmp
+#         eval "$cmd" &
+#         pids+=($!)
+#     done
+
+#     # Declare an array to store log files
+#     logs=()
+
+#     # Create a log file for each command
+#     for pid in "${pids[@]}"; do
+#         log_file="/tmp/threading_log_$pid"
+#         logs+=("$log_file")
+#         touch "$log_file"
+#         cd /tmp && nohup tail -f <(grep "" /proc/$pid/fd/1) > "$log_file" &
+#         echo "> "$pid":"$log_file
+#     done
+
+#     echo "Check logs with : 'tail -f <log-file-path>'"
+#     # Use live FZF to select and view logs
+#     # FIXME:
+#     # fzf --multi --preview-window=down:wrap --preview="tail -n 20 {}" <<< "${logs[@]}"
+#     # Clean up log files
+#     # rm -f "${logs[@]}"
+# }
 
 # For bat/cat theming
 # $ bat --list-themes | fzf --preview="bat --theme={} --color=always ./Makefile"
