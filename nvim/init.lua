@@ -38,8 +38,17 @@ function DockerExecute(sql_query, sql_command, image_name)
     local output = vim.fn.systemlist(command)
     -- Format the output as a single string
     local output_str = table.concat(output, "\n")
-    output_str = output_str:gsub("^I", "\t")
-    print(output_str)
+
+    print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+    -- Display the output in the command section
+    local success, _ = pcall(function()
+        vim.api.nvim_command("echo '" .. vim.fn.escape(output_str, "'") .. "'")
+        return true
+    end)
+    -- in case of error just simple print
+    if not success then
+        print(output_str)
+    end
 end
 
 function ExecutePostgresSQLQuery(sql_config, sql_query)
