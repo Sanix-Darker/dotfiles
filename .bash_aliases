@@ -1328,6 +1328,10 @@ _install_lazygit(){
     go install github.com/jesseduffield/lazygit@latest
 }
 
+_install_lazysql(){
+    _confirm_install_again lazysql || return 0
+    go install github.com/jorgerojas26/lazysql@latest
+}
 _install_yarn(){
     _confirm_install_again yarn || return 0
     npm install -g yarn
@@ -1720,6 +1724,8 @@ _install_basics(){
     _confirm "Install lazyDocker ?" _install_lazydocker
     # Git UI not absolutelly required...
     _confirm "Install lazyGit ?" _install_lazygit
+    # SQL TUI not absolutelly required
+    _confirm "Install lazySQL ?" _install_lazysql
 
     # Install ddgr
     _confirm "Install ddgr (to search with duckduckgo on command line) ?" _install_ddgr
