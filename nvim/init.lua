@@ -24,14 +24,16 @@ require('keymaps')
 -- lsp configurations
 require('lsp_config')
 
+function GetDockerContainerID(image_name)
+    local command="docker ps -q --filter ancestor=".. image_name .." | head -n 1"
+    local output = vim.fn.systemlist(command)
+    return table.concat(output, "\n")
+end
+
 function DockerExecute(sql_query, sql_command, image_name)
     -- Replace the placeholder with the selected text
     local command = "echo -ne '" .. sql_query .. "' |\
-    docker exec -i $(\
-        docker ps | \
-        grep ".. image_name .. " | \
-        awk '{print $1}'\
-    ) " .. sql_command
+        docker exec -i ".. GetDockerContainerID(image_name) .. " " .. sql_command
     print(command)
 
     -- Execute the command and capture the output
@@ -63,13 +65,20 @@ function ExecutePostgresSQLQuery(sql_config, sql_query)
         " -U ".. sql_config.username ..
         " -d ".. sql_config.database ..
         "'"
-    -- CURSED af lol,
+    -- CURSED DRAGONS HERE lol,
     -- FIXME: here am always considering that " '" is the starting quote
     -- and "'" is the end quote
-    -- doing some guessing replace with XZdd as "'"
-    local formated_sql_query = string.gsub(sql_query, " '", " XZdd\\XZdd")
-    formated_sql_query = string.gsub(formated_sql_query, "'", "\\''")
-    formated_sql_query = string.gsub(formated_sql_query, "XZdd", "'")
+    -- replacing first " '" with XZdd to prevent the second "'" to be overriden
+    -- then re-replace again
+    local formated_sql_query = string.gsub(
+        string.gsub(
+            string.gsub(sql_query, " '", " XZdd\\XZdd"),
+            "'",
+            "\\''"
+        ),
+        "XZdd",
+        "'"
+    )
     DockerExecute(formated_sql_query, sql_command, image_name)
 end
 
