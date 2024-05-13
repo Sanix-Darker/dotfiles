@@ -484,6 +484,9 @@ return packer.startup(function(use)
     -- snips plugin to save code using snips.sh
     use 'Sanix-Darker/snips.nvim'
 
+    -- run queries on containers
+    use 'Sanix-Darker/dockdb.nvim'
+
     -- For color
     -- use 'navarasu/onedark.nvim'
     -- use 'joshdick/onedark.vim'

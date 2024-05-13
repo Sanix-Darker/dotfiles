@@ -1183,6 +1183,16 @@ _install_golang(){
     cd -
 }
 
+_install_lua_language_server(){
+    _confirm_install_again lua-language-server || return 0
+    cd ~
+
+    git clone https://github.com/LuaLS/lua-language-server && cd lua-language-server
+    bash ./make.sh
+    cd -
+}
+alias lua-language-server='~/lua-language-server/bin/lua-language-server'
+
 _install_arduino_language_server(){
     cd /tmp
 

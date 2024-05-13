@@ -619,3 +619,24 @@ vim.api.nvim_exec([[
     autocmd FileType lua lua require('autofold').fold_functions()
   augroup END
 ]], false)
+
+local dockdb_ops = {
+    mysql ={
+        username = 'u',
+        password = 'p',
+        database = 'TESTDB',
+        hostname = 'localhost',
+        port = '3306'
+    },
+    postgresql = {
+        username = 'u',
+        password = 'p',
+        database = 'TESTDB',
+        hostname = 'localhost',
+        port = '5432'
+    }
+}
+-- ... and so on
+-- then forward it to dockdb
+-- and you're all set
+require("dockdb").setup(dockdb_ops)
