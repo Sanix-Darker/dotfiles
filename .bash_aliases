@@ -2960,8 +2960,8 @@ __(){
     fi
 
     # No more than 450 characters sent
-    if [ ${#PROMPT} -gt 450 ]; then
-        echo "> No more than 450 characters please."
+    if [ ${#PROMPT} -gt 1000 ]; then
+        echo "> No more than 1000 characters please."
         return
     fi
 
@@ -3002,6 +3002,31 @@ __(){
 
     # Reusing the content
     cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
+}
+
+_cc_gpt(){
+    # Initialize variable to store previous output
+    prev_output=""
+
+    # Infinite loop
+    while :
+    do
+        # Get current output
+        current_output=$(co)
+
+        # Check if current output is different from previous output
+        if [ "$current_output" != "$prev_output" ]; then
+            if [[ $current_output = *"xxxyyy"* ]]; then
+                echo "...."
+            else
+                __ "$current_output"
+
+                # If different, store current output and continue
+                prev_output="$current_output"
+            fi
+        fi
+        sleep 30
+    done
 }
 
 # Print the last gpt-response on a pager way

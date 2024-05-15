@@ -152,7 +152,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- 'ruby_ls' 'dockerls',
 local lsp_servers = {
     'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls', 'htmx',
+    'eslint', 'jsonls', 'gopls', 'htmx', 'sqls',
     'cssls', 'html', 'bashls', 'cssmodules_ls',
     'emmet_ls', 'vls', 'arduino_language_server',
     'cssls', 'gradle_ls', 'graphql',
