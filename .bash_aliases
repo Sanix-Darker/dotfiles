@@ -2268,7 +2268,7 @@ alias tkill='tmux kill-server'
 
 # To control the brightness with xrandr contrast
 _xrandr(){
-    # _xrandr lu eDP-1-1 0.9
+    # _xrandr lu DP-1-0.1 1
     if [[ $1 == 'ls' ]];then
         xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f1
     elif [[ $1 == 'lu' ]];then
