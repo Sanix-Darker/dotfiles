@@ -113,8 +113,8 @@ set.updatetime = 1
 -- Specify the behavior when switching between buffers
 set.switchbuf = 'useopen,usetab,newtab'
 set.stal = 2
--- Enable folding
-set.foldmethod = 'manual'
+-- Enable folding(indent, manual)
+set.foldmethod = 'indent'
 set.foldlevel = 99
 -- For spell checking
 -- set.spell = true

@@ -474,3 +474,10 @@ map('n', '<Space>v', ':call sml#mode_on()<CR>')
 -- map('n', '<Leader>o', ':ToggleDiagOff<CR>')
 -- map('n', '<Leader>O', ':ToggleDiagOn<CR>')
 map('v', '<Leader>lm', ':Llm<CR>')
+
+-- autofold keymaps
+map(
+    'n',
+    "<Leader>FF",
+    ":lua require'autofold'.toggle_function_folding()<CR>"
+)

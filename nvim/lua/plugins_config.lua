@@ -604,19 +604,11 @@ require('nvim-dap-repl-highlights').setup()
 -- Include autofold
 -- local autof = require('autofold')
 
--- Toggle function folding
-vim.api.nvim_set_keymap(
-    'n',
-    '<leader>FF',
-    ':lua require("autofold").toggle_function_folding()<CR>',
-    { silent = true }
-)
-
 -- Automatically fold functions when entering them
 vim.api.nvim_exec([[
   augroup LuaFunctionFolding
     autocmd!
-    autocmd FileType lua lua require('autofold').fold_functions()
+    autocmd FileType * lua require'autofold'.unfold_functions()
   augroup END
 ]], false)
 
