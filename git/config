@@ -21,7 +21,18 @@
     clean = grep -v NOCOMMIT
 
 ; This allow all conflicts to not been repeated over and over
-; while resolving them on a rebase for example
+; while resolving them on a rebase/merge for example
+; Usage :
+;
+; > git rerere status
+; > git rerere diff
+;
+; this record resolutions and don't ask for future conflicts.
+;
+; To recreate a merge conflict, we can :
+; git checkout --conflict=merge src/path/to/file...
+;
+; all recorded resolving conflicts are stored in .git/rr-cache/...
 [rerere]
 	enabled = true
 

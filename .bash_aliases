@@ -1074,8 +1074,13 @@ _install_glow(){
 _install_php(){
     _confirm_install_again php || return 0
 
-    sudo apt-get update -y
-    sudo apt-get install php php-curl php-xml curl -y
+    sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get install php8.2 -y
+    php --version
+
+    # old way
+    # sudo apt-get update -y
+    # sudo apt-get install php php-curl php-xml curl -y
 }
 
 _install_composer(){
