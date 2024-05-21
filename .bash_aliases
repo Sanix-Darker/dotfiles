@@ -1075,12 +1075,13 @@ _install_php(){
     _confirm_install_again php || return 0
 
     sudo add-apt-repository ppa:ondrej/php
+    sudo apt-get update -y
     sudo apt-get install php8.2 -y
+    # extensions needed
+    sudo apt install php8.2-xml php8.2-dom php8.2-curl php8.2-mbstring -y
+    # installing DB extensions
+    sudo apt install php8.2-sqlite3 php8.2-pgsql php8.2-mysql -y
     php --version
-
-    # old way
-    # sudo apt-get update -y
-    # sudo apt-get install php php-curl php-xml curl -y
 }
 
 _install_composer(){
