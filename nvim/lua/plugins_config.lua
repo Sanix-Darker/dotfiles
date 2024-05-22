@@ -626,7 +626,14 @@ local dockdb_ops = {
         database = 'TESTDB',
         hostname = 'localhost',
         port = '5432'
-    }
+    },
+    mariadb = {
+        username = 'u',
+        password = 'p',
+        database = 'TESTDB',
+        hostname = 'localhost',
+        port = '3306'
+    },
 }
 -- ... and so on
 -- then forward it to dockdb
