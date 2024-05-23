@@ -2981,7 +2981,7 @@ __(){
     "messages": [
         {
             "role": "system",
-            "content": "You are a software engineer, give 2 solutions one simple and one optimized in php with a small intro on the problem type then code."
+            "content": "You are a software engineer, give solution as source code if possible, no comments in code."
         },
         {
             "role": "user",
