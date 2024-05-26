@@ -3331,3 +3331,120 @@ mpvfzf(){
 # $ bat --list-themes | fzf --preview="bat --theme={} --color=always ./Makefile"
 export BAT_THEME=Dracula
 alias llm-ls='/home/dk/ACTUALC/github/llm-ls/target/release/llm-ls'
+
+
+fzfp_fn(){
+    fail() {
+        echo "$1" >&2
+        exit 2
+    }
+
+    fzf=$(command -v fzf 2>/dev/null) || fzf=$(dirname $0)/fzf
+    [[ -x "$fzf" ]] || fail 'fzf executable not found'
+
+    if [[ -n $TMUX_POPUP_NESTED_FB ]]; then
+        eval "$TMUX_POPUP_NESTED_FB" && exec fzf "$@"
+    fi
+
+    # should be executed only if my tmux version is under 3.2
+    # tmux -V | awk '{match($0, /[0-9]+\.[0-9]+/, m);exit m[0]<3.2}' || exec fzf "$@"
+
+    args=('--no-height')
+    while (($#)); do
+        arg=$1
+        case $arg in
+        --height | --width)
+            eval "${arg:2}=$2"
+            shift
+            ;;
+        --height=* | --width=*)
+            eval "${arg:2}"
+            ;;
+        *)
+            args+=("$arg")
+            ;;
+        esac
+        shift
+    done
+
+    opts=$(printf '%q ' "${args[@]}")
+
+    [[ -z $height ]] && height=${TMUX_POPUP_HEIGHT:-80%}
+    [[ -z $width ]] && width=${TMUX_POPUP_WIDTH:-80%}
+
+    envs="SHELL=$SHELL"
+    [[ -n $FZF_DEFAULT_OPTS ]] && envs="$envs FZF_DEFAULT_OPTS=$(printf %q "$FZF_DEFAULT_OPTS")"
+    [[ -n $FZF_DEFAULT_COMMAND ]] && envs="$envs FZF_DEFAULT_COMMAND=$(printf %q "$FZF_DEFAULT_COMMAND")"
+
+    id=$RANDOM
+    cmd_file="${TMPDIR:-/tmp}/fzf-cmd-file-$id"
+    pstdin="${TMPDIR:-/tmp}/fzf-pstdin-$id"
+    pstdout="${TMPDIR:-/tmp}/fzf-pstdout-$id"
+
+    clean_cmd="command rm -f $cmd_file $pstdin $pstdout"
+
+    cleanup() {
+        eval "$clean_cmd"
+    }
+    trap 'cleanup' EXIT
+
+    mkfifo "$pstdout"
+
+    echo -n "trap '$clean_cmd' EXIT SIGINT SIGTERM SIGHUP;" >"$cmd_file"
+
+    if [[ -t 0 ]]; then
+        echo -n "$fzf $opts > $pstdout" >>"$cmd_file"
+    else
+        mkfifo "$pstdin"
+        echo -n "$fzf $opts < $pstdin > $pstdout" >>"$cmd_file"
+        cat <&0 >"$pstdin" &
+    fi
+    cat "$pstdout" &
+    tmux popup -d '#{pane_current_path}' -xC -yC -w$width -h$height -E "$envs bash $cmd_file"
+}
+
+tmux_sess(){
+    # Usage: t <optional zoxide-like dir, relative or absolute path>
+    # If no argument is given, a combination of existing sessions and a zoxide query will be displayed in a FZF
+
+    # Parse optional argument
+    if [ "$1" ]; then
+      # Argument is given
+      eval "$(zoxide init bash)"
+      RESULT=$(z $@ && pwd)
+    else
+      # No argument is given. Use FZF
+      RESULT=$((tmux list-sessions -F "#{session_name}: #{session_windows} window(s)\
+    #{?session_grouped, (group ,}#{session_group}#{?session_grouped,),}\
+    #{?session_attached, (attached),}"; zoxide query -l) | fzfp_fn )
+      if [ -z "$RESULT" ]; then
+          return
+      fi
+    fi
+
+    # Get or create session
+    if [[ $RESULT == *":"* ]]; then
+      # RESULT comes from list-sessions
+      SESSION=$(echo $RESULT | awk '{print $1}')
+      SESSION=${SESSION//:/}
+    else
+      # RESULT is a path
+      SESSION=$(basename $RESULT | tr . _)
+      if ! tmux has-session -t=$SESSION 2> /dev/null; then
+        tmux new-session -d -s $SESSION -c $RESULT
+      fi
+    fi
+
+    # Attach to session
+    if [ -z "$TMUX" ]; then
+      tmux attach -t $SESSION
+    else
+      tmux switch-client -t $SESSION
+    fi
+}
+
+rere(){
+    local to_exec="$(tac $PWD/.cmd_history | fzf --height ${FZF_TMUX_HEIGHT:-40%})"
+    echo $to_exec
+    $to_exec
+}
