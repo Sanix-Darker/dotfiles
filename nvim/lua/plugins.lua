@@ -75,7 +75,7 @@ return packer.startup(function(use)
     use {'nsf/gocode', run = 'vim'}
     -- Plugin outside ~/.vim/plugged with post-update hook
     -- needed to add this because neoclip depends on it
-    -- use {'ibhagwan/fzf-lua', branch = 'main'}
+    use {'ibhagwan/fzf-lua', branch = 'main'}
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
     -- use 'junegunn/fzf.vim'
@@ -483,9 +483,8 @@ return packer.startup(function(use)
     use 'mfussenegger/nvim-ts-hint-textobject'
     -- snips plugin to save code using snips.sh
     use 'Sanix-Darker/snips.nvim'
-
     -- run queries on containers
-    use {'Sanix-Darker/dockdb.nvim'}
+    use 'Sanix-Darker/dockdb.nvim'
 
     -- For color
     -- use 'navarasu/onedark.nvim'
