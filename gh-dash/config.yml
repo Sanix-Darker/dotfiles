@@ -60,6 +60,25 @@ keybindings:
         cd {{.RepoPath}} &&
         git checkout {{.HeadRefName}} &&
         git changes # which is a git alias
+    - key: r
+      command: >
+        [ ! -d "{{.RepoPath}}"] &&
+        tmux split-window -h '
+          echo ".RepoPath Not found locally, will close this in 10s." &&
+          sleep 10
+        ' ||
+
+        [ -z "{{.PrNumber}}" ] &&
+        tmux split-window -h '
+          echo "Empty .PrNumber {{.PrNumber}}, will close this in 10s." &&
+          sleep 10
+        ' ||
+
+        tmux split-window -h -c {{.RepoPath}} '
+        echo "PR :{{.PrNumber}} || REPO_PATH :{{.RepoPath}}" &&
+          gh pr checkout {{.PrNumber}} &&
+          nvim -c ":Octo pr edit {{.PrNumber}}" || sleep 20;
+        '
 
 theme:
   ui:

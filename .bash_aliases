@@ -63,7 +63,7 @@ export DOT_DIR="$HOME/dotfiles"
 export CONFIG_PATHS=(
     "autostart"
     "rofi" "polybar"
-    "git" "i3"
+    "git" "i3" "bat"
     "mpv" "alacritty"
     "gh-dash" "yazi"
 )
@@ -489,6 +489,10 @@ _set_dot_files(){
     mkdir -p ~/.config/gh-dash
     cpd $DOT_DIR/gh-dash/config.yml ~/.config/gh-dash/config.yml
 
+    # composer config
+    mkdir -p ~/.config/composer
+    cpd $DOT_DIR/composer/composer.json ~/.config/composer/composer.lock
+
     for path in "${CONFIG_PATHS[@]}"; do
         echo "Copy of '$DOT_DIR/$path' in ~/.config/..."
         cpd $DOT_DIR/$path/ ~/.config/
@@ -528,6 +532,9 @@ _copy_to_dotfiles(){
     # gh-dash configuration
     mkdir -p $DOT_DIR/gh-dash
     cpd ~/.config/gh-dash/config.yml $DOT_DIR/gh-dash/config.yml
+
+    mkdir -p $DOT_DIR/composer
+    cpd ~/.config/composer/composer.json $DOT_DIR/composer/composer.lock
 
     # we copy directories that needs to be copied
     for path in "${CONFIG_PATHS[@]}"; do

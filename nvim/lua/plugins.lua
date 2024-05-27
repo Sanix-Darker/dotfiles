@@ -495,6 +495,7 @@ return packer.startup(function(use)
     -- use 'Sanix-Darker/onedark.vim'
     -- use 'olimorris/onedarkpro.nvim'
     -- Telescope (SHIT i need this to use octo,
+    -- Looks like it's supported now
     -- will remove when the support of fzf will be available)
     -- Plug 'nvim-telescope/telescope.nvim'
     -- For code review using octo
