@@ -485,7 +485,7 @@ return packer.startup(function(use)
     use 'Sanix-Darker/snips.nvim'
 
     -- run queries on containers
-    use {'Sanix-Darker/dockdb.nvim', branch = 'fix/mysql-docker-load'}
+    use {'Sanix-Darker/dockdb.nvim'}
 
     -- For color
     -- use 'navarasu/onedark.nvim'
