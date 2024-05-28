@@ -1633,8 +1633,12 @@ _install_nvidia_container_toolkit(){
 
     _confirm_install_again nvidia-container-toolkit || return 0
 
-    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg   && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |     sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' |     sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    sudo apt-get update
+    curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | \
+        sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && \
+        curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+        sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+        sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+    sudo apt-get update -y
     sudo apt-get install -y nvidia-container-toolkit
     sudo systemctl daemon-reload
     sudo systemctl restart docker
@@ -1642,6 +1646,12 @@ _install_nvidia_container_toolkit(){
     # nvidia-smi --query-compute-apps=pid --format=csv,noheader | xargs -n1 kill -9
     # sudo modprobe -r nvidia_uvm && sudo modprobe nvidia_uvm
     # nvidia-smi --query-compute-apps=pid --format=csv,noheader | xargs -n1 kill -9
+}
+
+_install_fx(){
+    _confirm_install_again fx || return 0
+
+    sudo curl https://fx.wtf/install.sh | sudo bash
 }
 
 _install_raw_basics(){
@@ -1693,8 +1703,6 @@ _install_raw_basics(){
             _echo_black "[.]installed $i successfully !" || \
             _echo_red "[x]error installing $i"
     done
-
-    _confirm "Install dedoc (devDocs) ?" _install_dedoc
 }
 
 # a dumb forwarding.... needed
@@ -1746,9 +1754,16 @@ _install_basics(){
     # To manage or most importantly see what's going on on my running containers
     _confirm "Install lazyDocker ?" _install_lazydocker
     # Git UI not absolutelly required...
-    _confirm "Install lazyGit ?" _install_lazygit
+    # NOTE: DOES NOT NEED IT FOR NOW
+    # _confirm "Install lazyGit ?" _install_lazygit
     # SQL TUI not absolutelly required
-    _confirm "Install lazySQL ?" _install_lazysql
+    # NOTE: SO BAD
+    # _confirm "Install lazySQL ?" _install_lazysql
+
+    # For documentation on programming languages and tools
+    _confirm "Install dedoc (devDocs) ?" _install_dedoc
+    # like jq but better, required go
+    _confirm "Install fx (like jq but better) ?" _install_fx
 
     # Install ddgr
     _confirm "Install ddgr (to search with duckduckgo on command line) ?" _install_ddgr
