@@ -99,6 +99,7 @@
 	gpgsign = true
 [init]
 	defaultBranch = master
+	templateDir = ~/.config/git/template
 [github]
 	user = Sanix-Darker
 [push]
