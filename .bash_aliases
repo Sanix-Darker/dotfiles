@@ -1144,7 +1144,8 @@ _install_java(){
     _confirm_install_again java || return 0
 
     sudo apt update -y
-    sudo apt install default-jre default-jdk -y
+    sudo apt-get -y install openjdk-17-jdk
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 
     java -version
 
@@ -3274,7 +3275,7 @@ _connect_space_one(){
 #   $ dedoc fetch
 #   $ dedoc download <lang>
 _dedoc(){
-   dedoc -c ss "$@" -o 2 | cat -l md
+   dedoc -c ss "$@" -o 1 | cat -l md
 }
 alias manpy310='_dedoc python~3.10 '
 alias manpy='_dedoc python~3.11 '

@@ -507,7 +507,7 @@ return packer.startup(function(use)
     -- for arduino
     use 'sudar/vim-arduino-syntax'
     use 'stevearc/vim-arduino'
-    use 'glebzlat/Arduino.nvim'
+    -- use 'glebzlat/Arduino.nvim'
 
     -- hightlight unicode characters
     -- :TrollStop to replace all unicodes by valid characters

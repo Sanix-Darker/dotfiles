@@ -356,7 +356,8 @@ export XDG_CONFIG_HOME=$HOME/.config/
 export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
 export TMUX_POPUP_WIDTH=80%
 export EDITOR=nvim
-
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
+export ANDROID_HOME=$HOME/Android/Sdk
 # to make <Python.h> available
 export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
