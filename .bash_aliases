@@ -174,7 +174,7 @@ _confirm(){
 _confirm_install_again(){
     _installed $@ && \
     _confirm ">> $@ Already Installed, do you want to reinstall ?" echo || \
-    echo "Not found, proceed installation..."
+    echo "'$@' Not found, proceed installation..."
 }
 
 # for all git + fzf commands
@@ -1280,7 +1280,7 @@ _install_gh(){
 }
 
 # official cli for spicedb
-# _install_zed(){
+# _install_zed( ){
 #     sudo apt update -y && sudo apt install -y curl ca-certificates gpg
 #     curl https://apt.fury.io/authzed/gpg.key | sudo apt-key add -
 #     echo "deb https://apt.fury.io/authzed/ * *" > /etc/apt/sources.list.d/fury.list
@@ -1652,6 +1652,42 @@ _install_fx(){
     _confirm_install_again fx || return 0
 
     sudo curl https://fx.wtf/install.sh | sudo bash
+}
+
+_install_protobuf_compiler(){
+    _confirm_install_again protobuf-compiler || return 0
+
+    sudo apt-get update -y
+    sudo apt-get install protobuf-compiler -y
+}
+
+_install_mosh(){
+    # Usage:
+    # SERVER :
+    #   - mosh should be available on the server (installed)
+    #   - some port on udp should be opened (sudo ufw allow 60000:61000/udp)
+    #
+    # Note:  May be needed for locales
+    #     on server side
+    #         sudo locale-gen C.UTF-8
+    #         sudo locale-gen en_US.UTF-8
+
+    # CLIENT:
+    #   - Just wrap the ssh command with mosh :
+    #        mosh --ssh="ssh -p 22" user@server_ip
+    _confirm_install_again mosh || return 0
+
+    cd /tmp
+
+    # we need to install protobuf compiler as a deps
+    _install_protobuf_compiler
+    git clone https://github.com/mobile-shell/mosh || echo "repo already there !"
+    cd mosh
+    ./autogen.sh
+    ./configure
+    make && sudo make install
+
+    cd -
 }
 
 _install_raw_basics(){
