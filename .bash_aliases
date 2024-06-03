@@ -115,7 +115,6 @@ _stop_spinner(){
 _installed(){
     $(command -v $@ > /dev/null) && [[ $? == 0 ]] && return 0 || return 1
 }
-
 # IMPORTANT : Overrided the cd command with the zoxide command line
 # But let's do that only we're sure zoxide is installed properly
 _magic_cd(){
