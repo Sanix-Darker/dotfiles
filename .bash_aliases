@@ -1485,6 +1485,8 @@ _install_mkcert(){
 _install_yazi(){
     _confirm_install_again yazi || return 0
 
+    # A deps from yazi
+    cargo install mlua
     # rust toolchain installation
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     # then install yazi-fm
@@ -1661,20 +1663,26 @@ _install_protobuf_compiler(){
     sudo apt-get install protobuf-compiler -y
 }
 
+# Usage:
+#
+# SERVER :
+#   - mosh should be available on the server (installed)
+#   - some port on udp should be opened (sudo ufw allow 60000:61000/udp)
+#
+#   Note:  May be needed for locales
+#     On server side
+#         sudo locale-gen C.UTF-8
+#         sudo locale-gen en_US.UTF-8
+#         sudo apt-get install libtinfo-dev -y
+#     In Case of LC_ALL errors :
+#         export LC_ALL="en_US.UTF-8"
+#     In case of : (/usr/local/bin/mosh: Did not find mosh server startup message. (Have you installed mosh on your server?))
+#         ln -s $(which mosh-server) /usr/bin/mosh-server
+#
+# CLIENT:
+#   - Just wrap the ssh command with mosh :
+#        mosh --ssh="ssh -p 22" user@server_ip
 _install_mosh(){
-    # Usage:
-    # SERVER :
-    #   - mosh should be available on the server (installed)
-    #   - some port on udp should be opened (sudo ufw allow 60000:61000/udp)
-    #
-    # Note:  May be needed for locales
-    #     on server side
-    #         sudo locale-gen C.UTF-8
-    #         sudo locale-gen en_US.UTF-8
-
-    # CLIENT:
-    #   - Just wrap the ssh command with mosh :
-    #        mosh --ssh="ssh -p 22" user@server_ip
     _confirm_install_again mosh || return 0
 
     cd /tmp
