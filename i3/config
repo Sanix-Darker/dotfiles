@@ -80,6 +80,12 @@ bindsym Mod1+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-
 # TODO: another hooks to list an preview links a copied.. ?
 bindsym Mod1+Y exec --no-startup-id bash -ic '_yv'
 
+# powermenu (to shutdown/poweroff/suspend)
+bindsym Mod1+Shift+X exec --no-startup-id bash -ic 'powermenu'
+
+# FIXME
+bindsym Mod1+E exec rofi -modi emoji -show emoji
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.

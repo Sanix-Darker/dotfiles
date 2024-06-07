@@ -856,6 +856,19 @@ _install_polybar(){
     sudo make install
 }
 
+_install_rofi_emoji(){
+    cd /tmp
+
+    sudo apt-get install rofi-dev autoconf automake libtool-bin libtool -y
+
+    git clone https://github.com/Mange/rofi-emoji
+    cd ./rofi-emoji && autoreconf -i && mkdir build
+    cd build/ && ../configure --prefix=/usr
+    make && sudo make install
+
+    cd -
+}
+
 _install_i3_lock(){
     cd /tmp
     git clone https://github.com/Raymo111/i3lock-color.git
@@ -2872,6 +2885,17 @@ _pydoc(){
 # To open a pdf with vim bindings.
 openpdf(){
     zathura $1;
+}
+
+powermenu(){
+    local chosen=$(printf "󰐥 Power Off\n Restart\n󰤄 Suspend\n Log out" | rofi -dmenu -i -l 3)
+    case "$chosen" in
+        "󰐥 Power Off") shutdown now;;
+        " Restart") reboot ;;
+         "󰤄 Suspend") systemctl suspend ;;
+        " Log out") i3-msg exit ;;
+        *) exit 1 ;;
+    esac
 }
 
 # _build_perf_stats https://google.com
