@@ -322,6 +322,11 @@ _start_compton(){
     nohup compton -f & > /dev/null
 }
 
+_start_picom(){
+    echo "Starting picom..."
+    nohup picom & > /dev/null
+}
+
 _start_greenclip(){
     echo "Starting greenclip..."
     nohup greenclip daemon & > /dev/null
@@ -329,7 +334,8 @@ _start_greenclip(){
 
 _gogo(){
     pkill polybar; _start_polybar
-    pkill compton; _start_compton
+    # pkill compton; _start_compton
+    pkill picom; _start_picom
     pkill greenclip; _start_greenclip
     # for git certs
     _ssh_add

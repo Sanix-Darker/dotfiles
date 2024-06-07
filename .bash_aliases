@@ -484,6 +484,9 @@ _set_dot_files(){
     # tmux config
     cpd $DOT_DIR/tmux/tmux.conf ~/.config/tmux/tmux.conf
 
+    # picom config
+    cpd $DOT_DIR/picom.conf ~/.config/picom.conf
+
     # gh-dash config
     mkdir -p ~/.config/gh-dash
     cpd $DOT_DIR/gh-dash/config.yml ~/.config/gh-dash/config.yml
@@ -527,6 +530,9 @@ _copy_to_dotfiles(){
 
     # tmux config
     cpd ~/.config/tmux/tmux.conf $DOT_DIR/tmux/tmux.conf
+
+    # picom config
+    cpd ~/.config/picom.conf $DOT_DIR/picom.conf
 
     # gh-dash configuration
     mkdir -p $DOT_DIR/gh-dash
@@ -1710,7 +1716,7 @@ _install_raw_basics(){
         "lsb-release" "ca-certificates"
         "neofetch"
 
-        "cloc" "compton"
+        "cloc" "picom"
 
         "tmate" "git-lfs" "gh"
         "tar" "zip" "unzip" "curl"

@@ -239,6 +239,7 @@ exec "bash ~/.config/i3/i3mouse.sh &"
 
 # To run compton from installed
 # exec "pkill compton && /usr/bin/compton -f &"
+exec --no-startup-id picom -CGb
 
 # xprop to get the winfdow informations
 
