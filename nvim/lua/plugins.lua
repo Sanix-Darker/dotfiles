@@ -124,8 +124,8 @@ return packer.startup(function(use)
     -- NEED ripgrep
     -- use 'nvim-pack/nvim-spectre'
     -- To list diagnostic and warning
-    use 'folke/trouble.nvim'
-    use 'dlvhdr/gh-addressed.nvim'
+    -- use 'folke/trouble.nvim'
+    -- use 'dlvhdr/gh-addressed.nvim'
     -- For dev-icons
     -- use 'ryanoasis/vim-devicons'
     -- For highlight all occurrences
@@ -514,6 +514,10 @@ return packer.startup(function(use)
     use 'vim-utils/vim-troll-stopper'
     --" For syntax highlighting on a lot of stuffs
     use 'sheerun/vim-polyglot'
+
+    -- Usefull for Peer programming, will use my OPEN AI KE
+    -- Not needed for now, the cli solution is okay
+    -- use 'joshuavial/aider.nvim'
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end

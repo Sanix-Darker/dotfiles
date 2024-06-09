@@ -856,24 +856,19 @@ _install_polybar(){
     sudo make install
 }
 
-_install_rofi_emoji(){
-    cd /tmp
+_install_aider(){
+    _confirm_install_again aider || return 0
 
-    sudo apt-get install rofi-dev autoconf automake libtool-bin libtool -y
-
-    git clone https://github.com/Mange/rofi-emoji
-    cd ./rofi-emoji && autoreconf -i && mkdir build
-    cd build/ && ../configure --prefix=/usr
-    make && sudo make install
-
-    cd -
+    pip install aider
 }
 
 _install_i3_lock(){
     cd /tmp
+
     git clone https://github.com/Raymo111/i3lock-color.git
     cd i3lock-color
     chmod +x ./install-i3lock-color.sh
+
     ./install-i3lock-color.sh
 }
 
@@ -3544,3 +3539,8 @@ rere(){
     echo $to_exec
     $to_exec
 }
+
+export AIDER_AUTO_COMMITS=0
+export AIDER_GITIGNORE=0
+export AIDER_DARK_MODE=1
+alias aider='aider -3'
