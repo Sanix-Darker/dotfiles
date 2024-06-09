@@ -158,10 +158,10 @@ require('gh-actions').setup()
 -- require("trouble").setup{}
 
 -- for aider as pp assistant
-require('aider').setup({
-  auto_manage_context = false,
-  default_bindings = false
-})
+-- require('aider').setup({
+--   auto_manage_context = false,
+--   default_bindings = false
+-- })
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
