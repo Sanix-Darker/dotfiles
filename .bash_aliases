@@ -3045,7 +3045,7 @@ _(){
 # How to use: _ give me this and that.
 __(){
     # Combine all arguments into a single string
-    local PROMPT="$(echo -ne $@ | tr -d '\n')"
+    local PROMPT="$(echo -ne $@ | tr -d '\n' | sed -e 's/(/\\(/g' -e 's/)/\\)/g')"
 
     # Ensure that OPENAI_API_KEY is set
     if [ -z "$OPENAI_API_KEY" ]; then
