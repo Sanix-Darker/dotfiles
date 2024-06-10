@@ -21,6 +21,12 @@ git_track_hook(){
     local remote_url=$(git remote get-url origin)
     /bin/echo "$remote_url" | grep -q "github.com" && return
 
+    # We exit if the remote url is empty
+    # This happens a lot when we're just creating repository
+    if [ ${#remote_url} -lt 3 ]; then
+        return
+    fi
+
     # local variables
     local commit_hash=$(git rev-parse HEAD)
     local local_repo_path=$(basename "$(git rev-parse --show-toplevel)")

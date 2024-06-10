@@ -1670,12 +1670,6 @@ _install_fx(){
     sudo curl https://fx.wtf/install.sh | sudo bash
 }
 
-_install_protobuf_compiler(){
-    _confirm_install_again protobuf-compiler || return 0
-
-    sudo apt-get update -y
-    sudo apt-get install protobuf-compiler -y
-}
 
 # Usage:
 #
@@ -1701,12 +1695,15 @@ _install_mosh(){
 
     cd /tmp
 
-    # we need to install protobuf compiler as a deps
-    _install_protobuf_compiler
-    git clone https://github.com/mobile-shell/mosh || echo "repo already there !"
+    # Just in case, some requirements for mosh to be working fine
+    sudo apt install -y build-essential protobuf-compiler \
+    libprotobuf-dev pkg-config libutempter-dev zlib1g-dev libncurses5-dev \
+    libssl-dev bash-completion less
+
+    # Compiled version
+    git clone https://github.com/mobile-shell/mosh || echo "> repo already there !" && git update
     cd mosh
-    ./autogen.sh
-    ./configure
+    ./autogen.sh && ./configure
     make && sudo make install
 
     cd -
