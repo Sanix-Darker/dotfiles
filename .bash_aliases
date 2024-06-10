@@ -1690,6 +1690,8 @@ _install_fx(){
 # CLIENT:
 #   - Just wrap the ssh command with mosh :
 #        mosh --ssh="ssh -p 22" user@server_ip
+#   - In Case of LC_ALL errors :
+#      export LC_ALL="en_US.UTF-8"
 _install_mosh(){
     _confirm_install_again mosh || return 0
 
@@ -1707,6 +1709,13 @@ _install_mosh(){
     make && sudo make install
 
     cd -
+}
+
+_install_evans(){
+    # A grpc client
+    _confirm_install_again evans || return 0
+
+    go install github.com/ktr0731/evans@latest
 }
 
 _install_raw_basics(){
