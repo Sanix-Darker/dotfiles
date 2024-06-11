@@ -78,7 +78,6 @@ return packer.startup(function(use)
     use {'ibhagwan/fzf-lua', branch = 'main'}
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
-    -- use 'junegunn/fzf.vim'
     -- For FZF preview
     use 'yuki-yano/fzf-preview.vim'
     -- For code folding
@@ -209,7 +208,7 @@ return packer.startup(function(use)
     -- The lua alternative (looks SO SLOOOOOWWWW)
     use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'windwp/nvim-ts-autotag'
+    -- use 'windwp/nvim-ts-autotag'
 
     -- For the smooth scroll
     use 'karb94/neoscroll.nvim'
