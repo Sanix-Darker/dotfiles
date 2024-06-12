@@ -2447,6 +2447,29 @@ git_backport(){
     EDITOR=nvim gh pr create --recover /tmp/pr-backport-tmp.json
 }
 
+git_update_target_branch(){
+    local branch="$1"
+    # if the second argument is not passed,
+    # then use 'origin' as the remote.
+    local remote="${2:-origin}"
+    local changes="0"
+
+    echo "> Updating branch:$branch : remote:$remote"
+
+    # run the git stash only if there was a change in the current repo.
+    [ $(git diff --shortstat | wc -l) = "0" ] && echo "no change found" || changes="1"
+    # then stash
+    [ $changes = "1" ] && git stash
+
+    git fetch $remote $branch
+    git checkout $branch
+    git pull $remote --rebase $branch
+
+    # If there were changes before, stash pop
+    # To get everything back.
+    [ $changes = "1" ] && git stash pop
+}
+
 git_open_pr(){
     browser=firefox
     pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
@@ -2953,8 +2976,6 @@ git(){
     command git branch-sorted "$@"
   elif [[ "$1" == "restore" || "$1" == "add" || "$1" == "update" || "$1" == "pull" ]]; then
     command git "$@" && git status
-  elif [[ "$1" == "diff" ]]; then
-    git status && command git "$@"
   else
     command git "$@"
   fi
@@ -3105,31 +3126,6 @@ __(){
 
     # Reusing the content
     cat /tmp/gpt-output | glow # --pager (to keep the response on the tty)
-}
-
-_cc_gpt(){
-    # Initialize variable to store previous output
-    prev_output=""
-
-    # Infinite loop
-    while :
-    do
-        # Get current output
-        current_output=$(co)
-
-        # Check if current output is different from previous output
-        if [ "$current_output" != "$prev_output" ]; then
-            if [[ $current_output = *"xxxyyy"* ]]; then
-                echo "...."
-            else
-                __ "$current_output"
-
-                # If different, store current output and continue
-                prev_output="$current_output"
-            fi
-        fi
-        sleep 30
-    done
 }
 
 # Print the last gpt-response on a pager way

@@ -340,6 +340,8 @@
 
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
+    ; to update a target branch
+    update-branch = !bash -ic 'git_update_target_branch \"$@\"' x
 
     ; to squash and merge
     ; git squash HEAD~2
