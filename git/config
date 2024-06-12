@@ -229,7 +229,7 @@
     ; so i just have to add in a comment 'nocommit' to not see those changes
     nocommit = !echo "$@ filter=nocommit " >> ./.git/info/attributes
     ; to open the commit with an editor to see what changed
-    commit = commit -e
+    commit = commit -s -e
 
     ; We can commit a specific file with a direct message in one line
     ; git commit ./test -m "this is a test file"
