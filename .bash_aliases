@@ -28,6 +28,13 @@ export BPURPLE='\033[1;35m'
 export BCYAN='\033[ 1;36m'
 export BWHITE='\033[1;37m'
 
+# export GIT_USE_GLAB="false"
+# if [ "$GIT_USE_GLAB" == "true" ]; then
+#     git "$@"
+# else
+#     git "${@/gh-/glab-}"
+# fi
+
 # Just some handlers for my given colors
 _echo_green(){
     echo -ne "$GREEN$@$COLOROFF\n";

@@ -106,14 +106,100 @@
 	autoSetupRemote = true
 
 [alias]
-    ; submodules
-    ; When we clone a repository, if we want to get all submodules,
-    ; we just need to add the --recursive flag like :
-    ; git clone --recursive git@github.com/sanix-darker/test-pr
-    ;
-    ; If the project is already clone, we just need to update submodules
-    ; git submodule update --init --recursive
-    ; a good gist tutorial for that : https://gist.github.com/gitaarik/8735255
+    # GitHub commands
+    ; To use pr
+    ; pr auth login to authenticate it !
+    ; You can use ssh or https, but; it's better to use ssh one
+    ; to create a new PR
+    ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
+    ; This will create on the default main branch, could be master or main
+    ; as draft (--draft/-d)
+
+    ; pr-to to specify a specific branch also on draft too
+    ; git pr-to dev-branch
+
+    ; to list all available pull requests
+    ; TODO: add fzf to it.
+    gh-pr = "!EDITOR=nvim gh pr create -a sanix-darker -d"
+    gh-pr-to = "!EDITOR=nvim gh pr create -a Sanix-Darker -d --base"
+    gh-pr-list = "!gh pr list"
+    gh-pr-list-all = "!gh pr list --state all"
+    gh-pr-view = "!gh pr view"
+    gh-pr-edit = "!EDITOR=nvim gh pr edit"
+    ; to list all available pull requests
+    ; Ex: git pr-view 23
+    ; to edit a PR alreadly available
+
+    ; for github action utils
+    ; to list github actions ongoing or to view a current running action
+    ; to get the list of checks available
+    gh-ci = "!gh pr checks"
+    gh-ci-list = "!gh run list"
+    gh-ci-view = "!gh run view"
+    gh-ci-view-log = "!gh run view --log"
+    gh-ci-view-log-failed = "!gh run view --log-failed"
+    gh-label-list = "!gh label list"
+
+    # for release tags
+    # Interactively create a release
+    # $ gh release create
+    # Interactively create a release from specific tag
+    # $ gh release create v1.2.3
+    # Non-interactively create a release
+    # $ gh release create v1.2.3 --notes "bugfix release"
+    # Use automatically generated release notes
+    # $ gh release create v1.2.3 --generate-notes
+    # Use release notes from a file
+    # $ gh release create v1.2.3 -F changelog.md
+    # Upload all tarballs in a directory as release assets
+    # $ gh release create v1.2.3 ./dist/*.tgz
+    # Upload a release asset with a display label
+    # $ gh release create v1.2.3 '/path/to/asset.zip#My display label'
+    # Create a release and start a discussion
+    # $ gh release create v1.2.3 --discussion-category "General"
+    gh-release = "!EDITOR=nvim gh release create"
+    gh-release-to = "!EDITOR=nvim gh release create --target"
+    gh-issue-list = "!gh issue list"
+    gh-issue-create = "!EDITOR=nvim gh issue create"
+    # To view an Issue
+    # Ex: git issue-view 23
+    gh-issue-view = "!gh issue view"
+    gh-issue-comment = "!EDITOR=nvim gh issue comment -e"
+    gh-clone = "!git clone git@github.com:\"$@\" || git clone https://github.com/\"$@\""
+    gh-dash = "!gh dash"
+    gh-repo = "!gh repo create"
+
+    # GitLab commands
+    glab-pr = "!EDITOR=nvim glab mr create --assignee sanix-darker --draft"
+    glab-pr-to = "!EDITOR=nvim glab mr create --assignee Sanix-Darker --draft --target-branch"
+    glab-pr-list = "!glab mr list"
+    glab-pr-list-all = "!glab mr list --state all"
+    glab-pr-view = "!glab mr view"
+    glab-pr-edit = "!EDITOR=nvim glab mr edit"
+    glab-ci = "!glab mr ci view"
+    glab-ci-list = "!glab pipeline list"
+    glab-ci-view = "!glab pipeline view"
+    glab-ci-view-log = "!glab pipeline view --log"
+    glab-ci-view-log-failed = "!glab pipeline view --log-failed"
+    glab-label-list = "!glab label list"
+    glab-release = "!EDITOR=nvim glab release create"
+    glab-release-to = "!EDITOR=nvim glab release create --target"
+    glab-issue-list = "!glab issue list"
+    glab-issue-create = "!EDITOR=nvim glab issue create"
+    glab-issue-view = "!glab issue view"
+    glab-issue-comment = "!EDITOR=nvim glab issue comment --editor"
+    glab-clone = "!git clone git@gitlab.com:\"$@\" || git clone https://gitlab.com/\"$@\""
+    glab-dash = "!glab dashboard"
+    glab-repo = "!glab repo create"
+
+    # Submodules:
+    # When we clone a repository, if we want to get all submodules,
+    # we just need to add the --recursive flag like :
+    # git clone --recursive git@github.com/sanix-darker/test-pr
+    #
+    # If the project is already clone, we just need to update submodules
+    # git submodule update --init --recursive
+    # a good gist tutorial for that : https://gist.github.com/gitaarik/8735255
     fza = "!git ls-files -m -o --exclude-standard | fzf -m --print0 | xargs -0 git add"
     gone = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D; }; f"
     root = rev-parse --show-toplevel
@@ -150,67 +236,12 @@
     ; works with a single file or multiple files
     base = !git checkout
 
-    ; because am lazy and i asume it
+    # because am lazy and i asume it
     merge-take-theirs = !git merge --strategy-option=theirs
     merge-take-ours = !git merge --strategy-option=ours
 
-    ; To use pr
-    ; pr auth login to authenticate it !
-    ; You can use ssh or https, but; it's better to use ssh one
-    ; to create a new PR
-    ; pr = !EDITOR=nvim gh pr create --base $(git branch-base)
-    ; This will create on the default main branch, could be master or main
-    ; as draft (--draft/-d)
-    pr = !EDITOR=nvim gh pr create -a sanix-darker -d
-    ; pr-to to specify a specific branch also on draft too
-    ; git pr-to dev-branch
-    pr-to = !EDITOR=nvim gh pr create -a Sanix-Darker -d --base
-    ; to list all available pull requests
-    ; TODO: add fzf to it.
-    pr-list = !gh pr list
-    pr-list-all = !gh pr list --state all
-    pr-view = !gh pr view
-    pr-review = !bash -ic 'git_select_pull_request'
-
-    ; to list all available pull requests
-    ; Ex: git pr-view 23
-    ; to edit a PR alreadly available
-    pr-edit = !EDITOR=nvim gh pr edit
-
-    ; for github action utils
-    ; to list github actions ongoing or to view a current running action
-    ; to get the list of checks available
-    ci = !gh pr checks
-    ci-list = !gh run list
-    ci-view = !gh run view
-    ci-view-log = !gh run view --log
-    ci-view-log-failed = !gh run view --log-failed
-
-    ; to get the label list from the repo
-    label-list = !gh label list
-
-    ; for release tags
-    ; Interactively create a release
-    ; $ gh release create
-    ; Interactively create a release from specific tag
-    ; $ gh release create v1.2.3
-    ; Non-interactively create a release
-    ; $ gh release create v1.2.3 --notes "bugfix release"
-    ; Use automatically generated release notes
-    ; $ gh release create v1.2.3 --generate-notes
-    ; Use release notes from a file
-    ; $ gh release create v1.2.3 -F changelog.md
-    ; Upload all tarballs in a directory as release assets
-    ; $ gh release create v1.2.3 ./dist/*.tgz
-    ; Upload a release asset with a display label
-    ; $ gh release create v1.2.3 '/path/to/asset.zip#My display label'
-    ; Create a release and start a discussion
-    ; $ gh release create v1.2.3 --discussion-category "General"
-    release = !EDITOR=nvim gh release create
-    release-to = !EDITOR=nvim gh release create --target
-
-    ; to get the branch from which were made the release
-    get-branch-tag = !git branch -a --contains tags \"$1\"
+    # to get the branch from which were made the release
+    get-branch-tag = !git branch -a --contains tags $1
 
     ; To list commits from the current branch
     ; commit-list = !git log --no-merges --oneline --decorate $(git remote show origin | grep 'HEAD branch' | cut -d' ' -f5)..$(git branch --show-current)
@@ -222,28 +253,15 @@
     ; to delete all untracked files
     clear-untracted = !git clean -xdf
 
-    ; to list all vailable issues
-    issue-list = !gh issue list
-
     log-branch = !git log origin..HEAD
     ll = !git log origin..HEAD
 
     ; to get the base branch
-    branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
-
-    ; to create a new Issur
-    issue-create = !EDITOR=nvim gh issue create
-
-    ; to view an Issue
-    ; Ex: git issue-view 23
-    issue-view = !gh issue view
+    branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\" # \
 
     ; to fetch origin and checkout quickly
     ; git get origin branch-name
     get = !bash -i -c '_get "$@"' -s
-
-    ; to view an Issue
-    issue-comment = !EDITOR=nvim gh issue comment -e
 
     ; All my commits should be signed
     ; git config --global commit.gpgsign true
@@ -260,6 +278,7 @@
     ;clone-gh
     clone-gh = !git clone git@github.com:\"$@\" || git clone https://github.com/\"$@\"
     clone-gl = !git clone git@gitlab.com:\"$@\" || git clone https://gitlab.com/\"$@\"
+    # \
 
     ; to cat inside a code state for a given line, commit and file as parameter
     ; ideal to run just after the git search
@@ -267,10 +286,12 @@
 
     ; to open the Pull Request related to the current branch
     open-pr=!bash -ic 'git_open_pr \"$@\"'
+    # \
 
     ; To backport a given commit or fix
     ; git backport  <commit-hash> <target-branch>
     backport = !bash -ic 'git_backport \"$@\"' x
+    # \
 
     ; To commit an empty commit
     commit-empty = !git commit --allow-empty -m
@@ -342,6 +363,7 @@
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
     ; to update a target branch
     update-branch = !bash -ic 'git_update_target_branch \"$@\"' x
+    # \
 
     ; to squash and merge
     ; git squash HEAD~2
@@ -418,12 +440,15 @@
     ; to get log changes on a specific file ?
     ; git log-for ./server/CHANGELOG.md
     log-for-file = !bash -ic 'git_log_commits_for \"$@\"' x
+    # \
 
     ; git diff-branch target-branch # to get and navigate all changes from a branch to another one
     diff-branch = !bash -ic 'git-fuzzy-diff \"$@\"' x
+    # \
 
     ; to get diff smartly on file changes only
     diff-search = !bash -ic 'fuzzy_diff_search \"$@\"' x
+    # \
 
     ; to get a summary difference
     ; git diff-summary <branch/commitId>
@@ -436,24 +461,26 @@
 
     ; to get stash smartly on file changes only
     stash-search = !bash -ic 'fuzzy_stash_search \"$@\"' x
+    # \
 
     ; git browse # to browse commits and changes
 	browse = !bash -ic 'git-fuzzy-log \"$@\"' x
+    # \
 	b = !git browse
 
     open=!bash -ic 'git_open_link \"$@\"' x
+    # \
 
     # git compare origin
     compare=!bash -ic 'git_compare_online \"$@\"' x
+    # \
 
     ; git browse-branch # to browse only commits that are away from the main branch
 	changes= !bash -ic 'git-fuzzy-log-branch \"$@\"' x
 
-    ; dash (PRs/Issues)
-    dash = !gh dash
-
     ; to get logs as oneline only
     log-branch = !git log origin..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    # \
 
     ; to log given lines for a file from git history
     ; git log-line 1,2:main.py
@@ -475,6 +502,7 @@
 
     ;get log from a given branch
     log-from-branch = !git log $1..HEAD --graph --no-merges --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\"
+    # \
     log-branch-details = !git log -p origin..HEAD --no-merges
     ; Same as above, but with a diff stat instead of just names
     ; (better for interactive use)
@@ -485,6 +513,7 @@
 
     ; to add smartly on file changes only
     add-search = !bash -ic 'fuzzy_add_search \"$@\"' x
+    # \
 
     ; which adds a zero-length blob to the index at that location.
     ; The upshot is that your "untracked" file now becomes a modification to add
@@ -500,6 +529,7 @@
 
     ; to specify a target branch from where i want to squash
     squash-to = !git rebase -i HEAD~$(git rev-list --count HEAD ^\"$1\")
+    # \
     ; squash-to = !git rebase -i HEAD~$(git log --oneline $(git branch --show) ^$1 | wc -l)
 
     ; git squash-count to squash with a specific amount of commit from the top
@@ -523,6 +553,7 @@
 
     ; to pick a specific commit
     pick-commit = !git pick $(git rev-list --all --pretty=oneline | uniq | fzf --ansi --preview \"git show {1} | delta\" --preview-window \"right,60%\" --pointer=\">\" | cut -d ' ' -f1)
+    # \
 
     ; we want branch listing based on the last commit date
     branch-sorted = !git branch --sort=committerdate
@@ -548,9 +579,11 @@
 
     ; checkout a branch on another directory
     checkout-tree = !bash -ic 'git_checkout_tree \"$@\"' x
+    # \
 
     ; to search for files updated
     status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
+    # \
 
     status-modified = !git status -s | grep '^ M'
     status-deleted = !git status -s | grep '^ D'

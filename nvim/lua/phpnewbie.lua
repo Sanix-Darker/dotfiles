@@ -31,19 +31,23 @@ local function add_dollar_to_variables()
 end
 
 -- Function to replace . with -> outside of comments in PHP files
+-- because :
+-- - "-" and ">" are too distant in my keyboard, sorry
+-- - comming from a background where am confortable with . instead of ->
+-- - and finally, because am extremly lazy as a dev, lmao.
 local function replace_dot_with_arrow()
     -- Save the cursor position
     local save_cursor = vim.fn.getpos(".")
 
-    -- Define a pattern to match PHP comments
+    -- Define a pattern to match comments
+    -- In this case related to php (#, /*, //)
+    -- (yes php comments can be made by # too, i was surprised).
     local comment_pattern = "^%s*(//|/%*|%*|#*)"
 
-    -- Get all lines in the buffer
+    -- Get all lines in the current opened buffer(well, kind of).
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
-    -- Iterate over each line
     for lnum, line in ipairs(lines) do
-        -- Check if the line is a comment
         if not string.match(line, comment_pattern) then
             -- Replace . with -> in lines that are not comments
             local new_line = string.gsub(line, '(%w)%.(%w)', '%1->%2')
@@ -61,7 +65,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.php",
     callback = function ()
         replace_dot_with_arrow()
-        -- FIXME: EXTREMLY BAD LMAO, will fix/adapt later
+        -- FIXME: EXTREMLY BAD IMPLEM FOR NOW LMAO, will fix/adapt later
+        -- Considering using the threesiter API ?
         -- add_dollar_to_variables()
     end,
     group = "php_mappings",
