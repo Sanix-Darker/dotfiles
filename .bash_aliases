@@ -1677,6 +1677,11 @@ _install_fx(){
     sudo curl https://fx.wtf/install.sh | sudo bash
 }
 
+_install_httpstat(){
+    _confirm_install_again httpstat || return 0
+
+    go install github.com/davecheney/httpstat@latest
+}
 
 # Usage:
 #
@@ -2472,6 +2477,8 @@ git_update_target_branch(){
     git checkout $branch
     git pull $remote --rebase $branch
 
+    git checkout -
+
     # If there were changes before, stash pop
     # To get everything back.
     [ $changes = "1" ] && git stash pop
@@ -2479,7 +2486,7 @@ git_update_target_branch(){
 
 git_open_pr(){
     browser=firefox
-    pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
+    pr_number=$(EXTRACT_REGEX "$(git gh-pr-list-all | grep $(git branch-name))" "([0-9]+)")
     # yes, you can specify the remote host for context switch (gitlab/bitbucket)
     remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
     # well, it may seem complex but in reality it's a whole regex
@@ -2503,7 +2510,7 @@ git_open_pr(){
 
 # Can be usefull sometimes (even for the latest commit hash for example)
 git_last_commit_link(){
-    pr_number=$(EXTRACT_REGEX "$(git pr-list-all | grep $(git branch-name))" "([0-9]+)")
+    pr_number=$(EXTRACT_REGEX "$(git gh-pr-list-all | grep $(git branch-name))" "([0-9]+)")
     remote_link=$(git remote get-url $(IS_ENV_SET $1 "origin"))
     built_link="$(echo "https://$(echo "$remote_link" | sed -e 's/git@//' -e 's/\.git$//' -e 's/:/\//')")/pull/$pr_number"
 
@@ -2566,7 +2573,7 @@ git_select_pull_request() {
     pr_selected=$(git_list_pull_requests | \
         fzf --ansi \
             --header="Select Pull Request" \
-            --preview "git pr-view {1} | bat --language markdown --color=always" \
+            --preview "git gh-pr-view {1} | bat --language markdown --color=always" \
             --preview-window=top:40 | awk '{print $1, $2, $4}')
     pr_id=$(echo "$pr_selected" | awk '{print $1}' | sed 's/#//')
     pr_target_branch_name=$(echo "$pr_selected" | awk '{print $2}')

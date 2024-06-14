@@ -116,7 +116,7 @@
     ; as draft (--draft/-d)
 
     ; pr-to to specify a specific branch also on draft too
-    ; git pr-to dev-branch
+    ; git gh-pr-to dev-branch
 
     ; to list all available pull requests
     ; TODO: add fzf to it.
@@ -127,7 +127,7 @@
     gh-pr-view = "!gh pr view"
     gh-pr-edit = "!EDITOR=nvim gh pr edit"
     ; to list all available pull requests
-    ; Ex: git pr-view 23
+    ; Ex: git gh-pr-view 23
     ; to edit a PR alreadly available
 
     ; for github action utils
