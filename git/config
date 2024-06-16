@@ -106,6 +106,16 @@
 	autoSetupRemote = true
 
 [alias]
+    ; To clone and deal quickly with huge repositories
+    ; $ git clone --no-checkout https://github.com/derrickstolee/sparse-checkout-example
+    ; $ cd sparse-checkout-example
+    ; $ git sparse-checkout init --cone  # Configure git to only match files in root directory
+    ; $ git checkout main  # Checkout only files in root directory
+    ; $ ls
+    ;       bootstrap.sh  LICENSE.md  README.md
+    ; $ git sparse-checkout set service/common
+    ; To add 'service/' to the local repo...
+
     # GitHub commands
     ; To use pr
     ; pr auth login to authenticate it !
@@ -365,7 +375,7 @@
     update-branch = !bash -ic 'git_update_target_branch \"$@\"' x
     # \
 
-    ; to squash and merge
+    ; to squash and merge all commits on the current branch
     ; git squash HEAD~2
     squash = !git rebase -v -i
 
@@ -395,7 +405,8 @@
 
     ; it's possible and simple to impersonate someone else and even the date
     ; for the date its only need a --date flag
-    ; git commit --amend --author "someone <someone@gmail.com>" --date "$(date)"
+    ; git amend-author "someone <someone@gmail.com>" <commit-hash>
+    amend-author = !git commit --amend --author "$@" --date "$(date)"
 
     ; To erase a file across your git history
     erase = !git filter-branch --index-filter 'git rm -rf --cached --ignore-unmatch $1' HEAD
@@ -405,6 +416,12 @@
     undo = reset HEAD~1 --mixed
     ; to undo and clear all unstaged changes
     undo-clear = !git reset HEAD~1 --mixed && git clear
+
+    ; some special tricks for 'git restore'
+    restore-staged = !git restore --staged
+    ; like a revert but for a file
+    ; git restore-source HEAD~1 some-file.py
+    restore-source = !git restore --source
 
     ; to undo an amount of commit at once
     ; undo-count = !git reset HEAD~$@
@@ -579,7 +596,6 @@
 
     ; checkout a branch on another directory
     checkout-tree = !bash -ic 'git_checkout_tree \"$@\"' x
-    # \
 
     ; to search for files updated
     status-search = !git status -s | cut -c3- | fzf --header \"List of Changes to Add\" --preview \"git diff {1} | delta\" --preview-window \"right,80%\" --pointer=\">\"
