@@ -1436,10 +1436,10 @@ _install_firefox(){
     # open a new link from other applications
     #
     # This is to ensure that xdg-open does get lost :
-    local firefox_desktop="$HOME/.loca/share/applications/firefox.desktop"
+    local firefox_desktop="$HOME/.local/share/applications/firefox.desktop"
     # let's run this only if the file is missing...
     if [ ! -f "$firefox_desktop" ]; then
-        _echo_info "> Writing firefox.desktop configuration..."
+        echo "> Writing firefox.desktop configuration..."
     cat <<EOF > $firefox_desktop
 [Desktop Entry]
 Name=Firefox
@@ -1453,7 +1453,7 @@ Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
 StartupNotify=true
 EOF
-        _echo_info "> Using xdg-settings, setting firefox.desktop as default browser..."
+        echo "> Using xdg-settings, setting firefox.desktop as default browser..."
         # Then set it explicitly:
         xdg-settings set default-web-browser firefox.desktop
     fi;

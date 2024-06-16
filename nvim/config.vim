@@ -250,3 +250,5 @@ command! -nargs=1 OpenExistingTab call OpenExistingTab(<f-args>)
 " For php file types
 autocmd FileType php set iskeyword+=$
 
+" Necessary for persistant hightlight
+highlight LineHighlight ctermbg=darkblue guibg=darkblue

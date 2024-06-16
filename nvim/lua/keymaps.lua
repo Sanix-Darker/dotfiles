@@ -481,3 +481,10 @@ map(
     "<Leader>FF",
     ":lua require'autofold'.toggle_function_folding()<CR>"
 )
+
+-- persistant hightligh
+-- highlight selected lines
+map('v', '<Leader>v', ":call matchadd('LineHighlight', '\\%'.line('.').'l')<CR>")
+map('n', '<Leader>v', ":call matchadd('LineHighlight', '\\%'.line('.').'l')<CR>")
+map('n', '<Leader>V', ":call clearmatches()<CR>")
+map('v', '<Leader>V', ":call clearmatches()<CR>")

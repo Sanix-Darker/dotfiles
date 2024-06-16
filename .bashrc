@@ -335,7 +335,7 @@ _start_greenclip(){
 _gogo(){
     pkill polybar; _start_polybar
     # pkill compton; _start_compton
-    pkill picom; _start_picom
+    # pkill picom; _start_picom (started with i3, no need here)
     pkill greenclip; _start_greenclip
     # for git certs
     _ssh_add
