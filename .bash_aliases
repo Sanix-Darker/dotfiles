@@ -1103,13 +1103,42 @@ _install_php(){
 
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-get update -y
-    sudo apt-get install php8.2 -y
+    sudo apt-get install software-properties-common -y
+    sudo apt-get install php8.2 php8.2-dev -y
     # extensions needed
-    sudo apt install php8.2-xml php8.2-dom php8.2-curl php8.2-mbstring -y
+    sudo apt install php8.2-xml php8.2-dom php8.2-curl php8.2-mbstring php8.2-xdebug -y
+    # also the most effective way to install xdebug is with 'pecl install xdebug'
+    # you may require 'sudo' super powers.
+    # THEN to activate it :
+    #
+    # edit this file :
+        # $ php --ini | grep xdebug
+        # $ /etc/php/8.2/cli/conf.d/20-xdebug.ini,
+        #
+        # and add :
+        #   xdebug.mode=debug
+        #   xdebug.client_host=localhost
+        #   xdebug.client_port=9000
+        #
+        # then inside ~/php-xdebug
+        # put this :
+        #
+        # #!/bin/bash
+        # export XDEBUG_CONFIG="idekey=xdebug"
+        # /usr/bin/php "$@"
+        #
+        # $ chmod +x ~/php-xdebug
+        # then add to the $PATH
+    #
+    #
+    #
     # installing DB extensions
     sudo apt install php8.2-sqlite3 php8.2-pgsql php8.2-mysql -y
     php --version
 }
+# php interactive shell
+alias phprel='php -a'
+alias php-xdebug='~/php-xdebug'
 
 _install_composer(){
     _install_php
@@ -3607,3 +3636,4 @@ refresh_all_git_repo(){
         cd ..;
     done;
 }
+

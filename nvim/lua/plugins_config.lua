@@ -552,6 +552,27 @@ dap.adapters.python = function(cb, config)
   end
 end
 
+-- dap adapter for php
+-- yes, it use node... what a nightmare man.
+--
+-- steps to install :
+-- cd $HOME && git clone https://github.com/xdebug/vscode-php-debug.git
+-- cd vscode-php-debug && nvm use 16
+-- npm install && npm run build
+dap.adapters.php = {
+    type = "executable",
+    command = "node",
+    args = { os.getenv("HOME") .. "/vscode-php-debug/out/phpDebug.js" }
+}
+dap.configurations.php = {
+    {
+        type = "php",
+        request = "launch",
+        name = "Listen for Xdebug",
+        port = 9003
+    }
+}
+
 dap.configurations.python = {
   {
     -- The first three options are required by nvim-dap

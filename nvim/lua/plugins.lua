@@ -194,6 +194,10 @@ return packer.startup(function(use)
     -- For highlights
     use 'LiadOz/nvim-dap-repl-highlights'
 
+    -- same as ndap but older,
+    -- vdebug
+    use 'vim-vdebug/vdebug'
+
     use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
     -- for selecting stuff smartly

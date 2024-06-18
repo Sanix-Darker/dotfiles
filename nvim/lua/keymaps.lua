@@ -445,6 +445,8 @@ map('n', '<Leader>dl', ":lua require'dap'.step_into()<CR>")
 map('n', '<Leader>dj', ":lua require'dap'.down()<CR>")
 map('n', '<Leader>do', ":lua require'dap'.step_over()<CR>")
 map('n', '<Leader>ds', ":lua require'dap'.close()<CR>")
+-- for vdebug it's F5 (make sure to use the ~/php-xdebug code to start a session thread first)
+-- And :BreakPoint to add a new breakpoint
 map('n', '<Leader>dn', ":lua require'dap'.continue()<CR>")
 map('n', '<Leader>d_', ":lua require'dap'.disconnect();require'dap'.stop();require'dap'.run_last()<CR>")
 map('n', '<Leader>dr', ":lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l")
