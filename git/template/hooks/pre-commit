@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# RUN ggshield only if installed
+$(command -v ggshield > /dev/null) && \
+    ggshield secret scan pre-commit "$@" || \
+    echo "'ggshield' not installed, install it to protect from leaking creds/keys/secrets."

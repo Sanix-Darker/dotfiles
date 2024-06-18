@@ -1730,6 +1730,16 @@ _install_evans(){
     go install github.com/ktr0731/evans@latest
 }
 
+_install_ggshield(){
+    # To prevent leaking some creds
+    _confirm_install_again ggshield || return 0
+
+    _installed pip && pip install ggshield || echo "ERROR: you need to install pip first."
+    # Then inside any repository, use :
+    # ggshield auth login # to login
+    # ggshield install --mode local # then to install locally
+}
+
 _install_raw_basics(){
     # sudo apt-get install type
     devStack=(
@@ -3573,10 +3583,9 @@ refresh_all_git_repo(){
 
     for repo in $(/bin/ls -d */); do
         echo -ne "\n\nIN : $repo";
-        sleep 1.5;
 
         # We don't continue if it's not a git repository.
-        cd "./$repo" && [ ! -d ".git" ] && return
+        cd "./$repo" && [ ! -d ".git" ] && continue
 
         base_branch="$(git branch-base)"
         current_branch="$(git branch-name)"
