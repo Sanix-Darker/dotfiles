@@ -1722,6 +1722,7 @@ _install_mosh(){
 
     cd -
 }
+alias mosh='export LC_ALL="en_US.UTF-8" && mosh'
 
 _install_evans(){
     # A grpc client
