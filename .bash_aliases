@@ -3565,21 +3565,33 @@ export AIDER_DARK_MODE=1
 alias aider='aider -3'
 
 refresh_all_git_repo(){
-    set -x
     # Update all git repositories base branch from the current repository
     # We first list only directories from the current one.
+    local base_branch;
+    local current_branch;
+    local should_checkout_base_branch;
+
     for repo in $(/bin/ls -d */); do
         echo -ne "\n\nIN : $repo";
         sleep 1.5;
 
         # We don't continue if it's not a git repository.
         cd "./$repo" && [ ! -d ".git" ] && return
-        echo "updating"
 
-        git stash && git checkout "$(git branch-base)";
-        git update;
+        base_branch="$(git branch-base)"
+        current_branch="$(git branch-name)"
+
+        echo -ne "On $current_branch, (based: $base_branch)\n Updating..."
+
+        git stash
+
+        should_checkout_base_branch=$([ "$base_branch" != "$current_branch" ] && echo "y");
+        [ ! -z $should_checkout_base_branch ] && git checkout $base_branch;
+
+        git update; # git pull origin <branch>
+
+        [ ! -z $should_checkout_base_branch ] && git checkout -;
         git stash pop;
         cd ..;
     done;
-    set +x
 }
