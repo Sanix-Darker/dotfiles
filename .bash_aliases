@@ -3586,12 +3586,14 @@ refresh_all_git_repo(){
         git stash
 
         should_checkout_base_branch=$([ "$base_branch" != "$current_branch" ] && echo "y");
-        [ ! -z $should_checkout_base_branch ] && git checkout $base_branch;
+        [ ! -z $should_checkout_base_branch ] && git checkout $base_branch && echo -e "\nchecking out...";
 
         git update; # git pull origin <branch>
 
         [ ! -z $should_checkout_base_branch ] && git checkout -;
         git stash pop;
+
+        unset should_checkout_base_branch
         cd ..;
     done;
 }
