@@ -372,7 +372,7 @@
     ; to update a branch
     update = !git pull origin $(git rev-parse --abbrev-ref HEAD) --rebase
     ; to update a target branch
-    update-branch = !bash -ic 'git_update_target_branch \"$@\"' x
+    update-branch = !bash -c 'source $HOME/.bash_aliases && git_update_target_branch "$@"' -s
     # \
 
     ; to squash and merge all commits on the current branch
@@ -485,11 +485,11 @@
     # \
 	b = !git browse
 
-    open=!bash -ic 'git_open_link \"$@\"' x
+    open=!bash -c 'source $HOME/.bash_aliases && git-open-link "$@"' -s
     # \
 
     # git compare origin
-    compare=!bash -ic 'git_compare_online \"$@\"' x
+    compare=!bash -c 'source $HOME/.bash_aliases && git-compare-online-remote "$@"' -s
     # \
 
     ; git browse-branch # to browse only commits that are away from the main branch

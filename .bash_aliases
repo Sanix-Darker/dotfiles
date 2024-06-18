@@ -2517,10 +2517,12 @@ git_last_commit_link(){
     echo $built_link/commits/$(git last-commit-hash)
 }
 
-git_open_link(){
+git-open-link(){
+    [ -z "$@" ] && echo "ERROR: provide a remote please !" && return
     # $1 can be 'origin' or 'dev' depending on the source
-    remote_link=$(git remote get-url $1)
-    browser=firefox
+    local remote_link=$(git remote get-url $1)
+    echo "remote_link: $remote_link"
+    local browser=firefox
     CURL_CHECK="curl --head --silent --fail"
     if $CURL_CHECK "$remote_link" &> /dev/null; then
         $browser $remote_link;
@@ -2535,7 +2537,8 @@ git_open_link(){
     fi;
 }
 
-git_compare_online(){
+git-compare-online-remote(){
+    [ -z "$@" ] && echo "ERROR: provide a remote please !" && return
     # $1 can be 'origin' or 'dev' depending on the source
     remote_link=$(git remote get-url $1)
     current_branch=$(git branch --show-current)
@@ -3560,3 +3563,23 @@ export AIDER_AUTO_COMMITS=0
 export AIDER_GITIGNORE=0
 export AIDER_DARK_MODE=1
 alias aider='aider -3'
+
+refresh_all_git_repo(){
+    set -x
+    # Update all git repositories base branch from the current repository
+    # We first list only directories from the current one.
+    for repo in $(/bin/ls -d */); do
+        echo -ne "\n\nIN : $repo";
+        sleep 1.5;
+
+        # We don't continue if it's not a git repository.
+        cd "./$repo" && [ ! -d ".git" ] && return
+        echo "updating"
+
+        git stash && git checkout "$(git branch-base)";
+        git update;
+        git stash pop;
+        cd ..;
+    done;
+    set +x
+}
