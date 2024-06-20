@@ -458,7 +458,7 @@ map('n', '<Leader>da', ":lua require'debugHelper'.attach()<CR>")
 map('n', '<Leader>da', ":lua require'debugHelper'.attachToRemote()<CR>")
 map('n', '<Leader>di', ":lua require'dap.ui.widgets'.hover()<CR>")
 map('n', '<Leader>d?', ":lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>")
--- to eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
+-- To eval expressions vnoremap <M-k> <Cmd>lua require("dapui").eval()<CR>
 
 -- for multi line selection
 -- Ctrl+c to quit the mode

@@ -193,6 +193,8 @@ return packer.startup(function(use)
     use 'theHamsta/nvim-dap-virtual-text'
     -- For highlights
     use 'LiadOz/nvim-dap-repl-highlights'
+    -- dap nvim mason
+    use 'jay-babu/mason-nvim-dap.nvim'
 
     -- same as ndap but older,
     -- vdebug
