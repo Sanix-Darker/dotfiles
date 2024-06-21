@@ -1,33 +1,6 @@
--- Function to add $ to variables in PHP files
-local function add_dollar_to_variables()
-    -- Save the cursor position
-    local save_cursor = vim.fn.getpos(".")
-    -- Define a pattern to match PHP comments
-    local comment_pattern = "^%s*(//|/%*|%*)"
-    -- Define a pattern to match variables (without leading $)
-    local variable_pattern = "%f[%a_][a-zA-Z_][a-zA-Z0-9_]*"
-
-    -- Iterate over each line in the buffer
-    for lnum = 1, vim.fn.line("$") do
-        local line = vim.fn.getline(lnum)
-
-        -- Check if the line is a comment
-        if not string.match(line, comment_pattern) then
-            -- Add $ to variables that don't have it
-            local new_line = string.gsub(line, variable_pattern, function(var)
-                -- Add $ only if the variable doesn't already have it
-                if not string.match(var, "^%$") then
-                    return "$" .. var
-                else
-                    return var
-                end
-            end)
-            vim.fn.setline(lnum, new_line)
-        end
-    end
-
-    -- Restore the cursor position
-    vim.fn.setpos(".", save_cursor)
+-- Function to replace ": to " with " => " in PHP files
+local function replace_column_to_arrow(line)
+    return string.gsub(line, '": ', '" => ')
 end
 
 -- Function to replace . with -> outside of comments in PHP files
@@ -35,23 +8,32 @@ end
 -- - "-" and ">" are too distant in my keyboard, sorry
 -- - comming from a background where am confortable with . instead of ->
 -- - and finally, because am extremly lazy as a dev, lmao.
-local function replace_dot_with_arrow()
+local function replace_dot_with_arrow(line)
+    -- Replace . with -> in lines that are not comments
+    return string.gsub(line, '(%w)%.(%w)', '%1->%2')
+end
+
+local function entrypoint()
     -- Save the cursor position
     local save_cursor = vim.fn.getpos(".")
-
     -- Define a pattern to match comments
     -- In this case related to php (#, /*, //)
     -- (yes php comments can be made by # too, i was surprised).
     local comment_pattern = "^%s*(//|/%*|%*|#*)"
 
-    -- Get all lines in the current opened buffer(well, kind of).
-    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    -- FIXME: EXTREMLY BAD IMPLEM FOR NOW LMAO, will fix/adapt later
+    -- Considering using the threesiter API ?
+    -- add_dollar_to_variables()
 
-    for lnum, line in ipairs(lines) do
+    -- Get all lines in the current opened buffer(well, kind of).
+    for line_num, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
         if not string.match(line, comment_pattern) then
-            -- Replace . with -> in lines that are not comments
-            local new_line = string.gsub(line, '(%w)%.(%w)', '%1->%2')
-            vim.api.nvim_buf_set_lines(0, lnum - 1, lnum, false, { new_line })
+            -- Set the modified lines back to the buffer only if there are changes
+            -- All methods to process lines from the buffer
+            local new_line = replace_column_to_arrow(
+                replace_dot_with_arrow(line)
+            )
+            vim.api.nvim_buf_set_lines(0, line_num - 1, line_num, false, { new_line })
         end
     end
 
@@ -64,10 +46,7 @@ vim.api.nvim_create_augroup("php_mappings", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.php",
     callback = function ()
-        replace_dot_with_arrow()
-        -- FIXME: EXTREMLY BAD IMPLEM FOR NOW LMAO, will fix/adapt later
-        -- Considering using the threesiter API ?
-        -- add_dollar_to_variables()
+        entrypoint()
     end,
     group = "php_mappings",
 })
