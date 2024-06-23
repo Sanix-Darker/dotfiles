@@ -46,7 +46,7 @@ vim.api.nvim_create_augroup("php_mappings", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.php",
     callback = function ()
-        entrypoint()
+        -- entrypoint()
     end,
     group = "php_mappings",
 })
