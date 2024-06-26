@@ -381,3 +381,5 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/
 # This is dirty but i need this to fix my LSP on nvim
 # nvm use 20 > /dev/null # in silent
 # source "$HOME/ACTUALC/github/emsdk/emsdk_env.sh"
+# for ros
+[ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash

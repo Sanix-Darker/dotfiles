@@ -629,7 +629,7 @@ _install_vagrant(){
     cd -
 }
 
-_install_alacritty(){
+_install_alacritty(){ #mandatory
     _confirm_install_again alacritty || return 0
 
     sudo apt-get update -y
@@ -655,7 +655,7 @@ _install_alacritty(){
     # cd alacritty
     # cargo build --release
     # sudo cp ./target/release/alacritty $(which alacritty)
-}
+ }
 
 # faster linker than ld
 _install_mold(){
@@ -883,7 +883,7 @@ _install_i3_navigation(){
     sudo apt-get install feh rofi arandr -y
 }
 
-_install_i3(){
+_install_i3(){ #mandatory
     # another alternative
     # after downloading a release here : https://i3wm.org/downloads/
     # follow theses stemsp with meson
@@ -894,7 +894,7 @@ _install_i3(){
         libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev \
         libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev \
         libxkbcommon-dev libxkbcommon-x11-dev libxcb-shape0-dev \
-        ninja-build meson -y
+        ninja-build meson cloc picom -y
     cd /tmp && wget https://github.com/i3/i3/archive/stable.tar.gz
     tar xzf stable.tar.gz && rm -rf stable.tar.gz
     cd i3-stable && mdir build
@@ -913,14 +913,14 @@ _install_i3(){
 
     # install autolock
     sudo apt-get install xautolock -y
-}
+ }
 
-_install_delta(){
+_install_delta(){ #mandatory
     _confirm_install_again delta || return 0
 
     sudo wget https://github.com/dandavison/delta/releases/download/0.12.1/git-delta_0.12.1_amd64.deb && \
     sudo apt-get install ./git-delta_0.12.1_amd64.deb -y
-}
+ }
 
 _install_FZF(){
     # Yes i have my own version for searching on tmux session
@@ -977,7 +977,7 @@ _install_clang(){
     sudo apt-get install clang-format -y
 }
 
-_install_tmux(){
+_install_tmux(){ #mandatory
     echo "Installing yacc (flex and bison)..."
     sudo apt-get install bison flex -y
 
@@ -1015,7 +1015,7 @@ _install_tmux(){
         _echo_blue "> Installing tpm..."
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi;
-}
+ }
 
 # for github action locally
 _install_act(){
@@ -1059,7 +1059,7 @@ _install_zathura(){
     sudo apt-get install zathura -y
 }
 
-_install_docker(){
+_install_docker(){ #mandatory
     _confirm_install_again docker || return 0
 
     sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -1079,9 +1079,9 @@ _install_docker(){
     _echo_red "> ls -l /var/run/docker.sock"
     _echo_red "> sudo chmod 666 /var/run/docker.sock"
     _echo_red "> sudo systemctl restart docker"
-}
+ }
 
-_install_docker_compose(){
+_install_docker_compose(){ #mandatory
     _confirm_install_again docker-compose || return 0
 
     _xx cd /tmp
@@ -1091,7 +1091,7 @@ _install_docker_compose(){
 
     _xx docker-compose --version
     _xx cd -
-}
+ }
 
 _install_glow(){
     _confirm_install_again glow || return 0
@@ -1187,6 +1187,13 @@ _install_rust(){
 
     # To check the rust version installed
     rustc --version
+}
+
+_install_rustlings(){
+    # to help check for rust deps
+    _confirm_install_again rustlings || return 0
+
+    curl -L https://raw.githubusercontent.com/rust-lang/rustlings/main/install.sh | bash
 }
 
 _install_java(){
@@ -1290,7 +1297,7 @@ _install_golang_specific_version(){
     cd -
 }
 
-_install_nerdfonts(){
+_install_nerdfonts(){ #mandatory
     # Download here : https://github.com/source-foundry/Hackhttps://github.com/source-foundry/Hack
     # and then run : fc-cache -f -v
     # ----
@@ -1314,7 +1321,7 @@ _install_nerdfonts(){
     fc-cache -f -v
 
     cd -
-}
+ }
 
 _install_gh(){
     _confirm_install_again gh || return 0
@@ -1391,10 +1398,10 @@ _install_kdenlive(){
     cd -
 }
 
-_install_lazydocker(){
+_install_lazydocker(){ #mandatory
     _confirm_install_again lazydocker || return 0
     go install github.com/jesseduffield/lazydocker@latest
-}
+ }
 
 _install_lazygit(){
     _confirm_install_again lazygit || return 0
@@ -1410,7 +1417,7 @@ _install_yarn(){
     npm install -g yarn
 }
 
-_install_nvm(){
+_install_nvm(){ #mandatory
     _confirm_install_again nvm || return 0
 
 	mkdir ~/.nvm
@@ -1423,7 +1430,7 @@ _install_nvm(){
     _echo_green "> nvm install node v8" && nvm install 18
 
     _confirm "Install Yarn with npm ?" _install_yarn
-}
+ }
 
 _set_cat_bg(){
     cp ~/dotfiles/bg.jpg ~/bg2.jpg
@@ -1770,7 +1777,43 @@ _install_ggshield(){
     # ggshield install --mode local # then to install locally
 }
 
-_install_raw_basics(){
+_install_ros(){
+    sudo apt update
+    sudo apt install -y python-rosdep python-rosinstall-generator python-wstool python-rosinstall build-essential
+    sudo rosdep init
+    rosdep update
+
+    mkdir -p ~/catkin_ws/src
+    cd ~/catkin_ws
+    catkin init
+
+    wstool init src https://raw.githubusercontent.com/ros/rosdistro/kinetic/rosinstall
+    wstool update -t src
+
+    rosdep install --from-paths src --ignore-src --rosdistro kinetic -y
+
+    catkin build
+
+    source devel/setup.bash
+}
+
+_install_postgres_stuffs(){
+    sudo apt-get install postgresql postgresql-contrib -y
+}
+
+_install_neofetch(){
+    _confirm_install_again neofetch || return 0
+
+    sudo apt-get install neofetch -y
+}
+
+_install_tmate(){
+    _confirm_install_again tmate || return 0
+
+    sudo apt-get install tmate -y
+}
+
+_install_raw_basics(){ #mandatory
     # sudo apt-get install type
     devStack=(
         "build-essential"
@@ -1780,22 +1823,19 @@ _install_raw_basics(){
         "curl" "wget" "tree" "jq"
         "apt-transport-https"
         "lsb-release" "ca-certificates"
-        "neofetch"
 
-        "cloc" "picom"
+        "git-lfs" "gh"
+        "curl" "gcc" "g++" "make"
 
-        "tmate" "git-lfs" "gh"
-        "tar" "zip" "unzip" "curl"
-        "gcc" "g++" "make"
-
-        "mcomix" "unrar"
+        "mcomix" "unrar" "tar" "zip" "unzip"
         "pavucontrol" "pulseaudio" "blueman" # audio and bluetooth
 
         # "docker" "docker-compose" (done from _install_docker)
         "git" "hub" "snap"
         # "zeal" # not needed as a basic installation, i may change that later
-        "silversearcher-ag"
-        "autoconf" "automake" "pkg-config"
+        "silversearcher-ag" # for search like reg
+        "autoconf" "automake" "pkg-config" # for compiling
+        # some libs for compiling
         "libxml2-utils" "libfuse2" "libncurses-dev"
         "libldap2-dev" "libsasl2-dev"
         "libxml2-dev" "libxmlsec1-dev" "libxmlsec1-openssl"
@@ -1804,13 +1844,12 @@ _install_raw_basics(){
         "libx11-dev" "libimlib2-dev" "libxft-dev"
         "libexif-dev"
 
-        "postgresql" "postgresql-contrib"
         "libpq-dev" "entr" "htop" "nvtop"
 
         "xcb-proto" "trash-cli"
         "python3-pynvim" "python3-virtualenv"
 
-        "xclip" # for clipboard
+        "xclip" # for clipboard (check co() and cb())
     )
     for i in "${devStack[@]}"
     do
@@ -1819,7 +1858,7 @@ _install_raw_basics(){
             _echo_black "[.]installed $i successfully !" || \
             _echo_red "[x]error installing $i"
     done
-}
+ }
 
 # a dumb forwarding.... needed
 _install_cargo(){
@@ -1904,7 +1943,7 @@ _install_basics(){
     # Install FZF
     _confirm "Install FZF (require git) ?" _install_FZF
     # Install delta, a amzing tool for diff
-    _confirm "Install delta for diff highlighting ?" _install_delta
+    _confirm "Install delta for (git diff) highlighting ?" _install_delta
     # nordvpn ?
     _confirm "Install nordvpn cli ?" _install_nordvpn
     # un cleaning to propre apres les basics installs
@@ -3637,3 +3676,7 @@ refresh_all_git_repo(){
     done;
 }
 
+_list_needed_clis(){
+    curl -LSs https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/.bash_aliases | \
+        grep "_install_" | grep "#mandatory" | sed -e 's/_install_//g; s/(){//g'
+}
