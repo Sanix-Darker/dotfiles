@@ -643,11 +643,10 @@ _install_alacritty(){ #mandatory
     echo "[x] cargo install allacrity..."
     cargo install alacritty
 
-    _confirm"[x] nvm use 20..." nvm use 20
+    _confirm "[x] nvm use 20..." nvm use 20
 
-    echo "[x] npm install alacritty-themes..."
     # for theming
-    npm i -g alacritty-themes
+    _confirm "Set allacrity themes ? " && echo "[x] npm install alacritty-themes..." && npm i -g alacritty-themes
 
     # For updating to the latest version
     # cd /tmp
