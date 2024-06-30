@@ -6,7 +6,11 @@ let &packpath=&runtimepath
 inoremap jk <ESC>
 " colorscheme onedark
 "colorscheme github_dark_default
-colorscheme tokyonight
+try
+    colorscheme tokyonight
+catch
+    echomsg "Error: Loading theme !"
+endtry
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
