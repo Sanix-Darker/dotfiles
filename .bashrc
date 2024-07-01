@@ -251,6 +251,8 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export ARDUINO_LIBS=$HOME/Arduino/libraries
+# for picom
+export PICOM_CONFIG=~/.config/picom.conf
 # For clang
 # export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
 export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
@@ -324,6 +326,7 @@ _start_compton(){
 
 _start_picom(){
     echo "Starting picom..."
+    # picom -c ~/.config/picom.conf
     nohup picom & > /dev/null
 }
 
