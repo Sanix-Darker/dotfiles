@@ -148,6 +148,25 @@ require'treesitter-context'.setup{
 -- setup qbf
 require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'})
 
+-- for areal minimap of code
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "[[", ":AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "]]", ":AerialNext<CR>", { buffer = bufnr })
+  end,
+  -- keymaps = {
+  --   ["<M-{>"] = "actions.prev",
+  --   ["<M-}>"] = "actions.next",
+  --   ["<M-[[>"] = "actions.prev_up",
+  --   ["<M-]]>"] = "actions.next_up",
+  -- },
+  layout = {
+      default_direction = "prefer_left",
+  }
+})
+
 -- for github actions
 require('gh-actions').setup()
 

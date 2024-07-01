@@ -520,6 +520,9 @@ return packer.startup(function(use)
     --" For syntax highlighting on a lot of stuffs
     use 'sheerun/vim-polyglot'
 
+    -- yet another minimap for my code view
+    use 'stevearc/aerial.nvim'
+
     -- Usefull for Peer programming, will use my OPEN AI KE
     -- Not needed for now, the cli solution is okay
     -- use 'joshuavial/aider.nvim'

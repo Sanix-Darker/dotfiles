@@ -646,7 +646,8 @@ _install_alacritty(){ #mandatory
     _confirm "[x] nvm use 20..." nvm use 20
 
     # for theming
-    _confirm "Set allacrity themes ? " && echo "[x] npm install alacritty-themes..." && npm i -g alacritty-themes
+    _confirm "Set allacrity themes ? " && \
+        echo "[x] npm install alacritty-themes..." && npm i -g alacritty-themes
 
     # For updating to the latest version
     # cd /tmp
@@ -657,7 +658,7 @@ _install_alacritty(){ #mandatory
  }
 
 # faster linker than ld
-_install_mold(){
+_install_mold(){ #mandatory
 
     _confirm_install_again mold || return 0
 
@@ -673,7 +674,7 @@ _install_mold(){
     git checkout v2.4.0
     sudo ../install-build-deps.sh && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ ..
     cmake --build . -j $(nproc) && sudo cmake --build . --target install
-}
+ }
 
 _cargo_update(){
     cargo install cargo-update
@@ -681,7 +682,7 @@ _cargo_update(){
     cargo --version
 }
 
-_install_path_browsing_utils(){
+_install_path_browsing_utils(){ #mandatory
     sudo apt-get update -y
 
     # we install zoxide for fast cd
@@ -696,7 +697,7 @@ _install_path_browsing_utils(){
     _confirm "Install batCat (require cargo (but should be available at this step)) ?" _install_batcat
     # putting this in comment for now
     _confirm "Install yazi(file browser on terminal) ?" _install_yazi
-}
+ }
 
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
