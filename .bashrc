@@ -328,6 +328,9 @@ _start_picom(){
     echo "Starting picom..."
     # picom -c ~/.config/picom.conf
     nohup picom & > /dev/null
+    echo "HINT: Hey, it's you from the past."
+    echo "If picom does not start properly, make sure to just create a new tmux panes..."
+    echo "SOMETIMES it works"
 }
 
 _start_greenclip(){

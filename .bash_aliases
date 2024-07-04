@@ -3159,8 +3159,6 @@ _boot_usb(){
 # sudo rm -rf /var/lib/apt/lists/*
 # sudo apt-get update
 
-# alias zed='/usr/bin/zed'
-
 # Search something using duckduckgo command line
 # Usage: _ ask this in duckduckgo
 _(){
