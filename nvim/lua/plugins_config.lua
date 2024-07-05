@@ -167,23 +167,23 @@ require("aerial").setup({
   }
 })
 
--- for github actions
+---- for github actions
 require('gh-actions').setup()
 
--- for search and replace on all a directory (text, not necessary a var/func..)
--- require('spectre').setup()
+---- for search and replace on all a directory (text, not necessary a var/func..)
+require('spectre').setup()
 
--- for diag listing
--- require("trouble").setup{}
+---- for diag listing
+require("trouble").setup{}
 
--- for aider as pp assistant
--- require('aider').setup({
---   auto_manage_context = false,
---   default_bindings = false
--- })
+---- for aider as pp assistant
+---- require('aider').setup({
+----   auto_manage_context = false,
+----   default_bindings = false
+---- })
 
--- Set lualine as statusline
--- See `:help lualine.txt`
+---- Set lualine as statusline
+---- See `:help lualine.txt`
 require('lualine').setup {
   options = {
     icons_enabled = true,
@@ -228,97 +228,37 @@ require('lualine').setup {
   extensions = {}
 }
 
-require('neoclip').setup({
-  history = 100,
-  enable_persistent_history = false,
-  length_limit = 10000,
-  continuous_sync = false,
-  db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
-  filter = nil,
-  preview = true,
-  prompt = nil,
-  default_register = '"',
-  default_register_macros = 'q',
-  enable_macro_history = true,
-  content_spec_column = false,
-  on_select = {
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_paste = {
-    set_reg = false,
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_replay = {
-    set_reg = false,
-    move_to_front = false,
-    close_telescope = true,
-  },
-  on_custom_action = {
-    close_telescope = true,
-  },
-  keys = {
-    fzf = {
-      select = 'default',
-      paste = 'ctrl-p',
-      paste_behind = 'Enter',
-      custom = {},
-    },
-  },
-})
-
--- hop to jump on any text base objects
+---- hop to jump on any text base objects
 require('hop').setup()
 
--- just to call the conflitcs lib itself
--- i don't know yet what to do witht this since am not using it more often
--- require('git-conflict').setup()
-
--- just so be sure it works
+---- just so be sure it works
 require('snips').setup({
     post_behavior = "yank"
 })
 
--- setup for litee
--- require('litee.lib').setup()
--- require('litee.gh').setup()
--- neoscroll (for smooth scrolling)
---
--- for images previewing
--- require("chafa").setup({
---   render = {
---     min_padding = 5,
---     show_label = true,
---   },
---   events = {
---     update_on_nvim_resize = true,
---   },
--- })
-
 require('gitsigns').setup()
-require("scrollbar.handlers.gitsigns").setup()
-require("scrollbar").setup({
-    handle = {
-        text = " ",
-        color = nil,
-        color_nr = 239, -- cterm
-        highlight = "CursorColumn",
-        hide_if_all_visible = true, -- Hides handle if all lines are visible
-    },
-})
+--require("scrollbar.handlers.gitsigns").setup()
+--require("scrollbar").setup({
+--    handle = {
+--        text = " ",
+--        color = nil,
+--        color_nr = 239, -- cterm
+--        highlight = "CursorColumn",
+--        hide_if_all_visible = true, -- Hides handle if all lines are visible
+--    },
+--})
 
--- for the neoscroll
+---- for the neoscroll
 require('neoscroll').setup(neoscroll_setup)
 require('neoscroll.config').set_mappings(scroll_map_setup)
 
--- mason
+---- mason
 require("mason").setup(mason_setup)
 require("mason-lspconfig").setup(masonlspconfig_setup)
 
--- require("fzf-lua").setup({})
+---- require("fzf-lua").setup({})
 
--- octo nvim to review pull requests inside nvim
+---- octo nvim to review pull requests inside nvim
 require"octo".setup({
   picker = "fzf-lua",                      -- or "telescope"
   suppress_missing_scope = {
@@ -463,7 +403,7 @@ require('insx.preset.standard').setup()
 --     }
 -- )
 
--- my way for debuguer
+---- my way for debuguer
 require('mydap')
 
 --require("neodev").setup({

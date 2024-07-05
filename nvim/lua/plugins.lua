@@ -121,9 +121,9 @@ return packer.startup(function(use)
     use 'tpope/vim-abolish'
     -- Finally a search and replace tool I may like
     -- NEED ripgrep
-    -- use 'nvim-pack/nvim-spectre'
+    use 'nvim-pack/nvim-spectre'
     -- To list diagnostic and warning
-    -- use 'folke/trouble.nvim'
+    use 'folke/trouble.nvim'
     -- use 'dlvhdr/gh-addressed.nvim'
     -- For dev-icons
     -- use 'ryanoasis/vim-devicons'

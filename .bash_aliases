@@ -702,7 +702,7 @@ _install_path_browsing_utils(){ #mandatory
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
     # VERSION="nightly"
-    local version="v0.9.0"
+    local version="v0.9.5"
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
