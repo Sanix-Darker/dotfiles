@@ -18,19 +18,6 @@ vim.api.nvim_create_user_command('W', 'w !sudo tee % > /dev/null | edit!', {})
 -- For command line to run alias in command mode inside vim editor
 vim.env.BASH_ENV = "~/.vim_bash_env"
 
--- NERDTREE stuff
-vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinPos = "right"
-
--- function NERDTreeToggleAndRefresh()
---     if vim.g.NERDTree.IsOpen() then
---         vim.cmd('NERDTreeClose')
---     else
---         vim.cmd('NERDTreeFind')
---     end
--- end
-vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTreeToggle<CR>', { noremap = true, silent = true })
-
 -- Silicon settings
 vim.g.silicon = {
     theme = 'Dracula',

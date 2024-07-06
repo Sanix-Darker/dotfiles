@@ -8,6 +8,9 @@ _G.__luacache_config = {
         path = vim.fn.stdpath('cache')..'/luacache_modpaths',
     }
 }
+
+vim.cmd('source ~/.config/nvim/config.vim')
+
 -- for configs (from config.vim
 require('config')
 -- The list of available plugins

@@ -114,7 +114,7 @@ set.updatetime = 1
 set.switchbuf = 'useopen,usetab,newtab'
 set.stal = 2
 -- Enable folding(indent, manual)
-set.foldmethod = 'indent'
+set.foldmethod = 'manual'
 set.foldlevel = 99
 -- For spell checking
 -- set.spell = true
