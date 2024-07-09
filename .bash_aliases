@@ -1813,6 +1813,12 @@ _install_tmate(){
     sudo apt-get install tmate -y
 }
 
+_install_ollama(){
+    _confirm_install_again ollama || return 0
+
+    curl -fsSL https://ollama.com/install.sh | sh
+}
+
 _install_raw_basics(){ #mandatory
     # sudo apt-get install type
     devStack=(
