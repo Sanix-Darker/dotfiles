@@ -197,8 +197,8 @@ return packer.startup(function(use)
     use 'jay-babu/mason-nvim-dap.nvim'
 
     -- same as ndap but older,
-    -- vdebug
-    use 'vim-vdebug/vdebug'
+    -- vdebug for PHP
+    -- use 'vim-vdebug/vdebug'
 
     use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
