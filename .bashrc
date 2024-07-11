@@ -338,7 +338,19 @@ _start_greenclip(){
     nohup greenclip daemon & > /dev/null
 }
 
+_set_connect_monitor(){
+    # home ?
+    # in case of error check the other one
+    [ -f "~/.screenlayout/home1.sh" ] && ~/.screenlayout/home1.sh ||  \
+    [ -f "~/.screenlayout/home2.sh" ] && ~/.screenlayout/home2.sh && \
+    echo "Home Monitor Set successfully" || echo "Unable to set home monitor";
+
+    # job
+}
+
 _gogo(){
+    _set_connect_monitor;
+
     pkill polybar; _start_polybar
     # pkill compton; _start_compton
     # pkill picom; _start_picom (started with i3, no need here)

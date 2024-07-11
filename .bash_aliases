@@ -479,6 +479,9 @@ _set_dot_files(){
     # for my bash stuffs
     cpd $DOT_DIR/{.bashrc,.bash_aliases} ~/
 
+    # all my screenlayout scripts
+    cpd $DOT_DIR/.screenlayout/ ~/.screenlayout/
+
     # my vagrant stuffs
     cpd $DOT_DIR/vagrant/vms/ ~/vagrant/
 
@@ -517,6 +520,9 @@ _set_dot_files(){
 _copy_to_dotfiles(){
     # copy my bash-working stuff to ~/ssh
     cpd ~/.bash_work_aliases ~/ACTUALC/ssh/
+
+    # Screen layout config and scripts
+    cpd ~/.screenlayout/ $DOT_DIR/.screenlayout/
 
     # nvim stuffs
     # We prevent copying plugins git based repositories too.
