@@ -338,7 +338,7 @@ _start_greenclip(){
     nohup greenclip daemon & > /dev/null
 }
 
-_set_connect_monitor(){
+_connect_monitor(){
     # home ?
     # in case of error check the other one
     [ -f "$HOME/.screenlayout/home1.sh" ] && $HOME/.screenlayout/home1.sh ||  \
@@ -346,11 +346,10 @@ _set_connect_monitor(){
     echo "Home Monitor Set successfully" || echo "Unable to set home monitor";
 
     # job
+    # ...
 }
 
 _gogo(){
-    _set_connect_monitor;
-
     pkill polybar; _start_polybar
     # pkill compton; _start_compton
     # pkill picom; _start_picom (started with i3, no need here)
@@ -400,4 +399,4 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/
 # nvm use 20 > /dev/null # in silent
 # source "$HOME/ACTUALC/github/emsdk/emsdk_env.sh"
 # for ros
-[ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash
+# [ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash

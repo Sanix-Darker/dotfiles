@@ -3344,7 +3344,7 @@ _auto_smart_syncer(){
         echo "$(date +%s)" > "$last_config_auto_sync"
     fi
 }
-_auto_smart_syncer # on each new terminal session opened, i don't want a messy infinite loop to handle this
+# _auto_smart_syncer # on each new terminal session opened, i don't want a messy infinite loop to handle this
 
 
 tmux_extract_layout(){

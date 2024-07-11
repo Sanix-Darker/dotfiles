@@ -42,10 +42,6 @@ packer.init({
 return packer.startup(function(use)
     use "wbthomason/packer.nvim" -- Have packer manage itself
 
-    -- for big files (this will disable a lot of stuff when a file is huge to
-    -- be open in a buffer)
-    use "LunarVim/bigfile.nvim"
-
     --" For timing check of the loading time
     -- use 'dstein64/vim-startuptime'
     --" On-demand loading
@@ -121,7 +117,7 @@ return packer.startup(function(use)
     use 'tpope/vim-abolish'
     -- Finally a search and replace tool I may like
     -- NEED ripgrep
-    use 'nvim-pack/nvim-spectre'
+    -- use 'nvim-pack/nvim-spectre'
     -- To list diagnostic and warning
     use 'folke/trouble.nvim'
     -- use 'dlvhdr/gh-addressed.nvim'
@@ -131,7 +127,7 @@ return packer.startup(function(use)
     -- Of the current word where we have the cursor
     use 'itchyny/vim-cursorword'
     -- For CSS color
-    use 'ap/vim-css-color'
+    -- use 'ap/vim-css-color'
     -- For REST requests inside vim
     use 'diepm/vim-rest-console'
     -- An alternative? (boff, not quite impress)
@@ -159,13 +155,13 @@ return packer.startup(function(use)
     -- minimap for my project
     -- use 'ziontee113/neo-minimap'
     -- To format the c/cpp code
-    use 'rhysd/vim-clang-format'
+    -- use 'rhysd/vim-clang-format'
     -- To manage SQLite database
     -- sudo apt-get install sqlite3 libsqlite3-dev
     -- for clipboard history on nvim
-    use 'kkharji/sqlite.lua'
+    -- use 'kkharji/sqlite.lua'
     -- To have history of clipboard
-    use 'AckslD/nvim-neoclip.lua'
+    -- use 'AckslD/nvim-neoclip.lua'
     -- A hinter for next moves
     use 'folke/which-key.nvim'
     -- For differences in a file
@@ -181,26 +177,27 @@ return packer.startup(function(use)
     -- use 'maxmellon/vim-jsx-pretty'
     -- For debugging, we add dap
     -- frustating, but need to include this one :
-    use 'nvim-neotest/nvim-nio'
-    use 'mfussenegger/nvim-dap'
-    use 'Pocco81/DAPInstall.nvim'
-    use 'mfussenegger/nvim-dap-python'
-    -- go install github.com/go-delve/delve/cmd/dlv@latest (debugger)
-    use 'leoluz/nvim-dap-go'
-    use 'rcarriga/nvim-dap-ui'
+    -- dap -- use 'nvim-neotest/nvim-nio'
+    -- dap -- use 'mfussenegger/nvim-dap'
+    -- dap -- use 'Pocco81/DAPInstall.nvim'
+    -- dap -- use 'mfussenegger/nvim-dap-python'
+    -- dap -- -- go install github.com/go-delve/delve/cmd/dlv@latest (debugger)
+    -- dap -- use 'leoluz/nvim-dap-go'
+    -- dap -- use 'rcarriga/nvim-dap-ui'
+
     -- for signature during debugging
     -- use 'folke/neodev.nvim'
-    use 'theHamsta/nvim-dap-virtual-text'
+    -- dap -- use 'theHamsta/nvim-dap-virtual-text'
     -- For highlights
-    use 'LiadOz/nvim-dap-repl-highlights'
+    -- dap -- use 'LiadOz/nvim-dap-repl-highlights'
     -- dap nvim mason
-    use 'jay-babu/mason-nvim-dap.nvim'
+    -- dap -- use 'jay-babu/mason-nvim-dap.nvim'
 
-    -- same as ndap but older,
+    -- Same as ndap but older,
     -- vdebug for PHP
     -- use 'vim-vdebug/vdebug'
 
-    use 'pocco81/dap-buddy.nvim'
+    -- dap -- use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
     -- for selecting stuff smartly
     -- Alt+V to toggle it
@@ -238,7 +235,7 @@ return packer.startup(function(use)
     -- you should install code-minimap first:
     -- cargo install --locked code-minimap
     -- use {'wfxr/minimap.vim', run = ':!cargo install --locked code-minimap'}
-    use 'petertriho/nvim-scrollbar'
+    -- use 'petertriho/nvim-scrollbar'
 
     -- For camelcase to snakecase and the reverse
     -- use 'nicwest/vim-camelsnek'
@@ -269,17 +266,17 @@ return packer.startup(function(use)
     -- For multicursor (need more mappings)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
     -- For PHP
-    use 'tobyS/pdv'                        -- Auto generating PHP docblocks
-    use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
-    use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
-    use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
-    -- For PHP autocompletion
-    use {'Shougo/vimproc.vim', run = 'make'}
-    use 'Shougo/unite.vim'
-    -- For Laravel
-    use 'tpope/vim-dotenv'
-    use 'nvimtools/none-ls.nvim'
-    use 'adalessa/laravel.nvim'
+    -- use 'tobyS/pdv'                        -- Auto generating PHP docblocks
+    -- use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
+    -- use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
+    -- use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
+    -- -- For PHP autocompletion
+    -- use {'Shougo/vimproc.vim', run = 'make'}
+    -- use 'Shougo/unite.vim'
+    -- -- For Laravel
+    -- use 'tpope/vim-dotenv'
+    -- use 'nvimtools/none-ls.nvim'
+    -- use 'adalessa/laravel.nvim'
     -- use 'm2mdas/phpcomplete-extended'
     -- use 'https://github.com/ojroques/nvim-lspfuzzy could be interesting to explore or the future
     -- use 'gfanto/fzf-lsp.nvim'
@@ -312,8 +309,6 @@ return packer.startup(function(use)
     -- For Brackets and stuffs
     use 'hrsh7th/nvim-insx'
     use 'simrat39/symbols-outline.nvim'
-    -- Just like org on emacs, to organize your stuffs
-    use 'phaazon/mind.nvim'
     -- To toggle and untoggle the LSP diagnostic
     -- removed in favor of the lsp_lines toggle one <Leader>o to activate
     -- and deactivate.
@@ -518,9 +513,10 @@ return packer.startup(function(use)
     -- :TrollStop to replace all unicodes by valid characters
     use 'vim-utils/vim-troll-stopper'
     --" For syntax highlighting on a lot of stuffs
-    use 'sheerun/vim-polyglot'
+    -- use 'sheerun/vim-polyglot'
 
-    -- yet another minimap for my code view
+    -- Yet another minimap for my code view
+    -- <Leader>aa
     use 'stevearc/aerial.nvim'
 
     -- Usefull for Peer programming, will use my OPEN AI KE
