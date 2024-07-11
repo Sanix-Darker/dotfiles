@@ -341,8 +341,8 @@ _start_greenclip(){
 _set_connect_monitor(){
     # home ?
     # in case of error check the other one
-    [ -f "~/.screenlayout/home1.sh" ] && ~/.screenlayout/home1.sh ||  \
-    [ -f "~/.screenlayout/home2.sh" ] && ~/.screenlayout/home2.sh && \
+    [ -f "$HOME/.screenlayout/home1.sh" ] && $HOME/.screenlayout/home1.sh ||  \
+    [ -f "$HOME/.screenlayout/home2.sh" ] && $HOME/.screenlayout/home2.sh && \
     echo "Home Monitor Set successfully" || echo "Unable to set home monitor";
 
     # job
