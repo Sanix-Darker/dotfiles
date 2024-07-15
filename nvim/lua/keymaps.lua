@@ -60,7 +60,7 @@ map("n", "mm", ":MundoToggle<cr>")
 -- --hidden --ignore .git
 map("n", "<Leader>fg", ":Ag<CR>", { noremap = true }) -- noremap for non recursive
 -- For the map("of the code
-map("n", "vv", ":Vista!!<CR>")
+-- map("n", "vv", ":Vista!!<CR>")
 map("n", "<Leader>w", ":w<CR>")
 map("n", "<Leader>q", ":q<CR>")
 map("n", "<Leader>e", ":e<CR>")
@@ -129,9 +129,8 @@ map("n", "<Leader>jk", ":call VrcQuery()<CR><C-w><C-w>:set ma<CR>:%!jq<CR>:set f
 -- map("n", "<Leader>jl", "<Plug>RestNvimLast") -- re-run the last request
 -- -- rest-console
 
-
 -- To search for ctags
-map("n", "<Leader>bg", ":Vista finder ctags<CR>")
+-- map("n", "<Leader>bg", ":Vista finder ctags<CR>")
 -- To format the code
 map("v", "fv", ":Neoformat<CR>")
 -- for clang formating
@@ -151,7 +150,7 @@ map("n", "<Leader>mm", ":Marks<cr>")
 -- To access all tabs in a single view as a popUp
 map("n", "<Leader>tt", ":Windows<cr>")
 -- to list all trouble diagnostics i have in the same file:
-map("n", "<Leader>tr", ":TroubleToggle<CR>")
+map("n", "<Leader>tr", ":Trouble diagnostics<CR>")
 -- To get th, history of all my opened files
 map("n", "<Leader>hh", ":History<cr>")
 -- To get th, whole history of the current buffer in term of commits
