@@ -83,19 +83,16 @@ _random_string(){
   tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c "$length"
 }
 
-# NOTE: a small function to print what it's about to execute... could be great
-# to show the user, what's going on
-_xx(){
-    _echo_background_white "\n>> $@"
-    $@
-}
-
 # This will just execute your command in the /tmp directory
 # that's all
 _xm(){
+    set -x;
+
     cd /tmp;
-    _xx $@;
+    $@;
     cd -;
+
+    set +x;
 }
 
 # Small custom spinner
@@ -198,7 +195,7 @@ export GIT_FZF_DEFAULT_OPTS="
 	$GIT_FZF_DEFAULT_OPTS
 "
 
-# _sleep 10
+# _sleep 10 ( timeout version )
 _sleep(){
     seconds=$1
     start="$(($(date +%s) + $seconds))"
@@ -211,7 +208,7 @@ _sleep(){
 
 alias tmux='tmux -f ~/.config/tmux/tmux.conf -2'
 
-# some more ls aliases
+# Some more ls aliases
 # cargo install eza
 # alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias ls='exa'
@@ -327,7 +324,12 @@ _git_status_if_git_repo(){
 
 # Another amazing cd with fzf
 cdd() {
-    local sel="$(zoxide query --list --score | fzf -n2 --reverse --query "$*" | head -1 | tr -s ' ' | sed 's/^\s\+//' | cut -d' ' -f2)" || return 1
+    local sel="$(zoxide query --list --score | \
+	    fzf -n2 --reverse --query "$*" | \
+	    head -1 | tr -s ' ' | \
+	    sed 's/^\s\+//' | \
+	    cut -d' ' -f2)" || return 1
+
 	cd "$sel"
 }
 
@@ -1088,15 +1090,21 @@ _install_docker(){ #mandatory
  }
 
 _install_docker_compose(){ #mandatory
+    set -x;
+
     _confirm_install_again docker-compose || return 0
 
-    _xx cd /tmp
-    _xx sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    _xx sudo chmod +x /usr/local/bin/docker-compose
-    _xx sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    cd /tmp
+    sudo curl -L \
+	"https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
+	-o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
-    _xx docker-compose --version
-    _xx cd -
+    docker-compose --version
+    cd -
+
+    set +x;
  }
 
 _install_glow(){
@@ -2774,6 +2782,7 @@ _install_tsh(){
     echo "Installed tsh version $(tsh version)"
 }
 
+# On i3wm error,
 # to set the mouse on required default ways
 _set_mouse(){
     xinput set-prop "Synaptics TM3625-010" "libinput Tapping Enabled" 1
@@ -2989,12 +2998,11 @@ _inf(){
             PREVIOUS_HASH=$CURRENT_HASH
             sleep 1;
         fi;
-        sleep 10; # to keep our cpu sane
+        sleep 3; # to keep our cpu sane
     done;
 }
 
 _install_lynx(){
-
     _confirm_install_again lynx || return 0
 
     sudo apt update -y
@@ -3116,7 +3124,7 @@ alias tmux-jump='~/.config/tmux/plugins/tmux-jump/scripts/tmux-jump.sh'
 # NOTE: yes, you can do the same with english, just use :en
 alias trans='docker run -it soimort/translate-shell -shell'
 
-# fancy parting parrot
+# fancy partying parrot
 alias parrot='curl parrot.live'
 
 # To boot an usb device for a specific .iso file

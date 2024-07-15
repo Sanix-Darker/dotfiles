@@ -61,7 +61,7 @@ return packer.startup(function(use)
     -- To restore my vim session after closing/opening
     use 'tpope/vim-obsession'
     -- Vim syntactic
-    use 'vim-syntastic/syntastic'
+    -- use 'vim-syntastic/syntastic'
     -- vim-airline
     -- use 'vim-airline/vim-airline'
     -- use 'vim-airline/vim-airline-themes'
@@ -71,7 +71,7 @@ return packer.startup(function(use)
     use {'nsf/gocode', run = 'vim'}
     -- Plugin outside ~/.vim/plugged with post-update hook
     -- needed to add this because neoclip depends on it
-    use {'ibhagwan/fzf-lua', branch = 'main'}
+    use 'ibhagwan/fzf-lua'
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
     -- For FZF preview
@@ -207,10 +207,11 @@ return packer.startup(function(use)
     -- use 'wellle/context.vim'
 
     -- Treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    -- The lua alternative (looks SO SLOOOOOWWWW)
-    use 'nvim-treesitter/nvim-treesitter-context'
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    -- SORRY, this makes my nvim too slow
+    -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    -- -- The lua alternative (looks SO SLOOOOOWWWW)
+    -- use 'nvim-treesitter/nvim-treesitter-context'
+    -- use 'nvim-treesitter/nvim-treesitter-textobjects'
     -- use 'windwp/nvim-ts-autotag'
 
     -- For the smooth scroll
@@ -245,7 +246,7 @@ return packer.startup(function(use)
     use 'ruanyl/vim-gh-line'
     -- For snapshot from the code
     -- for this to work, you need to install the CLI silicon
-    use 'segeljakt/vim-silicon'
+    use {'krivahtoo/silicon.nvim', run = './install.sh'}
     -- For Gist stuffs
     -- use 'mattn/webapi-vim'
     -- use 'mattn/vim-gist'
@@ -258,13 +259,14 @@ return packer.startup(function(use)
     -- csw"
     -- S' (in visual selection)
     use 'tpope/vim-surround'
-    -- same loggic but much more interesing
+    -- Same loggic but much more interesing
     -- like :
     -- cin) -- change inside next parentheses
     -- v2i" -- visual select inside the upper quote in case of nested quotes
     use 'wellle/targets.vim'
     -- For multicursor (need more mappings)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
+
     -- For PHP
     -- use 'tobyS/pdv'                        -- Auto generating PHP docblocks
     -- use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
@@ -319,18 +321,10 @@ return packer.startup(function(use)
     use 'onsails/lspkind.nvim'
 
     --" Should help preview got to references
-    use {
-        'kevinhwang91/nvim-bqf'
-        --" added the commit hash because the lastest release is not working properly
-        --let's test the fix
-        --commit = '1276701ed0216b94d7919d5c07845dcdf05fbde5'
-    }
+    use 'kevinhwang91/nvim-bqf'
 
     --" To show LSPs loading in side way
-    use {
-        'j-hui/fidget.nvim',
-        -- tag = 'legacy'
-    }
+    use 'j-hui/fidget.nvim'
 
     --In the above example, Packer.nvim is configured to include `nvim-tree.lua` plugin with the tag `v0.5.1`.
     --Remember to update the tag to the desired version of the plugin you want to use.
@@ -352,10 +346,10 @@ return packer.startup(function(use)
     --" For python IDE tools inside vim
     --" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
     --" Add the following line to your packer configuration
-    use {
-        'glacambre/firenvim',
-        run = function() vim.fn['firenvim#install'](0) end
-    }
+    -- use {
+    --     'glacambre/firenvim',
+    --     run = function() vim.fn['firenvim#install'](0) end
+    -- }
     --" To view images in neovim
     --" Plug 'm00qek/baleia.nvim'
     --" Plug 'princejoogie/chafa.nvim'
@@ -452,8 +446,6 @@ return packer.startup(function(use)
     use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
     -- looks like this one does not work anymore ?
     -- use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
-    --" For vim-auto-save
-    --" Plug '907th/vim-auto-save'
 
     -- snippets
     use 'SirVer/ultisnips'
@@ -467,9 +459,9 @@ return packer.startup(function(use)
     -- use('hinell/lsp-timeout.nvim')
     --" Multi line selection, could be interesting
     --" for explaining sutffs on peer programming
-    use "Rasukarusan/nvim-select-multi-line"
+    use 'Rasukarusan/nvim-select-multi-line'
     --" For Fugitive for git command directly inside the command section
-    use 'tpope/vim-fugitive'
+    -- use 'tpope/vim-fugitive'
     --" Snippets are separated from the engine.
     --" Add this if you want them:
     use 'honza/vim-snippets'

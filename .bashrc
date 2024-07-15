@@ -228,19 +228,10 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 export PYENV_ROOT="$HOME/.pyenv"
-
-# export PATH="$PYENV_ROOT/bin:$PATH"
-# if command -v pyenv 1>/dev/null 2>&1; then
-#     eval "$(pyenv init -)"
-# fi
-# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/bin
-export PATH=$PATH:$HOME/.cargo/bin
-# export PATH=$PATH:/usr/local/go/src/src
 export PATH=$PATH:$HOME/go/src
 export PATH=$PATH:/usr/local/groovy/bin
 export GOROOT=/usr/local/go
@@ -372,7 +363,7 @@ _gogo(){
 # export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin/yarn"
 # ---
 
-# we set the .config/ dir
+# We set the .config/ dir
 export XDG_CONFIG_HOME=$HOME/.config/
 
 # tmux check for popUp display of $HOME/fzfp
@@ -384,8 +375,7 @@ export ANDROID_HOME=$HOME/Android/Sdk
 # to make <Python.h> available
 export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
-export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.local/bin:$HOME/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.local/bin:$HOME/.bun/bin:$HOME/.local/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME"
-# ":$HOME/ACTUALC/github/emsdk:$HOME/ACTUALC/github/emsdk/upstream/emscripten"
+export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME"
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...

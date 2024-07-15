@@ -17,14 +17,14 @@ require("symbols-outline").setup({
   }
 })
 
--- sideway loading lsp status
-require("fidget").setup {}
+-- Sideway loading lsp status
+require("fidget").setup({})
 
 -- or REST client
 -- require("rest-nvim").setup()
 
 -- for treesitter
-require('mytreesitter')
+-- require('mytreesitter')
 
 -- setup qbf
 require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'})
