@@ -2996,9 +2996,9 @@ _inf(){
             $(echo "${@}");
             echo -e "----------------------------------";
             PREVIOUS_HASH=$CURRENT_HASH
-            sleep 1;
+            sleep 0.5;
         fi;
-        sleep 3; # to keep our cpu sane
+        sleep 1; # to keep our cpu sane
     done;
 }
 
