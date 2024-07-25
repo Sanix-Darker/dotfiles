@@ -1118,16 +1118,16 @@ _install_php(){
     sudo add-apt-repository ppa:ondrej/php
     sudo apt-get update -y
     sudo apt-get install software-properties-common -y
-    sudo apt-get install php8.2 php8.2-dev -y
+    sudo apt-get install php8.3 php8.3-dev -y
     # extensions needed
-    sudo apt install php8.2-xml php8.2-dom php8.2-curl php8.2-mbstring php8.2-xdebug -y
+    sudo apt install php8.3-xml php8.3-dom php8.3-curl php8.3-mbstring php8.3-xdebug -y
     # also the most effective way to install xdebug is with 'pecl install xdebug'
     # you may require 'sudo' super powers.
     # THEN to activate it :
     #
     # edit this file :
         # $ php --ini | grep xdebug
-        # $ /etc/php/8.2/cli/conf.d/20-xdebug.ini,
+        # $ /etc/php/8.3/cli/conf.d/20-xdebug.ini,
         #
         # and add :
         #   xdebug.mode=debug
@@ -1147,7 +1147,7 @@ _install_php(){
     #
     #
     # installing DB extensions
-    sudo apt install php8.2-sqlite3 php8.2-pgsql php8.2-mysql -y
+    sudo apt install php8.3-sqlite3 php8.3-pgsql php8.3-mysql -y
     php --version
 }
 # php interactive shell
@@ -1336,6 +1336,12 @@ _install_nerdfonts(){ #mandatory
 
     cd -
  }
+
+_install_glab(){
+    _confirm_install_again glab || return 0
+
+    curl -sL https://jesseduffield.com/glab/install.sh | sudo sh
+}
 
 _install_gh(){
     _confirm_install_again gh || return 0
@@ -1833,6 +1839,14 @@ _install_ollama(){
     curl -fsSL https://ollama.com/install.sh | sh
 }
 
+_install_symfony(){
+    _confirm_install_again symfony || return 0
+
+    wget https://get.symfony.com/cli/installer -O - | bash
+}
+# to create a new symfony app with composer :
+# composer create-project symfony/symfony-demo zakak_back
+
 _install_raw_basics(){ #mandatory
     # sudo apt-get install type
     devStack=(
@@ -1863,6 +1877,8 @@ _install_raw_basics(){ #mandatory
         "libjpeg-dev" "libpam0g-dev"
         "libx11-dev" "libimlib2-dev" "libxft-dev"
         "libexif-dev"
+
+        "gcc-multilib" # for cc --linking
 
         "libpq-dev" "entr" "htop" "nvtop"
 
@@ -3054,7 +3070,7 @@ _build_perf_stats(){
 # NOTE: This is used by i3... don't modify it too much darker
 _yv(){
     # not passing as param... flemme
-    link="$(xsel -b)"
+    link="$(xclip -o -selection clipboard)"
 
     if [[ $link = *"https://youtu.be"* ]]; then
         # convert a youtu.be to youtube.com watch link
@@ -3064,10 +3080,10 @@ _yv(){
     # Check if the content is a YouTube link
     if [[ $link =~ ^https?://(www\.)?youtube\.com/watch\?v=.* ]]; then
         alert "Loading video : $link..."
-        nohup bash -c 'yt-dlp -o - "'$link'" | mpv --keep-open -' &
-        error_output=$(command 2>&1 >/dev/null) [ -n "$error_output" ] \
-        && echo $error_output && \
-        alert "< Error occured : $error_output"
+        bash -c 'yt-dlp -o - "'$link'" | mpv --keep-open -'
+        # error_output=$(command 2>&1 >/dev/null) [ -n "$error_output" ] \
+        # && echo $error_output && \
+        # alert "< Error occured : $error_output"
     else
         alert "> Not a youtube link !"
     fi

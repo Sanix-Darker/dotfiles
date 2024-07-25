@@ -163,7 +163,7 @@ return packer.startup(function(use)
     -- To have history of clipboard
     -- use 'AckslD/nvim-neoclip.lua'
     -- A hinter for next moves
-    use 'folke/which-key.nvim'
+    -- use 'folke/which-key.nvim'
     -- For differences in a file
     use 'nvim-lua/plenary.nvim'
     -- diff view for changes, since I have git browse,
@@ -268,17 +268,17 @@ return packer.startup(function(use)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
 
     -- For PHP
-    -- use 'tobyS/pdv'                        -- Auto generating PHP docblocks
-    -- use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
-    -- use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
-    -- use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
-    -- -- For PHP autocompletion
-    -- use {'Shougo/vimproc.vim', run = 'make'}
-    -- use 'Shougo/unite.vim'
-    -- -- For Laravel
-    -- use 'tpope/vim-dotenv'
-    -- use 'nvimtools/none-ls.nvim'
-    -- use 'adalessa/laravel.nvim'
+    use 'tobyS/pdv'                        -- Auto generating PHP docblocks
+    use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
+    use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
+    use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
+    -- For PHP autocompletion
+    use {'Shougo/vimproc.vim', run = 'make'}
+    use 'Shougo/unite.vim'
+    -- For Laravel
+    use 'tpope/vim-dotenv'
+    use 'nvimtools/none-ls.nvim'
+    use 'adalessa/laravel.nvim'
     -- use 'm2mdas/phpcomplete-extended'
     -- use 'https://github.com/ojroques/nvim-lspfuzzy could be interesting to explore or the future
     -- use 'gfanto/fzf-lsp.nvim'

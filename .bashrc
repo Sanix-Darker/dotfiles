@@ -246,7 +246,7 @@ export ARDUINO_LIBS=$HOME/Arduino/libraries
 export PICOM_CONFIG=~/.config/picom.conf
 # For clang
 # export PATH="$HOME/tools/llvm-project/build/bin:$PATH"
-export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
+# export LD_LIBRARY_PATH="$HOME/tools/llvm-project/build/lib:$LD_LIBRARY_PATH"
 # export LD="/usr/bin/ld"
 # export PATH="$PATH:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
 # export PATH="$PATH:/usr/bin/ld"
@@ -375,7 +375,7 @@ export ANDROID_HOME=$HOME/Android/Sdk
 # to make <Python.h> available
 export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
-export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME"
+export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME:/usr/lib/llvm-14/bin:$HOME/.symfony5/bin:$PATH"
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...
@@ -390,3 +390,5 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/
 # source "$HOME/ACTUALC/github/emsdk/emsdk_env.sh"
 # for ros
 # [ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash
+
+export LIBCLANG_PATH=/usr/lib/llvm-12/lib

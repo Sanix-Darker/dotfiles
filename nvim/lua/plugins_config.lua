@@ -1,5 +1,5 @@
 -- Disabling just for now
-require('which-key').setup()
+-- require('which-key').setup()
 
 -- for lsp-lines diagnostics clears
 -- so taht if there is multiple elements in the error diag,

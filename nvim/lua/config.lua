@@ -154,10 +154,10 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 })
 
 -- Format C code with ClangFormat
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'c',
-    command = 'ClangFormatAutoEnable'
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'c',
+--     command = 'ClangFormatAutoEnable'
+-- })
 -- vim.g.clang_format.style_options = {
 --     AccessModifierOffset = -4,
 --     AllowShortIfStatementsOnASingleLine = true,
