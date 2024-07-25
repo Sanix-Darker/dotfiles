@@ -1345,6 +1345,7 @@ _install_glab(){
     sudo apt-get install ./glab_1.44.1_Linux_x86_64.deb
 
     glab version
+    cd -
 }
 
 _install_gh(){
