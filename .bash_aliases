@@ -1340,7 +1340,11 @@ _install_nerdfonts(){ #mandatory
 _install_glab(){
     _confirm_install_again glab || return 0
 
-    curl -sL https://jesseduffield.com/glab/install.sh | sudo sh
+    cd /tmp
+    wget https://gitlab.com/gitlab-org/cli/-/releases/v1.44.1/downloads/glab_1.44.1_Linux_x86_64.deb
+    sudo apt-get install ./glab_1.44.1_Linux_x86_64.deb
+
+    glab version
 }
 
 _install_gh(){
