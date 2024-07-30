@@ -51,13 +51,17 @@ return packer.startup(function(use)
 
     -- for status of files changes/tracked... by git
     use 'Xuyuanp/nerdtree-git-plugin'
+
     -- The wakatime plugin
     -- Commenting this for now
     use 'wakatime/vim-wakatime'
-    -- to search inside files
+
+    -- To search inside files
     use 'mileszs/ack.vim'
+
     -- To add comments
     use 'tpope/vim-commentary'
+
     -- To restore my vim session after closing/opening
     use 'tpope/vim-obsession'
     -- Vim syntactic
@@ -71,7 +75,7 @@ return packer.startup(function(use)
     use {'nsf/gocode', run = 'vim'}
     -- Plugin outside ~/.vim/plugged with post-update hook
     -- needed to add this because neoclip depends on it
-    use 'ibhagwan/fzf-lua'
+    -- use 'ibhagwan/fzf-lua'
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
     -- For FZF preview
@@ -107,7 +111,7 @@ return packer.startup(function(use)
     -- For git signs
     use 'lewis6991/gitsigns.nvim'
 
-    -- syntax highlight for graphql
+    -- Syntax highlight for graphql
     -- use 'jparise/vim-graphql'
     -- For a fancy status Line
     use 'nvim-lualine/lualine.nvim'
@@ -163,7 +167,7 @@ return packer.startup(function(use)
     -- To have history of clipboard
     -- use 'AckslD/nvim-neoclip.lua'
     -- A hinter for next moves
-    -- use 'folke/which-key.nvim'
+    use 'folke/which-key.nvim'
     -- For differences in a file
     use 'nvim-lua/plenary.nvim'
     -- diff view for changes, since I have git browse,
@@ -195,7 +199,7 @@ return packer.startup(function(use)
 
     -- Same as ndap but older,
     -- vdebug for PHP
-    -- use 'vim-vdebug/vdebug'
+    use 'vim-vdebug/vdebug'
 
     -- dap -- use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
@@ -208,14 +212,20 @@ return packer.startup(function(use)
 
     -- Treesitter
     -- SORRY, this makes my nvim too slow
-    -- use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    -- so i sometimes needs to comments it
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     -- -- The lua alternative (looks SO SLOOOOOWWWW)
-    -- use 'nvim-treesitter/nvim-treesitter-context'
-    -- use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/nvim-treesitter-context'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
     -- use 'windwp/nvim-ts-autotag'
+    -- treeesitter for PHP
+    use 'tree-sitter/tree-sitter-php'
 
     -- For the smooth scroll
     use 'karb94/neoscroll.nvim'
+
+    -- To add anotations for comments
+    use 'danymat/neogen'
 
     -- Emmet for HTML fast completion
     -- use 'mattn/emmet-vim'
@@ -307,7 +317,7 @@ return packer.startup(function(use)
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
-    -- use 'ray-x/lsp_signature.nvim'
+    use 'ray-x/lsp_signature.nvim'
     -- For Brackets and stuffs
     use 'hrsh7th/nvim-insx'
     use 'simrat39/symbols-outline.nvim'

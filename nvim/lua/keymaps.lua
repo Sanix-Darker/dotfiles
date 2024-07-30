@@ -35,6 +35,9 @@ map("n", "ss", ":source Session.vim<cr>")
 map("n", "<C-k>", ":SyntasticCheck<cr>")
 map("n", "<C-l>", ":SyntasticToggleMode<cr>")
 
+-- Generate documentation for a function (phpDoc/jsDoc)...
+map("n", "<Leader>n", ":Neogen<CR>")
+
 -- Useful mappings for managing tabs
 map("n", "tn", ":tabnew<CR>")
 map("n", "to", ":tabonly<CR>")

@@ -74,6 +74,9 @@ require('gitsigns').setup()
 ---- for the neoscroll
 require('myneoscroll')
 
+-- for auto doc (php-doc/js-doc/...)
+require('neogen').setup({})
+
 ---- mason
 require('mymason')
 ---- require("fzf-lua").setup({})
