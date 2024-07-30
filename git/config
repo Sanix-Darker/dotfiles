@@ -267,7 +267,8 @@
     ll = !git log origin..HEAD
 
     ; to get the base branch
-    branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\" # \
+    ;branch-base = !git show-branch | sed \"s/].*//\" | grep \"\\*\" | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed \"s/^.*\\[//\"
+    branch-base = !git mainbranch
 
     ; to fetch origin and checkout quickly
     ; git get origin branch-name
