@@ -63,6 +63,7 @@ go                              build, run and exec the container
 build-base                      build-base the dev-container and skip the cache
 run-base                        run-base the dev-container
 exec-base                       exec-base inside an allready build and running dev-container
+go-base                         build and exec the container base (no deps)
 help                            print this help
 pull-base                       pull the image from docker hub.
 push-base                       push the image to docker hub.
@@ -77,8 +78,7 @@ $ _install_dev_stack
 ## Either you activate them or not
 
 $ _set_dot_files
-## this will just set a bunch of configuration files
+## This will just set a bunch of configuration files
 ```
 
-**NOTE:** you should have a $home/code directory locally, since it will be the volume shared
-    between the container and your computer
+**NOTE:** you should have a `$HOME/code` directory created locally, since it will be the volume shared between the container and your computer

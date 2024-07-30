@@ -1,7 +1,7 @@
 .DEFAULT_GOAL=go-base
 
-DEV_CONTAINER_NAME = sanixdarker/dev
-HOME = /home/dk
+DEV_CONTAINER_NAME = sanix-darker/dev
+DEV_CONTAINER_NAME_BASE = sanix-darker/dev-base
 DEV_CONTAINER = `docker ps | grep ${DEV_CONTAINER_NAME} | head -n1 | cut -d ' ' -f 1`
 
 build-cache: ## build the dev-container
@@ -11,7 +11,7 @@ build: ## build the dev-container and skip the cache
 	docker build --rm --tag ${DEV_CONTAINER_NAME} --no-cache -f Dockerfile .
 
 run: ## run the dev-container
-	docker run -v "${HOME}/code:/home/dk/code" --privileged -dt ${DEV_CONTAINER_NAME}
+	docker run -v "~/code:~/code" --privileged -dt ${DEV_CONTAINER_NAME}
 
 exec: ## exec inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
@@ -28,20 +28,20 @@ build-base: ## build-base the dev-container and skip the cache
 	docker build --tag ${DEV_CONTAINER_NAME}-base -f Dockerfile.base .
 
 run-base: ## run-base the dev-container
-	docker run -v "${HOME}/code:/code" --privileged -dt ${DEV_CONTAINER_NAME}-base
+	docker run --rm -v "~/code:~/code" --privileged -dt ${DEV_CONTAINER_NAME_BASE}
 
 exec-base: ## exec-base inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
 
-go-base: run-base exec-base # build and exec the container base (no deps)
+go-base: run-base exec-base ## build and exec the container base (no deps)
 
 help: ## print this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {gsub("\\\\n",sprintf("\n%22c",""), $$2);printf "\033[36m%-20s\033[0m \t\t%s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 pull-base: ## pull the image from docker hub.
-	docker pull sanixdarker/dev-base
+	docker pull ${DEV_CONTAINER_NAME_BASE}
 
 push-base: ## push the image to docker hub.
-	docker push sanixdarker/dev-base
+	docker push ${DEV_CONTAINER_NAME_BASE}
 
 .PHONY: help go go-base stop exec exec-base run run-base start build-cache build
