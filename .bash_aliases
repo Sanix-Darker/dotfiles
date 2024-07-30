@@ -68,7 +68,6 @@ _upper_case(){
 export DOT_DIR="$HOME/dotfiles"
 # Copy alacritty mpv tmux i3 git config, polybar and rofi
 export CONFIG_PATHS=(
-    "autostart"
     "rofi" "polybar"
     "git" "i3" "bat"
     "mpv" "alacritty"
@@ -3313,7 +3312,6 @@ _smart_syncer(){
     local latest_modified_dotfiles=$(stat -c %Y "$dotfiles_dir")
 
     local CONFIG_PATH_TO_SYNC=(
-        "$HOME/.config/autostart"
         "$HOME/.config/nvim"
         "$HOME/.config/rofi" "$HOME/.config/polybar"
         "$HOME/.config/git" "$HOME/.config/i3"
