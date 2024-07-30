@@ -1,17 +1,18 @@
 .DEFAULT_GOAL=go-base
 
+USER_INSIDE_CONTAINER = dk
 DEV_CONTAINER_NAME = sanix-darker/dev
 DEV_CONTAINER_NAME_BASE = sanix-darker/dev-base
 DEV_CONTAINER = `docker ps | grep ${DEV_CONTAINER_NAME} | head -n1 | cut -d ' ' -f 1`
 
 build-cache: ## build the dev-container
-	docker build --rm --tag ${DEV_CONTAINER_NAME} -f Dockerfile .
+	docker build --tag ${DEV_CONTAINER_NAME} -f Dockerfile .
 
 build: ## build the dev-container and skip the cache
-	docker build --rm --tag ${DEV_CONTAINER_NAME} --no-cache -f Dockerfile .
+	docker build --tag ${DEV_CONTAINER_NAME} --no-cache -f Dockerfile .
 
 run: ## run the dev-container
-	docker run -v "~/code:~/code" --privileged -dt ${DEV_CONTAINER_NAME}
+	docker run --rm -v "${HOME}/code:/home/${USER_INSIDE_CONTAINER}/code" --privileged -dt ${DEV_CONTAINER_NAME}
 
 exec: ## exec inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
@@ -22,13 +23,13 @@ start: ## start an already built dev-container
 stop: ## stop the running dev-container
 	docker stop "${DEV_CONTAINER}"
 
-go: build run exec ## build, run and exec the container
+go: build-cache run exec ## build, run and exec the container
 
 build-base: ## build-base the dev-container and skip the cache
 	docker build --tag ${DEV_CONTAINER_NAME}-base -f Dockerfile.base .
 
 run-base: ## run-base the dev-container
-	docker run --rm -v "~/code:~/code" --privileged -dt ${DEV_CONTAINER_NAME_BASE}
+	docker run --rm -v "${HOME}/code:/home/${USER_INSIDE_CONTAINER}/code" --privileged -dt ${DEV_CONTAINER_NAME_BASE}
 
 exec-base: ## exec-base inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
