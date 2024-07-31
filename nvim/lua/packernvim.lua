@@ -48,40 +48,27 @@ return packer.startup(function(use)
     use 'preservim/nerdtree'
     -- Better to use the nvim alternative ?
     --- use 'nvim-tree/nvim-tree.lua'
-
     -- for status of files changes/tracked... by git
     use 'Xuyuanp/nerdtree-git-plugin'
-
     -- The wakatime plugin
     -- Commenting this for now
     use 'wakatime/vim-wakatime'
-
     -- To search inside files
     use 'mileszs/ack.vim'
-
     -- To add comments
     use 'tpope/vim-commentary'
-
     -- To restore my vim session after closing/opening
     use 'tpope/vim-obsession'
     -- Vim syntactic
     -- use 'vim-syntastic/syntastic'
-    -- vim-airline
-    -- use 'vim-airline/vim-airline'
-    -- use 'vim-airline/vim-airline-themes'
-    -- Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
-    use {'fatih/vim-go', run = ':GoUpdateBinaries'}
-    -- Plugin options
-    use {'nsf/gocode', run = 'vim'}
-    -- Plugin outside ~/.vim/plugged with post-update hook
-    -- needed to add this because neoclip depends on it
+    -- successor from syntastic
+    use 'dense-analysis/ale'
+    -- fzf-lua
     -- use 'ibhagwan/fzf-lua'
     use {'Sanix-Darker/fzf', branch = 'mee', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
     -- For FZF preview
     use 'yuki-yano/fzf-preview.vim'
-    -- For code folding
-    -- use 'tmhedberg/SimpylFold'
     -- To automatically close a buffer after 20mins
     use 'chrisgrieser/nvim-early-retirement'
     -- For SourceGraph nvim integration
@@ -90,11 +77,8 @@ return packer.startup(function(use)
     -- For DOC offline regarding any builtin func/class/modules/package
     -- Works with the zea sofware
     -- Will disable for now (for now the gd does a good job)
-    -- use 'KabbAmine/zeavim.vim'
     -- For twitter
     -- use 'https://github.com/twitvim/twitvim.git'
-    -- For the git diff/git blame
-    -- use 'zivyangll/git-blame.vim'
     -- Magically check for commits inside the project even through history
     -- q Close the popup window
     -- o older. Back to older commit at the line
@@ -107,10 +91,8 @@ return packer.startup(function(use)
     use 'rhysd/git-messenger.vim'
     -- For the gitbutter (live git diff on changes)
     -- use 'airblade/vim-gitgutter'
-
     -- For git signs
     use 'lewis6991/gitsigns.nvim'
-
     -- Syntax highlight for graphql
     -- use 'jparise/vim-graphql'
     -- For a fancy status Line
@@ -125,13 +107,9 @@ return packer.startup(function(use)
     -- To list diagnostic and warning
     use 'folke/trouble.nvim'
     -- use 'dlvhdr/gh-addressed.nvim'
-    -- For dev-icons
-    -- use 'ryanoasis/vim-devicons'
     -- For highlight all occurrences
     -- Of the current word where we have the cursor
     use 'itchyny/vim-cursorword'
-    -- For CSS color
-    -- use 'ap/vim-css-color'
     -- For REST requests inside vim
     use 'diepm/vim-rest-console'
     -- An alternative? (boff, not quite impress)
@@ -153,7 +131,7 @@ return packer.startup(function(use)
     -- The magical local history
     use 'simnalamburt/vim-mundo'
     -- For popup all over the place
-    use 'voldikss/vim-floaterm'
+    -- use 'voldikss/vim-floaterm'
     -- For formatting the code
     -- use 'sbdchd/neoformat'
     -- minimap for my project
@@ -429,29 +407,6 @@ return packer.startup(function(use)
     --" for testing purposes
     --" Plug 'nvim-telescope/telescope.nvim'
     --" Plug 'jackMort/ChatGPT.nvim'
-    -- use('gsuuon/llm.nvim')
-    -- use {
-    --   'huggingface/llm.nvim',
-    --   config = function()
-    --     require('llm').setup({
-    --         {
-    --           api_token = "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",
-    --           tokens_to_clear = { "<|endoftext|>" },
-    --           fim = {
-    --             enabled = true,
-    --             prefix = "<fim_prefix>",
-    --             middle = "<fim_middle>",
-    --             suffix = "<fim_suffix>",
-    --           },
-    --           model = "bigcode/starcoder",
-    --           context_window = 8192,
-    --           tokenizer = {
-    --             repository = "bigcode/starcoder",
-    --           }
-    --         }
-    --     })
-    --   end
-    -- }
     --" lsp-lines (for better diagnostic)
     use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
     -- looks like this one does not work anymore ?
@@ -482,11 +437,11 @@ return packer.startup(function(use)
     --" of '=', 2= to align for the second occurence
     use 'junegunn/vim-easy-align'
     --" For sections in the codebase
-    use 'mfussenegger/nvim-ts-hint-textobject'
+    use 'mfussenegger/nvim-treehopper'
     -- snips plugin to save code using snips.sh
     use 'Sanix-Darker/snips.nvim'
     -- run queries on containers
-    use 'Sanix-Darker/dockdb.nvim'
+    -- use 'Sanix-Darker/dockdb.nvim'
 
     -- For color
     -- use 'navarasu/onedark.nvim'
@@ -500,15 +455,19 @@ return packer.startup(function(use)
     -- will remove when the support of fzf will be available)
     -- Plug 'nvim-telescope/telescope.nvim'
     -- For code review using octo
-    use 'pwntester/octo.nvim'
+    --use 'pwntester/octo.nvim'
     use 'nvim-tree/nvim-web-devicons'
 
+    -- GOLANG GO (plugins)
+    -- use {'fatih/vim-go', run = ':GoUpdateBinaries'}
+    -- Plugin options
+    -- use {'nsf/gocode', run = 'vim'}
     -- strongify my go lsp with go.nvim
-    use 'ray-x/go.nvim'
+    -- use 'ray-x/go.nvim'
 
-    -- for arduino
-    use 'sudar/vim-arduino-syntax'
-    use 'stevearc/vim-arduino'
+    -- ARDUINO
+    -- use 'sudar/vim-arduino-syntax'
+    -- use 'stevearc/vim-arduino'
     -- use 'glebzlat/Arduino.nvim'
 
     -- hightlight unicode characters
