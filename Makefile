@@ -39,10 +39,16 @@ go-base: run-base exec-base ## build and exec the container base (no deps)
 help: ## print this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {gsub("\\\\n",sprintf("\n%22c",""), $$2);printf "\033[36m%-20s\033[0m \t\t%s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-pull-base: ## pull the image from docker hub.
+pull-base: ## pull base image from docker hub.
 	docker pull ${DEV_CONTAINER_NAME_BASE}
 
-push-base: ## push the image to docker hub.
+push-base: ## push base image to docker hub.
 	docker push ${DEV_CONTAINER_NAME_BASE}
 
-.PHONY: help go go-base stop exec exec-base run run-base start build-cache build
+pull: ## pull the image from docker hub.
+	docker pull ${DEV_CONTAINER_NAMEE}
+
+push: ## push the image to docker hub.
+	docker push ${DEV_CONTAINER_NAME}
+
+.PHONY: help go go-base stop exec exec-base run run-base start build-cache build push pull push-base pull-base
