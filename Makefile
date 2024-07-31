@@ -23,7 +23,7 @@ start: ## start an already built dev-container
 stop: ## stop the running dev-container
 	docker stop "${DEV_CONTAINER}"
 
-go: build-cache run exec ## build, run and exec the container
+go: build run exec ## build, run and exec the container
 
 build-base: ## build-base the dev-container and skip the cache
 	docker build --tag ${DEV_CONTAINER_NAME}-base -f Dockerfile.base .
@@ -34,7 +34,7 @@ run-base: ## run-base the dev-container
 exec-base: ## exec-base inside an allready build and running dev-container
 	docker exec -it "${DEV_CONTAINER}" /bin/bash
 
-go-base: run-base exec-base ## build and exec the container base (no deps)
+go-base: build-base run-base exec-base ## build and exec the container base (no deps)
 
 help: ## print this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {gsub("\\\\n",sprintf("\n%22c",""), $$2);printf "\033[36m%-20s\033[0m \t\t%s\n", $$1, $$2}' $(MAKEFILE_LIST)
