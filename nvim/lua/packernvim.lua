@@ -93,8 +93,6 @@ return packer.startup(function(use)
     -- use 'airblade/vim-gitgutter'
     -- For git signs
     use 'lewis6991/gitsigns.nvim'
-    -- Syntax highlight for graphql
-    -- use 'jparise/vim-graphql'
     -- For a fancy status Line
     use 'nvim-lualine/lualine.nvim'
     -- For icons on the statusline
@@ -106,17 +104,11 @@ return packer.startup(function(use)
     -- use 'nvim-pack/nvim-spectre'
     -- To list diagnostic and warning
     use 'folke/trouble.nvim'
-    -- use 'dlvhdr/gh-addressed.nvim'
     -- For highlight all occurrences
     -- Of the current word where we have the cursor
     use 'itchyny/vim-cursorword'
     -- For REST requests inside vim
     use 'diepm/vim-rest-console'
-    -- An alternative? (boff, not quite impress)
-    -- use 'rest-nvim/rest.nvim'
-    -- For translations
-    -- Yes, this is important for me
-    -- use 'potamides/pantran.nvim'
     -- For EasyMotion
     use 'smoka7/hop.nvim'
     -- To fastly start neovim
@@ -254,19 +246,10 @@ return packer.startup(function(use)
     use 'wellle/targets.vim'
     -- For multicursor (need more mappings)
     -- use {'mg979/vim-visual-multi', branch = 'master'}
-
     -- For PHP
-    use 'tobyS/pdv'                        -- Auto generating PHP docblocks
     use {'phpactor/phpactor', run = 'composer install'} -- PHP introspection and refactor tools
     use 'phpactor/ncm2-phpactor'           -- Phpactor integration for ncm2 (autocomplete)
     use 'stephpy/vim-php-cs-fixer'         -- Coding standards fixer
-    -- For PHP autocompletion
-    use {'Shougo/vimproc.vim', run = 'make'}
-    use 'Shougo/unite.vim'
-    -- For Laravel
-    use 'tpope/vim-dotenv'
-    use 'nvimtools/none-ls.nvim'
-    use 'adalessa/laravel.nvim'
     -- use 'm2mdas/phpcomplete-extended'
     -- use 'https://github.com/ojroques/nvim-lspfuzzy could be interesting to explore or the future
     -- use 'gfanto/fzf-lsp.nvim'
@@ -448,7 +431,6 @@ return packer.startup(function(use)
     -- use 'joshdick/onedark.vim'
     use 'folke/tokyonight.nvim'
     -- use 'projekt0n/github-nvim-theme'
-    -- use 'Sanix-Darker/onedark.vim'
     -- use 'olimorris/onedarkpro.nvim'
     -- Telescope (SHIT i need this to use octo,
     -- Looks like it's supported now
@@ -458,14 +440,14 @@ return packer.startup(function(use)
     --use 'pwntester/octo.nvim'
     use 'nvim-tree/nvim-web-devicons'
 
-    -- GOLANG GO (plugins)
+    --> GOLANG GO (plugins)
     -- use {'fatih/vim-go', run = ':GoUpdateBinaries'}
     -- Plugin options
     -- use {'nsf/gocode', run = 'vim'}
     -- strongify my go lsp with go.nvim
     -- use 'ray-x/go.nvim'
 
-    -- ARDUINO
+    --> ARDUINO
     -- use 'sudar/vim-arduino-syntax'
     -- use 'stevearc/vim-arduino'
     -- use 'glebzlat/Arduino.nvim'

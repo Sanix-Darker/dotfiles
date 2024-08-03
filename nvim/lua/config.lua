@@ -147,12 +147,6 @@ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
     command = 'match BadWhitespace /\\s\\+$/'
 })
 
--- Refresh i3 config after edit
-vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern = '~/.config/i3/config',
-    command = ':silent !i3-msg restart; notify-send "Reloaded i3 :)"'
-})
-
 -- Format C code with ClangFormat
 -- vim.api.nvim_create_autocmd('FileType', {
 --     pattern = 'c',
