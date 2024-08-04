@@ -3717,3 +3717,34 @@ _list_needed_clis(){
     curl -LSs https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/.bash_aliases | \
         grep "_install_" | grep "#mandatory" | sed -e 's/_install_//g; s/(){//g'
 }
+
+iphp(){
+    cd /tmp
+    # If the file exist, no need to initiate it:
+    if [ ! -f /tmp/iphp.php ]; then
+        composer require psy/psysh && \
+        echo '
+<?php
+/**
+ * This is just an iterative schell
+ *
+ * @category Shell
+ * @package  Xyz
+ * @author   "Dk" <s4nixd@gmail.com>
+ * @license  https://xyz.com MIT
+ * @link     xyz
+ *
+ * PHP Version 8.2
+ */
+
+require "vendor/autoload.php";
+
+$psysh = new Psy\Shell();
+echo "Hi dk !\n";
+$psysh->run();
+        ' > /tmp/iphp.php
+    fi;
+    # Then start the php shell
+    php /tmp/iphp.php;
+    cd -;
+}
