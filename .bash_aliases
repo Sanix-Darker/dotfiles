@@ -3298,7 +3298,7 @@ _alert_tg(){
 # For some weird reason, i need to run arandr with the python3.8 version for it to work
 # some error related to my python3.11 installation, no time to investigate more, will check
 # later.
-alias arandr='/usr/bin/python3.8 $(which arandr)'
+# alias arandr='/usr/bin/python3 $(which arandr)'
 
 _smart_syncer(){
     local dotfiles_dir="$HOME/dotfiles"
@@ -3748,3 +3748,4 @@ $psysh->run();
     php /tmp/iphp.php;
     cd -;
 }
+alias flipper='sudo qFlipper rules install'

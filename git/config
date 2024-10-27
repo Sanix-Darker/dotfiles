@@ -3,7 +3,7 @@
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
-	signingkey = 25803068A0D4364B7DF6881F02BD1EB7C7D57CD3
+	signingkey = 5488849EE659BBA4F0C266AB48B1E17685CCD4AF
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -614,3 +614,5 @@
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
     ignores = !git ls-files --other --ignored --exclude-standard
+[gpg]
+	program = gpg

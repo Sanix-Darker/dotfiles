@@ -66,12 +66,14 @@ parse_git_branch() {
     #     echo [$(git branch --show-current)]
 }
 
-if [ "$color_prompt" = yes ]; then
-    # for the host it's @\h\[\033[00m\]
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch) $(new_line)'
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\ $ '
-fi
+# if [ "$color_prompt" = yes ]; then
+#     # for the host it's @\h\[\033[00m\]
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch) $(new_line)'
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\ $ '
+# fi
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u:\[\033[01;34m\]\W\[\033[00m\]$(parse_git_branch) $(new_line)'
 unset color_prompt force_color_prompt
 
 
@@ -225,20 +227,20 @@ fi
 # and files
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/src
-export PATH=$PATH:/usr/local/groovy/bin
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export GOTOOLCHAIN=go1.20
-export GO111MODULE=on
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+# export PATH=$PATH:/usr/local/go/bin
+# export PATH=$PATH:$HOME/go/src
+# export PATH=$PATH:/usr/local/groovy/bin
+# export GOROOT=/usr/local/go
+# export GOPATH=$HOME/go
+# export GOTOOLCHAIN=go1.20
+# export GO111MODULE=on
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export ARDUINO_LIBS=$HOME/Arduino/libraries
@@ -257,8 +259,8 @@ export PICOM_CONFIG=~/.config/picom.conf
 # then set it or use the default one
 #
 # for python
-export PATH=$PATH:$(which python3.10)
-export PATH=$PATH:$(which python3.11)
+# export PATH=$PATH:$(which python3.10)
+# export PATH=$PATH:$(which python3.11)
 # for firefox
 export PATH=$PATH:$(which firefox)
 
@@ -340,6 +342,14 @@ _connect_monitor(){
     # ...
 }
 
+# Some secrets :
+# tg
+export TG_USER_ID=
+export TG_BOT_TOKEN=
+# chatgpt
+export OPENAI_API_MODEL=
+export OPENAI_API_KEY=
+
 _gogo(){
     pkill polybar; _start_polybar
     # pkill compton; _start_compton
@@ -370,12 +380,20 @@ export XDG_CONFIG_HOME=$HOME/.config/
 export TMUX_POPUP_NESTED_FB='test $(tmux display -pF "#{==:#S,floating}") == 1'
 export TMUX_POPUP_WIDTH=80%
 export EDITOR=nvim
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
-export ANDROID_HOME=$HOME/Android/Sdk
-# to make <Python.h> available
-export CPATH=/usr/include/python3.11:$CPATH
+export JAVA_HOME=/usr/lib/jvm/openjdk17
+export ANDROID_HOME="$HOME/Android/Sdk"
+# To make <Python.h> available
+# export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
-export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME:/usr/lib/llvm-14/bin:$HOME/.symfony5/bin:$PATH"
+export PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PATH="$PATH:$ANDROID_HOME/latest/cmdline-tools/latest/bin/"
+export PATH="$PATH:$ANDROID_HOME/platforms/"
+export PATH="$PATH:$ANDROID_HOME/ndk/26.1.10909125/"
+export PATH="$PATH:$ANDROID_HOME/build-tools/34.0.0/"
+export PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.config/lsp/lua-language-server/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/bin:$HOME/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME:/usr/lib/llvm-14/bin:$HOME/.symfony5/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+#export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME:/usr/lib/llvm-14/bin:$HOME/.symfony5/bin:$PATH"
 
 # for gpg keys and everything ... ssh-add
 # ssh-add ...
@@ -392,3 +410,10 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/
 # [ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash
 
 export LIBCLANG_PATH=/usr/lib/llvm-12/lib
+
+sudo dbus-daemon --system &> /dev/null
+export TERM=xterm
+export GPG_TTY=$(tty)
+
+# export GOPROXY=""
+# unset GOPROXY

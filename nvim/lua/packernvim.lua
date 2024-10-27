@@ -146,9 +146,9 @@ return packer.startup(function(use)
     -- The Zig highlight
     -- use 'ziglang/zig.vim'
     -- ReactJs/typescript support
-    -- use 'pangloss/vim-javascript'
-    -- use 'leafgarland/typescript-vim'
-    -- use 'maxmellon/vim-jsx-pretty'
+    use 'pangloss/vim-javascript'
+    use 'leafgarland/typescript-vim'
+    use 'maxmellon/vim-jsx-pretty'
     -- For debugging, we add dap
     -- frustating, but need to include this one :
     -- dap -- use 'nvim-neotest/nvim-nio'
@@ -461,6 +461,23 @@ return packer.startup(function(use)
     -- Yet another minimap for my code view
     -- <Leader>aa
     use 'stevearc/aerial.nvim'
+
+    --for gpt
+    use({
+        "robitx/gp.nvim",
+        config = function()
+            local conf = {
+                providers = {
+                    openai = {
+                        disable = false,
+                        endpoint = "https://api.openai.com/v1/chat/completions",
+                        secret = os.getenv("OPENAI_API_KEY"),
+                    }
+                }
+            }
+            require("gp").setup(conf)
+        end,
+    })
 
     -- Usefull for Peer programming, will use my OPEN AI KE
     -- Not needed for now, the cli solution is okay
