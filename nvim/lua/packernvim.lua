@@ -462,6 +462,22 @@ return packer.startup(function(use)
     -- <Leader>aa
     use 'stevearc/aerial.nvim'
 
+    use({
+        "robitx/gp.nvim",
+        config = function()
+            local conf = {
+                providers = {
+                    openai = {
+                        disable = false,
+                        endpoint = "https://api.openai.com/v1/chat/completions",
+                        secret = os.getenv("OPENAI_API_KEY"),
+                    }
+                }
+            }
+            require("gp").setup(conf)
+        end,
+    })
+
     -- Usefull for Peer programming, will use my OPEN AI KE
     -- Not needed for now, the cli solution is okay
     -- use 'joshuavial/aider.nvim'

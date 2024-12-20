@@ -13,9 +13,4 @@ local neoscroll_setup = {
     post_hook = nil,             -- Function to run after the scrolling animation ends
     performance_mode = false,    -- Disable "Performance Mode" on all buffers.
 }
-local scroll_map_setup = {
-    ['<S-Up>'] = {'scroll', {'-vim.wo.scroll', 'true', '350', [['sine']]}},
-    ['<S-Down>'] = {'scroll', { 'vim.wo.scroll', 'true', '350', [['sine']]}}
-}
 require('neoscroll').setup(neoscroll_setup)
-require('neoscroll.config').set_mappings(scroll_map_setup)

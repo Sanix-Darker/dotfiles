@@ -3,7 +3,7 @@
 [user]
 	email = s4nixd@gmail.com
 	name = sanix-darker
-	signingkey = 25803068A0D4364B7DF6881F02BD1EB7C7D57CD3
+    # signingkey = 25803068A0D4364B7DF6881F02BD1EB7C7D57CD3
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -96,7 +96,7 @@
     hunk-header-style = file syntax
 
 [commit]
-	gpgsign = true
+    # gpgsign = true
 [init]
 	defaultBranch = master
 	templateDir = ~/.config/git/template

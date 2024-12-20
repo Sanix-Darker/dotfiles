@@ -151,14 +151,12 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 -- LSP servers managers
 -- 'ruby_ls' 'dockerls',
 local lsp_servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'tsserver',
-    'eslint', 'jsonls', 'gopls', 'htmx', 'sqls',
+    ---  'clangd' 'gradle_ls'
+    'rust_analyzer', 'pyright', 'ts_ls',
+    'eslint', 'jsonls', 'gopls',
     'cssls', 'html', 'bashls', 'cssmodules_ls',
-    'emmet_ls', 'vls', 'arduino_language_server',
-    'cssls', 'gradle_ls', 'graphql',
-    'jdtls', 'kotlin_language_server', 'marksman',
-    'rnix', 'taplo', 'tailwindcss',
-    'terraformls', 'yamlls', 'zls', 'lemminx'
+    'emmet_ls', 'arduino_language_server',
+    'cssls', 'tailwindcss', 'terraformls', 'yamlls'
 }
 -- LSP Servers
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.

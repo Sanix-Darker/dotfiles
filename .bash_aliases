@@ -610,6 +610,8 @@ _install_virtualbox(){
     _confirm_install_again virtualbox || return 0
 
     cd /tmp
+    # sudo apt update
+    # sudo apt install virtualbox virtualbox-ext-pack
 
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
@@ -2453,27 +2455,54 @@ _install_mcrypt(){
 # _aes_encrypt "$plaintext"
 # _aes_encrypt "$encrypted"
 export AES_KEY_EN_DE="0123456789ABCDEF0123456789ABCDEF"
-_aes_encrypt() {
-    local to_encrypt="/tmp/to_encrypt"
 
-    echo "$@" > $to_encrypt
-    openssl aes-256-cbc -a -salt -pbkdf2 -in $to_encrypt -out $to_encrypt.enc -pass env:AES_KEY_EN_DE
-    cat $to_encrypt.enc
+# Encrypt function: Takes key first, then input (file or string).
+encrypt() {
+    local key=$1     # Encryption key
+    local input=$2   # File path or raw string
+
+    [ ! -z "$DEBUG" ] && echo "encrypting..."
+
+    if [[ -f "$input" ]]; then
+        # Encrypt a file and encode in Base64
+        gpg --symmetric --cipher-algo AES256 --passphrase "$key" --batch --yes --output - "$input" | base64
+    else
+        # Encrypt a string and encode in Base64
+        echo -n "$input" | gpg --symmetric --cipher-algo AES256 --passphrase "$key" --batch --yes --output - | base64
+    fi
 }
-_aes_decrypt() {
-    local to_decrypt="/tmp/to_decrypt"
-    touch $to_decrypt.dec
 
-    echo "$@" > $to_decrypt
-    openssl aes-256-cbc -d -a -pbkdf2 -in $to_decrypt -out $to_decrypt.dec -pass env:AES_KEY_EN_DE
-    cat $to_decrypt.dec
+# Decrypt function: Takes key first, then Base64 input.
+decrypt() {
+    local key=$1     # Decryption key
+    local input=$2   # Base64-encoded string
+
+    [ ! -z "$DEBUG" ] && echo "decrypting..."
+
+    # Decode Base64 and decrypt the data
+    echo -n "$input" | base64 --decode | gpg --quiet --decrypt --passphrase "$key" --batch --yes
 }
 
 # to host anything
 # Usage : cat index.html | tb
-alias tb="nc termbin.com 9999"
+tb(){
+    [ ! -z "$DEBUG" ] && echo "sending to termbin..."
+
+    # To read from the pipe:
+    local input="$(cat)"
+    echo "$input" | nc termbin.com 9999
+}
+
 # Get the clipboard content at termbin
 alias tbc="co | tb"
+
+tsend(){
+    encrypt "$AES_KEY_EN_DE" "$@" | tb
+}
+tget(){
+    local eBin=$(curl -LSs "https://termbin.com/$@")
+    decrypt "$AES_KEY_EN_DE" "$eBin"
+}
 
 # To see pdf on the terminal
 _pdf(){
@@ -3716,6 +3745,12 @@ refresh_all_git_repo(){
 _list_needed_clis(){
     curl -LSs https://raw.githubusercontent.com/Sanix-Darker/dotfiles/master/.bash_aliases | \
         grep "_install_" | grep "#mandatory" | sed -e 's/_install_//g; s/(){//g'
+}
+
+_install_freecad(){
+    sudo apt install git cmake cmake-qt-gui libboost-date-time-dev libboost-dev libboost-filesystem-dev libboost-graph-dev libboost-iostreams-dev libboost-program-options-dev libboost-python-dev libboost-regex-dev libboost-serialization-dev libboost-thread-dev libcoin-dev libeigen3-dev libgts-bin libgts-dev libkdtree++-dev libmedc-dev libocct-data-exchange-dev libocct-ocaf-dev libocct-visualization-dev libopencv-dev libproj-dev libpyside2-dev libqt5opengl5-dev libqt5svg5-dev qtwebengine5-dev libqt5x11extras5-dev libqt5xmlpatterns5-dev libshiboken2-dev libspnav-dev libvtk7-dev libx11-dev libxerces-c-dev libzipios++-dev occt-draw pyside2-tools python3-dev python3-matplotlib python3-packaging python3-pivy python3-ply python3-pyside2.qtcore python3-pyside2.qtgui python3-pyside2.qtsvg python3-pyside2.qtwidgets python3-pyside2.qtnetwork python3-pyside2.qtwebengine python3-pyside2.qtwebenginecore python3-pyside2.qtwebenginewidgets python3-pyside2.qtwebchannel python3-markdown python3-git qtbase5-dev qttools5-dev swig libyaml-cpp-dev -y
+
+    git clone --recurse-submodules https://github.com/FreeCAD/FreeCAD.git freecad-source
 }
 
 iphp(){
