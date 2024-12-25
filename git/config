@@ -614,3 +614,5 @@
     brr = !git branch --sort=-committerdate | fzf --header \"Checkout Recent Branch\" --preview \"git diff {1} --color=always | delta\" --preview-window \"right,80%\" --pointer=\">\" | xargs git checkout
 
     ignores = !git ls-files --other --ignored --exclude-standard
+[url "git@github.com:"]
+	insteadOf = https://github.com/

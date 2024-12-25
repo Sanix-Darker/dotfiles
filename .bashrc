@@ -99,11 +99,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 else
@@ -341,7 +336,7 @@ _connect_monitor(){
 }
 
 _gogo(){
-    pkill polybar; _start_polybar
+    # pkill polybar; _start_polybar
     # pkill compton; _start_compton
     # pkill picom; _start_picom (started with i3, no need here)
     pkill greenclip; _start_greenclip
@@ -372,9 +367,19 @@ export TMUX_POPUP_WIDTH=80%
 export EDITOR=nvim
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64/
 export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 # to make <Python.h> available
 export CPATH=/usr/include/python3.11:$CPATH
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
+
+export ANSIBLE_CONFIG=$HOME/github/grapho/ansible.cfg
+
+export PATH=$PATH:$HOME/.nvm/versions/node/v23.1.0/bin
 export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v21.2.0/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:$HOME/go/src:/usr/local/groovy/bin:$HOME/go/bin:/usr/bin/python3.10:/usr/bin/python3.11:$HOME/.config/lsp/lua-language-server/bin:$HOME/.nvm/versions/node/v18.6.0/bin:/usr/local/go/src/src:$HOME/.nvm/versions/node/v18.18.2/bin/yarn:$HOME/.config/lsp/lua-language-server/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.bun/bin:$HOME/.pyenv/bin:$HOME/.nvm/versions/node/v18.6.0/bin:$HOME/.local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$HOME/.fzf/bin:/usr/local/go/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/bin:$HOME/.cargo/bin:/usr/local/go/src/src:/bin:$HOME/go/bin:/usr/bin/avr-gcc:/usr/bin/avr-g++:/usr/bin/firefox:/usr/local/bin/composer:$HOME/.config/composer/vendor/bin:$HOME:/usr/lib/llvm-14/bin:$HOME/.symfony5/bin:$PATH"
 
 # for gpg keys and everything ... ssh-add
@@ -392,3 +397,10 @@ export PATH="$PATH:$HOME/.nvm/versions/node/v18.18.2/bin:$HOME/.pyenv/bin:$HOME/
 # [ -f "/opt/ros/melodic/setup.bash" ] && source /opt/ros/melodic/setup.bash
 
 export LIBCLANG_PATH=/usr/lib/llvm-12/lib
+# list all openened ports
+# ss -tuln
+# alias python3='python3.12'
+# alias python='python3.12'
+# alias pip='pip3.12'
+# alias pip3='pip3.12'
+export PATH="$PATH:$(npm bin -g)"
