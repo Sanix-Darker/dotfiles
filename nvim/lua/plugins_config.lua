@@ -30,7 +30,7 @@ require('bqf').setup({'--bind', 'ctrl-d:preview-half-page-down,ctrl-u:preview-ha
 require('myaerial')
 
 ---- for github actions
-require('gh-actions').setup()
+-- require('gh-actions').setup()
 
 ---- for search and replace on all a directory (text, not necessary a var/func..)
 -- require('spectre').setup()
@@ -85,11 +85,11 @@ require('neogen').setup({})
 require('mymason')
 ---- require("fzf-lua").setup({})
 
----- octo nvim to review pull requests inside nvim
+-- octo nvim to review pull requests inside nvim
 -- require('myocto')
 
 -- for autoclosing brackets
-require('insx.preset.standard').setup()
+-- require('insx.preset.standard').setup()
 
 -- require("nvim-tree").setup(
 --     {

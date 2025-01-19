@@ -169,7 +169,7 @@ return packer.startup(function(use)
 
     -- Same as ndap but older,
     -- vdebug for PHP
-    use 'vim-vdebug/vdebug'
+    -- use 'vim-vdebug/vdebug'
 
     -- dap -- use 'pocco81/dap-buddy.nvim'
     -- hjkl with Treesitter
@@ -185,7 +185,7 @@ return packer.startup(function(use)
     -- so i sometimes needs to comments it
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     -- -- The lua alternative (looks SO SLOOOOOWWWW)
-    use 'nvim-treesitter/nvim-treesitter-context'
+    -- use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     -- use 'windwp/nvim-ts-autotag'
     -- treeesitter for PHP
@@ -264,7 +264,7 @@ return packer.startup(function(use)
     -- :LspUninstall <server> ... - uninstalls the provided servers
     use 'williamboman/mason-lspconfig.nvim'
     -- For GitHub actions on the nvim editor
-    use 'topaxi/gh-actions.nvim'
+    -- use 'topaxi/gh-actions.nvim'
     use 'MunifTanjim/nui.nvim'
     -- Let's optimize the completion for snippets
     use 'neovim/nvim-lspconfig'
@@ -280,7 +280,7 @@ return packer.startup(function(use)
     use 'saadparwaiz1/cmp_luasnip'
     use 'ray-x/lsp_signature.nvim'
     -- For Brackets and stuffs
-    use 'hrsh7th/nvim-insx'
+    -- use 'hrsh7th/nvim-insx'
     use 'simrat39/symbols-outline.nvim'
     -- To toggle and untoggle the LSP diagnostic
     -- removed in favor of the lsp_lines toggle one <Leader>o to activate
