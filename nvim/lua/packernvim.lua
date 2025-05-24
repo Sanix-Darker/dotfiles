@@ -187,6 +187,8 @@ return packer.startup(function(use)
     -- -- The lua alternative (looks SO SLOOOOOWWWW)
     -- use 'nvim-treesitter/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    -- for brackets
+    use 'hrsh7th/nvim-insx'
     -- use 'windwp/nvim-ts-autotag'
     -- treeesitter for PHP
     use 'tree-sitter/tree-sitter-php'
@@ -280,7 +282,7 @@ return packer.startup(function(use)
     use 'saadparwaiz1/cmp_luasnip'
     use 'ray-x/lsp_signature.nvim'
     -- For Brackets and stuffs
-    -- use 'hrsh7th/nvim-insx'
+    use 'hrsh7th/nvim-insx'
     use 'simrat39/symbols-outline.nvim'
     -- To toggle and untoggle the LSP diagnostic
     -- removed in favor of the lsp_lines toggle one <Leader>o to activate

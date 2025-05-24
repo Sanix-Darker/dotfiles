@@ -711,7 +711,7 @@ _install_path_browsing_utils(){ #mandatory
 _install_nvim(){
     # FIXME: i downgraded because, the preview of fzf is not working anymore on 0.10.0
     # VERSION="nightly"
-    local version="v0.9.5"
+    local version="v0.10.3"
 
     echo "[-] -----------------------------------"
     echo "[-] Current version : $(nvim --version)"
@@ -3272,7 +3272,6 @@ __(){
 }'
 
     # echo "$PAYLOAD"
-
     _start_spinner # Start the spinner
 
     # Call OpenAI API
@@ -3782,4 +3781,90 @@ $psysh->run();
     # Then start the php shell
     php /tmp/iphp.php;
     cd -;
+}
+
+_onchangeRun(){
+    while true; do
+      find ../combi -type f | entr -d bash -c 'echo "Changes detected" && make build && ./combi'
+    done
+}
+
+# Function to generate touchd commands from a directory tree
+generate_touchd_commands() {
+    local indent="    "  # Indentation for visual hierarchy (optional)
+
+    # Read input line by line (assuming tree-like structure)
+    while IFS= read -r line; do
+        # Extract the file/directory path (removes leading ├─, └─, │, etc.)
+        local path=$(echo "$line" | sed -E 's/^[├│└─┬ ]+//')
+
+        # Skip empty lines or directory headers (like "cmd/")
+        if [[ -z "$path" || "$path" =~ /$ ]]; then
+            continue
+        fi
+
+        # If it's a file (not ending with /), generate touchd command
+        if [[ ! "$path" =~ /$ ]]; then
+            echo "touchd ./$path"
+        fi
+    done
+}
+
+docker_debug() {
+    TERM=xterm DOCKER_BUILDKIT=0 docker "$@"
+}
+
+alias castthat='cd /home/dk/github/castthat/ && docker compose up'
+alias freecadd='for i in {1..1000}; do clear && sleep 5 && /home/dk/Downloads/FreeCAD_1.0.1-conda-Linux-x86_64-py311.AppImage && break; done'
+
+# Capture every byte that appears on STDERR in the current shell session
+# and mirror it on a "temp" log
+__mirror_stderr() {
+    exec 3>&2                               # keep a clean copy of original STDERR
+    _errlog="$HOME/.cache/last-stderr.log"  # where we keep the most recent noise
+    mkdir -p "${_errlog%/*}"
+    exec 2> >(tee "$_errlog" >&3)           # mirror STDERR to file + console
+}
+__mirror_stderr
+
+wut() {
+  # grab the last 2 000 bytes that hit stderr
+  local ERR
+  ERR=$(tail -c 2000 "$_errlog")
+  [[ -z $ERR ]] && { echo "🟢  Nothing to explain – no recent error."; return; }
+
+  # build the prompt
+  local PROMPT
+  printf -v PROMPT 'I ran a command and got this error output:\n%s\nWhat went wrong and how do I fix it?' "$ERR"
+
+  # choose backend
+  ENDPOINT="https://api.openai.com/v1/chat/completions"
+  KEY=$OPENAI_API_KEY
+  MODEL=${OPENAI_API_MODEL:-gpt-4o-mini}
+
+  # JSON payload (jq handles all escaping)
+  local PAYLOAD
+  PAYLOAD=$(jq -n --arg model "$MODEL" \
+                  --arg prompt "$PROMPT" '
+    {
+      model: $model,
+      temperature: 0.2,
+      messages: [
+        {role:"system", content:"You are a software engineer; give the root cause and a minimal fix. No comments in code."},
+        {role:"user",   content:$prompt}
+      ]
+    }')
+
+  _start_spinner
+
+  local RESP
+  RESP=$(curl -LSs --max-time 40 "$ENDPOINT" \
+           -H "Content-Type: application/json" \
+           -H "Authorization: Bearer $KEY" \
+           -d "$PAYLOAD")
+
+  _stop_spinner
+
+  echo "$RESP" | jq -r '.choices[0].message.content' > /tmp/gpt-output
+  glow /tmp/gpt-output
 }

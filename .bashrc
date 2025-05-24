@@ -404,3 +404,6 @@ export LIBCLANG_PATH=/usr/lib/llvm-12/lib
 # alias pip='pip3.12'
 # alias pip3='pip3.12'
 export PATH="$PATH:$(npm bin -g)"
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+export PATH=$PATH:/opt/gradle/bin

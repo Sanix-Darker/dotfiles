@@ -7,9 +7,10 @@ local mason_setup = {
         }
     }
 }
+
 local masonlspconfig_setup = {
     ensure_installed = lsp_servers,
     automatic_installation = true,
 }
 require("mason").setup(mason_setup)
-require("mason-lspconfig").setup(masonlspconfig_setup)
+--require("mason-lspconfig").setup(masonlspconfig_setup)
