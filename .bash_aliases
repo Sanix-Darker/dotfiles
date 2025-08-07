@@ -3519,34 +3519,78 @@ alias manlaravel='_dedoc laravel~10 '
 # Usage:
 #   mpvfzf
 #
-# Requirements: mpv, fzf
-mpvfzf(){
+# Requirements:
+#
+# sudo apt update
+# sudo apt install ffmpegthumbnailer mpv fzf chafa
+mpvfzf() {
     echo "Collecting videos from this path..."
 
-    local to_watch="$(find . -type f \( \
-        -iname "*.webm*" -o \
-        -iname "*.mp4" -o \
-        -iname "*.mkv" -o \
-        -iname "*.avi" -o \
-        -iname "*.mov" -o \
-        -iname "*.mp3" -o \
-        -iname "*.flac" -o \
-        -iname "*.wav" \) \
-        -exec file --mime-type {} + | \
-        awk -F: '$2 ~ /^ *video\/|^ *audio\// {print $1}' |\
-        fzf -m)"
+    local to_watch
+    to_watch="$(
+        find . -type f \( \
+            -iname "*.webm" -o -iname "*.mp4"  -o -iname "*.mkv" -o \
+            -iname "*.avi"  -o -iname "*.mov"  -o -iname "*.mp3" -o \
+            -iname "*.flac" -o -iname "*.wav"  \) \
+            -exec file --mime-type {} + |
+        awk -F: '$2 ~ /^ *video\/|^ *audio\// {print $1}' |
+        fzf -m \
+            --preview='bash -c '"'"'
+                file="$1"
+                cols=${FZF_PREVIEW_COLUMNS:-80}
+                rows=${FZF_PREVIEW_LINES:-24}
 
-    # this just to remove spaces at the end.
-    local trimmed_string="${to_watch%"${to_watch##*[![:space:]]}"}"
+                # metadata
+                read -r codec v_w v_h fps duration size bitrate < <(
+                    ffprobe -v error \
+                        -select_streams v:0 \
+                        -show_entries stream=codec_name,width,height,avg_frame_rate \
+                        -show_entries format=duration,size,bit_rate \
+                        -of default=nokey=1:noprint_wrappers=1 "$file" 2>/dev/null |
+                    tr "\n" " "
+                )
 
-    if [ -f "$trimmed_string" ]; then
-        echo "Opening '$trimmed_string' with mpv..."
-        mpv "$trimmed_string" & > /dev/null;
+                printf "\033[1m%s\033[0m\n" "$(basename "$file")"
+                [ -n "$codec"   ] && printf "Codec     : %s\n"      "$codec"
+                [ -n "$v_w"     ] && printf "Resolution: %sx%s\n"    "$v_w" "$v_h"
+                [ -n "$fps"     ] && printf "FPS       : %s\n"       "$fps"
+                # [ -n "$duration"] && printf "Duration  : %.2f s\n"   "$duration"
+                [ -n "$size"    ] && printf "Size      : %s bytes\n" "$size"
+                [ -n "$bitrate" ] && printf "Bit-rate  : %s bps\n\n" "$bitrate"
+
+                # ASCII preview based on original aspect ratio
+                if [ -n "$v_w" ] && [ -n "$v_h" ]; then
+                    max_h=$(( rows - 10 )); (( max_h < 1 )) && max_h=1
+
+                    # always use the full preview-pane width
+                    scaled_w=$cols
+
+                    # keep aspect ratio; only clamp the height
+                    scaled_h=$(( v_h * scaled_w / v_w ))
+                    (( scaled_h > max_h )) && scaled_h=$max_h
+
+                    (( scaled_w < 1 )) && scaled_w=1
+                    (( scaled_h < 1 )) && scaled_h=1
+
+                    ffmpeg -v error -nostdin -ss 5 -i "$file" \
+                           -frames:v 1 \
+                           -vf "scale=${scaled_w}:${max_h}:force_original_aspect_ratio=decrease,\
+                    pad=${scaled_w}:${max_h}:(ow-iw)/2:(oh-ih)/2" \
+                           -vcodec ppm -f image2pipe - | \
+                    chafa --size "${scaled_w}x${scaled_h}" --stretch -
+                fi
+            '"'"' _ {}' \
+            --preview-window=right:60%,border-sharp,wrap
+    )"
+
+    [ -z "$to_watch" ] && return
+    if [ -f "$to_watch" ]; then
+        echo "Opening '$to_watch' with mpv..."
+        mpv -- "$to_watch" &>/dev/null
     else
-        echo "Error opening '$trimmed_string'"
-    fi;
+        echo "Error opening '$to_watch'"
+    fi
 }
-
 
 # Example usage:
 # _thread_bash "command1" "command2" "command3"
@@ -3752,6 +3796,40 @@ _install_freecad(){
     git clone --recurse-submodules https://github.com/FreeCAD/FreeCAD.git freecad-source
 }
 
+_install_signal(){
+    set -x;
+
+    wget -O- https://updates.signal.org/desktop/apt/keys.asc | gpg --dearmor > signal-desktop-keyring.gpg;
+    cat signal-desktop-keyring.gpg | sudo tee /usr/share/keyrings/signal-desktop-keyring.gpg > /dev/null
+
+    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.gpg] https://updates.signal.org/desktop/apt xenial main' |\
+      sudo tee /etc/apt/sources.list.d/signal-xenial.list
+
+    sudo apt update -y && sudo apt install signal-desktop -y
+    set +x;
+}
+
+_install_boomer(){
+    _confirm_install_again boomer || return 0
+
+    set -x;
+    sudo apt install build-essential libgl1-mesa-dev libx11-dev libxext-dev libxrandr-dev nim git -y
+    cd /tmp
+    git clone https://github.com/tsoding/boomer
+    cd boomer && nimble build -d:release
+    sudo cp boomer /usr/local/bin
+
+    set +x;
+}
+
+_install_kicad(){
+    _confirm_install_again kicad || return 0
+
+    sudo add-apt-repository ppa:kicad/kicad-9.0-releases
+    sudo apt update -y
+    sudo apt install kicad -y
+}
+
 iphp(){
     cd /tmp
     # If the file exist, no need to initiate it:
@@ -3783,12 +3861,6 @@ $psysh->run();
     cd -;
 }
 
-_onchangeRun(){
-    while true; do
-      find ../combi -type f | entr -d bash -c 'echo "Changes detected" && make build && ./combi'
-    done
-}
-
 # Function to generate touchd commands from a directory tree
 generate_touchd_commands() {
     local indent="    "  # Indentation for visual hierarchy (optional)
@@ -3815,17 +3887,26 @@ docker_debug() {
 }
 
 alias castthat='cd /home/dk/github/castthat/ && docker compose up'
-alias freecadd='for i in {1..1000}; do clear && sleep 5 && /home/dk/Downloads/FreeCAD_1.0.1-conda-Linux-x86_64-py311.AppImage && break; done'
+alias freecadd='for i in {1..1000}; do clear && sleep $i && sleep 5 && ~/Downloads/FreeCAD_weekly-2025.06.23-Linux-x86_64-py311.AppImage && break; done'
+alias kdenlive='cd ~/Downloads/ && ./kdenlive-24.08.3-x86_64.AppImage'
 
 # Capture every byte that appears on STDERR in the current shell session
 # and mirror it on a "temp" log
+# Function to mirror STDERR to a log file
 __mirror_stderr() {
-    exec 3>&2                               # keep a clean copy of original STDERR
-    _errlog="$HOME/.cache/last-stderr.log"  # where we keep the most recent noise
-    mkdir -p "${_errlog%/*}"
-    exec 2> >(tee "$_errlog" >&3)           # mirror STDERR to file + console
+    # Create a backup of the original STDERR
+    exec 3>&2
+    # Specify the log file path
+    errlog="$HOME/.cache/last-stderr.log"
+    mkdir -p "${errlog%/*}"
+    # Redirect STDERR to process substitution with tee
+    # and ensure the original STDERR is still accessible
+    exec 2> >(tee "$errlog" >&3)
+    # Trap signals like exit, INT, etc., to restore original STDERR
+    trap 'exec 2>&3 3>&-' EXIT INT HUP TERM
 }
-__mirror_stderr
+# To activate the function uncomment the line below
+# __mirror_stderr
 
 wut() {
   # grab the last 2 000 bytes that hit stderr
@@ -3867,4 +3948,108 @@ wut() {
 
   echo "$RESP" | jq -r '.choices[0].message.content' > /tmp/gpt-output
   glow /tmp/gpt-output
+}
+
+# recorder
+_install_recorder(){
+    sudo apt update -y && sudo apt install ffmpeg xterm -y
+}
+
+# record_ff () {
+#   local out="${1:-$HOME/recording_$(date +%F_%H%M%S).mkv}"
+#   local py="${2:-$HOME/script.py}"
+#   local win="REC_TERM_$$"            # unique window name
+#   i3-msg "exec --no-startup-id xterm -name $win -title $win -e python3 \"$py\""
+#   sleep 0.3                          # let the terminal appear
+#   i3-msg "[title=\"$win\"] floating enable, resize set 600 600, move position center"
+#   ffmpeg -y \
+#     -video_size $(xdpyinfo | awk '/dimensions/{print $2}') \
+#     -framerate 30 -f x11grab -i $DISPLAY \
+#     -c:v libx264 -preset veryfast -crf 24 -pix_fmt yuv420p \
+#     "$out"
+#   i3-msg "[title=\"$win\"] kill"
+# }
+
+record_ff () {
+  # Usage examples
+  #   record_ff                         → primary monitor → ~/Videos/2025-06-08_123456_recording.mkv
+  #   record_ff HDMI-1                  → monitor HDMI-1  → dated file in ~/Videos
+  #   record_ff demo.mkv eDP-1          → eDP-1 → ~/Videos/2025-06-08_demo.mkv
+  #   record_ff /tmp/out.mp4            → primary → /tmp/2025-06-08_out.mp4
+
+  local out_given mon arg1="$1" arg2="$2"
+  # detect if first arg is a filename (contains "/" or ends in a video ext)
+  if [[ "$arg1" == */* || "$arg1" =~ \.(mkv|mp4|webm|mov)$ ]]; then
+    out_given="$arg1"; mon="$arg2"
+  else
+    mon="$arg1"; out_given=""
+  fi
+
+  # pick monitor (default = primary)
+  [[ -z "$mon" ]] && mon=$(xrandr --listmonitors | awk '/\*/{print $4}')
+  geo=$(xrandr --listmonitors | awk -v m="$mon" '$NF==m{print $3}')
+  [[ -z "$geo" ]] && { echo "monitor '$mon' not found"; return 1; }
+
+  IFS='x+/' read -r W _ H _ X Y <<< "$geo"
+  local video_size="${W}x${H}" offset="+${X},${Y}"
+
+  # output file path
+  local stamp=$(date +%F_%H%M%S) out
+  if [[ -z "$out_given" ]]; then
+    out="$HOME/Videos/${stamp}_recording.mkv"
+  elif [[ "$out_given" == */* ]]; then
+    out="$(dirname "$out_given")/${stamp}_$(basename "$out_given")"
+  else
+    out="$HOME/Videos/${stamp}_${out_given}"
+  fi
+  mkdir -p "$(dirname "$out")"
+
+  # floating square terminal (interactive bash) – closes after recording
+  # local win="REC_TERM_$$"
+  # i3-msg "exec --no-startup-id xterm -name $win -T $win"
+  # sleep 0.3
+  # i3-msg "[title=\"$win\"] floating enable, resize set 340 540, move position center"
+
+  # start capture of the chosen screen only
+  ffmpeg -y -video_size "$video_size" -framerate 30 \
+         -f x11grab -i "$DISPLAY$offset" \
+         -c:v libx264 -preset ultrafast -crf 24 -pix_fmt yuv420p "$out"
+
+  i3-msg "[title=\"$win\"] kill"
+  printf 'Saved → %s\n' "$out"
+}
+
+float_term() {
+    local term="alacritty"               # change to kitty/foot/etc. if desired
+    local title="float-term-$RANDOM"
+    local w=400  h=300  margin=7         # terminal size + gap
+
+    # Build the command to run inside the terminal
+    local inner
+    if (( $# )); then
+        inner=$(printf '%q ' "$@")       # safely quote each arg
+        inner="bash -c '$inner; exec bash'"
+    else
+        inner="bash"
+    fi
+
+    # Get screen dimensions
+    local sw sh
+    read -r sw sh < <(xdpyinfo | awk -F'[ x]+' '/dimensions:/{print $3,$4}')
+
+    # Bottom-right coordinates
+    local x=$((sw - w - margin))
+    local y=$((sh - h - margin))
+
+    # 1 – spawn terminal
+    i3-msg "exec --no-startup-id $term --title \"$title\" -e $inner" >/dev/null
+
+    # 2 – float, resize, move (i3 syntax requires “px” after each value)
+    (
+        sleep 0.25
+        i3-msg "[title=\"^$title$\"] floating enable, \
+                 resize set ${w} px ${h} px, \
+                 move position ${x} ${y}, \
+                 focus" >/dev/null
+    ) &
 }

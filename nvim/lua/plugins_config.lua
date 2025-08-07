@@ -1,7 +1,7 @@
 -- for lsp-lines diagnostics clears
 -- so that if there is multiple elements in the error diag,
 -- i Would still see them all
-require("lsp_lines").setup()
+-- require("lsp_lines").setup()
 
 -- for symbols
 require("symbols-outline").setup({

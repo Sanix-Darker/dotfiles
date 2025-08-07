@@ -32,6 +32,13 @@ bindsym $mod+Mod1+l exec "bash ~/.config/i3/i3lock.sh"
 bindsym $mod+Mod1+s exec "bash ~/.config/i3/i3lock.sh && systemctl suspend"
 exec "xautolock -time 5 -locker ~/.config/i3/i3lock.sh && systemctl suspend"
 
+# for zooming IN/OUT
+# launch / close the zoomer
+bindsym $mod+z             exec --no-startup-id boomer
+bindsym $mod+Shift+z       [class="Boomer"] kill
+# keep it out of tiling & on every workspace
+for_window [class="Boomer"] floating enable, sticky enable, border pixel 0, focus off
+
 # to show/hide windows
 # scratchpad move/show
 # bindsym $mod+Shift+minus move scratchpad
@@ -301,3 +308,4 @@ exec xinput set-prop "Synaptics TM3625-010" "libinput Send Events Mode Enabled D
 exec xinput set-prop "Synaptics TM3625-010" "Device Node" "/dev/input/event4"
 exec xinput set-prop "Synaptics TM3625-010" "Device Product ID" 2, 7
 exec xinput set-prop "Synaptics TM3625-010" "libinput Horizontal Scroll Enabled" 1
+

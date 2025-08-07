@@ -407,3 +407,5 @@ export PATH="$PATH:$(npm bin -g)"
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
 export PATH=$PATH:/opt/gradle/bin
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+# export PATH="/usr/local/php8.3-zts/bin:$PATH"

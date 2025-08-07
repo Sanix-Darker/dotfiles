@@ -393,7 +393,7 @@ return packer.startup(function(use)
     --" Plug 'nvim-telescope/telescope.nvim'
     --" Plug 'jackMort/ChatGPT.nvim'
     --" lsp-lines (for better diagnostic)
-    use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
+    -- use 'https://github.com/Sanix-Darker/lsp_lines.nvim'
     -- looks like this one does not work anymore ?
     -- use 'https://git.sr.ht/~whynothugo/lsp_lines.nvim'
 
